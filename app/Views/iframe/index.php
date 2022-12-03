@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paypara Payment Demo</title>
+    <link rel="shortcut icon" href="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/css/custom.css?v=<?=md5(microtime()) ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <base href="<?=coreAssets() ?>" />
+  </head>
+  <body>
+    <div class="container overflow-hidden">
+      <div class="row justify-content-center">
+        <div class="d-flex pb-20 pb-md-0 min-vh-100 align-items-center">
+          <div class="d-flex align-items-stretch rounded-3 w-100 shadow-lg bg-white" style="height: 565px;">
+            <div class="col-12">
+              <div class="content p-8 px-lg-14 d-flex flex-column">
+                <div class="d-flex justify-content-center justify-content-sm-between align-items-center mb-5">
+                  <div class="d-flex">
+                    <i class="bi-code-slash fs-2hx text-dark me-3"></i>
+                    <h3 id="header" class="fs-2x fw-bolder"></i>Payment Demo</h3>
+                  </div>
+                  <img src="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/images/logo.png" class="d-none d-sm-block m-0" width="120px" height="37px" alt="Paypara Logo">
+                </div>
+                <div class="overflow-scroll rounded border p-10 h-100">
+                  <form id="demoForm" class="form ps-0" method="post" enctype="multipart/form-data" target="_blank" autocomplete="off">
+                    <div class="row">
+                      <div class="col-12 col-sm-6">
+                        <div class="mb-2">
+                          <label class="required form-label">API Key:</label>
+                          <input id="apiKey" name="apiKey" type="text" class="form-control" placeholder="Firma API anahtarı" value="3d1a8a25-7492-4042-89ee-f554c0ba5c1a" />
+                        </div>
+                        <div class="mb-2">
+                          <label class="required form-label">Transaction ID:</label>
+                          <input id="transactionId" name="transactionId" type="tel" class="form-control" placeholder="İşlem Transaction ID" value="" />
+                        </div>
+                        <div class="mb-2">
+                          <label class="required form-label">User ID:</label>
+                          <input id="userId" name="userId" type="tel" class="form-control" placeholder="Üye User ID" value="" />
+                        </div>
+                        <div class="mb-2">
+                          <label class="required form-label">User Name:</label>
+                          <input id="userName" name="userName" type="text" class="form-control" placeholder="Üye adı soyadı" value="" />
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <div class="mb-2">
+                          <label class="required form-label">User Nick:</label>
+                          <input id="userNick" name="userNick" type="text" class="form-control" placeholder="Üye kullanıcı adı" value="" />
+                        </div>
+                        <div class="mb-2">
+                          <label class="required form-label">Amount:</label>
+                          <div class="input-group">
+                            <span class="input-group-text">₺</span>
+                            <input id="amount" name="amount" type="tel" class="form-control" placeholder="Yatırım tutarı" value="250" />
+                          </div>
+                        </div>
+                        <div class="mb-2">
+                          <label class="required form-label">Callback:</label>
+                          <input id="callback" name="callback" type="text" class="form-control" placeholder="İşlem callback URL" value="demo.com" />
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center h-45px mt-10">
+                          <div id="error" class="border border-danger" style="padding: 5px; font-size: 10px; border-radius: 15px;"></div>
+                          <button id="refresh" class="btn btn-icon btn-sm btn-secondary rounded-circle w-40px h-40px p-0">
+                            <i class="fs-3 bi bi-arrow-clockwise"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-center mt-5 mt-md-8">
+                        <button id="call" type="button" class="btn btn-dark fs-6 w-200px">İşlem Başlat</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="<?=baseUrl() ?>/<?=gulpAssets() ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
+    <script src="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
+    
+    <script>
+    const first = ["Acun", "Alp", "Burak", "Mustafa", "Selim", "Levent", "Kemal", "Mehmet", "Sefa", "Nuri", "Erman", "Zafer"];
+    const second = ["Arslan", "Kaya", "Yıldırım", "Sakin", "Keskin", "Demir", "Keser", "Savar", "Masum", "Barut", "Canik", "Sonuç"];
+    const demo = {
+      init: function() {
+        $("#call").on("click", function() {
+          demo.open();
+        });
+        $("#refresh").on("click", function() {
+          $("#transactionId").val(Math.floor(Math.random() * (9999999999 - 1000000000)) + 1000000000);
+          $("#amount").val(Math.floor((Math.random() * (15000 - 251) + 251) / 10) * 10);
+          $("#userId").val(Math.floor(Math.random() * (999999 - 100000)) + 100000);
+          $("#userName").val(first[Math.floor(Math.random() * 11)] + " " + second[Math.floor(Math.random() * 11)]);
+          $("#userNick").val((document.getElementById('userName').value).replaceAll(" ", "_").toLowerCase().replaceAll("ı", "i") + Math.floor(Math.random() * 999));
+          return false;
+        });
+      },
+      token: function() {
+        return $.ajax({
+          url: "api/newPayment",
+          type: "POST",
+          dataType: "json",
+          cache: false,
+          crossDomain: true,
+          data: new FormData(document.getElementById('demoForm')),
+          async: true,
+          processData: false,
+          contentType: false
+        });
+      },
+      open: function() {
+        demo.token().done(function(response) {
+          if (response.status) {
+            window.open(response.link, '_self');
+          } else {
+            console.log("error: " + response.error);
+            $("#error").html(response.error);
+          }
+
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+          Swal.fire({
+            text: "Hata oluştu: " + jqXHR.status + " " + textStatus + " " + errorThrown,
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Kapat",
+            customClass: {
+              confirmButton: "btn btn-primary"
+            }
+          });
+        });
+      }
+    }
+
+    window.onload = demo.init();
+    $('#refresh').trigger('click');
+    </script>
+  </body>
+
+</html>
