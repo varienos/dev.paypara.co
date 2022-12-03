@@ -1,0 +1,10 @@
+{
+  "config": {
+    "path": {
+      "src": "../template/src"
+    },
+    "dist": [
+      "../template/dist"
+    ]
+  }
+}

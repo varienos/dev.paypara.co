@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "dd568b86-627c-49d9-8dda-3b99d1c41278",
+		"name": "api.paypara.co",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19325538"
+	},
+	"item": [
+		{
+			"name": "v1/get-limits",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "apiKey",
+							"value": "fd0e6343-9287-4b1a-8d73-9b2e30917399",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.paypara.co/v1/get-limits",
+					"protocol": "https",
+					"host": [
+						"api",
+						"paypara",
+						"co"
+					],
+					"path": [
+						"v1",
+						"get-limits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/new-deposit",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function randomString(minValue, maxValue, dataSet = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') {",
+							"    if (!minValue) {",
+							"        minValue = 20;",
+							"        maxValue = 20;",
+							"    }",
+							"",
+							"    if (!maxValue) {",
+							"        maxValue = minValue;",
+							"    }",
+							"",
+							"    let length = _.random(minValue, maxValue),",
+							"        randomString = \"\";",
+							"",
+							"    for (let i = 0; i < length; i++)",
+							"        randomString += dataSet.charAt(Math.floor(Math.random() * dataSet.length));",
+							"    return randomString;",
+							"}",
+							"",
+							"pm.variables.set('randomString', randomString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "apiKey",
+							"value": "fd0e6343-9287-4b1a-8d73-9b2e30917399",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "{{$randomInt}}{{$randomInt}}{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "userName",
+							"value": "{{$randomFullName}}",
+							"type": "text"
+						},
+						{
+							"key": "userNick",
+							"value": "{{$randomUserName}}",
+							"type": "text"
+						},
+						{
+							"key": "transactionId",
+							"value": "{{$randomBankAccount}}",
+							"type": "text"
+						},
+						{
+							"key": "callback",
+							"value": "{{$randomUrl}}",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "{{$randomPrice}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.paypara.co/v1/new-deposit",
+					"protocol": "https",
+					"host": [
+						"api",
+						"paypara",
+						"co"
+					],
+					"path": [
+						"v1",
+						"new-deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/new-withdraw",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "apiKey",
+							"value": "fd0e6343-9287-4b1a-8d73-9b2e30917399",
+							"type": "text"
+						},
+						{
+							"key": "account_number",
+							"value": "{{$randomBankAccount}}",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "{{$randomInt}}{{$randomInt}}{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "userName",
+							"value": "{{$randomFullName}}",
+							"type": "text"
+						},
+						{
+							"key": "userNick",
+							"value": "{{$randomUserName}}",
+							"type": "text"
+						},
+						{
+							"key": "transactionId",
+							"value": "{{$randomBankAccount}}",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "{{$randomPrice}}",
+							"type": "text"
+						},
+						{
+							"key": "callback\n",
+							"value": "{{$randomUrl}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.paypara.co/v1/new-withdraw",
+					"protocol": "https",
+					"host": [
+						"api",
+						"paypara",
+						"co"
+					],
+					"path": [
+						"v1",
+						"new-withdraw"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/new-payment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function randomString(minValue, maxValue, dataSet = 'abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') {",
+							"    if (!minValue) {",
+							"        minValue = 20;",
+							"        maxValue = 20;",
+							"    }",
+							"",
+							"    if (!maxValue) {",
+							"        maxValue = minValue;",
+							"    }",
+							"",
+							"    let length = _.random(minValue, maxValue),",
+							"        randomString = \"\";",
+							"",
+							"    for (let i = 0; i < length; i++)",
+							"        randomString += dataSet.charAt(Math.floor(Math.random() * dataSet.length));",
+							"    return randomString;",
+							"}",
+							"",
+							"pm.variables.set('randomString', randomString());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "apiKey",
+							"value": "fd0e6343-9287-4b1a-8d73-9b2e30917399",
+							"type": "text"
+						},
+						{
+							"key": "userId",
+							"value": "{{$randomInt}}{{$randomInt}}{{$randomInt}}",
+							"type": "text"
+						},
+						{
+							"key": "userName",
+							"value": "{{$randomFullName}}",
+							"type": "text"
+						},
+						{
+							"key": "userNick",
+							"value": "{{$randomUserName}}",
+							"type": "text"
+						},
+						{
+							"key": "transactionId",
+							"value": "{{$randomBankAccount}}",
+							"type": "text"
+						},
+						{
+							"key": "callback",
+							"value": "{{$randomUrl}}",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "{{$randomPrice}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.paypara.co/v1/new-payment",
+					"protocol": "https",
+					"host": [
+						"api",
+						"paypara",
+						"co"
+					],
+					"path": [
+						"v1",
+						"new-payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "v1/status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "apiKey",
+							"value": "fd0e6343-9287-4b1a-8d73-9b2e30917399",
+							"type": "text"
+						},
+						{
+							"key": "transactionId",
+							"value": "??????",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://api.paypara.co/v1/status",
+					"protocol": "https",
+					"host": [
+						"api",
+						"paypara",
+						"co"
+					],
+					"path": [
+						"v1",
+						"status"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
