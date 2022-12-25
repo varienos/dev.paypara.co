@@ -5,12 +5,12 @@ class SecureModel extends Model
     protected $table            = 'root';
     protected $primaryKey       = 'id';
     protected $returnType       = 'object';
-    protected $useSoftDeletes = true;
-    protected $allowedFields = ['id', 'user_mail', 'user_pass', 'user_nick'];
-    protected $useTimestamps = false;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $useSoftDeletes   = true;
+    protected $allowedFields    = ['id', 'user_mail', 'user_pass', 'user_nick'];
+    protected $useTimestamps    = false;
+    protected $createdField     = 'created_at';
+    protected $updatedField     = 'updated_at';
+    protected $deletedField     = 'deleted_at';
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = true;
@@ -32,9 +32,7 @@ class SecureModel extends Model
             $this->session->destroy();
 		    header("Location: secure/login");
             die();
-        }
-        if($this->session->get("token")!=$this->getToken() && $status==true)
-        {
+        }elseif($this->session->get("token")!=$this->getToken() && $status === true){
             return false;
         }else{
             return true;
@@ -133,6 +131,7 @@ class SecureModel extends Model
                 $this->session->set('primeId',$data->id,$this->sessionTimeout());
                 $this->session->set('is2fa',0,$this->sessionTimeout());
                 $this->session->set('secret2fa',null,$this->sessionTimeout());
+                $this->session->set('verify2fa',true,$this->sessionTimeout());
                 $this->session->set('userId',$data->id,$this->sessionTimeout());
                 $this->session->set('hashId',$data->id,$this->sessionTimeout());
                 $this->session->set('user_name',"Root",$this->sessionTimeout());
@@ -171,6 +170,7 @@ class SecureModel extends Model
                 $this->session->set('primeId',$user->id,$this->sessionTimeout());
                 $this->session->set('is2fa',$user->is2fa,$this->sessionTimeout());
                 $this->session->set('secret2fa',$user->secret2fa,$this->sessionTimeout());
+                $this->session->set('verify2fa',($user->is2fa=='on'?false:true),$this->sessionTimeout());
                 $this->session->set('userId',$user->id,$this->sessionTimeout());
                 $this->session->set('hashId',$user->hash_id,$this->sessionTimeout());
                 $this->session->set("root",(\getAuth($user->role_id,'root')==1?true:false),$this->sessionTimeout());

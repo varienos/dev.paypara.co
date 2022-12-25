@@ -24,7 +24,8 @@
             <div class="row mb-8">
               <h1 class="text-dark text-center m-0">Hesabınıza giriş yapın</h1>
             </div>
-            <div class="row mb-3 d-none">
+            <? if($_GET['s']=='noAuth'): ?>
+            <div class="row mb-3">
               <div class="alert alert-danger d-flex align-items-center px-5 py-3">
                 <span class="svg-icon svg-icon-1 svg-icon-danger me-2">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect><rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor"></rect><rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor"></rect></svg>
@@ -34,6 +35,7 @@
                 </div>
               </div>
             </div>
+            <? endif; ?>
             <div class="row mb-5">
               <label class="form-label fs-5 fw-bold">E-Posta</label>
               <input type="text" placeholder="E-posta adresiniz" name="x" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">

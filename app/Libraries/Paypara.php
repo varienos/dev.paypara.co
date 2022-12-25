@@ -126,7 +126,7 @@ class Paypara
                     //OYUNCUYU HESAP İLE EŞLEŞTİR
                     $this->db->query("insert into site_gamer_match set gamer_site_id='".$userId."', account_id='".$row->id."', firstMatch='".$firstMatch."', match_time=NOW()");
                     $this->setLog("setNewMatch","OYUNCU *".mb_strtoupper($row->account_name,"UTF-8")."* HESABI İLE EŞLEŞTİRİLDİ",$userId,$site_id,$deposit,$vip,$row->id, $transaction_id);
-                    $this->db->query("update bank_account set sendTime=NOW() where id='".$row->id."'");
+                    $this->db->query("update account set sendTime=NOW() where id='".$row->id."'");
                     return $row->id;
                     break;
                 }

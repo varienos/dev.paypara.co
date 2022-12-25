@@ -24,8 +24,8 @@
 								</span>
 							</div>
 							<a href="dashboard" class="d-flex align-items-center">
-								<img alt="Logo" src="assets/media/logos/payparaLogo.png" class="theme-light-show h-30px" />
-								<img alt="Logo" src="assets/media/logos/payparaLogo.png" class="theme-dark-show h-30px" />
+								<img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="theme-light-show h-30px" />
+								<img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="theme-dark-show h-30px" />
 							</a>
 						</div>
 						<div class="d-flex align-items-center flex-shrink-0">
@@ -514,11 +514,12 @@
 											<table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="datatableClient">
 												<thead>
 													<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-														<th class="min-w-20px">ID</td>
+														<th class="min-w-30px">ID</td>
 														<th class="min-w-100px">Firma adı</td>
-														<th class="min-w-250px">API Anahtarı</td>
-														<th class="min-w-70px">İşlem Yetkisi</td>
-														<th class="min-w-70px text-end">İşlemler</td>
+														<th class="min-w-200px">API Key</td>
+														<th class="min-w-80px">Secret Key</td>
+														<th class="min-w-60px">İşlem Yetkisi</td>
+														<th class="min-w-100px text-end">İşlemler</td>
 													</tr>
 												</thead>
 												<tbody></tbody>
