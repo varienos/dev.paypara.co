@@ -97,28 +97,29 @@
                           </span>
                         </button>
                         <div id="datatableExport" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true"></div>
-
-                      <? if (view_role === true): ?>
-                        <a class="btn btn-light-primary me-3" href="/user/roles">Yetkileri Düzenle</a>
-                      <? endif; ?>
-                      
-                      <? if (add_user === true): ?>
-                      <button type="button" class="btn btn-primary text-nowrap" data-url="user/modal" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-bs-delay="1000">
-                        <span class="svg-icon svg-icon-2">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect><rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"></rect>
-                          </svg>
-                        </span>
-                        Kullanıcı Ekle
-                      </button>
-                      <? endif; ?>
                     </div>
+                    <? if (view_role === true): ?>
+                      <a class="btn btn-light-primary me-3" href="/user/roles">Yetkileri Düzenle</a>
+                    <? endif; ?>
+
+                    <? if (add_user === true): ?>
+                    <button type="button" class="btn btn-primary text-nowrap" data-url="user/modal" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-bs-delay="1000">
+                      <span class="svg-icon svg-icon-2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect><rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"></rect>
+                        </svg>
+                      </span>
+                      Kullanıcı Ekle
+                    </button>
+                    <? endif; ?>
                   </div>
                 </div>
-                <div class="card-body py-4">
-                  <table class="table align-middle table-row-dashed fs-6 gy-4 dataTable no-footer" id="datatable_content">
-                    <thead datatable-head></thead>
-                    <tbody class="fw-semibold text-gray-600"></tbody>
-                  </table>
+                <div class="card-body py-4 px-0">
+                  <div class="table-responsive">
+                    <table class="table align-middle table-row-dashed fs-6 gy-4 dataTable no-footer" id="datatable_content">
+                      <thead datatable-head></thead>
+                      <tbody class="fw-semibold text-gray-600"></tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>

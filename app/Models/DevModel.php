@@ -59,5 +59,16 @@ class DevModel extends Model
         }
 	}
 
+    public function clientsCheckSecurityHash()
+	{
+		$sites = $this->db->query("select * from site")->getResult();
+        echo '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">';
+        echo '<style>body{ background:#041526;font-family: "VT323", monospace; font-size:15px; color:#a5c5e5; margin: 50px; }</style>';
+        foreach ($sites as $row)
+        {
+            $this->db->query("update site set private_key='".substr(md5($row->api_key_pin),0,16)."' where id='".$row->id."'");
+            echo "private_key => ".substr(md5($row->api_key_pin),0,16)."<br>";
+        }
+	}
 
 }

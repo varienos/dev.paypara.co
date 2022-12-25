@@ -31,7 +31,7 @@
                 <div class="card-body hover-scroll-overlay-y p-0">
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active p-5" id="tab_details" role="tabpanel">
-                            <p class="fs-5 fw-semibold text-center text-gray-900 m-0">Yatırım</p>
+                            <p class="fs-5 fw-semibold text-center text-gray-900 m-0">Çekim</p>
                             <p class="fs-6 text-center text-gray-700 m-0" data-set-date></p>
                             <div class="card shadow-sm mt-13">
                                 <div class="card-body px-0 pb-0 pt-8">
@@ -91,35 +91,31 @@
                                 <h4 class="mb-4 p-0">İşlem Detayları</h4>
                                 <table class="table fs-6 fw-semibold gs-0 gy-2 gx-2 m-0">
                                     <tbody>
-                                        <tr>
+                                        <tr class="">
                                             <td class="text-gray-600 p-0 pb-3">Süre:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-time></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="">
                                             <td class="text-gray-600 p-0 pb-3 w-125px">TXID:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-txid></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="">
                                             <td class="text-gray-600 p-0 pb-3">User ID:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-customerId></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="">
                                             <td class="text-gray-600 p-0 pb-3">Firma:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-client></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="">
                                             <td class="text-gray-600 p-0 pb-3">Yöntem:</td>
                                             <td class="p-0 pb-3">
                                                 <span class="badge bg-danger text-white" data-set-method></span>
                                             </td>
                                         </tr>
-                                        <tr id="person">
+                                        <tr class="">
                                             <td class="text-gray-600 p-0 pb-3">Personel:</td>
-                                            <td class="text-gray-800 p-0 pb-3" data-set-person></td>
-                                        </tr>
-                                        <tr id="processNote">
-                                            <td class="text-gray-600 p-0 pb-3">İşlem Notu:</td>
-                                            <td class="text-gray-800 p-0 pb-3" data-set-processNote></td>
+                                            <td class="text-gray-800 p-0 pb-3" data-set-user></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -127,7 +123,7 @@
                             <div class="separator separator-dashed my-6"></div>
                             <div class="row ps-3">
                                 <h4 class="mb-3 p-0">Müşteri Notu</h4>
-                                <textarea class="form-control form-control-solid border p-2" style="resize: none; overflow: scroll;" spellcheck="false" disabled data-set-customerNote></textarea>
+                                <textarea class="form-control form-control-solid border p-2" style="resize: none; overflow: scroll;" spellcheck="false" disabled data-set-note></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade p-5" id="tab_actions" role="tabpanel">

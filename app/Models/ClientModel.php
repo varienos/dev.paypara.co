@@ -39,22 +39,12 @@ class ClientModel extends Model
 			$sqlProcess	= "update";
 			$sqlUpdate	= "where id='".$data['id']."'";
 		}
-		$dataOld = $this->db->query("select * from site where id='".$data['id']."'")->getRowArray();
-		$dataOld = is_array($dataOld) ? $dataOld : array();
-		$this->db->query("insert into logSys set
-		`method`	='saveData()',
-		`user_id`	='".$this->session->get('primeId')."',
-		`data_id`	='".$data['id']."',
-		`timestamp` =NOW(),
-		`ip` 		='".getClientIpAddress()."',
-		`dataOld`	=".$this->db->escape(json_encode($dataOld)).",
-		`dataNew`	=".$this->db->escape(json_encode($data))."
-		");
-		$this->error->dbException($this->db->error())!=true ? die() : null;
+
 		$this->db->query($sqlProcess." site set
 		updateTime			=NOW(),
 		".(strpos($data['api_key'],"***")===false?"api_key='".md5(trim($data['api_key']))."',":null)."
 		".(strpos($data['api_key'],"***")===false?"api_key_pin='".substr(trim($data['api_key']),0,8)."',":null)."
+		private_key			='".substr(md5(substr(trim($data['api_key']),0,8)),0,16)."',
 		site_name			='".$data['site_name']."',
 		status			    ='".$data['status']."'
 		".$sqlUpdate);

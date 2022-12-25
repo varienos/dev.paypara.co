@@ -51,7 +51,7 @@ $.varien = {
         e.preventDefault();
     },
     environment: () => {
-        $.host = window.location.host
+        $.host = window.location.host;
         return $.host.split('.')[0];
     },
     activity: function() {
@@ -1191,6 +1191,7 @@ $.varien = {
                     $.rowId = $(this).attr('data-row-id');
                     $.userName = $(this).attr('data-user-name');
                     $.userNote = $(this).attr('data-customer-note');
+                    $.processNote = $(this).attr('data-process-note');
                     $.accountName = $(this).attr('data-account-name');
                     $.accountLink = $(this).attr('data-account-link');
                     $.customerLink = $(this).attr('data-customer-link');
@@ -1256,7 +1257,7 @@ $.varien = {
                         .find('p').contents().unwrap();
                         badge-light-warning: beklemede
                         badge-light-success: onaylandı
-                        badge-light-danger: reddedildi
+                        badge-light-danger: reddedildi 
       
                     */
                     $.requestTime = $('#' + $.rowId).find("td").eq(0).html();
@@ -1293,8 +1294,19 @@ $.varien = {
                         $('[data-set-status]').removeClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-success');
                     }
-                    $('[data-set-user]').html($.userName);
-                    $('[data-set-note]').html($.userNote);
+                    if ($.userName == "") {
+                        $('#person').hide();
+                    } else {
+                        $('[data-set-person]').html($.userName);
+                        $('#person').show();
+                    }
+                    if ($.processNote == "") {
+                        $('#processNote').hide();
+                    } else {
+                        $('[data-set-processNote]').html($.processNote);
+                        $('#processNote').show();
+                    }
+                    $('[data-set-customerNote]').html($.userNote);
                     $('[data-set-amount]').html($.amount);
                     $('[data-set-customerId]').html($.customerSiteId);
                 });
@@ -1396,7 +1408,7 @@ $.varien = {
             $("[data-page-title]").html("Kullanıcılar");
             if ($.varien.segment(2) == "index") {
                 $.varien.include("user/include/datatableHead", "datatable-head").then(function(colNum) {
-                    $.varien.user.datatable.init(colNum)
+                    $.varien.user.datatable.init(colNum);
                 });
             }
             if ($.varien.segment(2) == "detail") {
@@ -1762,7 +1774,7 @@ $.varien = {
                 var c = $("#current_password").val();
                 var n = $("#user_pass").val();
                 var v = $("#confirm_password").val();
-                if (c == "" && root !== 1) {
+                if (c == "" && $.resource.root !== 1) {
                     toastr.error("Mevcut Şifrenizi Giriniz !");
                     $("#current_password").focus();
                     return false;
@@ -1777,7 +1789,7 @@ $.varien = {
                     $("#confirm_password").focus();
                     return false;
                 }
-                if (c != d && root !== 1) {
+                if (c != d && $.resource.root !== 1) {
                     toastr.error("Mevcut Şifrenizi Yanlış Girdiniz !");
                     $("#current_password").focus();
                     return false;
@@ -2501,7 +2513,7 @@ $.varien = {
                     order: [0, 'desc'],
                     columnDefs: [{
                         orderable: false,
-                        targets: (Array.isArray($.notOrderCols) == true ? [2] : [2, 4])
+                        targets: (Array.isArray($.notOrderCols) == true ? [2, 3] : [2, 3, 5])
                     }, {
                         targets: (Array.isArray($.noVisibleCols) == true ? $.noVisibleCols : []),
                         visible: false
@@ -2534,7 +2546,7 @@ $.varien = {
                         $.varien.datatable.exportEvents();
                         $.varien.setting.client.modal();
                         $.varien.setting.client.remove();
-                        $("tbody td:nth-child(5)").addClass('text-end');
+                        $("tbody td:nth-child(6)").addClass('text-end');
                         $('input[data-set="switch"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.setting.client.switch($(this).attr("name"), $(this).attr("data-id"), "on");

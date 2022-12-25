@@ -93,7 +93,7 @@ class Transaction extends BaseController
                 </span>
                 <!--end::Svg Icon-->
             </button>
-            <button class="btn btn-icon rounded-circle w-30px h-30px" data-bs-toggle="modal" id="inspect" data-row-id="'.$row->id."-".$status_id."-".$row->transaction_id.'" data-user-name="'.$row->user_name.'" data-customer-deposit="'.$row->deposit.'" data-customer-withdraw="'.$row->withdraw.'" data-customer-vip="'.$row->isVip.'" data-customer-note="'.$row->notes.'" data-account-name="'.$row->account_name.'" data-customer-id="'.$row->customer_id.'"data-customer-link="customer/detail/' . $row->customer_id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" data-account-link="account/detail/'.$row->account_id.'/'.$row->account_type.'">
+            <button class="btn btn-icon rounded-circle w-30px h-30px" data-bs-toggle="modal" id="inspect" data-row-id="'.$row->id."-".$status_id."-".$row->transaction_id.'" data-process-note="'.$row->processNotes.'" data-customer-note="'.$row->customerNotes.'" data-user-name="'.$row->user_name.'" data-customer-deposit="'.$row->deposit.'" data-customer-withdraw="'.$row->withdraw.'" data-customer-vip="'.$row->isVip.'"  data-account-name="'.$row->account_name.'" data-customer-id="'.$row->customer_id.'"data-customer-link="customer/detail/' . $row->customer_id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" data-account-link="account/detail/'.$row->account_id.'/'.$row->account_type.'">
                 <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
                 <span class="svg-icon svg-icon-2hx svg-icon-primary">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

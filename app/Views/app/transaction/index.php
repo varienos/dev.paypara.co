@@ -62,42 +62,61 @@
                                                 </div>
                                                 <div class="separator border-gray-200"></div>
                                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
-                                                    <div class="mb-5">
-                                                        <label class="form-label fs-6 fw-semibold">Yöntem:</label>
-                                                        <select class="form-select form-select-solid border border-1 fw-bold" name="method" id="method" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
-                                                            <option></option>
-                                                            <option value="bank">Banka</option>
-                                                            <option value="papara">Papara</option>
-                                                            <option value="cross">Çapraz</option>
-                                                            <option value="match">Eşleşme</option>
-                                                            <option value="pos">Sanal POS</option>
-                                                        </select>
+                                                    <div class="row mb-3">
+                                                        <div class="col-3 d-flex align-items-center">
+                                                            <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Yöntem:</label>
+                                                        </div>
+                                                        <div class="col ps-0">
+                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="method" id="method" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
+                                                                <option></option>
+                                                                <option value="bank">Banka</option>
+                                                                <option value="papara">Papara</option>
+                                                                <option value="cross">Çapraz</option>
+                                                                <option value="match">Eşleşme</option>
+                                                                <option value="pos">Sanal POS</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                    <div class="mb-5">
-                                                        <label class="form-label fs-6 fw-semibold">Firma:</label>
-                                                        <select class="form-select form-select-solid border border-1 fw-bold" name="siteId" id="siteId" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
-                                                            <option></option>
-                                                            <? $site = explode(",",$update->perm_site); foreach($siteSelect as $row){ ?>
-                                                            <option value="<?=$row->id ?>"> <?=$row->site_name ?></option>
-                                                            <? } ?>
-                                                        </select>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-3 d-flex align-items-center">
+                                                            <label class="form-label fs-6 fw-semibold">Firma:</label>
+                                                        </div>
+                                                        <div class="col ps-0">
+                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="siteId" id="siteId" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
+                                                                <option></option>
+                                                                <? $site = explode(",",$update->perm_site); foreach($siteSelect as $row){ ?>
+                                                                <option value="<?=$row->id ?>"> <?=$row->site_name ?></option>
+                                                                <? } ?>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                    <div class="mb-5">
-                                                        <label class="form-label fs-6 fw-semibold">Hesap:</label>
-                                                        <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountIdFilter" id="accountIdFilter" placeholder="Tümü" app-onchange-datatable-reload>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-3 d-flex align-items-center">
+                                                            <label class="form-label fs-6 fw-semibold">Hesap:</label>
+                                                        </div>
+                                                        <div class="col ps-0">
+                                                            <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountIdFilter" id="accountIdFilter" placeholder="Tümü" app-onchange-datatable-reload>
+                                                        </div>
                                                     </div>
-                                                    <div class="mb-5">
-                                                        <label class="form-label fs-6 fw-semibold">İşlem Durumu:</label>
-                                                        <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
-                                                            <option></option>
-                                                            <option value="beklemede">Beklemede</option>
-                                                            <option value="onaylandı">Onaylandı</option>
-                                                            <option value="reddedildi">Reddedildi</option>
-                                                        </select>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-3 d-flex align-items-center">
+                                                            <label class="form-label fs-6 fw-semibold">Durum:</label>
+                                                        </div>
+                                                        <div class="col ps-0">
+                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
+                                                                <option></option>
+                                                                <option value="beklemede">Beklemede</option>
+                                                                <option value="onaylandı">Onaylandı</option>
+                                                                <option value="reddedildi">Reddedildi</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
+
                                                     <div class="d-flex justify-content-end">
                                                         <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" app-onclick-datatable-reset>Sıfırla</button>
-                                                        <!--<button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Uygula</button>-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -192,9 +211,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <?php require appViewPath().'layout/_footer.php' ?> 
+                    </div> <?php require appViewPath().'layout/_footer.php' ?>
                 </div>
             </div>
-        </div> 
-        <?php require appViewPath().'transaction/drawer/'.$request.'/inspect.php' ?> 
+        </div>
+        <?php require appViewPath().'transaction/drawer/'.$request.'/inspect.php' ?>
         <?php require appViewPath().'layout/footer/footer.php' ?>

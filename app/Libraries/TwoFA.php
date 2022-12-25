@@ -20,7 +20,7 @@
         public function getQRCodeImageAsDataUri($secret)
         {
             // SOURCE: https://robthree.github.io/TwoFactorAuth/qr-codes.html
-            return $this->tfa->getQRCodeImageAsDataUri(env('2FA_APP_TITLE'), $secret);
+            return $this->tfa->getQRCodeImageAsDataUri($this->session->get('email'), $secret); 
         }
 
         public function verifyCode($secret, $verification)

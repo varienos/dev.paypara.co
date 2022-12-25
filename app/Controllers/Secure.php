@@ -6,7 +6,7 @@ class Secure extends BaseController
 {
     public function index()
     {
-        echo view('app/auth/login');
+       
     }
 
     public function twoFa($stage = null, $code = null)
@@ -15,9 +15,10 @@ class Secure extends BaseController
             echo view('app/auth/2fa');
         } elseif ($stage == 'verify') {
 
-            $this->twoFA     = new \App\Libraries\TwoFA();
+            $this->twoFA     = new \App\Libraries\TwoFA(); 
             //$this->verify    = $this->twoFA->getCode($code);
             if ($this->twoFA->verifyCode((!empty($this->request->getVar('secret')) ? $this->request->getVar('secret') : $this->session->get('secret2fa')), $code)) {
+                $this->session->set('verify2fa',true,$this->SecureModel->sessionTimeout());
                 $this->response->setStatusCode(200, 'OK');
             } else {
                 $this->response->setStatusCode(401, $this->twoFA->ensureCorrectTime());
@@ -49,17 +50,21 @@ class Secure extends BaseController
         $process  = json_decode($this->SecureModel->auth());
 
         if ($process->status == true && $process->is2fa != 'on') {
-            return redirect()->to(base_url('dashboard/success'));
+            return redirect()->to(base_url('dashboard'));
         } elseif ($process->status == true && $process->is2fa == 'on') {
 
             return redirect()->to(base_url('secure/2fa'));
         } else {
 
-            return redirect()->to(base_url('secure/login'));
+            return redirect()->to(base_url('secure/login?s=noAuth'));
         }
     }
     public function login()
     {
+         if ($this->SecureModel->security()) 
+        {
+            return redirect()->to(base_url('dashboard'));
+        }
         echo view('app/auth/login');
     }
 }

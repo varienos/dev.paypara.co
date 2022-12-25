@@ -35,6 +35,7 @@ class TransactionModel extends Model
         finance.transaction_id,
         finance.gamer_site_id,
         finance.method,
+        finance.notes,
         account.dataType as account_type,
         account.account_name,
         site.site_name,
@@ -96,11 +97,10 @@ class TransactionModel extends Model
 
     public function dataUpdate($data)
 	{
-		$finance = $this->db->query("select * from finance where id='".$data['id']."'")->getRow();
+		$finance    = $this->db->query("select * from finance where id='".$data['id']."'")->getRow();
+        $site       = $this->db->query("select private_key from site where id='".$finance->site_id."'")->getRow();
 		if($data['price']!=str_replace(".00","",$finance->price))
 		{
-			$change ="price='".$data['price']."', price_old='".$finance->price."',";
-			$site 	= $this->db->query("select * from site where id='".$finance->site_id."'")->getRowArray();
 			$changeAmount	=	"&requestAmount=".str_replace(".00","",$finance->price)."&processedAmount=".str_replace(".00","",$data['price']);
 		}
 			$this->db->query("update finance set
@@ -117,11 +117,20 @@ class TransactionModel extends Model
             $this->db->query("delete from site_gamer_match where gamer_site_id='".$finance->gamer_site_id."' and account_id='".$finance->account_id."'");
             $this->paypara->setLog("dataUpdate","MÜŞTERİ TALEBİ REDDEDİLDİĞİ İÇİN HESAP EŞLEŞMESİ SONLANDIRILDI", $finance->gamer_site_id, $finance->site_id, $finance->price,0, $finance->account_id, $finance->transaction_id);
         }
-		if($finance->callBackURL != "" && $data['status']!="işlemde")
+		if($finance->callBackURL != "" && $data['status']!="işlemde" && $data['status']!="beklemede")
 		{
 			$status = $finance->status=="onaylandı" ? "success" : "rejected";
-            $status = $finance->status=="beklemede" ? "processing" : $status;
-			$postData = "transactionId=".$finance->transaction_id."&requestId=".$finance->request_id."&transaction=".$status."&processTime=".$finance->update_time."&message=".$finance->notes.$changeAmount;
+
+            /*
+                orderid (txid?)
+                userid
+                amount
+                currency
+                secretkey
+            */
+            //$status = $finance->status=="beklemede" ? "processing" : $status;
+            $hash           = md5($finance->transaction_id.$finance->gamer_site_id.$finance->price.$site->private_key);
+			$postData       = "hash=".$hash."&transactionId=".$finance->transaction_id."&requestId=".$finance->request_id."&transaction=".$status."&processTime=".$finance->update_time."&message=".$finance->notes.$changeAmount;
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL,$finance->callBackURL);
 			curl_setopt($ch, CURLOPT_POST, 1);
@@ -254,6 +263,7 @@ class TransactionModel extends Model
         finance.price,
         finance.status,
         finance.site_id,
+        finance.notes  as processNotes,
         account.dataType as account_type,
         account.account_name,
         account.account_number,
@@ -264,6 +274,7 @@ class TransactionModel extends Model
         site_gamer.gamer_name,
         site_gamer.isVip,
         site_gamer.deposit,
+        site_gamer.note as customerNotes,
         site_gamer.withdraw,
         finance_user_account.account_number
         from `finance`

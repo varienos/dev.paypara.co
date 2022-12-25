@@ -19,16 +19,22 @@ class Dev extends BaseController
 	}
 	public function console()
 	{
-		return $this->console->cmd($this->request->getVar("cmd"));
+		if($_GET['action']=='clientsCheckSecurityHash'){
+
+			$this->DevModel->clientsCheckSecurityHash();
+		}else{
+			return $this->console->cmd($this->request->getVar("cmd"));
+		}
+		
 	}
 	public function errorHandler($language)
 	{
 		$this->DevModel->errorHandler($language, $this->request->getVar());
 		echo 'console errors send to developer.';
 	}
-	public function usersCheckHash()
+	public function clientsCheckSecurityHash()
 	{
-		//if(root==1)  $this->DevModel->usersCheckHash();
+		$this->DevModel->clientsCheckSecurityHash();
 	}
 	public function clientsCheckHash()
 	{

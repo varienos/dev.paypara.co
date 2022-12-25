@@ -1,4 +1,14 @@
 #-------------------------
+# App Files
+#-------------------------
+.jsbeautifyrc
+local_access_log
+local_error_log
+error_log
+revision/
+assets/metronic/tools/node_modules/*
+
+#-------------------------
 # Operating Specific Junk Files
 #-------------------------
 
@@ -42,12 +52,7 @@ $RECYCLE.BIN/
 # These should never be under version control,
 # as it poses a security risk.
 .vagrant
-.jsbeautifyrc
 Vagrantfile
-local_access_log
-local_error_log
-error_log
-revision/
 #-------------------------
 # Temporary Files
 #-------------------------
@@ -87,6 +92,7 @@ phpunit
 # Composer
 #-------------------------
 vendor/
+composer.lock
 
 #-------------------------
 # IDE / Development Files
