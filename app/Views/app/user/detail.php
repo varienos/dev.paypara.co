@@ -55,17 +55,23 @@
                                                 <div class="badge badge-lg badge-light-danger d-inline" name="role"><?=getRoleName($user->role_id) ?></div>
                                             </div>
                                             <div class="separator separator-dashed my-3"></div>
-                                            <div class="pb-5 fs-6">
-                                                <div class="fw-bold mt-5">Oluşturulma Tarihi</div>
-                                                <div class="text-gray-600"><?=$user->user_create_time ?></div>
-                                                <div class="fw-bold mt-5">Son Giriş</div>
-                                                <div class="badge badge-light-dark fs-8"><?=( $user->user_last_login == "" ? "Giriş Yapmadı" : $user->user_last_login ) ?></div>
+                                            <div class="mt-5">
+                                            <div class="d-flex flex-stack text-gray-800">
+                                                <div class="fw-bold">Oluşturulma Tarihi</div>
+                                                <div class="text-gray-700 badge badge-light-dark"><?=$user->user_create_time ?></div>
+                                            </div>
+                                            <div class="d-flex flex-stack text-gray-800 my-5">
+                                                <div class="fw-bold">Son Giriş</div>
+                                                <div class="text-gray-700 badge badge-light-dark"><?=( $user->user_last_login == "" ? "Giriş Yapmadı" : $user->user_last_login ) ?></div>
+                                            </div>
+                                            <div class="d-flex flex-stack text-gray-800">
                                                 <div class="fw-bold mt-5">2FA Doğrulama</div>
-                                                <? if($user->is2fa=="0"): ?>
-                                                <div class="badge badge-light-danger fs-8">Kapalı</div>
-                                                <? else: ?>
-                                                <div class="badge badge-light-success fs-8">Açık</div>
-                                                <? endif; ?>
+                                                    <? if($user->is2fa=="0"): ?>
+                                                    <div class="badge badge-light-danger">Kapalı</div>
+                                                    <? else: ?>
+                                                    <div class="badge badge-light-success">Açık</div>
+                                                    <? endif; ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
