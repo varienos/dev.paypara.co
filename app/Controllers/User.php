@@ -139,9 +139,9 @@ class User extends BaseController
                 </div>',
 				getRoleName($row->role_id),
 				'<div class="badge badge-light fw-bold">' . ($row->user_last_login == "" ? "Giriş Yapmadı" : $row->user_last_login) . '</div>',
-				($row->is2fa == "on" ? '<div class="badge badge-light-success fw-bold">Açık</div>' : '<div class="badge badge-light-danger fw-bold">Kapalı</div>'),
+				($row->is2fa == "on" ? '<div class="badge badge-light-success fw-bold">Açık</div>' : '<div class="badge badge-light-danger fw-bold">Off</div>'),
 				$row->user_create_time,
-				'<button onclick="location.href=\'user/detail/' . $row->hash_id . '\'" class="btn btn-sm btn-light btn-active-light-primary">Görüntüle</button> <button ' . (delete_user !== true ? "auth=\"false\"" : null) . ' data-set="remove" data-id="' . $row->hash_id . '" class="btn btn-sm btn-light-danger">Sil</button>'
+				'<button onclick="location.href=\'user/detail/' . $row->hash_id . '\'" class="btn btn-sm btn-light btn-active-light-primary">Edit</button> <button ' . (delete_user !== true ? "auth=\"false\"" : null) . ' data-set="remove" data-id="' . $row->hash_id . '" class="btn btn-sm btn-light-danger">Delete</button>'
 			);
 			$i++;
 		}
@@ -223,8 +223,8 @@ class User extends BaseController
 			$records["data"][$i] = array(
 				"DT_RowId"  => $row->id,
 				$row->name,
-				($row->totalUser > 0 ? $row->totalUser . " kişi" : "- yok -"),
-				'<button type="button" class="btn btn-sm btn-light btn-active-light-primary me-3" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-url="user/role/' . $row->id . '">Düzenle</a><button data-set="remove" data-id="' . $row->id . '" class="btn btn-sm btn-light btn-active-light-danger text-danger">Sil</button>'
+				($row->totalUser > 0 ? $row->totalUser . " user" : "none"),
+				'<button type="button" class="btn btn-sm btn-light btn-active-light-primary me-3" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-url="user/role/' . $row->id . '">Edit</a><button data-set="remove" data-id="' . $row->id . '" class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
 			);
 			$i++;
 		}

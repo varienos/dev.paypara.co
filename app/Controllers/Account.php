@@ -63,16 +63,16 @@ class Account extends BaseController
                 </td>
                 <td><a class="text-gray-800 fs-5 fw-bold">'.$row->gamer_name.'</a><div class="fw-semibold fs-7">'.$row->gamer_nick.'</div></td>
                 <td>'.$row->site_name.'</td>
-                <td>'.(getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)=="0" ? "- yok -" : getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)." adet").' </td>
+                <td>'.(getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)=="0" ? "none" : getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)." tx").' </td>
                 <td>₺'.number_format(getCustomerTotalDepositWithAccount($row->gamer_site_id,$account_id),2).'</td>
-                <td>'.($row->lastProcess=="" ? "- yok -" : $row->lastProcess).'</td>
-                <td class="text-end"><button class="btn btn-sm btn-light-danger" onClick="$.varien.account.detail.removeMatch('.$row->id.')">Kaldır</button>
+                <td>'.($row->lastProcess=="" ? "none" : $row->lastProcess).'</td>
+                <td class="text-end"><button class="btn btn-sm btn-light-danger" onClick="$.varien.account.detail.removeMatch('.$row->id.')">Remove</button>
                 </td></tr>';
             }
         }else{
             echo '<tr>
             <td class="dataTables_empty text-center" colspan="7">
-            Kayıt yok
+            No records
         </td>
                 </tr>';
          }
@@ -179,39 +179,39 @@ class Account extends BaseController
                 $records["data"][$i] = array
                 (
                     "DT_RowId"  => $row->id,
-                    '<div align="center" style="text-align:center">'.$row->id.'</div>',
+                    '<div class="text-center">' . $row->id . '</div>',
                     $row->account_name,
-                    $row->account_number,
-                    '<div class="badge badge-square badge-secondary '.($row->totalMatch>=$row->match_limit ? 'badge-danger' : null).' fs-7">'.$row->totalMatch.'</div>',
-                    ( $row->totalProcess==0 ? "işlem yok" : $row->totalProcess." adet" ),
-                    ( $row->lastProcess=="" ? "işlem yok" : $row->lastProcess ),
-                    '<div class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" '.(edit_papara_account!==true?"disabled":null).' id="flexSwitchCheckChecked" data-set="index" data-id="'.$row->id.'" name="status" class="form-check-input h-20px w-45px" '.$status.'></div>',
-                    '<button onclick="location.href= \'account/detail/'.$row->id.'/'.$row->dataType.'\'" '.(edit_papara_account!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-primary">Görüntüle</button> <button delete-url="account/delete/'.$row->id.'" '.(delete_papara_account!==true?"auth=\"false\"":null).' data-set="delete" class="btn btn-sm btn-light btn-active-light-danger text-danger">Sil</button>'
+                    '<div class="text-center">' . $row->account_number . '</div>',
+                    '<div class="text-center badge badge-square badge-secondary '.($row->totalMatch>=$row->match_limit ? 'badge-danger' : null).' fs-7">'.$row->totalMatch.'</div>',
+                    ( $row->totalProcess==0 ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->totalProcess . " tx</div>" ),
+                    ( $row->lastProcess=="" ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->lastProcess . "</div>" ),
+                    '<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" '.(edit_papara_account!==true?"disabled":null).' id="flexSwitchCheckChecked" data-set="index" data-id="'.$row->id.'" name="status" class="form-check-input h-20px w-45px" '.$status.'></div>',
+                    '<button onclick="location.href= \'account/detail/'.$row->id.'/'.$row->dataType.'\'" '.(edit_papara_account!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-primary">Details</button> <button delete-url="account/delete/'.$row->id.'" '.(delete_papara_account!==true?"auth=\"false\"":null).' data-set="delete" class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
                 );
             }elseif($row->dataType==1){
                 $records["data"][$i] = array
                 (
                     "DT_RowId"  => $row->id,
-                    '<div align="center" style="text-align:center">'.$row->id.'</div>',
+                    '<div class="text-center">' . $row->id . '</div>',
                     $row->account_name,
-                    $row->account_number,
-                    ( $row->totalProcess==0 ? "işlem yok" : $row->totalProcess." adet" ),
-                    ( $row->lastProcess=="" ? "işlem yok" : $row->lastProcess ),
-                    '<div class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="flexSwitchCheckChecked" '.(edit_papara_account!==true?"disabled":null).' data-set="index" data-id="'.$row->id.'" name="status" class="form-check-input h-20px w-45px" '.$status.'></div>',
-                    '<button onclick="location.href= \'account/detail/'.$row->id.'/'.$row->dataType.'\'" '.(edit_papara_account!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-primary">Görüntüle</button> <button delete-url="account/delete/'.$row->id.'" data-set="delete" '.(delete_papara_account!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-danger text-danger">Sil</button>'
+                    '<div class="text-center">' . $row->account_number . '</div>',
+                    ( $row->totalProcess==0 ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->totalProcess . " tx</div>" ),
+                    ( $row->lastProcess=="" ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->lastProcess . "</div>" ),
+                    '<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="flexSwitchCheckChecked" '.(edit_papara_account!==true?"disabled":null).' data-set="index" data-id="'.$row->id.'" name="status" class="form-check-input h-20px w-45px" '.$status.'></div>',
+                    '<button onclick="location.href= \'account/detail/'.$row->id.'/'.$row->dataType.'\'" '.(edit_papara_account!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-primary">Details</button> <button delete-url="account/delete/'.$row->id.'" data-set="delete" '.(delete_papara_account!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
                 );
             }elseif($row->dataType==3){
                 $records["data"][$i] = array
                 (
                     "DT_RowId"  => $row->id,
-                    '<div align="center" style="text-align:center">'.$row->id.'</div>',
+                    '<div class="text-center">' . $row->id . '</div>',
                     $row->account_name,
                     bankName($row->bank_id),
-                    $row->account_number,
-                    ( $row->totalProcess==0 ? "işlem yok" : $row->totalProcess." adet" ),
-                    ( $row->lastProcess=="" ? "işlem yok" : $row->lastProcess ),
-                    '<div class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="flexSwitchCheckChecked" '.(edit_bank_account!==true?"disabled":null).' data-set="index" data-id="'.$row->id.'" name="status" class="form-check-input h-20px w-45px" '.$status.'></div>',
-                    '<button onclick="location.href= \'account/detail/'.$row->id.'/'.$row->dataType.'\'" '.(edit_bank_account!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-primary">Görüntüle</button> <button delete-url="account/delete/'.$row->id.'" '.(delete_bank_account!==true?"auth=\"false\"":null).' data-set="delete" class="btn btn-sm btn-light btn-active-light-danger text-danger">Sil</button>'
+                    '<div class="text-center">' . $row->account_number . '</div>',
+                    ( $row->totalProcess==0 ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->totalProcess . " tx</div>" ),
+                    ( $row->lastProcess=="" ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->lastProcess . "</div>" ),
+                    '<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="flexSwitchCheckChecked" '.(edit_bank_account!==true?"disabled":null).' data-set="index" data-id="'.$row->id.'" name="status" class="form-check-input h-20px w-45px" '.$status.'></div>',
+                    '<button onclick="location.href= \'account/detail/'.$row->id.'/'.$row->dataType.'\'" '.(edit_bank_account!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-primary">Details</button> <button delete-url="account/delete/'.$row->id.'" '.(delete_bank_account!==true?"auth=\"false\"":null).' data-set="delete" class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
                 );
             }
 		$i++;
@@ -266,9 +266,9 @@ class Account extends BaseController
                 '<a>'.$row->gamer_site_id.'</a>',
                 '<a class="text-gray-800 fs-5 fw-bold">'.$row->gamer_name.'</a><div class="fw-semibold fs-7">'.$row->gamer_nick.'</div>',
                 $row->site_name,
-                (getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)=="0" ? "- yok -" : getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)." adet"),
+                (getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)=="0" ? "none" : getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)." tx"),
                 '₺'.number_format(getCustomerTotalDepositWithAccount($row->gamer_site_id,$account_id),2),
-                ($row->lastProcess=="" ? "- yok -" : $row->lastProcess)
+                ($row->lastProcess=="" ? "none" : $row->lastProcess)
             );
 		$i++;
 		}

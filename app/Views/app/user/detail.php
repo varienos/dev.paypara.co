@@ -11,9 +11,9 @@
                             <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
                                 <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">User Profile</h1>
                                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
-                                    <li class="breadcrumb-item"><a href="dashboard" class="text-muted" data-pass="<?=$user->user_pass ?>">Ana Sayfa</a></li>
+                                    <li class="breadcrumb-item"><a href="dashboard" class="text-muted" data-pass="<?=$user->user_pass ?>">Dashboard</a></li>
                                     <li class="breadcrumb-item" <?=(view_user!==true?"auth=\"false\"":null) ?>><a href="user/index" class="text-muted">Users</a></li>
-                                    <li class="breadcrumb-item text-dark">User Profile</li>
+                                    <li class="breadcrumb-item text-dark">Profile</li>
                                 </ul>
                             </div>
                             <div class="d-flex d-lg-none align-items-center ms-n2 me-2">
@@ -93,7 +93,7 @@
                                             <div class="card border pt-4 mb-6 mb-xl-9">
                                                 <div class="card-header border-0">
                                                     <div class="card-title">
-                                                        <h2>Edit Details</h2>
+                                                        <h2>User Details</h2>
                                                     </div>
                                                 </div>
                                                 <div class="card-body pt-0 pb-5">
@@ -137,7 +137,7 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Permission</td>
+                                                                    <td>Role</td>
                                                                     <td name="role"><?= getRoleName($user->role_id); ?></td>
                                                                     <td class="text-end" <?=(edit_user!==true?"auth=\"false\"":null) ?>>
                                                                         <button type="button" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto" data-bs-toggle="modal" data-bs-target="#kt_modal_update_role">
@@ -410,7 +410,7 @@
                                 <div class="modal-dialog modal-dialog-centered mw-550px">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h2 class="fw-bold">Şifreyi Değiştir</h2>
+                                            <h2 class="fw-bold">Update Password</h2>
                                             <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" data-bs-dismiss="modal">
                                                 <span class="svg-icon svg-icon-1">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" /><rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
@@ -464,7 +464,7 @@
                                 <div class="modal-dialog modal-dialog-centered mw-450px">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h2 class="fw-bold">Update Permission</h2>
+                                            <h2 class="fw-bold">Update User Role</h2>
                                             <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal" data-kt-users-modal-action="close">
                                                 <span class="svg-icon svg-icon-1">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" /><rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
@@ -474,8 +474,8 @@
                                         </div>
                                         <div class="modal-body scroll-y mx-5">
                                             <div class="row mb-7">
-                                                <label class="fs-6 fw-semibold form-label mb-5 required">Select user permission</label>
-                                                <select class="form-select" data-control="select2" data-placeholder="Select permission" data-hide-search="true" name="role_id" id="role_id">
+                                                <label class="fs-6 fw-semibold form-label mb-5 required">Select user role</label>
+                                                <select class="form-select" data-control="select2" data-placeholder="Select user role" data-hide-search="true" name="role_id" id="role_id">
                                                     <option></option>
                                                     <? foreach(getRoles() as $row) { ?>
                                                     <option value="<?=$row->id ?>" <? if($user->role_id==$row->id) echo "selected" ?>><?=$row->name ?></option>

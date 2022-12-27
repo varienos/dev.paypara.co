@@ -72,7 +72,8 @@ class Transaction extends BaseController
                 $tagsReject     = $css;
             }
             return
-            '<button class="btn btn-icon rounded-circle w-30px h-30px" '.$tagsApprove.'>
+            '<div class="text-center">
+            <button class="btn btn-icon rounded-circle w-30px h-30px" '.$tagsApprove.'>
             <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
             <span class="svg-icon svg-icon-2hx svg-icon-success">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +105,8 @@ class Transaction extends BaseController
                 </svg>
                 </span>
                 <!--end::Svg Icon-->
-            </button>';
+            </button>
+            </div>';
         }
 		//************************************************************************************************************************************/
         //$this->db->query("insert into log_query set query=".$this->db->escape(json_encode($_POST["search"]["value"])));
@@ -127,18 +129,18 @@ class Transaction extends BaseController
 		{
             if($row->status=="beklemede")
 			{
-				$status     = '<div class="badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Pending </div>';
+				$status     = '<div class="text-center badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Pending </div>';
                 $status_id  = 1;
 			}
 			if($row->status=="onaylandı")
 			{
-				$status     = '<div class="badge py-2 badge-light-success fs-7 px-3">  Approved </div>';
+				$status     = '<div class="text-center badge py-2 badge-light-success fs-7 px-3">  Approved </div>';
                 $status_id  = 2;
 
 			}
             if($row->status=="reddedildi")
 			{
-				$status     = '<div class="badge py-2 badge-light-danger fs-7 px-3">  Rejected </div>';
+				$status     = '<div class="text-center badge py-2 badge-light-danger fs-7 px-3">  Rejected </div>';
                 $status_id  = 3;
 			}
             if($row->status=="beklemede")
@@ -146,12 +148,12 @@ class Transaction extends BaseController
 				$datetime1 	= new \DateTime($row->request_time_default);
 				$datetime2 	= new \DateTime();
 				$interval 	= $datetime1->diff($datetime2);
-				$timer 		= "<span class='timer1'>".$interval->format("%I:%S")."</span>";
+				$timer 		= "<div class='text-center timer1'>".$interval->format("%I:%S")."</div>";
 			}else{
 				$datetime1 	= new \DateTime($row->request_time_default);
 				$datetime2 	= new \DateTime($row->response_time_default);
 				$interval 	= $datetime1->diff($datetime2);
-				$timer 		= "<span class='timer2'>".$interval->format("%I:%S")."</span>";
+				$timer 		= "<div class='text-center timer2'>".$interval->format("%I:%S")."</div>";
 			}
 
             if($request=="deposit")
@@ -159,14 +161,14 @@ class Transaction extends BaseController
                 $records["data"][$i] = array
                 (
                     "DT_RowId"  => $row->id."-".$status_id."-".$row->transaction_id,
-                    $row->request_time.($status_id==3?'<inspect class="d-none" data-user-name="'.$row->user_name.'" data-customer-note="'.$row->notes.'"></data>':null),
-                    $row->transaction_id,
-                    $row->gamer_site_id,
-                    $row->account_id,
-                    $row->site_name,
-                    '<div class="badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Banka':$row->method)).'</div>',
-                    $row->gamer_name,
-                    '<div style="width:100%; text-align:right">'.number_format($row->price,2).'₺</div>',
+                    '<div class="text-center">' . $row->request_time.($status_id==3?'<inspect class="d-none" data-user-name="'.$row->user_name.'" data-customer-note="'.$row->notes.'"></data>':null) . '</div>',
+                    '<div class="text-center">' . $row->transaction_id . '</div>',
+                    '<div class="text-center">' . $row->gamer_site_id . '</div>',
+                    '<div class="text-center">' . $row->account_id . '</div>',
+                    '<div class="text-center">' . $row->site_name . '</div>',
+                    '<div class="text-center badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Banka':$row->method)) . '</div>',
+                    '<div class="text-center">' . $row->gamer_name . '</div>',
+                    '<div class="text-center">' . number_format($row->price,2) . '₺</div>',
                     $status,
                     $timer,
                     process($row->id,$request,$row->status,$row,$status_id)
@@ -177,13 +179,13 @@ class Transaction extends BaseController
                 $records["data"][$i] = array
                 (
                     "DT_RowId"  => $row->id."-".$status_id."-".$row->transaction_id,
-                    $row->request_time,
-                    $row->transaction_id,
-                    $row->gamer_site_id,
-                    $row->site_name,
-                    $row->gamer_name,
-                    $row->account_id,
-                    '<div style="width:100%; text-align:right">'.number_format($row->price,2).'₺</div>',
+                    '<div class="text-center">' . $row->request_time . '</div>',
+                    '<div class="text-center">' . $row->transaction_id . '</div>',
+                    '<div class="text-center">' . $row->gamer_site_id . '</div>',
+                    '<div class="text-center">' . $row->site_name . '</div>',
+                    '<div class="text-center">' . $row->gamer_name . '</div>',
+                    '<div class="text-center">' . $row->account_id . '</div>',
+                    '<div class="text-center">' . number_format($row->price,2) . '₺</div>',
                     $status,
                     $timer,
                     process($row->id,$request,$row->status,$row,$status_id)
@@ -225,18 +227,18 @@ class Transaction extends BaseController
 		{
              if($row->status=="beklemede")
 			{
-				$status     = '<div class="badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Pending </div>';
+				$status     = '<div class="text-center badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Pending </div>';
                 $status_id  = 1;
 			}
 			if($row->status=="onaylandı")
 			{
-				$status     = '<div class="badge py-2 badge-light-success fs-7 px-3">  Approved </div>';
+				$status     = '<div class="text-center badge py-2 badge-light-success fs-7 px-3">  Approved </div>';
                 $status_id  = 2;
 
 			}
             if($row->status=="reddedildi")
 			{
-				$status     = '<div class="badge py-2 badge-light-danger fs-7 px-3">  Rejected </div>';
+				$status     = '<div class="text-center badge py-2 badge-light-danger fs-7 px-3">  Rejected </div>';
                 $status_id  = 3;
 			}
 
@@ -254,13 +256,13 @@ class Transaction extends BaseController
             $records["data"][$i] = array
             (
                 "DT_RowId"  => $row->id,
-                $row->request_time,
-                $row->transaction_id,
-                $row->account_id,
-                '<div class="badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Banka':$row->method)).'</div>',
-                '<div style="width:100%; text-align:right">'.number_format($row->price,2).'₺</div>',
+                '<div class="text-center' . $row->request_time . '</div>',
+                '<div class="text-center' . $row->transaction_id . '</div>',
+                '<div class="text-center' . $row->account_id . '</div>',
+                '<div class="text-center badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Banka':$row->method)).'</div>',
+                '<div class="text-center">' . number_format($row->price,2) . '₺</div>',
                 $status,
-                '<button class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal" id="inspect" data-bs-target="#inspect" data-url="transaction/modal/'.$row->request.'/inspect/'.$id.'">İncele</button>'
+                '<button class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal" id="inspect" data-bs-target="#inspect" data-url="transaction/modal/'.$row->request.'/inspect/'.$id.'">View</button>'
             );
 		$i++;
 		}
