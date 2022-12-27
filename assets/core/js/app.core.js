@@ -588,20 +588,20 @@ $.varien = {
                         startDate: start,
                         endDate: end,
                         ranges: {
-                            "Bugün": [moment(), moment()],
-                            "Dün": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                            "Son 7 Gün": [moment().subtract(6, "days"), moment()],
-                            "Bu Ay": [moment().startOf("month"), moment().endOf("month")],
-                            "Geçen Ay": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+                            "Today": [moment(), moment()],
+                            "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                            "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                            "This Month": [moment().startOf("month"), moment().endOf("month")],
+                            "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
                         },
                         "locale": {
                             "format": "DD/MM/YYYY",
                             "separator": " - ",
-                            "applyLabel": "Uygula",
-                            "cancelLabel": "Vazgeç",
-                            "customRangeLabel": "Özel Aralık",
-                            "daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                            "monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                            "applyLabel": "Apply",
+                            "cancelLabel": "Cancel",
+                            "customRangeLabel": "Custom Range",
+                            //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
+                            //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                             "firstDay": 1
                         },
                     }, cb);
@@ -892,20 +892,20 @@ $.varien = {
                 startDate: start,
                 endDate: end,
                 ranges: {
-                    "Bugün": [moment(), moment()],
-                    "Dün": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                    "Son 7 Gün": [moment().subtract(6, "days"), moment()],
-                    "Bu Ay": [moment().startOf("month"), moment().endOf("month")],
-                    "Geçen Ay": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+                    "Today": [moment(), moment()],
+                    "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                    "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                    "This Month": [moment().startOf("month"), moment().endOf("month")],
+                    "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
                 },
                 "locale": {
                     "format": "DD/MM/YYYY",
                     "separator": " - ",
-                    "applyLabel": "Uygula",
-                    "cancelLabel": "Vazgeç",
-                    "customRangeLabel": "Özel Aralık",
-                    "daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                    "monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                    "applyLabel": "Apply",
+                    "cancelLabel": "Cancel",
+                    "customRangeLabel": "Custom Range",
+                    //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
+                    //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                     "firstDay": 1
                 },
             }, cb);
@@ -2343,20 +2343,20 @@ $.varien = {
                         startDate: start,
                         endDate: end,
                         ranges: {
-                            "Bugün": [moment(), moment()],
-                            "Dün": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                            "Son 7 Gün": [moment().subtract(6, "days"), moment()],
-                            "Bu Ay": [moment().startOf("month"), moment().endOf("month")],
-                            "Geçen Ay": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+                            "Today": [moment(), moment()],
+                            "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                            "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                            "This Month": [moment().startOf("month"), moment().endOf("month")],
+                            "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
                         },
                         "locale": {
                             "format": "DD/MM/YYYY",
                             "separator": " - ",
-                            "applyLabel": "Uygula",
-                            "cancelLabel": "Vazgeç",
-                            "customRangeLabel": "Özel Aralık",
-                            "daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                            "monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                            "applyLabel": "Apply",
+                            "cancelLabel": "Cancel",
+                            "customRangeLabel": "Custom Range",
+                            //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
+                            //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                             "firstDay": 1
                         },
                     }, cb);
