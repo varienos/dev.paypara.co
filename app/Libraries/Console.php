@@ -181,7 +181,15 @@ class Console
             curl_setopt($ch, CURLOPT_TIMEOUT, 0);
             $server_output = curl_exec($ch);
             if(!empty(curl_error($ch))) die("<li>CURL Error: ".curl_error($ch)."</li>");
-            echo "<li>remote (45.32.152.124) server response: ".$server_output."</li>";
+            echo "<li>request to " . ($opt[1] == "" || $opt[1] == "CI4" ? $this->remoteConsole : "https://app.paypara.co/deploy/app.core.update.php" )."</li>";
+            echo "<li>" . ($opt[1] == "" || $opt[1] == "CI4" ? "core=deploy&cmd=remote ~~update" : "cmd=update") . "&token=" . md5("update" . date("Y.m.d")) . "&f=deploy.paypara." . date("Y.m.d") . "." . $version . ".tar.gz&v=" . $version . "</li>";
+            echo "<li><b>varien.core.update:</b> ".($server_output==""?"<span style='color:red'>deploy operation faild !...</span>":"<span style='color:green'>connected</span>")."</li>";
+            if($server_output=="")
+            {
+                echo "<li><b>varien.core.update:</b> try deploy core-php ...</li>";
+                echo "<li><b>varien.core.update:</b> deploy ~~core-php</li>";
+                $this->deploy(explode(' ~~','deploy ~~core-php'));
+            }
             curl_close ($ch);
             $this->setVer();
             die();
@@ -196,6 +204,7 @@ class Console
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$this->remoteConsole);
+        curl_setopt($ch, CURLOPT_VERBOSE, true);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS,"core=deploy&cmd=remote ~~ssh ~~".$opt[1]."&token=".md5("ssh".date("Y.m.d")));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -203,7 +212,7 @@ class Console
         curl_setopt($ch, CURLOPT_TIMEOUT, 0);
         $server_output = curl_exec($ch);
         if(!empty(curl_error($ch))) die("<li>CURL Error: ".curl_error($ch)."</li>");
-        echo "<li>remote (45.32.152.124) server response: ".$server_output."</li>";
+        echo "<li>remote (app.paypara.co) server response: ".$server_output."</li>";
         curl_close ($ch);
         die();
     }
@@ -222,7 +231,7 @@ class Console
             curl_setopt($ch, CURLOPT_TIMEOUT, 0);
             $server_output = curl_exec($ch);
             if(!empty(curl_error($ch))) die("<li>CURL Error: ".curl_error($ch)."</li>");
-            echo "<li>remote (45.32.152.124) server response: ".$server_output."</li>";
+            echo "<li>remote (app.paypara.co) server response: ".$server_output."</li>";
             echo "<li><a href='https://app.paypara.co/deploy/db.backup.".$timestamp.".sql.gz' target='_blank'>clic to download https://app.paypara.co/deploy/db.backup.".$timestamp.".sql.gz</a></li>";
             curl_close ($ch);
             die();
@@ -254,6 +263,7 @@ class Console
             $productionPackage  = $_POST["f"];
             $source             = 'https://dev.paypara.co/deploy/'.$productionPackage;
             $file_headers       = \get_headers($source);
+            echo "<li><b>core.deploy.varien</b></li>";
 
             if($file_headers[0] == 'HTTP/1.0 404 Not Found'){
                 echo "<li>$productionPackage does not exist</li>";
