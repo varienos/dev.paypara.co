@@ -155,28 +155,28 @@ $.varien = {
     datatable: {
         locale: function() {
             return {
-                "emptyTable": "Kayıt yok",
-                "infoEmpty": "Kayıt yok",
-                "infoFiltered": "(_MAX_ Kayıt İçerisinden Bulunan)",
-                "loadingRecords": "Yükleniyor...",
-                "processing": "Yükleniyor...",
-                "zeroRecords": "Eşleşen kayıt bulunamadı",
-                "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor"
+                "emptyTable": "No records",
+                "infoEmpty": "No records",
+                "infoFiltered": "(filtered from _MAX_ total entries)",
+                "loadingRecords": "Loading...",
+                "processing": "Loading...",
+                "zeroRecords": "No matching records found",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries"
             };
         },
         exportEvents: () => {
             if ($('#datatableExport').length) {
                 var str = '<div class="menu-item px-3">';
-                str += '<a href="javascript:;" class="menu-link px-3" export-copy>Panoya Kopyala</a>';
+                str += '<a href="javascript:;" class="menu-link px-3" export-copy>Copy to Clipboard</a>';
                 str += '</div>';
                 str += '<div class="menu-item px-3">';
-                str += '<a href="javascript:;" class="menu-link px-3" export-xls>Excel olarak aktar</a>';
+                str += '<a href="javascript:;" class="menu-link px-3" export-xls>Export as Excel</a>';
                 str += '</div>';
                 str += '<div class="menu-item px-3">';
-                str += '<a href="javascript:;" class="menu-link px-3" export-csv>CSV olarak aktar</a>';
+                str += '<a href="javascript:;" class="menu-link px-3" export-csv>Export as CSV</a>';
                 str += '</div>';
                 str += '<div class="menu-item px-3">';
-                str += '<a href="javascript:;" class="menu-link px-3" export-pdf>PDF olarak aktar</a>';
+                str += '<a href="javascript:;" class="menu-link px-3" export-pdf>Export as PDF</a>';
                 str += '</div>';
                 $('#datatableExport').html(str).promise().done(function() {
                     $('[export-csv]').on('click', function(e) {
@@ -353,21 +353,21 @@ $.varien = {
             //console.log("$.varien.account.init");
             if ($.varien.segment(2) == "index") {
                 if ($.varien.segment(3) == "1") {
-                    $("[data-page-title]").html("Normal Hesaplar");
+                    $("[data-page-title]").html("Papara Accounts");
                     $.varien.account.setType(1);
                     $.varien.include("account/include/datatableHeadNormal", "datatable-head").then(function(colNum) {
                         $.varien.account.datatable.init(colNum);
                     });
                 }
                 if ($.varien.segment(3) == "2") {
-                    $("[data-page-title]").html("Eşleşme Hesapları");
+                    $("[data-page-title]").html("Matching Accounts");
                     $.varien.account.setType(2);
                     $.varien.include("account/include/datatableHeadMatch", "datatable-head").then(function(colNum) {
                         $.varien.account.datatable.init(colNum);
                     });
                 }
                 if ($.varien.segment(3) == "3") {
-                    $("[data-page-title]").html("Banka Hesapları");
+                    $("[data-page-title]").html("Bank Accounts");
                     $.varien.account.setType(3);
                     $.varien.include("account/include/datatableHeadBank", "datatable-head").then(function(colNum) {
                         $.varien.account.datatable.init(colNum);
@@ -391,11 +391,11 @@ $.varien = {
                     if ($(this).is(":checked") == true) {
                         $.varien.account.detail.switch("on");
                         $('input[name="status"]').val('on');
-                        toastr.success("Hesap aktif duruma getirildi");
+                        toastr.success("Account has been activated");
                     } else {
                         $.varien.account.detail.switch(0);
                         $('input[name="status"]').val(0);
-                        toastr.error("Hesap pasif duruma getirildi");
+                        toastr.error("Account has been deactivated");
                     }
                 });
                 $('#formReset').click(function() {
@@ -450,7 +450,7 @@ $.varien = {
                 $.varien.account.detail.accountTotalMatch().done(function(response) {
                     var accountTotalGamerMatch = response.total;
                     if (accountTotalGamerMatch >= matchLimit) {
-                        toastr.error("İlişkili Müşteri Limiti Aşılamaz !");
+                        toastr.error("Associated client limit cannot be exceeded!");
                         return false;
                     } else {
                         $.ajax({
@@ -459,7 +459,7 @@ $.varien = {
                             dataType: "html",
                             data: "customer_id=" + customer_id,
                             success: function() {
-                                toastr.success("Müşteri Hesap ile Eşleştirildi !");
+                                toastr.success("The customer is paired with the account");
                                 $.varien.account.detail.listMatch();
                                 //$.varien.account.detail.listDisableMatch();
                                 $.varien.account.detail.datatable.listDisableMatch.reload();
@@ -588,20 +588,20 @@ $.varien = {
                         startDate: start,
                         endDate: end,
                         ranges: {
-                            "Bugün": [moment(), moment()],
-                            "Dün": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                            "Son 7 Gün": [moment().subtract(6, "days"), moment()],
-                            "Bu Ay": [moment().startOf("month"), moment().endOf("month")],
-                            "Geçen Ay": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+                            "Today": [moment(), moment()],
+                            "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                            "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                            "This Month": [moment().startOf("month"), moment().endOf("month")],
+                            "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
                         },
                         "locale": {
                             "format": "DD/MM/YYYY",
                             "separator": " - ",
-                            "applyLabel": "Uygula",
-                            "cancelLabel": "Vazgeç",
-                            "customRangeLabel": "Özel Aralık",
-                            "daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                            "monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                            "applyLabel": "Apply",
+                            "cancelLabel": "Cancel",
+                            "customRangeLabel": "Custom Range",
+                            //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
+                            //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                             "firstDay": 1
                         },
                     }, cb);
@@ -630,7 +630,7 @@ $.varien = {
                                 text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "kapat",
+                                confirmButtonText: "Close",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
@@ -686,25 +686,25 @@ $.varien = {
                     $.table.search(this.value).draw();
                 });
                 $('[data-set="status-set-all"]').on('click', function() {
-                    var dataStatus = $(this).attr('data-status') == "on" ? "Aktif" : "Pasif";
+                    var dataStatus = $(this).attr('data-status') == "on" ? "activated" : "deactivated";
                     var status = $(this).attr('data-status');
                     bootbox.confirm({
                         backdrop: true,
                         centerVertical: true,
-                        title: "Hesapların Durumu Toplu Olarak Değiştirilecek",
-                        message: "Tüm hesapların durumunu " + dataStatus + " olarak değiştirmek istediğinizden emin misiniz ?",
+                        title: "Update Account Status",
+                        message: "All accounts will be " + dataStatus + ". Are you sure?",
                         buttons: {
                             confirm: {
-                                label: "Onayla"
+                                label: "Confirm"
                             },
                             cancel: {
-                                label: "Vazgeç"
+                                label: "Cancel"
                             }
                         },
                         callback: (result) => {
                             if (result == true) {
                                 $.varien.account.datatable.status(0, status);
-                                toastr.success("Tüm hesaplar " + dataStatus + " duruma getirildi !");
+                                toastr.success("All accounts " + dataStatus + ".");
                                 setTimeout(() => {
                                     $.table.ajax.reload();
                                 }, 500);
@@ -723,10 +723,10 @@ $.varien = {
                         $('input[data-set="index"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.account.datatable.status($(this).attr("data-id"), "on");
-                                toastr.success("Hesap aktif duruma getirildi");
+                                toastr.success("Account has been activated");
                             } else {
                                 $.varien.account.datatable.status($(this).attr("data-id"), 0);
-                                toastr.error("Hesap pasif duruma getirildi");
+                                toastr.error("Account has been deactivated");
                             }
                         });
                         $.varien.account.datatable.modal();
@@ -774,7 +774,7 @@ $.varien = {
                                 text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "kapat",
+                                confirmButtonText: "Close",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
@@ -790,14 +790,14 @@ $.varien = {
                     bootbox.confirm({
                         backdrop: true,
                         centerVertical: true,
-                        title: "Hesabı Sil",
-                        message: "Hesabı silme işlemini onaylıyor musunuz? Bu işlemin geri dönüşü yoktur!",
+                        title: "Delete Account",
+                        message: "Do you approve to delete this account? This process is irreversible!",
                         buttons: {
                             confirm: {
-                                label: "Onayla"
+                                label: "Confirm"
                             },
                             cancel: {
-                                label: "Vazgeç"
+                                label: "Cancel"
                             }
                         },
                         callback: (result) => {
@@ -807,7 +807,7 @@ $.varien = {
                                     url: urlAjax,
                                     success: function() {
                                         $.table.ajax.reload();
-                                        toastr.error("Hesap verisi silindi !");
+                                        toastr.error("Account has been deleted");
                                     }
                                 });
                             }
@@ -855,13 +855,13 @@ $.varien = {
                 }
             });
             if ($.varien.segment(3) == "deposit") {
-                $("[data-page-title]").html("Yatırımlar");
+                $("[data-page-title]").html("Deposits");
                 $.varien.include("transaction/include/datatableHeadDeposit", "datatable-head").then(function(colNum) {
                     $.varien.transaction.datatable.init(colNum);
                 });
             }
             if ($.varien.segment(3) == "withdraw") {
-                $("[data-page-title]").html("Çekimler");
+                $("[data-page-title]").html("Withdrawals");
                 $.varien.include("transaction/include/datatableHeadWithdraw", "datatable-head").then(function(colNum) {
                     $.varien.transaction.datatable.init(colNum);
                 });
@@ -892,20 +892,20 @@ $.varien = {
                 startDate: start,
                 endDate: end,
                 ranges: {
-                    "Bugün": [moment(), moment()],
-                    "Dün": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                    "Son 7 Gün": [moment().subtract(6, "days"), moment()],
-                    "Bu Ay": [moment().startOf("month"), moment().endOf("month")],
-                    "Geçen Ay": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+                    "Today": [moment(), moment()],
+                    "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                    "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                    "This Month": [moment().startOf("month"), moment().endOf("month")],
+                    "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
                 },
                 "locale": {
                     "format": "DD/MM/YYYY",
                     "separator": " - ",
-                    "applyLabel": "Uygula",
-                    "cancelLabel": "Vazgeç",
-                    "customRangeLabel": "Özel Aralık",
-                    "daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                    "monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                    "applyLabel": "Apply",
+                    "cancelLabel": "Cancel",
+                    "customRangeLabel": "Custom Range",
+                    //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
+                    //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                     "firstDay": 1
                 },
             }, cb);
@@ -1062,13 +1062,13 @@ $.varien = {
                     if ($(this).is(":checked") == true) {
                         if (typeof autoRefreshInterval === 'object') autoRefreshInterval = setInterval($.varien.transaction.datatable.reload, $.syncTime);
                         if (typeof autoDateInterval === 'object') autoDateInterval = setInterval($.varien.transaction.datatable.autoDate, $.syncTime);
-                        toastr.success("Otomatik yenileme aktif");
+                        toastr.success("Auto refresh activated");
                     } else {
                         clearInterval(autoRefreshInterval);
                         clearInterval(autoDateInterval);
                         autoRefreshInterval = null;
                         autoDateInterval = null;
-                        toastr.error("Otomatik yenileme pasif");
+                        toastr.error("Auto refresh disabled");
                     }
                 });
             },
@@ -1110,21 +1110,21 @@ $.varien = {
                         });
                     }
                     if ($.rowCount == 0) {
-                        toastr.error("Beklemede talep yok");
+                        toastr.error("No pending transactions");
                     } else {
                         bootbox.confirm({
                             backdrop: true,
                             centerVertical: true,
-                            title: "Bekleyen Talepleri Reddet",
+                            title: "Reject Pending Transactions",
                             buttons: {
                                 confirm: {
-                                    label: "Onayla"
+                                    label: "Confirm"
                                 },
                                 cancel: {
-                                    label: "Vazgeç"
+                                    label: "Cancel"
                                 }
                             },
-                            message: $.rowCount + " bekleyen talep reddedilecek. İşlemi onaylıyor musunuz ?",
+                            message: $.rowCount + " pending transactions will be rejected. Do you approve?",
                             callback: (result) => {
                                 if (result == true) {
                                     $.each($.rowArray, function(index, value) {
@@ -1142,11 +1142,11 @@ $.varien = {
             notification: function() {
                 $("#notifications").on("click", function() {
                     if ($(this).is(":checked") == true) {
-                        toastr.success("Bildirimler aktif edildi.");
+                        toastr.success("Notifications enabled");
                         $.varien.transaction.datatable.setNotifications(1);
                         $.varien.transaction.datatable.sound();
                     } else {
-                        toastr.error("Bildirimler pasif edildi.");
+                        toastr.error("Notifications disabled");
                         $.varien.transaction.datatable.setNotifications(0);
                     }
                 });
@@ -1210,20 +1210,20 @@ $.varien = {
                         if ($(this).is(":checked") == true) {
                             $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
                             if ($(this).attr("name") == "deposit") {
-                                toastr.success("Müşteri yatırım talepleri aktif edildi");
+                                toastr.success("Customer has been allowed to deposit");
                             } else if ($(this).attr("name") == "withdraw") {
-                                toastr.success("Müşteri çekim talepleri aktif edildi");
+                                toastr.success("Customer has been allowed to withdraw");
                             } else if ($(this).attr("name") == "isVip") {
-                                toastr.success("Müşteri VIP durumu aktif edildi");
+                                toastr.success("Customer has been made VIP");
                             }
                         } else {
                             $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), 0);
                             if ($(this).attr("name") == "deposit") {
-                                toastr.error("Müşteri yatırım talepleri pasif edildi");
+                                toastr.error("Customer's deposit permission has been removed");
                             } else if ($(this).attr("name") == "withdraw") {
-                                toastr.error("Müşteri çekim talepleri pasif edildi");
+                                toastr.error("Customer's withdraw permission has been removed");
                             } else if ($(this).attr("name") == "isVip") {
-                                toastr.error("Müşteri VIP durumu pasif edildi");
+                                toastr.error("Customer is no longer VIP");
                             }
                         }
                     });
@@ -1243,7 +1243,7 @@ $.varien = {
                         window.open($.customerLink, '_blank');
                     });
                     /*
-                        0: TARİH 
+                        0: TARİH
                         1: TXID
                         2: USERID
                         3: HESAP
@@ -1257,8 +1257,8 @@ $.varien = {
                         .find('p').contents().unwrap();
                         badge-light-warning: beklemede
                         badge-light-success: onaylandı
-                        badge-light-danger: reddedildi 
-      
+                        badge-light-danger: reddedildi
+
                     */
                     $.requestTime = $('#' + $.rowId).find("td").eq(0).html();
                     $.txid = $('#' + $.rowId).find("td").eq(1).html();
@@ -1279,17 +1279,17 @@ $.varien = {
                     $('[data-set-method]').html($.method).find('div').contents().unwrap();
                     $('[data-set-customer]').html($.customer);
                     $('[data-set-status]').html($.status).find('div').contents().unwrap();
-                    if ($.trim($('[data-set-status]').html()) == 'Beklemede') {
+                    if ($.trim($('[data-set-status]').html()) == 'Pending') {
                         $('[data-set-status]').addClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-success');
                         $('[data-set-status]').removeClass('badge-light-danger');
                     }
-                    if ($.trim($('[data-set-status]').html()) == 'Onaylandı') {
+                    if ($.trim($('[data-set-status]').html()) == 'Approved') {
                         $('[data-set-status]').addClass('badge-light-success');
                         $('[data-set-status]').removeClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-danger');
                     }
-                    if ($.trim($('[data-set-status]').html()) == 'Reddedildi') {
+                    if ($.trim($('[data-set-status]').html()) == 'Rejected') {
                         $('[data-set-status]').addClass('badge-light-danger');
                         $('[data-set-status]').removeClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-success');
@@ -1350,7 +1350,7 @@ $.varien = {
                             text: jqXHR.status + " " + textStatus + " " + errorThrown,
                             icon: "error",
                             buttonsStyling: false,
-                            confirmButtonText: "kapat",
+                            confirmButtonText: "Close",
                             customClass: {
                                 confirmButton: "btn btn-primary"
                             }
@@ -1362,7 +1362,7 @@ $.varien = {
                             text: error.message,
                             icon: "error",
                             buttonsStyling: false,
-                            confirmButtonText: "kapat",
+                            confirmButtonText: "Close",
                             customClass: {
                                 confirmButton: "btn btn-primary"
                             }
@@ -1379,10 +1379,10 @@ $.varien = {
                     bootbox.confirm({
                         buttons: {
                             confirm: {
-                                label: "Onayla"
+                                label: "Confirm"
                             },
                             cancel: {
-                                label: "Vazgeç"
+                                label: "Cancel"
                             }
                         },
                         message: msg,
@@ -1405,7 +1405,7 @@ $.varien = {
     },
     user: {
         init: function() {
-            $("[data-page-title]").html("Kullanıcılar");
+            $("[data-page-title]").html("Users");
             if ($.varien.segment(2) == "index") {
                 $.varien.include("user/include/datatableHead", "datatable-head").then(function(colNum) {
                     $.varien.user.datatable.init(colNum);
@@ -1507,7 +1507,7 @@ $.varien = {
                                     text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
                                     icon: "error",
                                     buttonsStyling: false,
-                                    confirmButtonText: "kapat",
+                                    confirmButtonText: "Close",
                                     customClass: {
                                         confirmButton: "btn btn-primary"
                                     }
@@ -1525,10 +1525,10 @@ $.varien = {
                             title: "Kullanıcı Rolünü Sil",
                             buttons: {
                                 confirm: {
-                                    label: "Onayla"
+                                    label: "Confirm"
                                 },
                                 cancel: {
-                                    label: "Vazgeç"
+                                    label: "Cancel"
                                 }
                             },
                             message: "Kullanıcı rolünü silme işlemini onaylıyor musunuz ?",
@@ -1671,7 +1671,7 @@ $.varien = {
                                                     text: "2 Adımlı doğrulama hesabınızda başarıyla aktive edildi ve sayfa tekrar yüklenecek",
                                                     icon: "success",
                                                     buttonsStyling: false,
-                                                    confirmButtonText: "Kapat",
+                                                    confirmButtonText: "Close",
                                                     customClass: {
                                                         confirmButton: "btn btn-primary"
                                                     }
@@ -1746,10 +1746,10 @@ $.varien = {
                         centerVertical: true,
                         buttons: {
                             confirm: {
-                                label: "Onayla"
+                                label: "Confirm"
                             },
                             cancel: {
-                                label: "Vazgeç"
+                                label: "Cancel"
                             }
                         },
                         title: "Kullanıcıyı Sil",
@@ -1865,7 +1865,7 @@ $.varien = {
                         buttons: ['copy', 'csv', 'excel', 'pdf'],
                         bStateSave: false,
                         stateSave: false,
-                        lengthMenu: [10, 25, 50, 100],
+                        lengthMenu: [5, 10, 25, 50],
                         order: [0, 'desc'],
                         columnDefs: [{
                             orderable: false,
@@ -1875,7 +1875,7 @@ $.varien = {
                         ordering: true,
                         processing: true,
                         serverSide: true,
-                        pageLength: 10,
+                        pageLength: 5,
                         ajax: {
                             url: 'user/sessiontable/' + $.varien.segment(3)
                         }
@@ -2016,7 +2016,7 @@ $.varien = {
                                         text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
                                         icon: "error",
                                         buttonsStyling: false,
-                                        confirmButtonText: "kapat",
+                                        confirmButtonText: "Close",
                                         customClass: {
                                             confirmButton: "btn btn-primary"
                                         }
@@ -2033,16 +2033,16 @@ $.varien = {
                     bootbox.confirm({
                         backdrop: true,
                         centerVertical: true,
-                        title: "Kullanıcıyı Sil",
+                        title: "Delete User",
                         buttons: {
                             confirm: {
-                                label: "Onayla"
+                                label: "Confirm"
                             },
                             cancel: {
-                                label: "Vazgeç"
+                                label: "Cancel"
                             }
                         },
-                        message: "Kullanıcı silme işlemini onaylıyor musunuz ?",
+                        message: "Do you confirm to delete the user?",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
@@ -2050,7 +2050,7 @@ $.varien = {
                                     url: "user/remove/" + id,
                                     success: function() {
                                         $.table.ajax.reload();
-                                        toastr.error("Kullanıcı verisi silindi !");
+                                        toastr.error("User deleted");
                                     }
                                 });
                             }
@@ -2070,7 +2070,7 @@ $.varien = {
     },
     customer: {
         init: function() {
-            $("[data-page-title]").html("Müşteriler");
+            $("[data-page-title]").html("Clients");
             if ($.varien.segment(2) == "index") {
                 $.varien.include("customer/include/datatableHead", "datatable-head").then(function(colNum) {
                     $.varien.customer.datatable.init(colNum)
@@ -2096,7 +2096,7 @@ $.varien = {
                         text: "XHR ERROR - " + jqXHR.status + "*" + textStatus + "*" + errorThrown,
                         icon: "error",
                         buttonsStyling: false,
-                        confirmButtonText: "kapat",
+                        confirmButtonText: "Close",
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }
@@ -2156,10 +2156,10 @@ $.varien = {
                         $('input[data-set="switch"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
-                                toastr.success("Müşteri VIP durumu aktif edildi");
+                                toastr.success("Customer has been made VIP");
                             } else {
                                 $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), 0);
-                                toastr.error("Müşteri VIP durumu pasif edildi");
+                                toastr.error("Customer is no longer VIP");
                             }
                         });
                     }, 300);
@@ -2206,7 +2206,7 @@ $.varien = {
                                 text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "kapat",
+                                confirmButtonText: "Close",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
@@ -2226,20 +2226,20 @@ $.varien = {
                     if ($(this).is(":checked") == true) {
                         $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
                         if ($(this).attr("name") == "deposit") {
-                            toastr.success("Müşteri yatırım talepleri aktif edildi");
+                            toastr.success("Customer has been allowed to deposit");
                         } else if ($(this).attr("name") == "withdraw") {
-                            toastr.success("Müşteri çekim talepleri aktif edildi");
+                            toastr.success("Customer has been allowed to withdraw");
                         } else if ($(this).attr("name") == "isVip") {
-                            toastr.success("Müşteri VIP durumu aktif edildi");
+                            toastr.success("Customer has been made VIP");
                         }
                     } else {
                         $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), 0);
                         if ($(this).attr("name") == "deposit") {
-                            toastr.error("Müşteri yatırım talepleri pasif edildi");
+                            toastr.error("Customer's deposit permission has been removed");
                         } else if ($(this).attr("name") == "withdraw") {
-                            toastr.error("Müşteri çekim talepleri pasif edildi");
+                            toastr.error("Customer's withdraw permission has been removed");
                         } else if ($(this).attr("name") == "isVip") {
-                            toastr.error("Müşteri VIP durumu pasif edildi");
+                            toastr.error("Customer is no longer VIP");
                         }
                     }
                 });
@@ -2252,14 +2252,14 @@ $.varien = {
                         type: "POST",
                         data: "customerNote=" + $("#customerNote").val(),
                         success: function() {
-                            toastr.success("Müşteri notu güncellendi !");
+                            toastr.success("Customer note updated");
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             Swal.fire({
                                 text: "XHR ERROR - " + jqXHR.status + "*" + textStatus + "*" + errorThrown,
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "kapat",
+                                confirmButtonText: "Close",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
@@ -2343,20 +2343,20 @@ $.varien = {
                         startDate: start,
                         endDate: end,
                         ranges: {
-                            "Bugün": [moment(), moment()],
-                            "Dün": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-                            "Son 7 Gün": [moment().subtract(6, "days"), moment()],
-                            "Bu Ay": [moment().startOf("month"), moment().endOf("month")],
-                            "Geçen Ay": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+                            "Today": [moment(), moment()],
+                            "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                            "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                            "This Month": [moment().startOf("month"), moment().endOf("month")],
+                            "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
                         },
                         "locale": {
                             "format": "DD/MM/YYYY",
                             "separator": " - ",
-                            "applyLabel": "Uygula",
-                            "cancelLabel": "Vazgeç",
-                            "customRangeLabel": "Özel Aralık",
-                            "daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                            "monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+                            "applyLabel": "Apply",
+                            "cancelLabel": "Cancel",
+                            "customRangeLabel": "Custom Range",
+                            //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
+                            //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                             "firstDay": 1
                         },
                     }, cb);
@@ -2391,14 +2391,14 @@ $.varien = {
                         bootbox.confirm({
                             backdrop: true,
                             centerVertical: true,
-                            title: "Dikkat!",
-                            message: "Bakım modunu aktif etmek istediğinize emin misiniz?",
+                            title: "Warning!",
+                            message: "Are you sure you want to activate maintenance mode?",
                             buttons: {
                                 confirm: {
-                                    label: "Onayla"
+                                    label: "Confirm"
                                 },
                                 cancel: {
-                                    label: "Vazgeç"
+                                    label: "Cancel"
                                 }
                             },
                             callback: (result) => {
@@ -2457,14 +2457,14 @@ $.varien = {
                     processData: false,
                     contentType: false,
                     success: function() {
-                        toastr.success("Ayarlar güncellendi");
+                        toastr.success("Settings updated");
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         Swal.fire({
                             text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
                             icon: "error",
                             buttonsStyling: false,
-                            confirmButtonText: "kapat",
+                            confirmButtonText: "Close",
                             customClass: {
                                 confirmButton: "btn btn-primary"
                             }
@@ -2483,7 +2483,7 @@ $.varien = {
                     crossDomain: true,
                     data: name + "=" + $('[name="' + name + '"]').val(),
                     success: function() {
-                        toastr.success("Ayarlar güncellendi");
+                        toastr.success("Settings updated");
                         if (name == "maintenanceStatus") location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -2491,7 +2491,7 @@ $.varien = {
                             text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
                             icon: "error",
                             buttonsStyling: false,
-                            confirmButtonText: "kapat",
+                            confirmButtonText: "Close",
                             customClass: {
                                 confirmButton: "btn btn-primary"
                             }
@@ -2550,10 +2550,10 @@ $.varien = {
                         $('input[data-set="switch"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.setting.client.switch($(this).attr("name"), $(this).attr("data-id"), "on");
-                                toastr.success("İşlem yetkisi aktif duruma getirildi");
+                                toastr.success("The firm has been authorized to perform transactions");
                             } else {
                                 $.varien.setting.client.switch($(this).attr("name"), $(this).attr("data-id"), 0);
-                                toastr.error("İşlem yetkisi pasif duruma getirildi");
+                                toastr.error("Firm's authorization has been revoked");
                             }
                         });
                     }, 300);
@@ -2563,16 +2563,16 @@ $.varien = {
                 $('[data-bs-target="#clientModalForm"]').on("click", function() {
                     var id = $(this).attr("data-id");
                     if (id != "0") {
-                        $('[data-title]').html("Firma Düzenle");
-                        $('#generateKey').html("Yenile");
+                        $('[data-title]').html("Edit Firm");
+                        $('#generateKey').html("Generate");
                         $.varien.setting.client.detail(id);
                     } else {
                         $('[name="id"]').val(0);
                         $('[name="site_name"]').val("");
                         $('[name="api_key"]').val("");
                         $('[id="modalStatus"]').val("").change();
-                        $('[data-title]').html("Firma Ekle");
-                        $('#generateKey').html("Üret");
+                        $('[data-title]').html("Add New Firm");
+                        $('#generateKey').html("Generate");
                     }
                     $('[data-bs-dismiss="modal"]').on("click", function() {
                         setTimeout(function() {
@@ -2634,11 +2634,11 @@ $.varien = {
                     var api_key = $('[name="api_key"]').val();
                     var status = $('[id="modalStatus"]').find(":selected").val();
                     if (site_name == "") {
-                        toastr.error("Firma İsmi Giriniz !");
+                        toastr.error("Please enter firm's name");
                         return false;
                     }
                     if (api_key == "") {
-                        toastr.error("Api Key Giriniz !");
+                        toastr.error("Please enter API Key");
                         return false;
                     }
                     $.ajax({
@@ -2653,7 +2653,7 @@ $.varien = {
                         success: function() {
                             $.table.ajax.reload();
                             $("#clientModalForm").modal('toggle');
-                            toastr.success("Firma bilgileri düzenlendi");
+                            toastr.success("Firm's data has been updated");
                             return false;
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
@@ -2661,7 +2661,7 @@ $.varien = {
                                 text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
                                 icon: "error",
                                 buttonsStyling: false,
-                                confirmButtonText: "kapat",
+                                confirmButtonText: "Close",
                                 customClass: {
                                     confirmButton: "btn btn-primary"
                                 }
@@ -2677,14 +2677,14 @@ $.varien = {
                     bootbox.confirm({
                         backdrop: true,
                         centerVertical: true,
-                        title: "Firma Sil",
-                        message: "Firmayı silmek istediğinize emin misiniz ?",
+                        title: "Delete Firm",
+                        message: "Are you sure to delete the firm?",
                         buttons: {
                             confirm: {
-                                label: "Onayla"
+                                label: "Confirm"
                             },
                             cancel: {
-                                label: "Vazgeç"
+                                label: "Cancel"
                             }
                         },
                         callback: (result) => {
@@ -2694,7 +2694,7 @@ $.varien = {
                                     url: "client/remove/" + id,
                                     success: function() {
                                         $.table.ajax.reload();
-                                        toastr.error("Firma verisi silindi !");
+                                        toastr.error("The firm has been deleted");
                                     }
                                 });
                             }

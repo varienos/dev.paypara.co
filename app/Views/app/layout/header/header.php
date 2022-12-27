@@ -23,6 +23,6 @@
             <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor"></rect>
         </svg>
     </span>
-    <h4 class="text-white fw-bold m-0">Sistem bakım modu aktif, işlem alınmıyor!</h4>
+    <h4 class="text-white fw-bold m-0">Maintenance mode is active, all payments are halted!</h4>
 </div>
-<? endif; ?> 
+<? endif; ?>

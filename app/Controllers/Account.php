@@ -303,19 +303,19 @@ class Account extends BaseController
 		{
             if($row->status=="beklemede")
 			{
-				$status = '<div class="badge badge-lg fs-7 text-gray-800 badge-light-warning"> Beklemede </div>';
+				$status = '<div class="badge badge-lg fs-7 text-gray-800 badge-light-warning"> Pending </div>';
 			}
 			if($row->status=="işlemde")
 			{
-				$status = '<div class=""> İşlemde </div>';
+				$status = '<div class=""> Processing </div>';
 			}
 			if($row->status=="onaylandı")
 			{
-				$status = '<div class="badge badge-light-success fs-7 px-3">  Onaylandı </div>';
+				$status = '<div class="badge badge-light-success fs-7 px-3">  Approved </div>';
 			}
             if($row->status=="reddedildi")
 			{
-				$status = '<div class="badge badge-light-danger fs-7 px-3">  Reddedildi </div>';
+				$status = '<div class="badge badge-light-danger fs-7 px-3">  Rejected </div>';
 			}
             $records["data"][$i] = array
                 (

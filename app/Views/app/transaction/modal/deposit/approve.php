@@ -2,10 +2,10 @@
     <input type="hidden" value="<?=$update->id ?>" name="id"></input>
     <input type="hidden" value="approve" name="response"></input>
     <input type="hidden" value="onaylandı" name="status"></input>
-    <input type="hidden" value="deposit" name="request"></input> 
+    <input type="hidden" value="deposit" name="request"></input>
     <div class="modal-header d-flex align-items-start border-bottom-0 p-7" id="kt_modal_add_customer_header">
         <div class="d-flex flex-column">
-            <h2 class="fs-4 fw-bold mb-2">Talep #<?=$update->transaction_id ?></h2>
+            <h2 class="fs-4 fw-bold mb-2">Transaction #<?=$update->transaction_id ?></h2>
             <h2 class="fs-7 fw-semibold text-gray-600"><?= $update->request_time ?></h2>
         </div>
         <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary align-items-start" data-bs-dismiss="modal">
@@ -36,7 +36,7 @@
                         </span>
                     </div>
                     <div class="d-flex flex-column">
-                        <label class="fs-5 fw-semibold">Tutar</label>
+                        <label class="fs-5 fw-semibold">Amount</label>
                         <div class="input-group input-group-solid input-group-sm w-100">
                             <span class="mt-1 me-2">&bull;</span>
                             <input type="text" class="form-control border-0 bg-transparent fs-6 text-gray-600 h-25px p-0" maxlength="9" name="price" value="<?=number_format($update->price,2) ?>">
@@ -53,10 +53,10 @@
                         </span>
                     </div>
                     <div class="d-flex flex-column w-100">
-                        <label class="fs-5 fw-semibold">Açıklama</label>
+                        <label class="fs-5 fw-semibold">Description</label>
                         <div class="d-flex align-items-center input-group input-group-solid input-group-sm">
                             <span class="me-2">&bull;</span>
-                            <input type="text" class="form-control bg-transparent fs-6 text-gray-600 border-0 h-25px p-0" name="notes" placeholder="Açıklama ekle" value="<?=$update->notes ?>">
+                            <input type="text" class="form-control bg-transparent fs-6 text-gray-600 border-0 h-25px p-0" name="notes" placeholder="Add a description" value="<?=$update->notes ?>">
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
         </div>
     </div>
     <div class="modal-footer border-top-0 d-flex flex-nowrap flex-center px-7 pb-7 pt-6">
-        <button type="button" class="btn btn-sm btn-secondary rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0 me-3" data-bs-dismiss="modal">Vazgeç</button>
-        <button type="submit" id="modalSubmit"class="btn btn-sm btn-dark btn-active-secondary rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0">Onayla</button>
+        <button type="button" class="btn btn-sm btn-secondary rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0 me-3" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" id="modalSubmit"class="btn btn-sm btn-dark btn-active-secondary rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0">Approve</button>
     </div>
 </form>
