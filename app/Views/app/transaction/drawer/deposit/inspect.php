@@ -114,7 +114,7 @@
                                             </td>
                                         </tr>
                                         <tr id="person">
-                                            <td class="text-gray-600 p-0 pb-3">Personnel:</td>
+                                            <td class="text-gray-600 p-0 pb-3">Staff:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-person></td>
                                         </tr>
                                         <tr id="processNote">

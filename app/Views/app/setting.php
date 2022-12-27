@@ -49,7 +49,7 @@
 													</svg>
 												</span>
 											</span>
-											<span class="menu-title">Açık</span>
+											<span class="menu-title">Light</span>
 										</a>
 									</div>
 									<div class="menu-item px-3 my-0">
@@ -60,7 +60,7 @@
 													</svg>
 												</span>
 											</span>
-											<span class="menu-title">Koyu</span>
+											<span class="menu-title">Dark</span>
 										</a>
 									</div>
 									<div class="menu-item px-3 my-0">
@@ -71,7 +71,7 @@
 													</svg>
 												</span>
 											</span>
-											<span class="menu-title">Sistem</span>
+											<span class="menu-title">System</span>
 										</a>
 									</div>
 								</div>
@@ -92,7 +92,7 @@
 							<div class="card-body pt-3 pb-0">
 								<ul class="nav nav-line-tabs nav-line-tabs-2x border-transparent fs-4 fw-semibold">
 									<li class="nav-item" <?=view_setting!==true?"auth=\"false\"":null; ?>>
-										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5 active" data-bs-toggle="tab" href="#settings-general">General Settings</a>
+										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5 active" data-bs-toggle="tab" href="#settings-general">General</a>
 									</li>
 									<li class="nav-item" <?=view_setting!==true?"auth=\"false\"":null; ?>>
 										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5" data-bs-toggle="tab" href="#settings-methods">Methods</a>
@@ -118,7 +118,7 @@
 										<div class="card-body p-9">
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Minimum Deposit Limit</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Min. Deposit Limit</label>
 													<label class="fw-semibold text-gray-600 lh-sm">Minimum amount of deposit for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
@@ -130,7 +130,7 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Maximum Deposit Limit</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Max. Deposit Limit</label>
 													<label class="fw-semibold text-gray-600 lh-sm">Maximum amount of deposit for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
@@ -142,7 +142,7 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Minimum Withdrawal Limit</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Min. Withdrawal Limit</label>
 													<label class="fw-semibold text-gray-600 lh-sm">Minimum amount of withdrawal for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
@@ -154,7 +154,7 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Maximum Withdrawal Limit</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Max. Withdrawal Limit</label>
 													<label class="fw-semibold text-gray-600 lh-sm">Maximum amount of withdrawal for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
@@ -179,30 +179,30 @@
 									<div class="card mb-5 mb-xxl-10 border">
 										<div class="card-header">
 											<div class="card-title m-0">
-												<h3>Süre Tanımlamaları</h3>
+												<h3>Duration Based Definitions</h3>
 											</div>
 										</div>
 										<div class="card-body p-9">
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">İşlem durumu revize süresi</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Yatırımların revize edilebileceği süre sınırı</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Transaction revision time</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Time limit for revising transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
-														<span class="input-group-text border">saniye</span>
+														<span class="input-group-text border">second</span>
 														<input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="requestEditTime" data-default="30" value="<?=$param["requestEditTime"] ?>" />
 													</div>
 												</div>
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Token zaman aşımı süresi</label>
-													<label class="fw-semibold text-gray-600 lh-sm">iFrame token zaman aşımı süresi</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Token expiration time</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Expiration time for iframe tokens</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
-														<span class="input-group-text border">saniye</span>
+														<span class="input-group-text border">second</span>
 														<input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="tokenTimeout" data-default="120" value="<?=$param["tokenTimeout"] ?>" />
 													</div>
 												</div>
@@ -568,7 +568,7 @@
 												</span>
 												<input type="text" <?= edit_setting !== true ? "disabled" : null; ?> data-kt-customer-table-filter="search" class="form-control form-control-solid border w-250px ps-15" placeholder="Search in logs">
 											</div>
-											<button type="button" class="btn btn-sm btn-light-primary mh-35px mw-150px">
+											<button type="button" class="btn btn-sm btn-light-primary mh-35px mw-175px">
 												<span class="svg-icon svg-icon-3">
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M19 15C20.7 15 22 13.7 22 12C22 10.3 20.7 9 19 9C18.9 9 18.9 9 18.8 9C18.9 8.7 19 8.3 19 8C19 6.3 17.7 5 16 5C15.4 5 14.8 5.2 14.3 5.5C13.4 4 11.8 3 10 3C7.2 3 5 5.2 5 8C5 8.3 5 8.7 5.1 9H5C3.3 9 2 10.3 2 12C2 13.7 3.3 15 5 15H19Z" fill="currentColor"></path><path d="M13 17.4V12C13 11.4 12.6 11 12 11C11.4 11 11 11.4 11 12V17.4H13Z" fill="currentColor"></path><path opacity="0.3" d="M8 17.4H16L12.7 20.7C12.3 21.1 11.7 21.1 11.3 20.7L8 17.4Z" fill="currentColor"></path>
 													</svg>
@@ -696,29 +696,29 @@
 								<div class="modal-body py-10 px-lg-17">
 									<div class="scroll-y me-n7 pe-7" id="kt_modal_create_new_firm_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_create_new_firm_header" data-kt-scroll-wrappers="#kt_modal_create_new_firm_scroll" data-kt-scroll-offset="300px">
 										<div class="mb-5 fv-row">
-											<label class="required fs-5 fw-semibold mb-2">Firma Adı</label>
-											<input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" placeholder="Firmanın adı" name="site_name" />
+											<label class="required fs-5 fw-semibold mb-2">Firm's Name</label>
+											<input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" name="site_name" />
 											<input type="hidden" name="id" />
 										</div>
 										<div class="d-flex flex-column mb-5 fv-row">
-											<label class="required fs-5 fw-semibold mb-2">API Anahtarı</label>
+											<label class="required fs-5 fw-semibold mb-2">API Key</label>
 											<div class="d-flex flex-row">
-												<input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" placeholder="Firmaya özel API anahtarı" name="api_key" />
-												<button type="button" id="generateKey" class="btn btn-light ms-3 mw-100px">Üret</button>
+												<input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" placeholder="Unique API key that belong the the firm" name="api_key" />
+												<button type="button" id="generateKey" class="btn btn-light ms-3 mw-100px">Generate</button>
 											</div>
 										</div>
 										<div class="d-flex flex-column mb-5 fv-row">
-											<label class="required fs-5 fw-semibold mb-2">İşlem Yetkisi</label>
+											<label class="required fs-5 fw-semibold mb-2">Is it authorized to send requests?</label>
 											<select class="form-select form-select-solid border" data-control="select2" <?=edit_firm!==true?"disabled":null; ?> name="status" data-set="statusSwitch" id="modalStatus" data-set="statusSwitch" data-placeholder="Bir seçenek seçin" data-hide-search="true">
 												<option></option>
-												<option value="on">Aktif</option>
-												<option value="0">Pasif</option>
+												<option value="on">Yes</option>
+												<option value="0">No</option>
 											</select>
 										</div>
 									</div>
 								</div>
 								<div class="modal-footer flex-center" <?=edit_firm!==true&&add_firm!==true?"disabled":null; ?>>
-									<button type="reset" id="close-modal" data-bs-dismiss="modal" class="btn btn-light me-3">Vazgeç</button>
+									<button type="reset" id="close-modal" data-bs-dismiss="modal" class="btn btn-light me-3">Cancel</button>
 									<button id="saveClient" class="btn btn-primary">Save</button>
 								</div>
 							</div>

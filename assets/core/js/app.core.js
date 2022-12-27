@@ -263,10 +263,10 @@ $.varien = {
                 let secondaryColor = '#e3868c';
                 let options = {
                     series: [{
-                        name: 'Yatırım',
+                        name: 'Deposit',
                         data: [depositFetchWeekly[0].dayTotal, depositFetchWeekly[1].dayTotal, depositFetchWeekly[2].dayTotal, depositFetchWeekly[3].dayTotal, depositFetchWeekly[4].dayTotal, depositFetchWeekly[5].dayTotal, depositFetchWeekly[6].dayTotal]
                     }, {
-                        name: 'Çekim',
+                        name: 'Withdraw',
                         data: [withdrawFetchWeekly[0].dayTotal, withdrawFetchWeekly[1].dayTotal, withdrawFetchWeekly[2].dayTotal, withdrawFetchWeekly[3].dayTotal, withdrawFetchWeekly[4].dayTotal, withdrawFetchWeekly[5].dayTotal, withdrawFetchWeekly[6].dayTotal]
                     }],
                     chart: {
@@ -325,11 +325,14 @@ $.varien = {
                         y: {
                             formatter: function(value) {
                                 let val = Math.abs(value);
-                                if (val <= 1000000) {
-                                    val = (val / 1000).toFixed(0) + 'k';
-                                } else {
+                                if (val > 1000000)
                                     val = (val / 1000000).toFixed(2) + 'm';
-                                }
+                                else if (val >= 1000 && val < 1000000)
+                                    val = (val / 1000).toFixed(0) + 'k';
+                                else if (val > 0 && val < 1000)
+                                    val = val;
+                                else val = "none";
+
                                 return val;
                             }
                         }
@@ -623,7 +626,7 @@ $.varien = {
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            toastr.success("Hesap güncellendi");
+                            toastr.success("Account updated");
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             Swal.fire({
@@ -982,7 +985,7 @@ $.varien = {
                 $("#refresh").on("click", function(e) {
                     $.varien.eventControl(e);
                     $.varien.transaction.datatable.reload();
-                    toastr.success("İşlemler Yenilendi");
+                    toastr.success("Transactions refreshed");
                 });
                 $("[app-onchange-datatable-reload]").on("change input", function(e) {
                     $.varien.eventControl(e);
@@ -1129,7 +1132,7 @@ $.varien = {
                                 if (result == true) {
                                     $.each($.rowArray, function(index, value) {
                                         $.reject("transaction/update", value.id).then(function(response) {
-                                            toastr.success("#" + value.transId + ": talep otomatik reddedildi");
+                                            toastr.success("#" + value.transId + ": transaction rejected");
                                             $.varien.transaction.datatable.reload();
                                         });
                                     });
@@ -1393,7 +1396,7 @@ $.varien = {
                                     url: urlAjax,
                                     success: function() {
                                         $.table.ajax.reload();
-                                        toastr.error("hesap verisi silindi !");
+                                        toastr.error("Account deleted");
                                     }
                                 });
                             }
@@ -1500,7 +1503,7 @@ $.varien = {
                             success: function() {
                                 $.table.ajax.reload();
                                 $("#ajaxModal").modal('toggle');
-                                toastr.success("İzinler Yapılandırıldı.");
+                                toastr.success("Roles updated");
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 Swal.fire({
@@ -1522,7 +1525,7 @@ $.varien = {
                         bootbox.confirm({
                             backdrop: true,
                             centerVertical: true,
-                            title: "Kullanıcı Rolünü Sil",
+                            title: "Delete Role",
                             buttons: {
                                 confirm: {
                                     label: "Confirm"
@@ -1531,7 +1534,7 @@ $.varien = {
                                     label: "Cancel"
                                 }
                             },
-                            message: "Kullanıcı rolünü silme işlemini onaylıyor musunuz ?",
+                            message: "Do you approve to delete user role?",
                             callback: (result) => {
                                 if (result == true) {
                                     $.ajax({
@@ -1539,7 +1542,7 @@ $.varien = {
                                         url: "user/removeRole/" + id,
                                         success: function() {
                                             $.table.ajax.reload();
-                                            toastr.error("Kullanıcı rolü silindi !");
+                                            toastr.error("Role deleted");
                                         }
                                     });
                                 }
@@ -1668,7 +1671,7 @@ $.varien = {
                                             if (response == 200) {
                                                 $.varien.modal.event.toggle();
                                                 Swal.fire({
-                                                    text: "2 Adımlı doğrulama hesabınızda başarıyla aktive edildi ve sayfa tekrar yüklenecek",
+                                                    text: "2-Step verification has been successfully activated",
                                                     icon: "success",
                                                     buttonsStyling: false,
                                                     confirmButtonText: "Close",
@@ -1681,14 +1684,14 @@ $.varien = {
                                                 });
                                             }
                                         }).catch(e => {
-                                            toastr.error("Kod doğrulanamadı. Tekrar deneyiniz.");
+                                            toastr.error("Couldn't verify the code. Please try again.");
                                         });
                                     }
                                 }).catch(e => {
-                                    toastr.error("Kod doğrulanamadı. Tekrar deneyiniz.");
+                                    toastr.error("Couldn't verify the code. Please try again.");
                                 });
                             } else {
-                                toastr.error("6 rakamlı doğrulama kodunu giriniz !");
+                                toastr.error("Please enter your verification code");
                             }
                         });
                     },
@@ -1700,25 +1703,25 @@ $.varien = {
                                     centerVertical: true,
                                     buttons: {
                                         confirm: {
-                                            label: "Kaldır"
+                                            label: "Remove"
                                         },
                                         cancel: {
-                                            label: "Vazgeç"
+                                            label: "Cancel"
                                         }
                                     },
-                                    title: "İki Adımlı Doğrulamayı Kaldır",
-                                    message: "İki adımlı doğrulamayı kaldırmak istediğinize emin misiniz ?",
+                                    title: "Remove 2-Step Verification",
+                                    message: "Are you sure you want to remove 2-step verification?",
                                     callback: (result) => {
                                         if (result == true) {
                                             $.varien.user.detail.twoFA.disable2fa().then(response => {
                                                 if (response == 200) {
-                                                    toastr.success("İki adımlı doğrulama başarıyla kaldırıldı.");
+                                                    toastr.success("2-step verification has been successfully removed");
                                                     $.wait(1000).then(function() {
                                                         location.reload();
                                                     });
                                                 }
                                             }).catch(e => {
-                                                toastr.error("İşlem Başarısız. Tekrar deneyiniz.");
+                                                toastr.error("Couldn't remove 2FA. Please try again.");
                                             });
                                         }
                                     }
@@ -1735,7 +1738,7 @@ $.varien = {
                         $("#firms").append("<li>" + $(this).text() + "</li>");
                     });
                 } else {
-                    $("#firms").append("<li>Tüm Firmalar</li>");
+                    $("#firms").append("<li>All Firms</li>");
                 }
             },
             remove: function() {
@@ -1752,15 +1755,15 @@ $.varien = {
                                 label: "Cancel"
                             }
                         },
-                        title: "Kullanıcıyı Sil",
-                        message: "Kullanıcıyı silmek istediğinize emin misiniz ?",
+                        title: "Delete User",
+                        message: "Do you approve to delete the user?",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
                                     type: 'POST',
                                     url: "user/remove/" + id,
                                     success: function() {
-                                        toastr.error("Kullanıcı sistemden silindi !");
+                                        toastr.error("User deleted");
                                         window.location.href = "user/index";
                                     }
                                 });
@@ -1775,32 +1778,32 @@ $.varien = {
                 var n = $("#user_pass").val();
                 var v = $("#confirm_password").val();
                 if (c == "" && $.resource.root !== 1) {
-                    toastr.error("Mevcut Şifrenizi Giriniz !");
+                    toastr.error("Please enter your current password");
                     $("#current_password").focus();
                     return false;
                 }
                 if (n == "") {
-                    toastr.error("Yeni Şifrenizi Giriniz !");
+                    toastr.error("Please enter your new password");
                     $("#user_pass").focus();
                     return false;
                 }
                 if (v == "") {
-                    toastr.error("Yeni Şifrenizi Tekrar Giriniz !");
+                    toastr.error("Please confirm your new password");
                     $("#confirm_password").focus();
                     return false;
                 }
                 if (c != d && $.resource.root !== 1) {
-                    toastr.error("Mevcut Şifrenizi Yanlış Girdiniz !");
+                    toastr.error("You've entered your current password incorrectly");
                     $("#current_password").focus();
                     return false;
                 }
                 if (n != v) {
-                    toastr.error("Yeni şifrenizi yanlış girdiniz !");
+                    toastr.error("You've entered your new password incorrectly");
                     $("#confirm_password").focus();
                     return false;
                 }
                 if (n.length < 8) {
-                    toastr.error("Yeni şifreniz en az 8 karakterli olmalı !");
+                    toastr.error("Your new password must have at least 8 characters");
                     $("#user_pass").focus();
                     return false;
                 }
@@ -1821,7 +1824,7 @@ $.varien = {
                     if (dataName == "email") {
                         $.varien.user.check("email", $("[app-submit-email-check]").val(), $("[app-submit-email-check]").attr('current-email')).then((response) => {
                             if (response > 0) {
-                                toastr.error($("[app-submit-email-check]").val() + " adresi zaten mevcut");
+                                toastr.error($("[app-submit-email-check]").val() + " is already exists");
                                 $("[app-submit-email-check]").addClass('inputError');
                                 $("[app-submit-email-check]").focus();
                                 return false;
@@ -1832,7 +1835,7 @@ $.varien = {
                                     data: "dataName=" + dataName + "&dataValue=" + dataValue,
                                     success: function() {
                                         $('[name=' + dataName + ']').html(dataValue);
-                                        toastr.success("Kullanıcı verisi güncellendi !");
+                                        toastr.success("User updated");
                                         $("#" + modal).modal('toggle');
                                     }
                                 });
@@ -1849,7 +1852,7 @@ $.varien = {
                                 } else {
                                     $('[name=' + dataName + ']').html(dataValue);
                                 }
-                                toastr.success("Kullanıcı verisi güncellendi !");
+                                toastr.success("User updated");
                                 $("#" + modal).modal('toggle');
                                 if (dataName == "role_id") location.reload();
                             }
@@ -1973,13 +1976,13 @@ $.varien = {
                 $("[app-submit-email-check]").focusout(function() {
                     $.varien.user.check("email", $("[app-submit-email-check]").val()).then((response) => {
                         if (response > 0) {
-                            toastr.error($("[app-submit-email-check]").val() + " adresi zaten mevcut");
+                            toastr.error($("[app-submit-email-check]").val() + " already exists");
                             $("[app-submit-email-check]").addClass('inputError');
                             $("[app-submit-email-check]").focus();
                             $(':input[type="submit"]').prop('disabled', true);
                             return false;
                         } else {
-                            toastr.success($("[app-submit-email-check]").val() + " adresi kullanılabilir");
+                            toastr.success($("[app-submit-email-check]").val() + " is available");
                             $("[app-submit-email-check]").removeClass('inputError');
                             $(':input[type="submit"]').prop('disabled', false);
                         }
@@ -1989,7 +1992,7 @@ $.varien = {
                     $.varien.eventControl(e);
                     $.varien.user.check("email", $("[app-submit-email-check]").val()).then((response) => {
                         if (response > 0) {
-                            toastr.error($("[app-submit-email-check]").val() + " adresi zaten mevcut");
+                            toastr.error($("[app-submit-email-check]").val() + " already exists");
                             $("[app-submit-email-check]").addClass('inputError');
                             $("[app-submit-email-check]").focus();
                             $(':input[type="submit"]').prop('disabled', true);
@@ -2009,7 +2012,7 @@ $.varien = {
                                 success: function() {
                                     $.table.ajax.reload();
                                     $("#ajaxModal").modal('toggle');
-                                    toastr.success("Kullanıcı Eklendi !");
+                                    toastr.success("User created");
                                 },
                                 error: function(jqXHR, textStatus, errorThrown) {
                                     Swal.fire({

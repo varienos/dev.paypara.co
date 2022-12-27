@@ -44,7 +44,7 @@
                                                     <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
                                                 </svg>
                                             </span>
-                                            <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-200px ps-15" placeholder="İşlem ara" />
+                                            <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-225px ps-15" placeholder="Search transaction" />
                                         </div>
                                     </div>
                                     <div class="card-toolbar">
@@ -63,11 +63,11 @@
                                                 <div class="separator border-gray-200"></div>
                                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                                     <div class="row mb-3">
-                                                        <div class="col-3 d-flex align-items-center">
+                                                        <div class="col-4 d-flex align-items-center">
                                                             <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Method:</label>
                                                         </div>
                                                         <div class="col ps-0">
-                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="method" id="method" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
+                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="method" id="method" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
                                                                 <option></option>
                                                                 <option value="bank">Bank</option>
                                                                 <option value="papara">Papara</option>
@@ -79,11 +79,11 @@
                                                     </div>
 
                                                     <div class="row mb-3">
-                                                        <div class="col-3 d-flex align-items-center">
+                                                        <div class="col-4 d-flex align-items-center">
                                                             <label class="form-label fs-6 fw-semibold">Firm:</label>
                                                         </div>
                                                         <div class="col ps-0">
-                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="siteId" id="siteId" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
+                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="siteId" id="siteId" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
                                                                 <option></option>
                                                                 <? $site = explode(",",$update->perm_site); foreach($siteSelect as $row){ ?>
                                                                 <option value="<?=$row->id ?>"> <?=$row->site_name ?></option>
@@ -93,20 +93,20 @@
                                                     </div>
 
                                                     <div class="row mb-3">
-                                                        <div class="col-3 d-flex align-items-center">
+                                                        <div class="col-4 d-flex align-items-center">
                                                             <label class="form-label fs-6 fw-semibold">Account:</label>
                                                         </div>
                                                         <div class="col ps-0">
-                                                            <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountIdFilter" id="accountIdFilter" placeholder="Tümü" app-onchange-datatable-reload>
+                                                            <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountIdFilter" id="accountIdFilter" placeholder="All" app-onchange-datatable-reload>
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
-                                                        <div class="col-3 d-flex align-items-center">
+                                                        <div class="col-4 d-flex align-items-center">
                                                             <label class="form-label fs-6 fw-semibold">Status:</label>
                                                         </div>
                                                         <div class="col ps-0">
-                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
+                                                            <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
                                                                 <option></option>
                                                                 <option value="beklemede">Pending</option>
                                                                 <option value="onaylandı">Approved</option>

@@ -91,31 +91,35 @@
                                 <h4 class="mb-4 p-0">Transaction Details</h4>
                                 <table class="table fs-6 fw-semibold gs-0 gy-2 gx-2 m-0">
                                     <tbody>
-                                        <tr class="">
+                                        <tr>
                                             <td class="text-gray-600 p-0 pb-3">Time:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-time></td>
                                         </tr>
-                                        <tr class="">
+                                        <tr>
                                             <td class="text-gray-600 p-0 pb-3 w-125px">TXID:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-txid></td>
                                         </tr>
-                                        <tr class="">
+                                        <tr>
                                             <td class="text-gray-600 p-0 pb-3">User ID:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-customerId></td>
                                         </tr>
-                                        <tr class="">
+                                        <tr>
                                             <td class="text-gray-600 p-0 pb-3">Firm:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-client></td>
                                         </tr>
-                                        <tr class="">
+                                        <tr>
                                             <td class="text-gray-600 p-0 pb-3">Method:</td>
                                             <td class="p-0 pb-3">
                                                 <span class="badge bg-danger text-white" data-set-method></span>
                                             </td>
                                         </tr>
-                                        <tr class="">
-                                            <td class="text-gray-600 p-0 pb-3">Personnel:</td>
-                                            <td class="text-gray-800 p-0 pb-3" data-set-user></td>
+                                        <tr id="person">
+                                            <td class="text-gray-600 p-0 pb-3">Staff:</td>
+                                            <td class="text-gray-800 p-0 pb-3" data-set-person></td>
+                                        </tr>
+                                        <tr id="processNote">
+                                            <td class="text-gray-600 p-0 pb-3">Notes:</td>
+                                            <td class="text-gray-800 p-0 pb-3" data-set-processNote></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -123,7 +127,7 @@
                             <div class="separator separator-dashed my-6"></div>
                             <div class="row ps-3">
                                 <h4 class="mb-3 p-0">Client Note</h4>
-                                <textarea class="form-control form-control-solid border p-2" style="resize: none; overflow: scroll;" spellcheck="false" disabled data-set-note></textarea>
+                                <textarea class="form-control form-control-solid border p-2" style="resize: none; overflow: scroll;" spellcheck="false" disabled data-set-customerNote></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade p-5" id="tab_actions" role="tabpanel">
