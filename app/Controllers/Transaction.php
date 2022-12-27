@@ -55,7 +55,7 @@ class Transaction extends BaseController
         if($finance->request=="withdraw") $this->SecureModel->stateAuth(edit_transaction_withdraw);
 		$this->TransactionModel->dataUpdate($this->request->getVar());
 	}
-	public function datatable($request) 
+	public function datatable($request)
 	{
         if($request=="deposit") $this->SecureModel->stateAuth(view_transaction_deposit);
         if($request=="withdraw") $this->SecureModel->stateAuth(view_transaction_withdraw);
@@ -127,18 +127,18 @@ class Transaction extends BaseController
 		{
             if($row->status=="beklemede")
 			{
-				$status     = '<div class="badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Beklemede </div>';
+				$status     = '<div class="badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Pending </div>';
                 $status_id  = 1;
 			}
 			if($row->status=="onaylandı")
 			{
-				$status     = '<div class="badge py-2 badge-light-success fs-7 px-3">  Onaylandı </div>';
+				$status     = '<div class="badge py-2 badge-light-success fs-7 px-3">  Approved </div>';
                 $status_id  = 2;
-                
+
 			}
             if($row->status=="reddedildi")
 			{
-				$status     = '<div class="badge py-2 badge-light-danger fs-7 px-3">  Reddedildi </div>';
+				$status     = '<div class="badge py-2 badge-light-danger fs-7 px-3">  Rejected </div>';
                 $status_id  = 3;
 			}
             if($row->status=="beklemede")
@@ -225,21 +225,21 @@ class Transaction extends BaseController
 		{
              if($row->status=="beklemede")
 			{
-				$status     = '<div class="badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Beklemede </div>';
+				$status     = '<div class="badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Pending </div>';
                 $status_id  = 1;
 			}
 			if($row->status=="onaylandı")
 			{
-				$status     = '<div class="badge py-2 badge-light-success fs-7 px-3">  Onaylandı </div>';
+				$status     = '<div class="badge py-2 badge-light-success fs-7 px-3">  Approved </div>';
                 $status_id  = 2;
-                
+
 			}
             if($row->status=="reddedildi")
 			{
-				$status     = '<div class="badge py-2 badge-light-danger fs-7 px-3">  Reddedildi </div>';
+				$status     = '<div class="badge py-2 badge-light-danger fs-7 px-3">  Rejected </div>';
                 $status_id  = 3;
 			}
-            
+
 
             /*
             <th class="min-w-100px">Tarih</th>

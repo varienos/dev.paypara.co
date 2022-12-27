@@ -1,6 +1,6 @@
 <form class="form" action="javascript:" id="modalForm" method="post" enctype="multipart/form-data" autocomplete="off">
     <div class="modal-header" id="kt_modal_add_user_header">
-        <h2 class="fw-bold">Kullanıcı Ekle</h2>
+        <h2 class="fw-bold">Add New User</h2>
         <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close"
             data-bs-dismiss="modal">
             <span class="svg-icon svg-icon-1">
@@ -19,21 +19,21 @@
             data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
             data-kt-scroll-offset="300px">
             <div class="mb-7">
-                <label class="required fw-semibold fs-6 mb-2">İsim</label>
+                <label class="required fw-semibold fs-6 mb-2">Name</label>
                 <input type="text" name="user_name" class="form-control form-control-solid border mb-3 mb-lg-0" />
             </div>
             <div class="mb-7">
-                <label class="required fw-semibold fs-6 mb-2" autocomplete="off" value="">E-posta</label>
+                <label class="required fw-semibold fs-6 mb-2" autocomplete="off" value="">E-Mail</label>
                 <input type="email" name="email" app-submit-email-check class="form-control form-control-solid border mb-3 mb-lg-0" />
             </div>
             <div class="mb-7">
-                <label class="required fw-semibold fs-6 mb-2" autocomplete="off" value="">Şifre</label>
+                <label class="required fw-semibold fs-6 mb-2" autocomplete="off" value="">Password</label>
                 <input type="password" name="user_pass" class="form-control form-control-solid border mb-3 mb-lg-0" />
             </div>
             <div class="mb-7">
-                <label class="required fw-semibold fs-6 mb-5">Yetki</label>
+                <label class="required fw-semibold fs-6 mb-5">Permission</label>
                 <select class="form-select form-select-solid border" name="role_id" data-control="select2"
-                    data-placeholder="Yetki seçin" data-hide-search="true">
+                    data-placeholder="Select permission" data-hide-search="true">
                     <option></option>
                     <? foreach(getRoles() as $row){ ?>
                     <option value="<?=$row->id ?>"><?=$row->name ?></option>
@@ -42,9 +42,9 @@
 
             </div>
             <div class="mb-7">
-                <label class="required fw-semibold fs-6 mb-5">İlişkili Firmalar</label>
+                <label class="required fw-semibold fs-6 mb-5">Associated Firms</label>
                 <select class="form-select form-select-solid form-select-lg border" data-control="select2"
-                    data-close-on-select="false" data-placeholder="Tüm firmalar" name="perm_site[]"
+                    data-close-on-select="false" data-placeholder="All firms" name="perm_site[]"
                     data-allow-clear="true" multiple="multiple">
                     <option></option>
                     <? $site = explode(",",$update->perm_site); foreach($siteSelect as $row){ $selected = in_array($row->id, $site) ? "selected" : null; ?>
@@ -56,7 +56,7 @@
     </div>
     <div class="modal-footer flex-center">
         <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light me-3"
-            data-bs-dismiss="modal">Vazgeç</button>
-        <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">Kullanıcı Ekle</button>
+            data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">Add User</button>
     </div>
 </form>

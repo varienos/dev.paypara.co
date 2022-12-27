@@ -155,28 +155,28 @@ $.varien = {
     datatable: {
         locale: function() {
             return {
-                "emptyTable": "Kayıt yok",
-                "infoEmpty": "Kayıt yok",
-                "infoFiltered": "(_MAX_ Kayıt İçerisinden Bulunan)",
-                "loadingRecords": "Yükleniyor...",
-                "processing": "Yükleniyor...",
-                "zeroRecords": "Eşleşen kayıt bulunamadı",
-                "info": "_TOTAL_ kayıttan _START_ - _END_ arasındaki kayıtlar gösteriliyor"
+                "emptyTable": "No records",
+                "infoEmpty": "No records",
+                "infoFiltered": "(filtered from _MAX_ total entries)",
+                "loadingRecords": "Loading...",
+                "processing": "Loading...",
+                "zeroRecords": "No matching records found",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries"
             };
         },
         exportEvents: () => {
             if ($('#datatableExport').length) {
                 var str = '<div class="menu-item px-3">';
-                str += '<a href="javascript:;" class="menu-link px-3" export-copy>Panoya Kopyala</a>';
+                str += '<a href="javascript:;" class="menu-link px-3" export-copy>Copy to Clipboard</a>';
                 str += '</div>';
                 str += '<div class="menu-item px-3">';
-                str += '<a href="javascript:;" class="menu-link px-3" export-xls>Excel olarak aktar</a>';
+                str += '<a href="javascript:;" class="menu-link px-3" export-xls>Export as Excel</a>';
                 str += '</div>';
                 str += '<div class="menu-item px-3">';
-                str += '<a href="javascript:;" class="menu-link px-3" export-csv>CSV olarak aktar</a>';
+                str += '<a href="javascript:;" class="menu-link px-3" export-csv>Export as CSV</a>';
                 str += '</div>';
                 str += '<div class="menu-item px-3">';
-                str += '<a href="javascript:;" class="menu-link px-3" export-pdf>PDF olarak aktar</a>';
+                str += '<a href="javascript:;" class="menu-link px-3" export-pdf>Export as PDF</a>';
                 str += '</div>';
                 $('#datatableExport').html(str).promise().done(function() {
                     $('[export-csv]').on('click', function(e) {
@@ -353,21 +353,21 @@ $.varien = {
             //console.log("$.varien.account.init");
             if ($.varien.segment(2) == "index") {
                 if ($.varien.segment(3) == "1") {
-                    $("[data-page-title]").html("Normal Hesaplar");
+                    $("[data-page-title]").html("Papara Accounts");
                     $.varien.account.setType(1);
                     $.varien.include("account/include/datatableHeadNormal", "datatable-head").then(function(colNum) {
                         $.varien.account.datatable.init(colNum);
                     });
                 }
                 if ($.varien.segment(3) == "2") {
-                    $("[data-page-title]").html("Eşleşme Hesapları");
+                    $("[data-page-title]").html("Matching Accounts");
                     $.varien.account.setType(2);
                     $.varien.include("account/include/datatableHeadMatch", "datatable-head").then(function(colNum) {
                         $.varien.account.datatable.init(colNum);
                     });
                 }
                 if ($.varien.segment(3) == "3") {
-                    $("[data-page-title]").html("Banka Hesapları");
+                    $("[data-page-title]").html("Bank Accounts");
                     $.varien.account.setType(3);
                     $.varien.include("account/include/datatableHeadBank", "datatable-head").then(function(colNum) {
                         $.varien.account.datatable.init(colNum);
@@ -855,13 +855,13 @@ $.varien = {
                 }
             });
             if ($.varien.segment(3) == "deposit") {
-                $("[data-page-title]").html("Yatırımlar");
+                $("[data-page-title]").html("Deposits");
                 $.varien.include("transaction/include/datatableHeadDeposit", "datatable-head").then(function(colNum) {
                     $.varien.transaction.datatable.init(colNum);
                 });
             }
             if ($.varien.segment(3) == "withdraw") {
-                $("[data-page-title]").html("Çekimler");
+                $("[data-page-title]").html("Withdrawals");
                 $.varien.include("transaction/include/datatableHeadWithdraw", "datatable-head").then(function(colNum) {
                     $.varien.transaction.datatable.init(colNum);
                 });
@@ -1243,7 +1243,7 @@ $.varien = {
                         window.open($.customerLink, '_blank');
                     });
                     /*
-                        0: TARİH 
+                        0: TARİH
                         1: TXID
                         2: USERID
                         3: HESAP
@@ -1257,8 +1257,8 @@ $.varien = {
                         .find('p').contents().unwrap();
                         badge-light-warning: beklemede
                         badge-light-success: onaylandı
-                        badge-light-danger: reddedildi 
-      
+                        badge-light-danger: reddedildi
+
                     */
                     $.requestTime = $('#' + $.rowId).find("td").eq(0).html();
                     $.txid = $('#' + $.rowId).find("td").eq(1).html();
@@ -1405,7 +1405,7 @@ $.varien = {
     },
     user: {
         init: function() {
-            $("[data-page-title]").html("Kullanıcılar");
+            $("[data-page-title]").html("Users");
             if ($.varien.segment(2) == "index") {
                 $.varien.include("user/include/datatableHead", "datatable-head").then(function(colNum) {
                     $.varien.user.datatable.init(colNum);
@@ -2070,7 +2070,7 @@ $.varien = {
     },
     customer: {
         init: function() {
-            $("[data-page-title]").html("Müşteriler");
+            $("[data-page-title]").html("Clients");
             if ($.varien.segment(2) == "index") {
                 $.varien.include("customer/include/datatableHead", "datatable-head").then(function(colNum) {
                     $.varien.customer.datatable.init(colNum)
@@ -2563,16 +2563,16 @@ $.varien = {
                 $('[data-bs-target="#clientModalForm"]').on("click", function() {
                     var id = $(this).attr("data-id");
                     if (id != "0") {
-                        $('[data-title]').html("Firma Düzenle");
-                        $('#generateKey').html("Yenile");
+                        $('[data-title]').html("Edit Firm");
+                        $('#generateKey').html("Generate");
                         $.varien.setting.client.detail(id);
                     } else {
                         $('[name="id"]').val(0);
                         $('[name="site_name"]').val("");
                         $('[name="api_key"]').val("");
                         $('[id="modalStatus"]').val("").change();
-                        $('[data-title]').html("Firma Ekle");
-                        $('#generateKey').html("Üret");
+                        $('[data-title]').html("Add New Firm");
+                        $('#generateKey').html("Generate");
                     }
                     $('[data-bs-dismiss="modal"]').on("click", function() {
                         setTimeout(function() {

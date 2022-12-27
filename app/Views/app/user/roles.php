@@ -12,7 +12,7 @@
                 <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">Yetkilendirme</h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
-                    <a href="dashboard" class="text-muted">Ana Sayfa</a>
+                    <a href="dashboard" class="text-muted">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item text-muted">
                     <a href="/user/index" class="text-muted">Kullanıcılar</a>

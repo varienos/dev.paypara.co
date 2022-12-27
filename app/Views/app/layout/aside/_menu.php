@@ -11,7 +11,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="menu-title">Ana Sayfa</span>
+                <span class="menu-title">Dashboard</span>
             </a>
         </div>
         <? if(view_papara_account === true && view_bank_account === true): ?>
@@ -25,7 +25,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="menu-title">Hesaplar</span>
+                <span class="menu-title">Accounts</span>
                 <span class="menu-arrow"></span>
             </span>
             <div class="menu-sub menu-sub-accordion">
@@ -35,7 +35,7 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">Papara Hesapları</span>
+                        <span class="menu-title">Papara Accounts</span>
                     </a>
                 </div>
                 <div class="menu-item menu-accordion">
@@ -43,7 +43,7 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">Eşleşme Hesapları</span>
+                        <span class="menu-title">Matching Accounts</span>
                     </a>
                 </div>
                 <? endif ?>
@@ -53,7 +53,7 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">Banka Hesapları</span>
+                        <span class="menu-title">Bank Accounts</span>
                     </a>
                 </div>
                 <? endif ?>
@@ -71,7 +71,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="menu-title">İşlemler</span>
+                <span class="menu-title">Transactions</span>
                 <span class="menu-arrow"></span>
             </span>
             <div class="menu-sub menu-sub-accordion">
@@ -81,7 +81,7 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">Yatırımlar</span>
+                        <span class="menu-title">Deposits</span>
                     </a>
                 </div>
                 <? endif ?>
@@ -91,7 +91,7 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">Çekimler</span>
+                        <span class="menu-title">Withdrawals</span>
                     </a>
                 </div>
                 <? endif ?>
@@ -101,7 +101,7 @@
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title disabled">Rezerveler</span>
+                        <span class="menu-title disabled">Reserves</span>
                     </a>
                 </div>
                 <? endif ?>
@@ -119,7 +119,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="menu-title">Müşteriler</span>
+                <span class="menu-title">Customers</span>
             </a>
         </div>
         <? endif ?>
@@ -134,7 +134,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="menu-title">Raporlar</span>
+                <span class="menu-title">Reports</span>
             </a>
         </div>
         <? endif ?>
@@ -149,7 +149,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="menu-title">Kullanıcılar</span>
+                <span class="menu-title">Users</span>
             </a>
         </div>
         <? endif ?>
@@ -164,7 +164,7 @@
                         </svg>
                     </span>
                 </span>
-                <span class="menu-title">Ayarlar</span>
+                <span class="menu-title">Settings</span>
             </a>
         </div>
         <? endif ?>
