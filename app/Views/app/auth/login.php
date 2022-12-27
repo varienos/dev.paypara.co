@@ -22,7 +22,7 @@
         <div class="bg-body d-flex flex-center rounded border shadow p-10 min-w-sm-450px">
           <form class="form w-100" method="post" action="<?=baseUrl('secure/authentication') ?>">
             <div class="row mb-8">
-              <h1 class="text-dark text-center m-0">Hesabınıza giriş yapın</h1>
+              <h1 class="text-dark text-center m-0">Login to your account</h1>
             </div>
             <? if($_GET['s']=='noAuth'): ?>
             <div class="row mb-3">
@@ -31,17 +31,17 @@
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect><rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor"></rect><rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor"></rect></svg>
                 </span>
                 <div class="d-flex flex-column">
-                    <h5 class="fw-semibold m-0">Kullanıcı bilgilerini hatalı girdiniz</h5>
+                    <h5 class="fw-semibold m-0">Either email or password is incorrect</h5>
                 </div>
               </div>
             </div>
             <? endif; ?>
             <div class="row mb-5">
-              <label class="form-label fs-5 fw-bold">E-Posta</label>
+              <label class="form-label fs-5 fw-bold">E-Mail</label>
               <input type="text" placeholder="E-posta adresiniz" name="x" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
             </div>
             <div class="row position-relative mb-8" data-kt-password-meter="true">
-              <label class="form-label fs-5 fw-bold">Şifre</label>
+              <label class="form-label fs-5 fw-bold">Password</label>
               <input type="password" placeholder="••••••••" name="y" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50"/>
               <span class="btn btn-sm btn-icon position-absolute top-50 end-0 me-2 pb-1" data-kt-password-meter-control="visibility">
                 <i class="bi bi-eye-slash fs-2"></i>
@@ -49,7 +49,7 @@
               </span>
             </div>
             <div class="row">
-              <button type="submit" class="btn btn-dark">Giriş Yap</button>
+              <button type="submit" class="btn btn-dark">Login</button>
             </div>
           </form>
         </div>

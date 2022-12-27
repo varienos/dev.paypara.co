@@ -13,7 +13,7 @@
                 <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">Raporlar</h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
-                    <a href="dashboard" class="text-muted">Ana Sayfa</a>
+                    <a href="dashboard" class="text-muted">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item text-dark">Raporlar</li>
                 </ul>
@@ -34,7 +34,7 @@
           </div>
           <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
             <div class="container-xxl" id="kt_content_container">
-              
+
             <div class="row">
               <div class="col-12 col-md-4">
                 <div class="card card-bordered mb-5">
@@ -77,16 +77,16 @@
                   </button>
                   <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
                     <div class="menu-item px-3">
-                      <a href="javascript:;" class="menu-link px-3" data-export-type="copy">Panoya Kopyala</a>
+                      <a href="javascript:;" class="menu-link px-3" data-export-type="copy">Copy to Clipboard</a>
                     </div>
                     <div class="menu-item px-3">
-                      <a href="javascript:;" class="menu-link px-3" data-export-type="excel">Excel olarak aktar</a>
+                      <a href="javascript:;" class="menu-link px-3" data-export-type="excel">Export as Excel</a>
                     </div>
                     <div class="menu-item px-3">
-                      <a href="javascript:;" class="menu-link px-3" data-export-type="csv">CSV olarak aktar</a>
+                      <a href="javascript:;" class="menu-link px-3" data-export-type="csv">Export as CSV</a>
                     </div>
                     <div class="menu-item px-3">
-                      <a href="javascript:;" class="menu-link px-3" data-export-type="pdf">PDF olarak aktar</a>
+                      <a href="javascript:;" class="menu-link px-3" data-export-type="pdf">Export as PDF</a>
                     </div>
                   </div>
                 </div>

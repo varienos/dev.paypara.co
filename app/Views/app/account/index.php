@@ -9,9 +9,9 @@
                                 <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-page-title data-account-type></h1>
                                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="dashboard" class="text-muted">Ana Sayfa</a>
+                                        <a href="dashboard" class="text-muted">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item text-muted">Hesaplar</li>
+                                    <li class="breadcrumb-item text-muted">Accounts</li>
                                     <li class="breadcrumb-item text-dark" data-page-title></li>
                                 </ul>
                             </div>
@@ -43,23 +43,23 @@
                                                     <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
                                                 </svg>
                                             </span>
-                                            <input type="text" data-kt-customer-table-filter="search" id="search" class="form-control form-control-solid border border-1 w-250px ps-15" placeholder="Hesap ara" />
+                                            <input type="text" data-kt-customer-table-filter="search" id="search" class="form-control form-control-solid border border-1 w-250px ps-15" placeholder="Search accounts" />
                                         </div>
                                     </div>
                                     <div class="card-toolbar">
                                         <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
                                             <div class="me-3">
                                                 <form id="formFilter">
-                                                    <select class="form-select form-select-solid border border-1" id="accountStatus" data-control="select2" data-hide-search="true" data-placeholder="Durum" data-kt-ecommerce-order-filter="status">
+                                                    <select class="form-select form-select-solid border border-1" id="accountStatus" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
                                                         <option></option>
-                                                        <option value="status::all">Tümü</option>
-                                                        <option value="status::on">Aktif</option>
-                                                        <option value="status::0">Pasif</option>
+                                                        <option value="status::all">All</option>
+                                                        <option value="status::on">Active</option>
+                                                        <option value="status::0">Deactive</option>
                                                     </select>
                                                 </form>
                                             </div>
                                             <? if(((segment[2] == 1 || segment[2] == 2) && edit_papara_account === true) || (segment[2] == 3 && edit_bank_account === true)): ?>
-                                            <a href="javascript:" class="btn btn-light ps-7 me-3 ml-0 text-nowrap" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-offset="0px, 5px">İşlemler <span class="svg-icon svg-icon-2 me-0">
+                                            <a href="javascript:" class="btn btn-light ps-7 me-3 ml-0 text-nowrap" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-offset="0px, 5px">Transactions <span class="svg-icon svg-icon-2 me-0">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor"></path>
                                                     </svg>
@@ -70,25 +70,19 @@
                                                     <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase" data-page-title></div>
                                                 </div>
                                                 <div class="menu-item px-5 my-1">
-                                                    <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Tümünü aktif et</a>
+                                                    <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Activate all</a>
                                                 </div>
                                                 <div class="menu-item px-5">
-                                                    <a href="javascript:" class="menu-link text-danger px-5" data-set="status-set-all" data-status="0">Tümünü pasife al</a>
+                                                    <a href="javascript:" class="menu-link text-danger px-5" data-set="status-set-all" data-status="0">Deactivate all</a>
                                                 </div>
                                             </div>
                                             <? endif ?>
                                             <? if((segment[2] == 1 || segment[2] == 2) && add_papara_account === true): ?>
-                                            <button type="button" class="btn btn-primary text-nowrap" data-url="account/form/<?=segment[2] ?>" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-bs-delay='1000'>Hesap Ekle</button>
+                                            <button type="button" class="btn btn-primary text-nowrap" data-url="account/form/<?=segment[2] ?>" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-bs-delay='1000'>Add New Account</button>
                                             <? endif; ?>
                                             <? if(segment[2] == 3 && add_bank_account === true): ?>
-                                            <button type="button" class="btn btn-primary text-nowrap" data-url="account/form/<?=segment[2] ?>" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-bs-delay='1000'>Hesap Ekle</button>
+                                            <button type="button" class="btn btn-primary text-nowrap" data-url="account/form/<?=segment[2] ?>" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-bs-delay='1000'>Add New Account</button>
                                             <? endif; ?>
-                                        </div>
-                                        <div class="d-flex justify-content-end align-items-center d-none" data-kt-customer-table-toolbar="selected">
-                                            <div class="fw-bold me-5">
-                                                <span class="me-2" data-kt-customer-table-select="selected_count"></span>Selected
-                                            </div>
-                                            <button type="button" class="btn btn-danger" data-kt-customer-table-select="delete_selected">Delete Selected</button>
                                         </div>
                                     </div>
                                 </div>

@@ -10,10 +10,10 @@
                     <div class="card-title w-100 m-0">
                         <ul id="myTab" class="nav nav-tabs nav-line-tabs nav-line-tabs-2x align-items-end fs-6 w-100 h-100 ps-5">
                             <li class="nav-item">
-                                <a class="nav-link active fs-4 fw-semibold text-muted text-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_details">Detaylar</a>
+                                <a class="nav-link active fs-4 fw-semibold text-muted text-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_details">Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-4 fw-semibold text-muted text-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_actions">İşlemler</a>
+                                <a class="nav-link fs-4 fw-semibold text-muted text-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_actions">Actions</a>
                             </li>
                         </ul>
                     </div>
@@ -31,7 +31,7 @@
                 <div class="card-body hover-scroll-overlay-y p-0">
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active p-5" id="tab_details" role="tabpanel">
-                            <p class="fs-5 fw-semibold text-center text-gray-900 m-0">Yatırım</p>
+                            <p class="fs-5 fw-semibold text-center text-gray-900 m-0">Deposit</p>
                             <p class="fs-6 text-center text-gray-700 m-0" data-set-date></p>
                             <div class="card shadow-sm mt-13">
                                 <div class="card-body px-0 pb-0 pt-8">
@@ -52,7 +52,7 @@
                                             <span class="badge badge-light-success fs-7 mb-6" data-set-status></span>
                                         </div>
                                         <div class="card-footer d-flex pe-0 ps-5 py-5">
-                                            <p class="fs-5 fw-semibold text-gray-700 p-0 m-0 me-2">Hesap:</p>
+                                            <p class="fs-5 fw-semibold text-gray-700 p-0 m-0 me-2">Account:</p>
                                             <a href="javascript:;" data-set-accountLink class="d-flex align-items-center text-reset text-hover-primary p-0">
                                                 <p class="fs-6 fw-semibold text-gray-900 m-0 me-1">
                                                     <span data-set-accountName></span>
@@ -70,10 +70,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- 
+                            <!--
                             Suan islem durumunu revize etmek icin gereken
                             altyapi mevcut degil. Aktif edilinciye dek bu
-                            bolum ve alttaki seperator 'd-none' seklinde 
+                            bolum ve alttaki seperator 'd-none' seklinde
                             gizli tutulabilir.
                           -->
                             <div class="alert d-none bg-light-warning border border-warning border-dashed d-flex align-items-center w-100 p-3 mt-10 mb-5">
@@ -88,11 +88,11 @@
                             </div>
                             <div class="separator separator-dashed my-6"></div>
                             <div class="row ps-3">
-                                <h4 class="mb-4 p-0">İşlem Detayları</h4>
+                                <h4 class="mb-4 p-0">Transaction Details</h4>
                                 <table class="table fs-6 fw-semibold gs-0 gy-2 gx-2 m-0">
                                     <tbody>
                                         <tr>
-                                            <td class="text-gray-600 p-0 pb-3">Süre:</td>
+                                            <td class="text-gray-600 p-0 pb-3">Time:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-time></td>
                                         </tr>
                                         <tr>
@@ -104,21 +104,21 @@
                                             <td class="text-gray-800 p-0 pb-3" data-set-customerId></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-gray-600 p-0 pb-3">Firma:</td>
+                                            <td class="text-gray-600 p-0 pb-3">Firm:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-client></td>
                                         </tr>
                                         <tr>
-                                            <td class="text-gray-600 p-0 pb-3">Yöntem:</td>
+                                            <td class="text-gray-600 p-0 pb-3">Method:</td>
                                             <td class="p-0 pb-3">
                                                 <span class="badge bg-danger text-white" data-set-method></span>
                                             </td>
                                         </tr>
                                         <tr id="person">
-                                            <td class="text-gray-600 p-0 pb-3">Personel:</td>
+                                            <td class="text-gray-600 p-0 pb-3">Personnel:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-person></td>
                                         </tr>
                                         <tr id="processNote">
-                                            <td class="text-gray-600 p-0 pb-3">İşlem Notu:</td>
+                                            <td class="text-gray-600 p-0 pb-3">Notes:</td>
                                             <td class="text-gray-800 p-0 pb-3" data-set-processNote></td>
                                         </tr>
                                     </tbody>
@@ -126,34 +126,34 @@
                             </div>
                             <div class="separator separator-dashed my-6"></div>
                             <div class="row ps-3">
-                                <h4 class="mb-3 p-0">Müşteri Notu</h4>
+                                <h4 class="mb-3 p-0">Client Note</h4>
                                 <textarea class="form-control form-control-solid border p-2" style="resize: none; overflow: scroll;" spellcheck="false" disabled data-set-customerNote></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade p-5" id="tab_actions" role="tabpanel">
                             <div class="row m-0">
                                 <div class="d-flex justify-content-between align-items-center p-0 mt-3 mb-5">
-                                    <h4 class="m-0">Rezervlere Ekle</h4>
-                                    <a href="#" class="btn text-primary text-hover-dark fs-4 p-0">Ekle</a>
+                                    <h4 class="m-0">Add to Reserves</h4>
+                                    <a href="#" class="btn text-primary text-hover-dark fs-4 p-0">Add</a>
                                 </div>
                                 <div class="d-flex p-0">
                                     <img class="align-self-center rounded-circle w-50px p-0 me-3" src="<?=baseUrl() ?>/<?=gulpAssets() ?>/media/avatars/blank.png" alt="" />
                                     <div class="d-flex flex-column justify-content-center">
                                         <p class="fs-5 fw-bolder m-0">Mustafa Veli Topal</p>
-                                        <p class="fs-6 fw-semibold text-gray-700 m-0">Rezerv Yeri: Yatırım</p>
+                                        <p class="fs-6 fw-semibold text-gray-700 m-0">Reserved At: Deposit</p>
                                     </div>
                                 </div>
-                                <h5 class="mt-7 mb-4 p-0">Rezerv Miktarı</h5>
+                                <h5 class="mt-7 mb-4 p-0">Reserve Amount</h5>
                                 <div class="input-group input-group-sm p-0">
                                     <span class="input-group-text">₺</span>
                                     <input type="number" class="form-control" min="0.00" max="15000.00" step="0.5" value="250.00" />
                                 </div>
-                                <h5 class="mt-5 mb-4 p-0">Rezerv Notu</h5>
+                                <h5 class="mt-5 mb-4 p-0">Reserve Note</h5>
                                 <textarea class="form-control border border-gray-300" style="resize: none;" spellcheck="false"></textarea>
                             </div>
                             <div class="separator separator-dashed my-7"></div>
                             <div class="row m-0">
-                                <h4 class="mb-4 p-0">İşlem Yetkileri</h4>
+                                <h4 class="mb-4 p-0">Customer Permissions</h4>
                                 <div class="d-flex justify-content-start p-0">
                                     <div class="d-flex align-items-center p-0 me-3">
                                         <div class="fs-5 fw-semibold text-dark m-0 me-2">VIP:</div>
@@ -162,13 +162,13 @@
                                         </label>
                                     </div>
                                     <div class="d-flex align-items-center p-0 me-3">
-                                        <div class="fs-5 fw-semibold text-dark m-0 me-2">Yatırım:</div>
+                                        <div class="fs-5 fw-semibold text-dark m-0 me-2">Deposit:</div>
                                         <label class="form-check form-switch form-check-custom form-check-success form-check-solid">
                                             <input class="form-check-input h-20px w-40px" type="checkbox" role="switch" id="deposit" data-set="switch" data-id="" name="deposit">
                                         </label>
                                     </div>
                                     <div class="d-flex align-items-center p-0">
-                                        <div class="fs-5 fw-semibold text-dark m-0 me-2">Çekim:</div>
+                                        <div class="fs-5 fw-semibold text-dark m-0 me-2">Withdraw:</div>
                                         <label class="form-check form-switch form-check-custom form-check-success form-check-solid">
                                             <input class="form-check-input h-20px w-40px" type="checkbox" role="switch" id="withdraw" data-set="switch" data-id="" name="withdraw">
                                         </label>

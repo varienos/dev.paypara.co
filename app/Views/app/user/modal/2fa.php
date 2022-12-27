@@ -1,6 +1,6 @@
 <form class="form" action="javascript:" id="2fa" method="post" enctype="multipart/form-data" data-secret="<?=$secret ?>">
     <div class="modal-header">
-        <h2 class="fw-bold">Kimlik Doğrulama Ekle</h2>
+        <h2 class="fw-bold">Add 2FA Verification</h2>
         <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" data-bs-dismiss="modal">
             <span class="svg-icon svg-icon-1">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,30 +39,30 @@
             </div>
 
             <div class="text-center mb-8" data-set-2fa-qr>
-                Cihazınıza Authenticator uygulaması kurun ve aşağıdaki QR kodunu taratın.
+                Install the Authenticator app on your device and scan the QR code below.
             </div>
             <div class="d-flex flex-center mb-5" data-set-2fa-qr>
                 <img src="<?= $qr ?>" class="h-200px" alt="Bu QR kodunu taratın" />
             </div>
             <div class="text-center mb-5 d-none" data-set-2fa-manual>
-                Authenticator uygulamasını açın, yeni hesap ekleye tıklayın ve aşağıdaki kodu yazın.
+                Open the Authenticator app, click add new account and type the code below.
             </div>
             <div class="border rounded p-5 d-flex  d-none flex-center" data-set-2fa-manual>
                 <div class="fs-1"><?= $manuel ?></div>
             </div>
             <div class="text-center mb-8 d-none" data-set-2fa-verify>
-                Authenticator uygulamasında gözüken kodu girin ve işlemi doğrulayın.
+                Enter the code that appears in the Authenticator app and verify the setup.
             </div>
             <div class="d-flex flex-center mb-5 d-none" data-set-2fa-verify>
                 <input type="num" class="form-control form-control-solid text-center w-50 mx-auto" verificationCode maxlength="6" name="verificationCode" id="verificationCode" autocomplete="off" placeholder="Kodu girin"/>
             </div>
         </div>
         <div class="d-flex flex-center">
-            <div class="btn btn-light-primary" data-set-2fa-qr data-action-button-qr>Kodu Manuel Gir</div>
-            <div class="btn btn-light-primary d-none" data-set-2fa-manual data-action-button-manual>Barkod Tarat</div>
-            <div class="btn btn-light-info ms-2" data-set-2fa-next data-action-button-next>Etkinleştir</div>
-            <div class="btn btn-light-primary d-none" data-set-2fa-verify data-action-button-back>Geri Dön</div>
-            <div class="btn btn-light-success ms-2 d-none" data-set-2fa-verify data-action-button-verify>Doğrula</div>
+            <div class="btn btn-light-primary" data-set-2fa-qr data-action-button-qr>Enter Code</div>
+            <div class="btn btn-light-primary d-none" data-set-2fa-manual data-action-button-manual>Scan QR</div>
+            <div class="btn btn-light-info ms-2" data-set-2fa-next data-action-button-next>Activate</div>
+            <div class="btn btn-light-primary d-none" data-set-2fa-verify data-action-button-back>Go Back</div>
+            <div class="btn btn-light-success ms-2 d-none" data-set-2fa-verify data-action-button-verify>Verify</div>
         </div>
     </div>
 </form>

@@ -10,9 +10,9 @@
                                 <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-page-title data-account-type></h1>
                                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                                     <li class="breadcrumb-item text-muted">
-                                        <a href="dashboard" class="text-muted">Ana Sayfa</a>
+                                        <a href="dashboard" class="text-muted">Dashboard</a>
                                     </li>
-                                    <li class="breadcrumb-item text-muted">İşlemler</li>
+                                    <li class="breadcrumb-item text-muted">Transactions</li>
                                     <li class="breadcrumb-item text-dark" data-page-title></li>
                                 </ul>
                             </div>
@@ -55,32 +55,32 @@
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor" />
                                                     </svg>
-                                                </span> Filtrele </button>
+                                                </span>Filter</button>
                                             <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true" id="filterMenu">
                                                 <div class="px-7 py-5">
-                                                    <div class="fs-5 text-dark fw-bold">Filtre Ayarları</div>
+                                                    <div class="fs-5 text-dark fw-bold">Filter Settings</div>
                                                 </div>
                                                 <div class="separator border-gray-200"></div>
                                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                                     <div class="row mb-3">
                                                         <div class="col-3 d-flex align-items-center">
-                                                            <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Yöntem:</label>
+                                                            <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Method:</label>
                                                         </div>
                                                         <div class="col ps-0">
                                                             <select class="form-select form-select-solid border border-1 fw-bold" name="method" id="method" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
                                                                 <option></option>
-                                                                <option value="bank">Banka</option>
+                                                                <option value="bank">Bank</option>
                                                                 <option value="papara">Papara</option>
-                                                                <option value="cross">Çapraz</option>
-                                                                <option value="match">Eşleşme</option>
-                                                                <option value="pos">Sanal POS</option>
+                                                                <option value="cross">Cross</option>
+                                                                <option value="match">Match</option>
+                                                                <option value="pos">Virtual POS</option>
                                                             </select>
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
                                                         <div class="col-3 d-flex align-items-center">
-                                                            <label class="form-label fs-6 fw-semibold">Firma:</label>
+                                                            <label class="form-label fs-6 fw-semibold">Firm:</label>
                                                         </div>
                                                         <div class="col ps-0">
                                                             <select class="form-select form-select-solid border border-1 fw-bold" name="siteId" id="siteId" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
@@ -94,7 +94,7 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-3 d-flex align-items-center">
-                                                            <label class="form-label fs-6 fw-semibold">Hesap:</label>
+                                                            <label class="form-label fs-6 fw-semibold">Account:</label>
                                                         </div>
                                                         <div class="col ps-0">
                                                             <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountIdFilter" id="accountIdFilter" placeholder="Tümü" app-onchange-datatable-reload>
@@ -103,26 +103,26 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-3 d-flex align-items-center">
-                                                            <label class="form-label fs-6 fw-semibold">Durum:</label>
+                                                            <label class="form-label fs-6 fw-semibold">Status:</label>
                                                         </div>
                                                         <div class="col ps-0">
                                                             <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
                                                                 <option></option>
-                                                                <option value="beklemede">Beklemede</option>
-                                                                <option value="onaylandı">Onaylandı</option>
-                                                                <option value="reddedildi">Reddedildi</option>
+                                                                <option value="beklemede">Pending</option>
+                                                                <option value="onaylandı">Approved</option>
+                                                                <option value="reddedildi">Rejected</option>
                                                             </select>
                                                         </div>
                                                     </div>
 
                                                     <div class="d-flex justify-content-end">
-                                                        <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" app-onclick-datatable-reset>Sıfırla</button>
+                                                        <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" app-onclick-datatable-reset>Reset</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-toolbar">
-                                            <a href="#" class="btn btn-light ps-7 me-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="islemler">İşlemler <span class="svg-icon svg-icon-2 me-0">
+                                            <a href="#" class="btn btn-light ps-7 me-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="islemler">Actions <span class="svg-icon svg-icon-2 me-0">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
                                                     </svg>
@@ -130,13 +130,13 @@
                                             </a>
                                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 w-250px fs-6" data-kt-menu="true">
                                                 <div class="menu-item px-5">
-                                                    <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">İşlemler</div>
+                                                    <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Actions</div>
                                                 </div>
                                                 <? if((segment[2] == "deposit" && edit_transaction_deposit === true) || segment[2] == "withdraw" && edit_transaction_withdraw === true): ?>
                                                 <div class="menu-item px-3">
                                                     <div class="menu-content px-3">
                                                         <label class="form-check form-switch form-check-custom form-check-solid">
-                                                            <div class="form-check-label text-gray-800 fs-6 ps-2 me-3" for="notifications">Bildirimler</div>
+                                                            <div class="form-check-label text-gray-800 fs-6 ps-2 me-3" for="notifications">Notifications</div>
                                                             <input class="form-check-input w-30px h-20px" type="checkbox" value="" name="notifications" <? if(notificationSound==1): ?>checked="checked"
                                                             <? endif; ?> id="notifications" />
                                                         </label>
@@ -156,7 +156,7 @@
                                                 <div class="menu-item px-3">
                                                     <div class="menu-content px-3">
                                                         <label class="form-check form-switch form-check-custom form-check-solid">
-                                                            <div class="form-check-label text-gray-800 fs-6 ps-2 me-3" for="sync">Otomatik Yenile</div>
+                                                            <div class="form-check-label text-gray-800 fs-6 ps-2 me-3" for="sync">Auto Refresh</div>
                                                             <input class="form-check-input w-30px h-20px" type="checkbox" value="" " name=" sync" checked="checked" id="sync" />
                                                         </label>
                                                     </div>
@@ -166,8 +166,8 @@
                                                 <div class="menu-item px-5">
                                                     <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase" data-page-title></div>
                                                 </div>
-                                                <div class="menu-item px-5" id="reject-all-button">
-                                                    <a class="menu-link text-danger px-5">Bekleyen talepleri reddet</a>
+                                                <div class="menu-item ps-5" id="reject-all-button">
+                                                    <a class="menu-link text-danger ps-5">Reject pending transactions</a>
                                                 </div>
                                                 <? endif ?>
                                             </div>

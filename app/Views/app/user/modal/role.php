@@ -15,21 +15,21 @@
         <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_roles_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_roles_header" data-kt-scroll-wrappers="#kt_modal_roles_scroll" data-kt-scroll-offset="300px">
           <div class="row mb-3">
             <div class="col-12 col-md-3 d-flex align-items-center">
-                <label class="col-form-label fw-bold p-0 pb-1 fs-5 required">Yetki adı</label>
+                <label class="col-form-label fw-bold p-0 pb-1 fs-5 required">Permission name</label>
             </div>
             <div class="col-12 col-md-9 d-flex align-items-center">
-                <input type="text" class="form-control form-control-solid border h-40px" placeholder="Yetki adı girin" name="name" value="<?=$role->name ?>">
+                <input type="text" class="form-control form-control-solid border h-40px" placeholder="Enter permission name" name="name" value="<?=$role->name ?>">
             </div>
           </div>
           <div class="row mb-3">
             <div class="col-12 col-md-3 d-flex align-items-center">
-              <label class="col-form-label fw-bold p-0 pb-1 fs-5">Hesap Türü</label>
+              <label class="col-form-label fw-bold p-0 pb-1 fs-5">Account Type</label>
             </div>
             <div class="col-12 col-md-9 d-flex align-items-center">
               <select class="form-select form-select-solid border h-40px" id="accountType" data-control="select2" data-hide-search="true">
-                <option>Normal Hesap</option>
-                <option value="1" <? if($role->partner==1): ?>selected<? endif; ?>>Partner Hesabı</option>
-                <option value="2" <? if($role->root==1): ?>selected<? endif; ?>>Kök Kullanıcı</option>
+                <option>Normal Account</option>
+                <option value="1" <? if($role->partner==1): ?>selected<? endif; ?>>Partner Account</option>
+                <option value="2" <? if($role->root==1): ?>selected<? endif; ?>>Root Account</option>
               </select>
               <input type="hidden" name="partner" value="<?=$role->partner ?>" />
               <input type="hidden" name="root" value="<?=$role->root ?>" />
@@ -44,51 +44,51 @@
                           </svg>
                       </span>
                   </span>
-                  <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Hesap Yönetimi</h3>
+                  <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Account Management</h3>
               </div>
               <div class="fs-6 show ps-2 ps-md-7" id="kt_accordion_item_1" data-bs-parent="#kt_accordion_1">
                   <ul class="ps-0 ps-md-8">
                       <!--Papara Hesapları-->
                       <li>
                           <div class="d-flex mt-1 mb-3">
-                              <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Papara hesaplarını: </label>
+                              <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Papara accounts: </label>
                               <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                   <input class="form-check-input" type="checkbox" value="1" <? if($role->view_papara_account==1): ?>checked="checked"<? endif; ?> name="view_papara_account">
-                                  <span class="form-check-label">Görür</span>
+                                  <span class="form-check-label">View</span>
                               </label>
                               <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                   <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_papara_account==1): ?>checked="checked"<? endif; ?> name="edit_papara_account">
-                                  <span class="form-check-label">Düzenler</span>
+                                  <span class="form-check-label">Edit</span>
                               </label>
                               <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                   <input class="form-check-input" type="checkbox" value="1" <? if($role->add_papara_account==1): ?>checked="checked"<? endif; ?> name="add_papara_account">
-                                  <span class="form-check-label">Ekler</span>
+                                  <span class="form-check-label">Create</span>
                               </label>
                               <label class="form-check form-check-sm form-check-danger form-check-custom form-check-solid">
                                   <input class="form-check-input" type="checkbox" value="1" <? if($role->delete_papara_account==1): ?>checked="checked"<? endif; ?> name="delete_papara_account">
-                                  <span class="form-check-label">Siler</span>
+                                  <span class="form-check-label">Destroy</span>
                               </label>
                           </div>
                       </li>
                       <!--Banka Hesapları-->
                       <li>
                           <div class="d-flex mb-3">
-                              <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Banka hesaplarını: </label>
+                              <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Bank accounts: </label>
                               <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                   <input class="form-check-input" type="checkbox" value="1" <? if($role->view_bank_account==1): ?>checked="checked"<? endif; ?> name="view_bank_account">
-                                  <span class="form-check-label">Görür</span>
+                                  <span class="form-check-label">View</span>
                               </label>
                               <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                   <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_bank_account==1): ?>checked="checked"<? endif; ?> name="edit_bank_account">
-                                  <span class="form-check-label">Düzenler</span>
+                                  <span class="form-check-label">Edit</span>
                               </label>
                               <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                   <input class="form-check-input" type="checkbox" value="1" <? if($role->add_bank_account==1): ?>checked="checked"<? endif; ?> name="add_bank_account">
-                                  <span class="form-check-label">Ekler</span>
+                                  <span class="form-check-label">Create</span>
                               </label>
                               <label class="form-check form-check-sm form-check-danger form-check-custom form-check-solid">
                                   <input class="form-check-input" type="checkbox" value="1" <? if($role->delete_bank_account==1): ?>checked="checked"<? endif; ?> name="delete_bank_account">
-                                  <span class="form-check-label">Siler</span>
+                                  <span class="form-check-label">Destroy</span>
                               </label>
                           </div>
                       </li>
@@ -106,57 +106,57 @@
                             </svg>
                         </span>
                     </span>
-                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Finansal İşlemler</h3>
+                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Transactions</h3>
                 </div>
                 <div class="fs-6 show ps-2 ps-md-7" id="kt_accordion_item_2" data-bs-parent="#kt_accordion_2">
                     <ul class="ps-0 ps-md-8">
                         <!--Yatırımlar-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Yatırımları: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Deposits: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_transaction_deposit==1): ?>checked="checked"<? endif; ?> name="view_transaction_deposit">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_transaction_deposit==1): ?>checked="checked"<? endif; ?> name="edit_transaction_deposit">
-                                    <span class="form-check-label">Düzenler</span>
+                                    <span class="form-check-label">Edit</span>
                                 </label>
                             </div>
                         </li>
                         <!--Çekimler-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Çekimleri: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Withdrawals: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_transaction_withdraw==1): ?>checked="checked"<? endif; ?> name="view_transaction_withdraw">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_transaction_withdraw==1): ?>checked="checked"<? endif; ?> name="edit_transaction_withdraw">
-                                    <span class="form-check-label">Düzenler</span>
+                                    <span class="form-check-label">Edit</span>
                                 </label>
                             </div>
                         </li>
                         <!--Rezerveler-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Rezerveleri: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Reserves: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_reserved==1): ?>checked="checked"<? endif; ?> name="view_reserved">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_reserved==1): ?>checked="checked"<? endif; ?> name="edit_reserved">
-                                    <span class="form-check-label">Düzenler</span>
+                                    <span class="form-check-label">Edit</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->add_reserved==1): ?>checked="checked"<? endif; ?> name="add_reserved">
-                                    <span class="form-check-label">Ekler</span>
+                                    <span class="form-check-label">Create</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-danger form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->delete_reserved==1): ?>checked="checked"<? endif; ?> name="delete_reserved">
-                                    <span class="form-check-label">Siler</span>
+                                    <span class="form-check-label">Destroy</span>
                                 </label>
                             </div>
                         </li>
@@ -174,21 +174,21 @@
                             </svg>
                         </span>
                     </span>
-                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Müşteri Yönetimi</h3>
+                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Customer Management</h3>
                 </div>
                 <div class="fs-6 show ps-2 ps-md-7" id="kt_accordion_item_3" data-bs-parent="#kt_accordion_3">
                     <ul class="ps-0 ps-md-8">
                         <!--Müşteriler-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Müşterileri: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Customers: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_customer==1): ?>checked="checked"<? endif; ?> name="view_customer">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_customer==1): ?>checked="checked"<? endif; ?> name="edit_customer">
-                                    <span class="form-check-label">Düzenler</span>
+                                    <span class="form-check-label">Edit</span>
                                 </label>
                             </div>
                         </li>
@@ -206,17 +206,17 @@
                             </svg>
                         </span>
                     </span>
-                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Raporlama</h3>
+                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Reports</h3>
                 </div>
                 <div class="fs-6 collapse ps-2 ps-md-7" id="kt_accordion_item_4" data-bs-parent="#kt_accordion_4">
                     <ul class="ps-0 ps-md-8">
                         <!--Raporlama-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Raporları: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Reports: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_report==1): ?>checked="checked"<? endif; ?> name="view_report">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                             </div>
                         </li>
@@ -234,51 +234,51 @@
                             </svg>
                         </span>
                     </span>
-                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Kullanıcı Yönetimi</h3>
+                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">User Management</h3>
                 </div>
                 <div class="fs-6 collapse ps-2 ps-md-7" id="kt_accordion_item_5" data-bs-parent="#kt_accordion_5">
                     <ul class="ps-0 ps-md-8">
                         <!--Kullanıcılar-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Kullanıcıları: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Users: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_user==1): ?>checked="checked"<? endif; ?> name="view_user">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_user==1): ?>checked="checked"<? endif; ?> name="edit_user">
-                                    <span class="form-check-label">Düzenler</span>
+                                    <span class="form-check-label">Edit</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->add_user==1): ?>checked="checked"<? endif; ?> name="add_user">
-                                    <span class="form-check-label">Ekler</span>
+                                    <span class="form-check-label">Create</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-danger form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->delete_user==1): ?>checked="checked"<? endif; ?> name="delete_user">
-                                    <span class="form-check-label">Siler</span>
+                                    <span class="form-check-label">Destroy</span>
                                 </label>
                             </div>
                         </li>
                         <!--Yetkilendirme-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Yetkilendirmeyi: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Permissions: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_role==1): ?>checked="checked"<? endif; ?> name="view_role">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_role==1): ?>checked="checked"<? endif; ?> name="edit_role">
-                                    <span class="form-check-label">Düzenler</span>
+                                    <span class="form-check-label">Edit</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->add_role==1): ?>checked="checked"<? endif; ?> name="add_role">
-                                    <span class="form-check-label">Ekler</span>
+                                    <span class="form-check-label">Create</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-danger form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->delete_role==1): ?>checked="checked"<? endif; ?> name="delete_role">
-                                    <span class="form-check-label">Siler</span>
+                                    <span class="form-check-label">Destroy</span>
                                 </label>
                             </div>
                         </li>
@@ -296,43 +296,43 @@
                             </svg>
                         </span>
                     </span>
-                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">Sistem Ayarları</h3>
+                    <h3 class="fs-5 form-label fw-bold mb-1 ms-2">System Settings</h3>
                 </div>
                 <div class="fs-6 collapse ps-2 ps-md-7" id="kt_accordion_item_6" data-bs-parent="#kt_accordion_6">
                     <ul class="ps-0 ps-md-8">
                         <!--Sistem Ayarları-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Ayarları: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Settings: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_setting==1): ?>checked="checked"<? endif; ?>  name="view_setting">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_setting==1): ?>checked="checked"<? endif; ?>  name="edit_setting">
-                                    <span class="form-check-label">Düzenler</span>
+                                    <span class="form-check-label">Edit</span>
                                 </label>
                             </div>
                         </li>
                         <!--Firmalar-->
                         <li>
                             <div class="d-flex mt-1 mb-3">
-                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Firmaları: </label>
+                                <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Firms: </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->view_firm==1): ?>checked="checked"<? endif; ?>  name="view_firm">
-                                    <span class="form-check-label">Görür</span>
+                                    <span class="form-check-label">View</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_firm==1): ?>checked="checked"<? endif; ?>  name="edit_firm">
-                                    <span class="form-check-label">Düzenler</span>
+                                    <span class="form-check-label">Edit</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->add_firm==1): ?>checked="checked"<? endif; ?>  name="add_firm">
-                                    <span class="form-check-label">Ekler</span>
+                                    <span class="form-check-label">Create</span>
                                 </label>
                                 <label class="form-check form-check-sm form-check-danger form-check-custom form-check-solid me-5">
                                     <input class="form-check-input" type="checkbox" value="1" <? if($role->delete_firm==1): ?>checked="checked"<? endif; ?>  name="delete_firm">
-                                    <span class="form-check-label">Siler</span>
+                                    <span class="form-check-label">Destroy</span>
                                 </label>
                             </div>
                         </li>
@@ -342,8 +342,8 @@
           </div>
         </div>
         <div class="text-center pt-10">
-            <button type="button" class="btn btn-light me-3" d="modalRoleCancel" data-bs-dismiss="modal">Vazgeç</button>
-            <button type="submit" class="btn btn-primary" id="modalRoleSubmit"><?=($role->id>0 ? "Güncelle" : "Ekle") ?></button>
+            <button type="button" class="btn btn-light me-3" d="modalRoleCancel" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="modalRoleSubmit"><?=($role->id>0 ? "Update" : "Create") ?></button>
         </div>
     </div>
 </form>
