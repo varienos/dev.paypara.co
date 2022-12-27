@@ -8,12 +8,12 @@
 				<div id="kt_header" class="header">
 					<div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
 						<div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_container', lg: '#kt_header_container'}">
-							<h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">Sistem Ayarları</h1>
+							<h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">Settings</h1>
 							<ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
 								<li class="breadcrumb-item text-muted">
-									<a href="dashboard" class="text-muted">Ana Sayfa</a>
+									<a href="dashboard" class="text-muted">Dashboard</a>
 								</li>
-								<li class="breadcrumb-item text-dark">Ayarlar</a></li>
+								<li class="breadcrumb-item text-dark">Settings</a></li>
 							</ul>
 						</div>
 						<div class="d-flex d-lg-none align-items-center ms-n2 me-2">
@@ -92,16 +92,16 @@
 							<div class="card-body pt-3 pb-0">
 								<ul class="nav nav-line-tabs nav-line-tabs-2x border-transparent fs-4 fw-semibold">
 									<li class="nav-item" <?=view_setting!==true?"auth=\"false\"":null; ?>>
-										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5 active" data-bs-toggle="tab" href="#settings-general">Genel Ayarlar</a>
+										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5 active" data-bs-toggle="tab" href="#settings-general">General Settings</a>
 									</li>
 									<li class="nav-item" <?=view_setting!==true?"auth=\"false\"":null; ?>>
-										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5" data-bs-toggle="tab" href="#settings-methods">Yöntemler</a>
+										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5" data-bs-toggle="tab" href="#settings-methods">Methods</a>
 									</li>
 									<li class="nav-item" <?=view_firm!==true?"auth=\"false\"":null; ?>>
-										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5  <?=view_setting!==true&&view_firm===true?"active":null; ?>" data-bs-toggle="tab" href="#settings-firms">Firmalar</a>
+										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5  <?=view_setting!==true&&view_firm===true?"active":null; ?>" data-bs-toggle="tab" href="#settings-firms">Firms</a>
 									</li>
 									<li class="nav-item" <?=view_setting!==true?"auth=\"false\"":null; ?>>
-										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark" data-bs-toggle="tab" href="#settings-logs">Günlükler</a>
+										<a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark" data-bs-toggle="tab" href="#settings-logs">Logs</a>
 									</li>
 								</ul>
 							</div>
@@ -112,14 +112,14 @@
 									<div class="card mb-5 mb-xxl-10 border">
 										<div class="card-header">
 											<div class="card-title m-0">
-												<h3>İşlem Limitleri</h3>
+												<h3>Payment Limits</h3>
 											</div>
 										</div>
 										<div class="card-body p-9">
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Alt Yatırım Limiti</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Talep alınacak en düşük yatırım tutarı</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Minimum Deposit Limit</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Minimum amount of deposit for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -130,8 +130,8 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Üst Yatırım Limiti</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Talep alınacak en yüksek yatırım tutarı</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Maximum Deposit Limit</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Maximum amount of deposit for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -142,8 +142,8 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Alt Çekim Limiti</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Talep alınacak en düşük çekim tutarı</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Minimum Withdrawal Limit</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Minimum amount of withdrawal for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -154,8 +154,8 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Üst Çekim Limiti</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Talep alınacak en yüksek çekim tutarı</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Maximum Withdrawal Limit</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Maximum amount of withdrawal for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -168,8 +168,8 @@
 										<? if(edit_setting === true): ?>
 										<div class="card-footer p-5">
 											<div class="d-flex flex-end">
-												<button type="button" id="resetSetting" data-form-id="genel-limits-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Sıfırla</button>
-												<button type="button" id="updateSetting" data-form-id="genel-limits-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Kaydet</button>
+												<button type="button" id="resetSetting" data-form-id="genel-limits-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
+												<button type="button" id="updateSetting" data-form-id="genel-limits-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
 											</div>
 										</div>
 										<? endif ?>
@@ -211,8 +211,8 @@
 										<? if(edit_setting === true): ?>
 										<div class="card-footer p-5">
 											<div class="d-flex flex-end">
-												<button type="button" id="resetSetting" data-form-id="genel-times-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Sıfırla</button>
-												<button type="button" id="updateSetting" data-form-id="genel-times-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Kaydet</button>
+												<button type="button" id="resetSetting" data-form-id="genel-times-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
+												<button type="button" id="updateSetting" data-form-id="genel-times-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
 											</div>
 										</div>
 										<? endif ?>
@@ -221,7 +221,7 @@
 								<div class="card mb-5 mb-xxl-10 border">
 									<div class="card-header bg-light-danger">
 										<div class="card-title m-0">
-											<h3>Bakım Modu</h3>
+											<h3>Maintenance Mode</h3>
 										</div>
 									</div>
 									<form id="maintenance-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
@@ -236,13 +236,13 @@
 														</svg>
 													</div>
 													<div class="d-flex flex-column">
-														<h4 class="text-gray-900 fw-bold">Dikkat!</h4>
-														<div class="text-gray-700 fs-6 fw-semibold">Bakım modunu aktif etmek sistem genelindeki tüm işlemleri durdurur!</div>
+														<h4 class="text-gray-900 fw-bold">Warning!</h4>
+														<div class="text-gray-700 fs-6 fw-semibold">Activating maintenance mode will halt all transactions throughout the system!</div>
 													</div>
 												</div>
 												<div class="d-flex">
 													<label class="form-check form-switch form-switch-md form-check-custom form-check-danger form-check-solid">
-														<label class="col-form-label fw-semibold p-0 fs-4 lh-sm me-3">Bakım Modu:</label>
+														<label class="col-form-label fw-semibold p-0 fs-4 lh-sm me-3">Maintenance:</label>
 														<input class="form-check-input w-70px h-30px border border-gray-500" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="maintenanceStatus" data-set="statusSwitch" <? if($param["maintenanceStatus"]=="on" ): ?>checked="checked"
 														<? endif; ?> value="on"> </label>
 												</div>
@@ -256,11 +256,11 @@
 									<div class="card mb-5 mb-xxl-10 border">
 										<div class="card-header">
 											<div class="card-title m-0">
-												<h3>Eşleşme Sistemi</h3>
+												<h3>Matching System</h3>
 											</div>
 											<div class="card-toolbar">
 												<label class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid">
-													<span class="form-check-label me-2">Sistem Durumu</span>
+													<span class="form-check-label me-2">System Status</span>
 													<input class="form-check-input w-40px" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> value="on" name="matchStatus" data-set="statusSwitch" <? if($param["matchStatus"]=="on" ): ?>checked="checked"
 													<? endif; ?>> </label>
 											</div>
@@ -268,8 +268,8 @@
 										<div class="card-body p-9">
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Eşleşme Yatırım Eşiği</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Eşit ve üzerindeki yatırımlara eşleşme hesabı paylaşılır</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Matching System Threshold</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Matching account is shared for equal and above amounts</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -280,8 +280,8 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Varsayılan Eşleşme Sayısı</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Bir hesabın en fazla kaç kişiyle eşleştirileceğini belirler</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Default Match Count</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Max number of clients an account can be matched with</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -291,11 +291,11 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Aktif olan Firmalar</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Eşleşme sisteminin aktif olacağı firmalar</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Active Firms</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Firms where the matching system will be active</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
-													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="matchStatusSite[]" data-close-on-select="false" data-placeholder="Tüm firmalar" data-allow-clear="true" multiple="multiple">
+													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="matchStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
 														<option></option>
 														<? $clientArray = explode(",", $param["matchStatusSite"]) ?>
 														<? foreach($clientSelect as $client){ ?>
@@ -308,8 +308,8 @@
 										<? if(edit_setting === true): ?>
 										<div class="card-footer p-5">
 											<div class="d-flex flex-end">
-												<button type="button" id="resetSetting" data-form-id="methods-matching-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Sıfırla</button>
-												<button type="button" id="updateSetting" data-form-id="methods-matching-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Kaydet</button>
+												<button type="button" id="resetSetting" data-form-id="methods-matching-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
+												<button type="button" id="updateSetting" data-form-id="methods-matching-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
 											</div>
 										</div>
 										<? endif ?>
@@ -319,11 +319,11 @@
 									<div class="card mb-5 mb-xxl-10 border">
 										<div class="card-header">
 											<div class="card-title m-0">
-												<h3>Çapraz Sistem</h3>
+												<h3>Cross System</h3>
 											</div>
 											<div class="card-toolbar">
 												<label class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid">
-													<span class="form-check-label me-2">Sistem Durumu</span>
+													<span class="form-check-label me-2">System Status</span>
 													<input class="form-check-input w-40px" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="crossStatus" data-set="statusSwitch" <? if($param["crossStatus"]=="on" ): ?>checked="checked"
 													<? endif; ?> value="on"> </label>
 											</div>
@@ -331,11 +331,11 @@
 										<div class="card-body p-9">
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Aktif olan Firmalar</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Çapraz sistemin aktif olacağı firmalar</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Active Firms</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Firms where the cross system will be active</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
-													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> data-placeholder="Tüm firmalar" name="crossStatusSite[]" data-close-on-select="false" data-allow-clear="true" multiple="multiple">
+													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> data-placeholder="All firms" name="crossStatusSite[]" data-close-on-select="false" data-allow-clear="true" multiple="multiple">
 														<option></option>
 														<? $clientArray = explode(",", $param["crossStatusSite"]) ?>
 														<? foreach($clientSelect as $client){ ?>
@@ -348,8 +348,8 @@
 										<? if(edit_setting === true): ?>
 										<div class="card-footer p-5">
 											<div class="d-flex flex-end">
-												<button type="button" id="resetSetting" data-form-id="methods-cross-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Sıfırla</button>
-												<button type="button" id="updateSetting" data-form-id="methods-cross-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Kaydet</button>
+												<button type="button" id="resetSetting" data-form-id="methods-cross-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
+												<button type="button" id="updateSetting" data-form-id="methods-cross-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
 											</div>
 										</div>
 										<? endif ?>
@@ -359,11 +359,11 @@
 									<div class="card mb-5 mb-xxl-10 border">
 										<div class="card-header">
 											<div class="card-title m-0">
-												<h3>Sanal POS Sistemi</h3>
+												<h3>Virtual POS System</h3>
 											</div>
 											<div class="card-toolbar">
 												<label class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid">
-													<span class="form-check-label me-2">Sistem Durumu</span>
+													<span class="form-check-label me-2">System Status</span>
 													<input class="form-check-input w-40px" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="posStatus" data-set="statusSwitch" <? if($param["posStatus"]=="on" ): ?>checked="checked"
 													<? endif; ?> value="on"> </label>
 											</div>
@@ -372,7 +372,7 @@
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
 													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Secret Key</label>
-													<label class="fw-semibold text-gray-600 lh-sm">POS API Secret Key değeri</label>
+													<label class="fw-semibold text-gray-600 lh-sm">POS API Secret Key</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -383,7 +383,7 @@
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
 													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Publishable Key</label>
-													<label class="fw-semibold text-gray-600 lh-sm">POS API Publishable Key değeri</label>
+													<label class="fw-semibold text-gray-600 lh-sm">POS API Publishable Key</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -393,11 +393,11 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Aktif olan Firmalar</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Sanal POS sisteminin aktif olacağı firmalar</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Active Firms</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Firms where the POS system will be active</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
-													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="posStatusSite[]" data-close-on-select="false" data-placeholder="Tüm firmalar" data-allow-clear="true" multiple="multiple">
+													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="posStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
 														<option></option>
 														<? $clientArray = explode(",", $param["posStatusSite"]) ?>
 														<? foreach($clientSelect as $client){ ?>
@@ -410,8 +410,8 @@
 										<? if(edit_setting === true): ?>
 										<div class="card-footer p-5">
 											<div class="d-flex flex-end">
-												<button type="button" id="resetSetting" data-form-id="methods-pos-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Sıfırla</button>
-												<button type="button" id="updateSetting" data-form-id="methods-pos-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Kaydet</button>
+												<button type="button" id="resetSetting" data-form-id="methods-pos-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
+												<button type="button" id="updateSetting" data-form-id="methods-pos-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
 											</div>
 										</div>
 										<? endif ?>
@@ -421,11 +421,11 @@
 									<div class="card mb-5 mb-xxl-10 border">
 										<div class="card-header">
 											<div class="card-title m-0">
-												<h3>Banka Sistemi</h3>
+												<h3>Bank System</h3>
 											</div>
 											<div class="card-toolbar">
 												<label class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid">
-													<span class="form-check-label me-2">Sistem Durumu</span>
+													<span class="form-check-label me-2">System Status</span>
 													<input class="form-check-input w-40px" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="bankStatus" data-set="statusSwitch" <? if($param["bankStatus"]=="on" ): ?>checked="checked"
 													<? endif; ?> value="on"> </label>
 											</div>
@@ -433,8 +433,8 @@
 										<div class="card-body p-9">
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Alt Yatırım Limiti</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Talep alınacak en düşük yatırım tutarı</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Minimum Deposit Limit</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Minimum amount of deposit for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -445,8 +445,8 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Üst Yatırım Limiti</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Talep alınacak en yüksek yatırım tutarı</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Maximum Deposit Limit</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Maximum amount of deposit for transactions</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group">
@@ -457,8 +457,8 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Aktif Banka Seçenekleri</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Hesapların tanımlanabileceği bankalar</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Active Bank Options</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Bank options where accounts can be defined</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="availableBanks[]" data-close-on-select="false" data-placeholder="Tüm bankalar" data-allow-clear="true" multiple="multiple">
@@ -471,11 +471,11 @@
 											</div>
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Aktif olan Firmalar</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Banka sisteminin aktif olacağı firmalar</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">Active Firms</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Firms where the bank system will be active</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
-													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="bankStatusSite[]" data-close-on-select="false" data-placeholder="Tüm firmalar" data-allow-clear="true" multiple="multiple">
+													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="bankStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
 														<option></option>
 														<? $clientArray = explode(",",$param["bankStatusSite"]) ?>
 														<? foreach($clientSelect as $client){ ?>
@@ -488,8 +488,8 @@
 										<? if(edit_setting === true): ?>
 										<div class="card-footer p-5">
 											<div class="d-flex flex-end">
-												<button type="button" id="resetSetting" data-form-id="methods-bank-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Sıfırla</button>
-												<button type="button" id="updateSetting" data-form-id="methods-bank-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Kaydet</button>
+												<button type="button" id="resetSetting" data-form-id="methods-bank-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
+												<button type="button" id="updateSetting" data-form-id="methods-bank-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
 											</div>
 										</div>
 										<? endif ?>
@@ -500,11 +500,11 @@
 								<div class="card mb-5 mb-xxl-10 border">
 									<div class="card-header">
 										<div class="card-title justify-content-between w-100 m-0">
-											<h2>Firmalar</h2>
+											<h2>Firms</h2>
 											<? if(add_firm === true): ?>
 											<button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#clientModalForm" data-id="0">
 												<i class="bi bi-plus-circle fs-5"></i>
-												Yeni Firma
+												New Firm
 											</button>
 											<? endif ?>
 										</div>
@@ -515,11 +515,11 @@
 												<thead>
 													<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
 														<th class="min-w-30px">ID</td>
-														<th class="min-w-100px">Firma adı</td>
+														<th class="min-w-100px">Firm Name</td>
 														<th class="min-w-200px">API Key</td>
 														<th class="min-w-80px">Secret Key</td>
-														<th class="min-w-60px">İşlem Yetkisi</td>
-														<th class="min-w-100px text-end">İşlemler</td>
+														<th class="min-w-60px">Authorized</td>
+														<th class="min-w-100px text-end">Actions</td>
 													</tr>
 												</thead>
 												<tbody></tbody>
@@ -532,19 +532,19 @@
 										<div class="card-header">
 											<div class="card-title d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-center justify-content-md-between w-100 m-0">
 												<h2 class="mb-1 mb-md-0">IP Whitelist</h2>
-												<label class="fs-6 fw-semibold text-gray-600">Sadece bu listeye tanımlanmış IP adresleri API'ye erişebilir</label>
+												<label class="fs-6 fw-semibold text-gray-600">Only IP addresses defined in this list can access the API</label>
 											</div>
 										</div>
 										<div class="card-body p-9">
 											<div class="row mb-6">
 												<div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">IP Adresleri</label>
-													<label class="fw-semibold text-gray-600 lh-sm">Adresler virgül ile ayrılmalıdır</label>
+													<label class="col-form-label fw-semibold p-0 pb-1 fs-6">IP Addresses</label>
+													<label class="fw-semibold text-gray-600 lh-sm">Addresses must be separated by commas</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
 													<div class="input-group d-flex">
 														<input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border rounded me-3" name="ipWhitelist" value="<?=$param["ipWhitelist"] ?>" placeholder="localhost" value="">
-														<button type="button" <?= edit_setting !== true ? "disabled" : null; ?> id="updateSetting" data-form-id="ip-whitelist-form" class="btn btn-sm btn-light-primary rounded-1">Kaydet</button>
+														<button type="button" <?= edit_setting !== true ? "disabled" : null; ?> id="updateSetting" data-form-id="ip-whitelist-form" class="btn btn-sm btn-light-primary rounded-1">Save</button>
 													</div>
 												</div>
 											</div>
@@ -556,7 +556,7 @@
 								<div class="card mb-5 mb-xxl-10 border" style="opacity: .5; cursor: not-allowed;">
 									<div class="card-header">
 										<div class="card-title justify-content-between w-100 m-0">
-											<h2>Olay Günlüğü <small>(aktif değil)</small></h2>
+											<h2>Event Logs <small>(not active)</small></h2>
 										</div>
 									</div>
 									<div class="card-body p-9">
@@ -566,24 +566,24 @@
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect><path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
 													</svg>
 												</span>
-												<input type="text" <?= edit_setting !== true ? "disabled" : null; ?> data-kt-customer-table-filter="search" class="form-control form-control-solid border w-250px ps-15" placeholder="Günlükte ara">
+												<input type="text" <?= edit_setting !== true ? "disabled" : null; ?> data-kt-customer-table-filter="search" class="form-control form-control-solid border w-250px ps-15" placeholder="Search in logs">
 											</div>
 											<button type="button" class="btn btn-sm btn-light-primary mh-35px mw-150px">
 												<span class="svg-icon svg-icon-3">
 													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M19 15C20.7 15 22 13.7 22 12C22 10.3 20.7 9 19 9C18.9 9 18.9 9 18.8 9C18.9 8.7 19 8.3 19 8C19 6.3 17.7 5 16 5C15.4 5 14.8 5.2 14.3 5.5C13.4 4 11.8 3 10 3C7.2 3 5 5.2 5 8C5 8.3 5 8.7 5.1 9H5C3.3 9 2 10.3 2 12C2 13.7 3.3 15 5 15H19Z" fill="currentColor"></path><path d="M13 17.4V12C13 11.4 12.6 11 12 11C11.4 11 11 11.4 11 12V17.4H13Z" fill="currentColor"></path><path opacity="0.3" d="M8 17.4H16L12.7 20.7C12.3 21.1 11.7 21.1 11.3 20.7L8 17.4Z" fill="currentColor"></path>
 													</svg>
 												</span>
-												Günlüğü İndir </button>
+												Download Logs</button>
 										</div>
 										<div class="table-responsive">
 											<table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="kt_table_users_logs">
 												<thead>
 													<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
 														<th class="min-w-20px">ID</td>
-														<th class="min-w-50px">Olay Yeri</td>
-														<th class="min-w-50px">Fonksiyon</td>
-														<th class="min-w-250px">Olay İçeriği</td>
-														<th class="min-w-100px text-end">Tarih</td>
+														<th class="min-w-50px">Event</td>
+														<th class="min-w-50px">Function</td>
+														<th class="min-w-250px">Event Details</td>
+														<th class="min-w-100px text-end">Date</td>
 													</tr>
 												</thead>
 												<tbody>
@@ -719,7 +719,7 @@
 								</div>
 								<div class="modal-footer flex-center" <?=edit_firm!==true&&add_firm!==true?"disabled":null; ?>>
 									<button type="reset" id="close-modal" data-bs-dismiss="modal" class="btn btn-light me-3">Vazgeç</button>
-									<button id="saveClient" class="btn btn-primary">Kaydet</button>
+									<button id="saveClient" class="btn btn-primary">Save</button>
 								</div>
 							</div>
 						</div>

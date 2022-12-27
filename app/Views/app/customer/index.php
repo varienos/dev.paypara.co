@@ -13,7 +13,7 @@
                 <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-page-title data-account-type></h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
-                    <a href="dashboard" class="text-muted">Ana Sayfa</a>
+                    <a href="dashboard" class="text-muted">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item text-dark" data-page-title></li>
                 </ul>

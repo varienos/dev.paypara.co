@@ -13,12 +13,12 @@
                 <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-account-type>Müşteri Profili</h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
-                    <a href="dashboard" class="text-muted">Ana Sayfa</a>
+                    <a href="dashboard" class="text-muted">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item text-muted">
-                    <a href="customer/index" class="text-muted">Müşteriler</a>
+                    <a href="customer/index" class="text-muted">Clients</a>
                   </li>
-                  <li class="breadcrumb-item text-dark">Müşteri Profili</li>
+                  <li class="breadcrumb-item text-dark">Client Profile</li>
                 </ul>
               </div>
               <div class="d-flex d-lg-none align-items-center ms-n2 me-2">
@@ -48,47 +48,46 @@
                         <div class="fs-3 text-gray-800 fw-bold mb-1"><?=$customer->gamer_name ?></div>
                         <div class="fs-5 fw-semibold text-muted mb-6"><?=$customer->gamer_nick ?></div>
                         <div class="d-flex flex-wrap flex-center">
-                          <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
+                          <div class="border border-gray-300 border-dashed rounded py-3 px-2 mb-3">
                             <div class="fs-4 fw-bold text-center text-gray-700">
                               <span class="w-75px"><?=$customer->totalDepositProcess ?></span>
                             </div>
-                            <div class="fw-semibold text-muted text-center">Yatırım</div>
+                            <div class="fw-semibold text-muted text-center">Deposit</div>
                           </div>
-                          <div class="border border-gray-300 border-dashed rounded py-3 px-3 mx-4 mb-3">
+                          <div class="border border-gray-300 border-dashed rounded py-3 px-2 mx-2 mb-3">
                             <div class="fs-4 fw-bold text-center text-gray-700">
                               <span class="w-50px"><?=$customer->totalWithdrawProcess ?></span>
                             </div>
-                            <div class="fw-semibold text-muted ">Çekim</div>
+                            <div class="fw-semibold text-muted ">Withdraw</div>
                           </div>
-                          <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
+                          <div class="border border-gray-300 border-dashed rounded py-3 px-2 mb-3">
                             <div class="fs-4 fw-bold text-center text-gray-700">
                               <span class="w-50px"><?=$customer->totalRejectProcess ?></span>
                             </div>
-                            <div class="fw-semibold text-muted text-center">Ret</div>
+                            <div class="fw-semibold text-muted text-center">Rejected</div>
                           </div>
                         </div>
                       </div>
                       <div class="d-flex flex-stack fs-4 py-3">
-                        <div class="fw-bold">Detaylar
-                        </div>
+                        <div class="fw-bold">Details</div>
                       </div>
                       <div class="separator separator-dashed my-3"></div>
                       <div class="pt-5 fs-6">
                         <? if($customer->isVip=="on"): ?>
-                        <div class="badge badge-lg badge-light-danger d-inline">VIP Müşteri</div>
+                        <div class="badge badge-lg badge-light-danger d-inline">VIP Client</div>
                         <? endif; ?>
                         <? if($customer->isVip=="0"): ?>
-                        <div class="badge badge-lg badge-light-dark d-inline">Normal Müşteri</div>
+                        <div class="badge badge-lg badge-light-dark d-inline">Normal Client</div>
                         <? endif; ?>
                         <div class="fw-bold mt-5">User ID</div>
                         <div class="text-gray-600"><?=$customer->gamer_site_id ?></div>
-                        <div class="fw-bold mt-5">Firma</div>
+                        <div class="fw-bold mt-5">Firm</div>
                         <div class="text-gray-600">
                           <a href="#" class="text-gray-600 text-hover-primary"><?=$customer->clientName ?></a>
                         </div>
-                        <div class="fw-bold mt-5">İlk İşlem Tarihi</div>
+                        <div class="fw-bold mt-5">First Transaction Date</div>
                         <div class="text-gray-600"><?= $customer->firstProcess == "" ? "İşlemi Yok" : $customer->firstProcess ?></div>
-                        <div class="fw-bold mt-5">Son İşlem Tarihi</div>
+                        <div class="fw-bold mt-5">Last Transaction Date</div>
                         <div class="text-gray-600"><?= $customer->lastProcess == "" ? "İşlemi Yok" : $customer->lastProcess ?></div>
                       </div>
                     </div>
@@ -96,7 +95,7 @@
                   <div class="card border mb-5 mb-xl-8">
                     <div class="card-header border-0">
                       <div class="card-title">
-                        <h3 class="fw-bold m-0">Müşteri Yetkileri</h3>
+                        <h3 class="fw-bold m-0">Client Permissions</h3>
                       </div>
                     </div>
                     <div class="card-body pt-2">
@@ -118,13 +117,13 @@
                           </div>
                         </div>
                         <div class="separator separator-dashed my-5"></div>
-                        <div class="d-flex flex-stack"> 
+                        <div class="d-flex flex-stack">
                           <div class="d-flex">
                             <div class="svg-icon svg-icon-muted svg-icon-2qx me-4">
                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M11 13H7C6.4 13 6 12.6 6 12C6 11.4 6.4 11 7 11H11V13ZM17 11H13V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor" /><path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM17 11H13V7C13 6.4 12.6 6 12 6C11.4 6 11 6.4 11 7V11H7C6.4 11 6 11.4 6 12C6 12.6 6.4 13 7 13H11V17C11 17.6 11.4 18 12 18C12.6 18 13 17.6 13 17V13H17C17.6 13 18 12.6 18 12C18 11.4 17.6 11 17 11Z" fill="currentColor" /></svg>
                             </div>
                             <div class="d-flex flex-column">
-                              <span class="fs-5 text-dark fw-bold">Yatırım</span>
+                              <span class="fs-5 text-dark fw-bold">Deposit</span>
                             </div>
                           </div>
                           <div class="d-flex justify-content-end">
@@ -141,7 +140,7 @@
                               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM18 12C18 11.4 17.6 11 17 11H7C6.4 11 6 11.4 6 12C6 12.6 6.4 13 7 13H17C17.6 13 18 12.6 18 12Z" fill="currentColor" /></svg>
                             </div>
                             <div class="d-flex flex-column">
-                              <span class="fs-5 text-dark fw-bold">Çekim</span>
+                              <span class="fs-5 text-dark fw-bold">Withdraw</span>
                             </div>
                           </div>
                           <div class="d-flex justify-content-end">
@@ -158,7 +157,7 @@
                 <div class="flex-lg-row-fluid ms-lg-15">
                   <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
                     <li class="nav-item">
-                      <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">Genel Bakış</a>
+                      <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">Overview</a>
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
@@ -168,24 +167,24 @@
                           <div class="card border h-100">
                             <div class="card-header border-0">
                               <div class="card-title">
-                                <h2>İşlem Özeti</h2>
+                                <h2>Transaction Summary</h2>
                               </div>
                             </div>
                             <div class="card-body py-0">
-                              <div class="fs-5 fw-semibold text-gray-500 mb-4">Müşterinin tüm işlem geçmişini kapsar.</div>
+                              <div class="fs-5 fw-semibold text-gray-500 mb-4">Covers entire transaction history of the customer.</div>
                               <div class="d-flex flex-wrap flex-stack mb-5">
                                 <div class="d-flex flex-wrap">
                                   <div class="border border-dashed border-gray-300 rounded my-3 p-4 me-6">
                                     <span class="fs-1 fw-bold text-gray-800 lh-1">
                                       <span data-kt-countup="true" data-kt-countup-value="<?=number_format($customer->totalDeposit,2) ?>" data-kt-countup-prefix="₺">0</span>
                                     </span>
-                                    <span class="fs-6 fw-semibold text-muted d-block lh-1 pt-2">Yatırım Tutarı</span>
+                                    <span class="fs-6 fw-semibold text-muted d-block lh-1 pt-2">Deposit Amount</span>
                                   </div>
                                   <div class="border border-dashed border-gray-300 rounded my-3 p-4 me-6">
                                     <span class="fs-1 fw-bold text-gray-800 lh-1">
                                       <span class="" data-kt-countup="true" data-kt-countup-value="<?=number_format($customer->totalWithdraw,2) ?>" data-kt-countup-prefix="₺">0</span>
                                     </span>
-                                    <span class="fs-6 fw-semibold text-muted d-block lh-1 pt-2">Çekim Tutarı</span>
+                                    <span class="fs-6 fw-semibold text-muted d-block lh-1 pt-2">Withdraw Amount</span>
                                   </div>
                                 </div>
                               </div>
@@ -196,7 +195,7 @@
                           <div class="card border h-100">
                             <div class="card-header border-0">
                               <div class="card-title">
-                                <h2>Müşteri Notu</h2>
+                                <h2>Client Note</h2>
                               </div>
                               <div class="card-toolbar">
                                 <? if(edit_customer === true): ?>
@@ -204,13 +203,13 @@
                                   <span class="svg-icon svg-icon-3">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.89557 13.4982L7.79487 11.2651C7.26967 10.7068 6.38251 10.7068 5.85731 11.2651C5.37559 11.7772 5.37559 12.5757 5.85731 13.0878L9.74989 17.2257C10.1448 17.6455 10.8118 17.6455 11.2066 17.2257L18.1427 9.85252C18.6244 9.34044 18.6244 8.54191 18.1427 8.02984C17.6175 7.47154 16.7303 7.47154 16.2051 8.02984L11.061 13.4982C10.7451 13.834 10.2115 13.834 9.89557 13.4982Z" fill="currentColor" /></svg>
                                   </span>
-                                  Kaydet
+                                  Save
                                 </button>
                                 <? endif ?>
                               </div>
                             </div>
                             <div class="card-body py-0">
-                              <div class="fs-5 fw-semibold text-gray-500 mb-3">Müşteri hakkında tutulan notlar:</div>
+                              <div class="fs-5 fw-semibold text-gray-500 mb-3">Notes about the customer:</div>
                               <div class="row d-flex min-h-75 pb-5">
                                 <textarea class="form-control form-control-solid rounded-3" style="resize: none;" id="customerNote" spellcheck="false" <?= edit_customer !== true ? "disabled" : null; ?>><?=$customer->note ?></textarea>
                               </div>
@@ -225,12 +224,12 @@
                               <span class="svg-icon svg-icon-1 position-absolute ms-6">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" /><path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" /></svg>
                               </span>
-                              <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid border border-1 w-200px ps-15" placeholder="İşlem ara" />
+                              <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid border border-1 w-200px ps-15" placeholder="Search transaction" />
                             </div>
                           </div>
                           <div class="card-toolbar">
                             <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                              <input class="form-control form-control-solid border border-1 mw-225px me-3" placeholder="Tarih aralığı seçin" value="<?=date("Y-m-d") ?>" name="transactionDate" id="transactionDate" />
+                              <input class="form-control form-control-solid border border-1 mw-225px me-3" placeholder="Select date range" value="<?=date("Y-m-d") ?>" name="transactionDate" id="transactionDate" />
                               <button type="button" class="btn btn-light me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                 <span class="svg-icon svg-icon-2 m-0">
                                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor" /></svg>
@@ -238,49 +237,49 @@
                               </button>
                               <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                                 <div class="px-7 py-5">
-                                  <div class="fs-5 text-dark fw-bold">Filtre Ayarları</div>
+                                  <div class="fs-5 text-dark fw-bold">Filter Options</div>
                                 </div>
                                 <div class="separator border-gray-200"></div>
                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                   <div class="row mb-3">
                                     <div class="col-3 d-flex align-items-center">
-                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Yöntem:</label>
+                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Method:</label>
                                     </div>
                                     <div class="col ps-0">
-                                      <select class="form-select form-select-solid border border-1 fw-bold" name="method" id="method" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
+                                      <select class="form-select form-select-solid border border-1 fw-bold" name="method" id="method" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
                                         <option></option>
-                                        <option value="bank">Banka</option>
+                                        <option value="bank">Bank</option>
                                         <option value="papara">Papara</option>
-                                        <option value="cross">Çapraz</option>
-                                        <option value="match">Eşleşme</option>
-                                        <option value="pos">Sanal POS</option>
+                                        <option value="cross">Cross</option>
+                                        <option value="match">Match</option>
+                                        <option value="pos">Virtual POS</option>
                                       </select>
                                     </div>
                                   </div>
                                   <div class="row mb-3">
                                     <div class="col-3 d-flex align-items-center">
-                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Hesap:</label>
+                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Account:</label>
                                     </div>
                                     <div class="col ps-0">
-                                      <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountIdFilter" id="accountIdFilter" placeholder="Tümü" app-onchange-datatable-reload>
+                                      <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountIdFilter" id="accountIdFilter" placeholder="All" app-onchange-datatable-reload>
                                     </div>
                                   </div>
                                   <div class="row mb-3">
                                     <div class="col-3 d-flex align-items-center">
-                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Durum:</label>
+                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Status:</label>
                                     </div>
                                     <div class="col ps-0">
-                                      <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="Tümü" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
+                                      <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
                                         <option></option>
-                                        <option value="beklemede">Beklemede</option>
-                                        <option value="onaylandı">Onaylandı</option>
-                                        <option value="reddedildi">Reddedildi</option>
+                                        <option value="beklemede">Pending</option>
+                                        <option value="onaylandı">Approved</option>
+                                        <option value="reddedildi">Rejected</option>
                                       </select>
                                     </div>
                                   </div>
                                   <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" app-onclick-datatable-reset>Sıfırla</button>
-                                    <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter" app-onclick-datatable-reload>Uygula</button>
+                                    <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" app-onclick-datatable-reset>Reset</button>
+                                    <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter" app-onclick-datatable-reload>Apply</button>
                                   </div>
                                 </div>
                               </div>
@@ -304,13 +303,13 @@
                                   <table class="table table-responsive table-row-dashed align-middle dataTable fs-6 gy-4" id="customerTransactionTable">
                                     <thead>
                                       <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                        <th class="min-w-100px">Tarih</th>
+                                        <th class="min-w-100px">Date</th>
                                         <th class="min-w-80px">TXID</th>
-                                        <th class="min-w-70px">Hesap</th>
-                                        <th class="min-w-70px">Yöntem</th>
-                                        <th class="min-w-70px">Tutar</th>
-                                        <th class="min-w-100px">Durum</th>
-                                        <th class="text-end min-w-70px">İşlemler</th>
+                                        <th class="min-w-70px">Account</th>
+                                        <th class="min-w-70px">Method</th>
+                                        <th class="min-w-70px">Amount</th>
+                                        <th class="min-w-100px">Status</th>
+                                        <th class="text-end min-w-70px">Actions</th>
                                       </tr>
                                     </thead>
                                     <tbody class="fw-semibold text-gray-600">

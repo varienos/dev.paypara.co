@@ -22,14 +22,14 @@
         <div class="bg-body d-flex flex-center rounded border shadow p-10 min-w-sm-450px">
           <form class="form w-100" method="post" action="">
             <div class="row mb-8">
-              <h2 class="fw-bold m-0"><i class="fs-2 bi bi-lock-fill text-dark"></i> İki Adımlı Doğrulama</h2>
+              <h2 class="fw-bold m-0"><i class="fs-2 bi bi-lock-fill text-dark"></i> 2FA Verification</h2>
             </div>
             <div class="row my-7">
                 <div class="col-8 pe-0">
                     <input type="text" placeholder="Kodu girin" name="verificationCode" verificationCode autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
                 </div>
                 <div class="col-4">
-                    <button type="button" verify class="btn btn-light-dark w-100">Doğrula</button>
+                    <button type="button" verify class="btn btn-light-dark w-100">Verify</button>
                 </div>
             </div>
           </form>

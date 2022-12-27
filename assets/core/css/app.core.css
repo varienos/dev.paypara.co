@@ -144,7 +144,7 @@ ul#firms li {
     width: 100%;
     position: absolute;
     visibility: visible;
-    content: "Panoya kopyalandı";
+    content: "Copied to clipboard";
 }
 
 /* loading dots */

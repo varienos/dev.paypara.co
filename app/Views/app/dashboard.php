@@ -10,7 +10,7 @@
             <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
               <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-2x">👋 Selam <?=ucfirst(user_name) ?>
                 <small class="fs-6 fw-semibold ms-1 pt-1">
-                  <? if(pendingProcessDaily()>0){ ?>Bekleyen <?=pendingProcessDaily() ?> işlem var<? } else { ?>Bekleyen işlem yok<? } ?>
+                  <? if(pendingProcessDaily()>0){ ?>There are <?=pendingProcessDaily() ?> pending transactions<? } else { ?>There is no pending transactions<? } ?>
                 </small>
               </h1>
             </div>

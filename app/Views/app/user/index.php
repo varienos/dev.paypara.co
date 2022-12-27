@@ -12,7 +12,7 @@
                 <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-page-title data-account-type></h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
-                    <a href="dashboard" class="text-muted">Ana Sayfa</a>
+                    <a href="dashboard" class="text-muted">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item text-dark" data-page-title></li>
                 </ul>
@@ -40,7 +40,7 @@
                       <span class="svg-icon svg-icon-1 position-absolute ms-6">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" /><path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" /></svg>
                       </span>
-                      <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-250px ps-14" placeholder="Kullanıcı ara" />
+                      <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-250px ps-14" placeholder="Search user" />
                     </div>
                   </div>
                   <div class="card-toolbar">
@@ -51,20 +51,20 @@
                             <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor" />
                           </svg>
                         </span>
-                        Filtrele
+                        Filter
                       </button>
                       <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
                         <div class="px-7 py-5">
-                          <div class="fs-5 text-dark fw-bold">Filtre Ayarları</div>
+                          <div class="fs-5 text-dark fw-bold">Filter Options</div>
                         </div>
                         <div class="separator border-gray-200"></div>
                         <div class="px-7 py-5" data-kt-user-table-filter="form">
                           <div class="row mb-3">
-                            <div class="col-3 d-flex align-items-center">
-                              <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Yetki:</label>
+                            <div class="col-4 d-flex align-items-center">
+                              <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Permission:</label>
                             </div>
                             <div class="col ps-0">
-                              <select class="form-select form-select-solid border border-1 fw-bold" name="role_id" id="role_id" data-kt-select2="true" data-placeholder="Tümü" data-kt-user-table-filter="role" data-hide-search="true" id="role">
+                              <select class="form-select form-select-solid border border-1 fw-bold" name="role_id" id="role_id" data-kt-select2="true" data-placeholder="All" data-kt-user-table-filter="role" data-hide-search="true" id="role">
                                 <option></option>
                                 <? foreach(getRoles() as $row){ ?>
                                   <option value="<?=$row->id ?>"><?=$row->name ?></option>
@@ -73,20 +73,20 @@
                             </div>
                           </div>
                           <div class="row mb-3">
-                            <div class="col-3 d-flex align-items-center">
+                            <div class="col-4 d-flex align-items-center">
                               <label class="form-label fs-6 fw-semibold text-end w-100 m-0">2FA:</label>
                             </div>
                             <div class="col ps-0">
-                              <select class="form-select form-select-solid border border-1 fw-bold" name="is2fa" id="is2fa" data-kt-select2="true" data-placeholder="Tümü" data-kt-user-table-filter="two-step" data-hide-search="true">
+                              <select class="form-select form-select-solid border border-1 fw-bold" name="is2fa" id="is2fa" data-kt-select2="true" data-placeholder="All" data-kt-user-table-filter="two-step" data-hide-search="true">
                                 <option></option>
-                                <option value="on">Açık</option>
-                                <option value="0">Kapalı</option>
+                                <option value="on">On</option>
+                                <option value="0">Off</option>
                               </select>
                             </div>
                           </div>
                           <div class="d-flex justify-content-end">
-                            <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" id="datatableReset">Sıfırla</button>
-                            <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter" id="datatableReload">Uygula</button>
+                            <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" id="datatableReset">Reset</button>
+                            <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter" id="datatableReload">Apply</button>
                           </div>
                         </div>
                       </div>
@@ -99,7 +99,7 @@
                         <div id="datatableExport" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true"></div>
                     </div>
                     <? if (view_role === true): ?>
-                      <a class="btn btn-light-primary me-3" href="/user/roles">Yetkileri Düzenle</a>
+                      <a class="btn btn-light-primary me-3" href="/user/roles">Edit Permissions</a>
                     <? endif; ?>
 
                     <? if (add_user === true): ?>
@@ -108,7 +108,7 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect><rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"></rect>
                         </svg>
                       </span>
-                      Kullanıcı Ekle
+                      Add New User
                     </button>
                     <? endif; ?>
                   </div>
