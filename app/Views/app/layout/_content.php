@@ -63,7 +63,7 @@
             </script>
             <? if( $withdrawFetchWeeklyCount>0 or $depositFetchWeeklyCount>0 ): ?>
 
-            <div id="kt_apexcharts_1" class="h-100"></div>
+            <div id="chart-dashboard" class="h-100"></div>
           <?php else: ?>
             <h3 class="d-flex flex-center text-center text-gray-700 h-100 m-0">No transactions this week</h3>
           <?php endif ?>
