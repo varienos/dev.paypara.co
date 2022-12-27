@@ -55,17 +55,23 @@
                                                 <div class="badge badge-lg badge-light-danger d-inline" name="role"><?=getRoleName($user->role_id) ?></div>
                                             </div>
                                             <div class="separator separator-dashed my-3"></div>
-                                            <div class="pb-5 fs-6">
-                                                <div class="fw-bold mt-5">Created At</div>
-                                                <div class="text-gray-600"><?=$user->user_create_time ?></div>
-                                                <div class="fw-bold mt-5">Last Login</div>
-                                                <div class="badge badge-light-dark fs-8"><?=( $user->user_last_login == "" ? "Not Signed In" : $user->user_last_login ) ?></div>
-                                                <div class="fw-bold mt-5">2FA Verification</div>
-                                                <? if($user->is2fa=="0"): ?>
-                                                <div class="badge badge-light-danger fs-8">Off</div>
-                                                <? else: ?>
-                                                <div class="badge badge-light-success fs-8">On</div>
-                                                <? endif; ?>
+                                            <div class="mt-5">
+                                                <div class="d-flex flex-stack text-gray-800">
+                                                    <div class="fw-bold">Created At</div>
+                                                    <div class="text-gray-700 badge badge-light-dark"><?=$user->user_create_time ?></div>
+                                                </div>
+                                                <div class="d-flex flex-stack text-gray-800 my-5">
+                                                    <div class="fw-bold">Last Login</div>
+                                                    <div class="text-gray-700 badge badge-light-dark"><?=( $user->user_last_login == "" ? "Not Signed In" : $user->user_last_login ) ?></div>
+                                                </div>
+                                                <div class="d-flex flex-stack text-gray-800">
+                                                    <div class="fw-bold">2FA Verification</div>
+                                                    <? if($user->is2fa=="0"): ?>
+                                                    <div class="badge badge-light-danger">Off</div>
+                                                    <? else: ?>
+                                                    <div class="badge badge-light-success">On</div>
+                                                    <? endif; ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
