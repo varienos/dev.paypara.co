@@ -2403,13 +2403,13 @@ $.varien = {
                         tooltip: { y: { formatter: (value) => value + "%" }},
                         dataLabels: {
                             background: {
-                            padding: 4,
-                            opacity: 0.5,
-                            enabled: true,
-                            borderWidth: 1,
-                            borderRadius: 2,
-                            foreColor: '#000',
-                            borderColor: '#000'
+                                padding: 4,
+                                opacity: 0.5,
+                                enabled: true,
+                                borderWidth: 1,
+                                borderRadius: 2,
+                                foreColor: '#000',
+                                borderColor: '#000'
                             }
                         },
                         responsive: [{
@@ -2435,7 +2435,7 @@ $.varien = {
                         // Update chart on theme mode change
                         KTThemeMode.on("kt.thememode.change", function() {
                             if (chart.rendered) {
-                            chart.self.destroy();
+                                chart.self.destroy();
                             }
 
                             initChart(chart);
@@ -2485,10 +2485,10 @@ $.varien = {
                         fill: {
                             type: "gradient",
                             gradient: {
-                            opacityTo: 0,
-                            opacityFrom: .5,
-                            shadeIntensity: .5,
-                            stops: [0, 80, 100]
+                                opacityTo: 0,
+                                opacityFrom: .5,
+                                shadeIntensity: .5,
+                                stops: [0, 80, 100]
                             }
                         },
                         stroke: {
@@ -2500,37 +2500,39 @@ $.varien = {
                             tickPlacement: "between",
                             axisTicks: { show: false },
                             axisBorder: { show: false },
+                            // TODO: To be replaced with dynamic data
+                            // Shows entire month day by day
                             categories: ["Apr 01", "Apr 02", "Apr 03", "Apr 04", "Apr 05", "Apr 06", "Apr 07", "Apr 08", "Apr 09", "Apr 10", "Apr 11", "Apr 12", "Apr 13", "Apr 14", "Apr 17", "Apr 18", "Apr 19", "Apr 21", "Apr 22", "Apr 23", "Apr 24", "Apr 25", "Apr 26", "Apr 27", "Apr 28", "Apr 29", "Apr 30", "Apr 31"],
                             labels: {
-                            rotate: -25,
-                            rotateAlways: true,
-                            style: {
-                                fontSize: '12px',
-                                colors: labelColor
-                            }
+                                rotate: -25,
+                                rotateAlways: true,
+                                style: {
+                                    fontSize: '12px',
+                                    colors: labelColor
+                                }
                             },
                         },
                         yaxis: {
                             tickAmount: 5,
                             labels: {
                             style: { colors: labelColor, fontSize: '12px' },
-                            formatter: function (value) {
-                                let val = Math.abs(value);
-                                if(val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
-                                if(val > 1000000) val = (val / 1000000).toFixed(0) + 'm';
-                                return "₺" + val;
-                            }
+                                formatter: function (value) {
+                                    let val = Math.abs(value);
+                                    if(val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
+                                    if(val > 1000000) val = (val / 1000000).toFixed(0) + 'm';
+                                    return "₺" + val;
+                                }
                             }
                         },
                         tooltip: {
                             style: { fontSize: '13px' },
                             y: {
-                            formatter: function (value) {
-                                let val = Math.abs(value);
-                                if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
-                                if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
-                                return val == 0 ? 'none' : "₺" + val;
-                            }
+                                formatter: function (value) {
+                                    let val = Math.abs(value);
+                                    if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
+                                    if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
+                                    return val == 0 ? 'none' : "₺" + val;
+                                }
                             }
                         },
                         colors: [depositColor, withdrawColor],
@@ -2557,7 +2559,7 @@ $.varien = {
                         // Update chart on theme mode change
                         KTThemeMode.on("kt.thememode.change", function() {
                             if (chart.rendered) {
-                            chart.self.destroy();
+                                chart.self.destroy();
                             }
 
                             initChart(chart);
