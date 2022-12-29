@@ -92,16 +92,16 @@ class Customer extends BaseController
             $withdraw = $row->withdraw == 'on' ? 'checked' : null;
             $records['data'][$i] = [
                 'DT_RowId' => $row->id,
-                '<div align="center" style="text-align:center">' . $row->gamer_site_id . '</div>',
-                $row->clientName,
-                $row->gamer_nick,
-                $row->gamer_name,
-                ($row->totalProcess == '' || $row->totalProcess == 0 ? 'işlem yok' : $row->totalProcess . ' adet'),
-                ($row->lastProcess == '' ? 'işlem yok' : $row->lastProcess),
-                '<div class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="isVip" data-set="switch" ' . (edit_customer !== true ? 'disabled' : null) . ' data-id="' . $row->id . '" name="isVip" class="form-check-input h-20px w-45px" ' . $isVip . '></div>',
+                '<div class="text-center">' . $row->gamer_site_id . '</div>',
+                '<div class="text-center">' . $row->clientName . '</div>',
+                '<div class="text-center">' . $row->gamer_nick . '</div>',
+                '<div class="text-center">' . $row->gamer_name . '</div>',
+                '<div class="text-center">' . ($row->totalProcess == '' || $row->totalProcess == 0 ? 'none' : $row->totalProcess . ' tx') . '</div>',
+                '<div class="text-center">' . ($row->lastProcess == '' ? 'none' : $row->lastProcess) . '</div>',
+                '<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="isVip" data-set="switch" ' . (edit_customer !== true ? 'disabled' : null) . ' data-id="' . $row->id . '" name="isVip" class="form-check-input h-20px w-45px" ' . $isVip . '></div>',
                 /*'<div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="deposit" data-set="switch" data-id="'.$row->id.'" name="deposit" '.$deposit.'><label class="form-check-label" for="deposit"> Aktif</label></div>',
                 '<div class="form-check form-switch"><input class="form-check-input" type="checkbox" role="switch" id="withdraw" data-set="switch" data-id="'.$row->id.'" name="withdraw" '.$withdraw.'><label class="form-check-label" for="withdraw"> Aktif</label></div>',*/
-                '<button onclick="location.href=\'customer/detail/' . $row->id . '/' . $row->site_id . '/' . $row->gamer_site_id . '\'" class="btn btn-sm btn-light btn-active-light-primary">Görüntüle</button>'
+                '<button onclick="location.href=\'customer/detail/' . $row->id . '/' . $row->site_id . '/' . $row->gamer_site_id . '\'" class="btn btn-sm btn-light btn-active-light-primary">View</button>'
             ];
             $i++;
         }

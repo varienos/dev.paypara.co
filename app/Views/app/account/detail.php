@@ -68,11 +68,11 @@
                                 </tr>
                                 <tr>
                                   <td class="text-gray-800">First TX:</td>
-                                  <td class="text-gray-800"><?=$update->firstProcess == "" ? "İşlem yok" : $update->firstProcess ?> </td>
+                                  <td class="text-gray-800"><?=$update->firstProcess == "" ? "none" : $update->firstProcess ?> </td>
                                 </tr>
                                 <tr>
                                   <td class="text-gray-800">Last TX:</td>
-                                  <td class="text-gray-800"><?=$update->lastProcess == "" ? "İşlem yok" : $update->lastProcess ?> </td>
+                                  <td class="text-gray-800"><?=$update->lastProcess == "" ? "none" : $update->lastProcess ?> </td>
                                 </tr>
                                 <tr>
                                   <td class="text-gray-800">Type:</td>

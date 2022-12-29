@@ -60,8 +60,8 @@
                         <div class="separator border-gray-200"></div>
                         <div class="px-7 py-5" data-kt-user-table-filter="form">
                           <div class="row mb-3">
-                            <div class="col-4 d-flex align-items-center">
-                              <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Permission:</label>
+                            <div class="col-3 d-flex align-items-center">
+                              <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Role:</label>
                             </div>
                             <div class="col ps-0">
                               <select class="form-select form-select-solid border border-1 fw-bold" name="role_id" id="role_id" data-kt-select2="true" data-placeholder="All" data-kt-user-table-filter="role" data-hide-search="true" id="role">
@@ -73,7 +73,7 @@
                             </div>
                           </div>
                           <div class="row mb-3">
-                            <div class="col-4 d-flex align-items-center">
+                            <div class="col-3 d-flex align-items-center">
                               <label class="form-label fs-6 fw-semibold text-end w-100 m-0">2FA:</label>
                             </div>
                             <div class="col ps-0">
@@ -99,7 +99,7 @@
                         <div id="datatableExport" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true"></div>
                     </div>
                     <? if (view_role === true): ?>
-                      <a class="btn btn-light-primary me-3" href="/user/roles">Edit Permissions</a>
+                      <a class="btn btn-light-primary me-3" href="/user/roles">Edit Roles</a>
                     <? endif; ?>
 
                     <? if (add_user === true): ?>

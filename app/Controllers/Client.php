@@ -82,7 +82,7 @@ class Client extends BaseController
                 $row->api_key_pin."-****-****-****-************",
 				$row->private_key,
                 '<div class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" '.(edit_firm!==true?"disabled":null).' id="flexSwitchCheckChecked" data-set="switch" data-id="'.$row->id.'" name="status" class="form-check-input h-20px w-45px" '.$status.'></div>',
-                '<button type="button" class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#clientModalForm" '.(edit_firm!==true?"auth=\"false\"":null).' data-id="'.$row->id.'">Düzenle</button> <button type="button" data-set="remove" data-id="'.$row->id.'" '.(delete_firm!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-danger text-danger">Sil</button>'
+                '<button type="button" class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal" data-bs-target="#clientModalForm" '.(edit_firm!==true?"auth=\"false\"":null).' data-id="'.$row->id.'">Edit</button> <button type="button" data-set="remove" data-id="'.$row->id.'" '.(delete_firm!==true?"auth=\"false\"":null).' class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
             );
 		$i++;
 		}
