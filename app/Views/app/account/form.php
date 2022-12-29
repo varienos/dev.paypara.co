@@ -56,8 +56,8 @@
           <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
           <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
           <div class="input-group input-group-solid border">
-            <span class="input-group-text">İşlem</span>
             <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" id="kt_inputmask_1" max="1000" maxlength="4" aria-label="Miktar" />
+            <span class="input-group-text">transactions</span>
           </div>
         </div>
         <div class="d-flex flex-column mb-7 fv-row">
@@ -130,8 +130,8 @@
           <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
           <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
           <div class="input-group input-group-solid border">
-            <span class="input-group-text">İşlem</span>
             <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" id="kt_inputmask_1" max="1000" maxlength="4" aria-label="Miktar" />
+            <span class="input-group-text">transactions</span>
           </div>
         </div>
         <div class="d-flex flex-column mb-7 fv-row">
@@ -205,8 +205,8 @@
             <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
             <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
             <div class="input-group input-group-solid border">
-              <span class="input-group-text">İşlem</span>
               <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" id="kt_inputmask_1" max="1000" maxlength="4" aria-label="Miktar" />
+              <span class="input-group-text">transactions</span>
             </div>
           </div>
           <div class="d-flex flex-column mb-7 fv-row">

@@ -31,9 +31,9 @@
                 <input type="password" name="user_pass" class="form-control form-control-solid border mb-3 mb-lg-0" />
             </div>
             <div class="mb-7">
-                <label class="required fw-semibold fs-6 mb-5">Permission</label>
+                <label class="required fw-semibold fs-6 mb-5">User Role</label>
                 <select class="form-select form-select-solid border" name="role_id" data-control="select2"
-                    data-placeholder="Select permission" data-hide-search="true">
+                    data-placeholder="Select role" data-hide-search="true">
                     <option></option>
                     <? foreach(getRoles() as $row){ ?>
                     <option value="<?=$row->id ?>"><?=$row->name ?></option>

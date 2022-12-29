@@ -10,12 +10,12 @@
           <div id="kt_header" class="header">
             <div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
               <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
-                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">Raporlar</h1>
+                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">Reports</h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
                     <a href="dashboard" class="text-muted">Dashboard</a>
                   </li>
-                  <li class="breadcrumb-item text-dark">Raporlar</li>
+                  <li class="breadcrumb-item text-dark">Reports</li>
                 </ul>
               </div>
               <div class="d-flex d-lg-none align-items-center ms-n2 me-2">
@@ -36,219 +36,72 @@
             <div class="container-xxl" id="kt_content_container">
 
             <div class="row">
-              <div class="col-12 col-md-4">
-                <div class="card card-bordered mb-5">
-                  <div class="card-body">
-                    <h5 class="card-title fw-semibold text-gray-700 m-0 pb-3">Aylık Yatırım</h5>
-                    <h1 class="fw-bold text-dark m-0">₺10.401.170,00</h1>
+              <div class="col-12">
+                <div class="card card-bordered card-flush mb-5">
+                  <div class="card-header py-5 py-sm-0">
+                    <div class="card-title w-100 w-sm-auto">
+                      <h3 class="fw-bold w-100 d-flex flex-center flex-sm-start">Monthly Reports</h3>
+                    </div>
+                    <div class="card-toolbar d-flex flex-center w-100 w-sm-auto">
+                      <!-- Sadece aylari gostermeli (Bu Ay, Geçen Ay, Özel Aralık: Yil/Ay Listesi) -->
+                      <!-- Bunun icin CSS ile gun araligi gizlenebilir. Ornek: https://stackoverflow.com/a/30619736 -->
+                      <div id="reportsDate" data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" data-kt-daterangepicker-range="month" class="btn btn-sm btn-light d-flex flex-center border px-4 mw-225px">
+                        <div class="text-gray-600 fw-bold">Loading date range...</div>
+                        <span class="svg-icon svg-icon-1 ms-2 me-0">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.3" d="M21 22H3C2.4 22 2 21.6 2 21V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5V21C22 21.6 21.6 22 21 22Z" fill="currentColor" /><path d="M6 6C5.4 6 5 5.6 5 5V3C5 2.4 5.4 2 6 2C6.6 2 7 2.4 7 3V5C7 5.6 6.6 6 6 6ZM11 5V3C11 2.4 10.6 2 10 2C9.4 2 9 2.4 9 3V5C9 5.6 9.4 6 10 6C10.6 6 11 5.6 11 5ZM15 5V3C15 2.4 14.6 2 14 2C13.4 2 13 2.4 13 3V5C13 5.6 13.4 6 14 6C14.6 6 15 5.6 15 5ZM19 5V3C19 2.4 18.6 2 18 2C17.4 2 17 2.4 17 3V5C17 5.6 17.4 6 18 6C18.6 6 19 5.6 19 5Z" fill="currentColor" /><path d="M8.8 13.1C9.2 13.1 9.5 13 9.7 12.8C9.9 12.6 10.1 12.3 10.1 11.9C10.1 11.6 10 11.3 9.8 11.1C9.6 10.9 9.3 10.8 9 10.8C8.8 10.8 8.59999 10.8 8.39999 10.9C8.19999 11 8.1 11.1 8 11.2C7.9 11.3 7.8 11.4 7.7 11.6C7.6 11.8 7.5 11.9 7.5 12.1C7.5 12.2 7.4 12.2 7.3 12.3C7.2 12.4 7.09999 12.4 6.89999 12.4C6.69999 12.4 6.6 12.3 6.5 12.2C6.4 12.1 6.3 11.9 6.3 11.7C6.3 11.5 6.4 11.3 6.5 11.1C6.6 10.9 6.8 10.7 7 10.5C7.2 10.3 7.49999 10.1 7.89999 10C8.29999 9.90003 8.60001 9.80003 9.10001 9.80003C9.50001 9.80003 9.80001 9.90003 10.1 10C10.4 10.1 10.7 10.3 10.9 10.4C11.1 10.5 11.3 10.8 11.4 11.1C11.5 11.4 11.6 11.6 11.6 11.9C11.6 12.3 11.5 12.6 11.3 12.9C11.1 13.2 10.9 13.5 10.6 13.7C10.9 13.9 11.2 14.1 11.4 14.3C11.6 14.5 11.8 14.7 11.9 15C12 15.3 12.1 15.5 12.1 15.8C12.1 16.2 12 16.5 11.9 16.8C11.8 17.1 11.5 17.4 11.3 17.7C11.1 18 10.7 18.2 10.3 18.3C9.9 18.4 9.5 18.5 9 18.5C8.5 18.5 8.1 18.4 7.7 18.2C7.3 18 7 17.8 6.8 17.6C6.6 17.4 6.4 17.1 6.3 16.8C6.2 16.5 6.10001 16.3 6.10001 16.1C6.10001 15.9 6.2 15.7 6.3 15.6C6.4 15.5 6.6 15.4 6.8 15.4C6.9 15.4 7.00001 15.4 7.10001 15.5C7.20001 15.6 7.3 15.6 7.3 15.7C7.5 16.2 7.7 16.6 8 16.9C8.3 17.2 8.6 17.3 9 17.3C9.2 17.3 9.5 17.2 9.7 17.1C9.9 17 10.1 16.8 10.3 16.6C10.5 16.4 10.5 16.1 10.5 15.8C10.5 15.3 10.4 15 10.1 14.7C9.80001 14.4 9.50001 14.3 9.10001 14.3C9.00001 14.3 8.9 14.3 8.7 14.3C8.5 14.3 8.39999 14.3 8.39999 14.3C8.19999 14.3 7.99999 14.2 7.89999 14.1C7.79999 14 7.7 13.8 7.7 13.7C7.7 13.5 7.79999 13.4 7.89999 13.2C7.99999 13 8.2 13 8.5 13H8.8V13.1ZM15.3 17.5V12.2C14.3 13 13.6 13.3 13.3 13.3C13.1 13.3 13 13.2 12.9 13.1C12.8 13 12.7 12.8 12.7 12.6C12.7 12.4 12.8 12.3 12.9 12.2C13 12.1 13.2 12 13.6 11.8C14.1 11.6 14.5 11.3 14.7 11.1C14.9 10.9 15.2 10.6 15.5 10.3C15.8 10 15.9 9.80003 15.9 9.70003C15.9 9.60003 16.1 9.60004 16.3 9.60004C16.5 9.60004 16.7 9.70003 16.8 9.80003C16.9 9.90003 17 10.2 17 10.5V17.2C17 18 16.7 18.4 16.2 18.4C16 18.4 15.8 18.3 15.6 18.2C15.4 18.1 15.3 17.8 15.3 17.5Z" fill="currentColor" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div class="w-150px ms-3">
+                        <select class="form-select form-select-solid border" data-control="select2" data-hide-search="true">
+                          <option value="1" selected>All Firms</option>
+                          <option value="2">Firm 1</option>
+                          <option value="3">Firm 2</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-12 col-md-4">
-                <div class="card card-bordered mb-5">
-                  <div class="card-body">
-                    <h5 class="card-title fw-semibold text-gray-700 m-0 pb-3">Aylık Çekim</h5>
-                    <h1 class="fw-bold text-dark m-0">₺4.160.468,00</h1>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-md-4">
-                <div class="card card-bordered mb-5">
-                  <div class="card-body">
-                    <h5 class="card-title fw-semibold text-gray-700 m-0 pb-3">Günlük Ortalama Yatırım</h5>
-                    <h1 class="fw-bold text-dark m-0">₺1.040.117,00</h1>
+                <div class="card card-bordered card-flush mb-5">
+                  <div class="card-body d-flex justify-content-between flex-column pb-0 px-0 pt-1">
+                    <div class="d-flex flex-wrap flex-center gap-5 w-100 px-9 py-5 my-5 mb-sm-0 mt-sm-5">
+                      <div class="me-md-2">
+                        <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Total Deposits</div>
+                        <div class="d-flex mb-2">
+                          <span class="fs-4 fw-semibold text-gray-600 me-1">₺</span>
+                          <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">10.401.170,65</span>
+                        </div>
+                      </div>
+                      <div class="ps-md-10 pe-md-7 me-md-5">
+                        <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Total Withdrawals</div>
+                        <div class="d-flex mb-2">
+                          <span class="fs-4 fw-semibold text-gray-600 me-1">₺</span>
+                          <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">4.160.468,45</span>
+                        </div>
+                      </div>
+                      <div class="m-0">
+                        <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Average Daily Deposit</div>
+                        <div class="d-flex align-items-center mb-2">
+                          <span class="fs-4 fw-semibold text-gray-600 align-self-start me-1">₺</span>
+                          <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">1.945.117,99</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row d-none d-sm-block mx-0">
+                      <div class="col-12 d-flex flex-center px-0">
+                        <div id="chart-reports-main" class="min-h-auto w-100 h-300px px-4"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="card card-flush">
-              <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                <div class="card-title">
-                  <h3 class="fw-bold m-0">İşlem Özeti <small class="text-gray-700">(Demoya özel temsili veriler gösterilmektedir)</small></h3>
-                </div>
-                <div class="card-toolbar flex-row-fluid justify-content-end">
-                  <!-- $("#kt_daterangepicker").daterangepicker(); -->
-                  <input class="form-control form-control-solid w-100 mw-250px me-3" placeholder="Tarih aralığı seçin" id="kt_daterangepicker"/>
-                  <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                    <span class="svg-icon svg-icon-2 m-0">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="1" x="12.75" y="4.25" width="12" height="2" rx="1" transform="rotate(90 12.75 4.25)" fill="currentColor"></rect><path d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z" fill="currentColor"></path><path opacity="1" d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z" fill="currentColor"></path></svg>
-                    </span>
-                  </button>
-                  <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
-                    <div class="menu-item px-3">
-                      <a href="javascript:;" class="menu-link px-3" data-export-type="copy">Copy to Clipboard</a>
-                    </div>
-                    <div class="menu-item px-3">
-                      <a href="javascript:;" class="menu-link px-3" data-export-type="excel">Export as Excel</a>
-                    </div>
-                    <div class="menu-item px-3">
-                      <a href="javascript:;" class="menu-link px-3" data-export-type="csv">Export as CSV</a>
-                    </div>
-                    <div class="menu-item px-3">
-                      <a href="javascript:;" class="menu-link px-3" data-export-type="pdf">Export as PDF</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body pt-0">
-                <div class="dataTables_wrapper dt-bootstrap4 no-footer">
-                  <div class="table-responsive">
-                    <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_reports_table">
-                      <thead>
-                        <tr class="text-start text-gray-600 fw-bold fs-7 text-uppercase gs-0">
-                          <th class="min-w-100px sorting">TARİH</th>
-                          <th class="text-end min-w-75px sorting">ÇAPRAZ</th>
-                          <th class="text-end min-w-100px sorting">BANKA</th>
-                          <th class="text-end min-w-75px sorting">SANAL POS</th>
-                          <th class="text-end min-w-75px sorting">PAPARA</th>
-                          <th class="fw-bold text-gray-700 text-end min-w-75px sorting">TOP. YATIRIM</th>
-                          <th class="fw-bold text-gray-700 text-end min-w-75px sorting">TOP. ÇEKİM</th>
-                        </tr>
-                      </thead>
-                      <tbody class="fw-semibold text-gray-600">
-                        <tr>
-                          <td>01.10.2022</td>
-                          <td class="text-end pe-0">₺86.239,00</td>
-                          <td class="text-end pe-0">₺141.721,00</td>
-                          <td class="text-end pe-0">₺36.121,00</td>
-                          <td class="text-end pe-0">₺884.774,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺1.148.855,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺459.542,00</td>
-                        </tr>
-                        <tr>
-                          <td>02.10.2022</td>
-                          <td class="text-end pe-0">₺30.762,00</td>
-                          <td class="text-end pe-0">₺182.041,00</td>
-                          <td class="text-end pe-0">₺46.855,00</td>
-                          <td class="text-end pe-0">₺609.732,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺869.390,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺347.756,00</td>
-                        </tr>
-                        <tr>
-                          <td>03.10.2022</td>
-                          <td class="text-end pe-0">₺41.093,00</td>
-                          <td class="text-end pe-0">₺107.280,00</td>
-                          <td class="text-end pe-0">₺34.780,00</td>
-                          <td class="text-end pe-0">₺670.676,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺853.829,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺341.531,60</td>
-                        </tr>
-                        <tr>
-                          <td>04.10.2022</td>
-                          <td class="text-end pe-0">₺40.493,00</td>
-                          <td class="text-end pe-0">₺130.508,00</td>
-                          <td class="text-end pe-0">₺26.821,00</td>
-                          <td class="text-end pe-0">₺888.473,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺1.086.295,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺434.518,00</td>
-                        </tr>
-                        <tr>
-                          <td>05.10.2022</td>
-                          <td class="text-end pe-0">₺37.560,00</td>
-                          <td class="text-end pe-0">₺136.598,00</td>
-                          <td class="text-end pe-0">₺43.023,00</td>
-                          <td class="text-end pe-0">₺797.685,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺1.014.866,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺405.946,40</td>
-                        </tr>
-                        <tr>
-                          <td>06.10.2022</td>
-                          <td class="text-end pe-0">₺19.994,00</td>
-                          <td class="text-end pe-0">₺141.374,00</td>
-                          <td class="text-end pe-0">₺48.347,00</td>
-                          <td class="text-end pe-0">₺933.216,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺1.142.931,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺457.172,40</td>
-                        </tr>
-                        <tr>
-                          <td>07.10.2022</td>
-                          <td class="text-end pe-0">₺14.161,00</td>
-                          <td class="text-end pe-0">₺134.602,00</td>
-                          <td class="text-end pe-0">₺48.830,00</td>
-                          <td class="text-end pe-0">₺982.502,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺1.180.095,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺472.038,00</td>
-                        </tr>
-                        <tr>
-                          <td>08.10.2022</td>
-                          <td class="text-end pe-0">₺44.030,00</td>
-                          <td class="text-end pe-0">₺165.728,00</td>
-                          <td class="text-end pe-0">₺26.550,00</td>
-                          <td class="text-end pe-0">₺877.939,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺1.114.247,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺445.698,80</td>
-                        </tr>
-                        <tr>
-                          <td>09.10.2022</td>
-                          <td class="text-end pe-0">₺13.408,00</td>
-                          <td class="text-end pe-0">₺180.369,00</td>
-                          <td class="text-end pe-0">₺40.589,00</td>
-                          <td class="text-end pe-0">₺587.944,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺822.310,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺328.924,00</td>
-                        </tr>
-                        <tr>
-                          <td>10.10.2022</td>
-                          <td class="text-end pe-0">₺31.451,00</td>
-                          <td class="text-end pe-0">₺127.790,00</td>
-                          <td class="text-end pe-0">₺21.644,00</td>
-                          <td class="text-end pe-0">₺987.467,00</td>
-                          <td class="fw-bold text-gray-700 text-end pe-0">₺1.168.352,00</td>
-                          <td class="fw-bold text-gray-700 text-end">₺467.340,80</td>
-                        </tr>
-                      </tbody>
-                      <tfoot>
-                        <!-- JavaScript: https://preview.keenthemes.com/html/metronic/docs/general/datatables/advanced#footer-callback -->
-                        <tr class="fw-bold text-gray-700 border-top">
-                          <th>Toplam:</th>
-                          <th class="text-end pe-0">₺359.191,00</th>
-                          <th class="text-end pe-0">₺1.448.011,00</th>
-                          <th class="text-end pe-0">₺373.560,00</th>
-                          <th class="text-end pe-0">₺8.220.408,00</th>
-                          <th class="text-end pe-0">₺10.401.170,00</th>
-                          <th class="text-end pe-0">₺4.160.468,00</th>
-                        </tr>
-                      </tfoot>
-                    </table>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
-                      <div class="dataTables_length" id="kt_reports_table_length">
-                        <label>
-                          <select name="kt_reports_table_length" aria-controls="kt_reports_table" class="form-select form-select-sm form-select-solid">
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="31">31</option>
-                          </select>
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
-                      <div class="dataTables_paginate paging_simple_numbers" id="kt_reports_table_paginate">
-                        <ul class="pagination">
-                          <li class="paginate_button page-item previous disabled" id="kt_reports_table_previous">
-                            <a href="javascript:;" aria-controls="kt_reports_table" tabindex="0" class="page-link"><i class="previous"></i></a>
-                          </li>
-                          <li class="paginate_button page-item active">
-                            <a href="javascript:;" aria-controls="kt_reports_table" tabindex="0" class="page-link">1</a>
-                          </li>
-                          <li class="paginate_button page-item ">
-                            <a href="javascript:;" aria-controls="kt_reports_table" tabindex="0" class="page-link">2</a>
-                          </li>
-                          <li class="paginate_button page-item ">
-                            <a href="javascript:;" aria-controls="kt_reports_table" tabindex="0" class="page-link">3</a>
-                          </li>
-                          <li class="paginate_button page-item next" id="kt_reports_table_next">
-                            <a href="javascript:;" aria-controls="kt_reports_table" tabindex="0" class="page-link"><i class="next"></i></a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <? if(getAuth($user->role_id,'partner') == true): ?>
+              <?php require appViewPath().'reports/_partner.php' ?>
+            <? else: ?>
+              <?php require appViewPath().'reports/_admin.php' ?>
+            <? endif; ?>
 
             </div>
           </div>

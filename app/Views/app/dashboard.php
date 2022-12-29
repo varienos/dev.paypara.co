@@ -8,9 +8,9 @@
         <div id="kt_header" class="header">
           <div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
             <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
-              <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-2x">👋 Selam <?=ucfirst(user_name) ?>
+              <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-2x">👋 Hi there, <?=ucfirst(user_name) ?>
                 <small class="fs-6 fw-semibold ms-1 pt-1">
-                  <? if(pendingProcessDaily()>0){ ?>There are <?=pendingProcessDaily() ?> pending transactions<? } else { ?>There is no pending transactions<? } ?>
+                  <? if(pendingProcessDaily()>0){ ?>There are <?=pendingProcessDaily() ?> pending transactions<? } else { ?>There are no pending transactions<? } ?>
                 </small>
               </h1>
             </div>

@@ -70,32 +70,38 @@
                       </div>
                       <div class="d-flex flex-stack fs-4 py-3">
                         <div class="fw-bold">Details</div>
-                      </div>
-                      <div class="separator separator-dashed my-3"></div>
-                      <div class="pt-5 fs-6">
                         <? if($customer->isVip=="on"): ?>
-                        <div class="badge badge-lg badge-light-danger d-inline">VIP Client</div>
+                        <div class="badge badge-lg badge-light-danger d-inline">VIP User</div>
                         <? endif; ?>
                         <? if($customer->isVip=="0"): ?>
-                        <div class="badge badge-lg badge-light-dark d-inline">Normal Client</div>
+                        <div class="badge badge-lg badge-light-dark d-inline">Basic User</div>
                         <? endif; ?>
-                        <div class="fw-bold mt-5">User ID</div>
-                        <div class="text-gray-600"><?=$customer->gamer_site_id ?></div>
-                        <div class="fw-bold mt-5">Firm</div>
-                        <div class="text-gray-600">
-                          <a href="#" class="text-gray-600 text-hover-primary"><?=$customer->clientName ?></a>
+                      </div>
+                      <div class="separator separator-dashed my-3"></div>
+                      <div class="mt-5">
+                        <div class="d-flex flex-stack">
+                          <div class="fw-bold">User ID</div>
+                          <div class="text-gray-700 badge badge-light-dark fs-7"><?=$customer->gamer_site_id ?></div>
                         </div>
-                        <div class="fw-bold mt-5">First Transaction Date</div>
-                        <div class="text-gray-600"><?= $customer->firstProcess == "" ? "İşlemi Yok" : $customer->firstProcess ?></div>
-                        <div class="fw-bold mt-5">Last Transaction Date</div>
-                        <div class="text-gray-600"><?= $customer->lastProcess == "" ? "İşlemi Yok" : $customer->lastProcess ?></div>
+                        <div class="d-flex flex-stack my-5">
+                          <div class="fw-bold">Firm</div>
+                          <div class="text-gray-700 badge badge-light-dark fs-7"><?=$customer->clientName ?></div>
+                        </div>
+                        <div class="d-flex flex-stack my-5">
+                          <div class="fw-bold">First Transaction</div>
+                          <div class="text-gray-700 badge badge-light-dark fs-7"><?= $customer->firstProcess == "" ? "No transaction" : $customer->firstProcess ?></div>
+                        </div>
+                        <div class="d-flex flex-stack">
+                          <div class="fw-bold">Last Transaction</div>
+                          <div class="text-gray-700 badge badge-light-dark fs-7"><?= $customer->lastProcess == "" ? "No transaction" : $customer->lastProcess ?></div>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="card border mb-5 mb-xl-8">
                     <div class="card-header border-0">
                       <div class="card-title">
-                        <h3 class="fw-bold m-0">Client Permissions</h3>
+                        <h3 class="fw-bold m-0">Permissions</h3>
                       </div>
                     </div>
                     <div class="card-body pt-2">
@@ -167,24 +173,24 @@
                           <div class="card border h-100">
                             <div class="card-header border-0">
                               <div class="card-title">
-                                <h2>Transaction Summary</h2>
+                                <h2>Summary</h2>
                               </div>
                             </div>
                             <div class="card-body py-0">
-                              <div class="fs-5 fw-semibold text-gray-500 mb-4">Covers entire transaction history of the customer.</div>
+                              <div class="fs-5 fw-semibold text-gray-500 mb-4">Sum of all the transactions customer made</div>
                               <div class="d-flex flex-wrap flex-stack mb-5">
                                 <div class="d-flex flex-wrap">
                                   <div class="border border-dashed border-gray-300 rounded my-3 p-4 me-6">
                                     <span class="fs-1 fw-bold text-gray-800 lh-1">
                                       <span data-kt-countup="true" data-kt-countup-value="<?=number_format($customer->totalDeposit,2) ?>" data-kt-countup-prefix="₺">0</span>
                                     </span>
-                                    <span class="fs-6 fw-semibold text-muted d-block lh-1 pt-2">Deposit Amount</span>
+                                    <span class="fs-6 fw-semibold text-muted d-block lh-1 pt-2">Total Deposit</span>
                                   </div>
                                   <div class="border border-dashed border-gray-300 rounded my-3 p-4 me-6">
                                     <span class="fs-1 fw-bold text-gray-800 lh-1">
                                       <span class="" data-kt-countup="true" data-kt-countup-value="<?=number_format($customer->totalWithdraw,2) ?>" data-kt-countup-prefix="₺">0</span>
                                     </span>
-                                    <span class="fs-6 fw-semibold text-muted d-block lh-1 pt-2">Withdraw Amount</span>
+                                    <span class="fs-6 fw-semibold text-muted d-block lh-1 pt-2">Total Withdraw</span>
                                   </div>
                                 </div>
                               </div>
@@ -224,7 +230,7 @@
                               <span class="svg-icon svg-icon-1 position-absolute ms-6">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" /><path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" /></svg>
                               </span>
-                              <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid border border-1 w-200px ps-15" placeholder="Search transaction" />
+                              <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid border border-1 w-225px ps-15" placeholder="Search transaction" />
                             </div>
                           </div>
                           <div class="card-toolbar">
@@ -242,7 +248,7 @@
                                 <div class="separator border-gray-200"></div>
                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                   <div class="row mb-3">
-                                    <div class="col-3 d-flex align-items-center">
+                                    <div class="col-4 d-flex align-items-center">
                                       <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Method:</label>
                                     </div>
                                     <div class="col ps-0">
@@ -250,14 +256,14 @@
                                         <option></option>
                                         <option value="bank">Bank</option>
                                         <option value="papara">Papara</option>
-                                        <option value="cross">Cross</option>
-                                        <option value="match">Match</option>
+                                        <option value="cross">Cross System</option>
+                                        <option value="match">Matching System</option>
                                         <option value="pos">Virtual POS</option>
                                       </select>
                                     </div>
                                   </div>
                                   <div class="row mb-3">
-                                    <div class="col-3 d-flex align-items-center">
+                                    <div class="col-4 d-flex align-items-center">
                                       <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Account:</label>
                                     </div>
                                     <div class="col ps-0">
@@ -302,14 +308,14 @@
                                 <div class="table-responsive">
                                   <table class="table table-responsive table-row-dashed align-middle dataTable fs-6 gy-4" id="customerTransactionTable">
                                     <thead>
-                                      <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                        <th class="min-w-100px">Date</th>
-                                        <th class="min-w-80px">TXID</th>
-                                        <th class="min-w-70px">Account</th>
-                                        <th class="min-w-70px">Method</th>
-                                        <th class="min-w-70px">Amount</th>
-                                        <th class="min-w-100px">Status</th>
-                                        <th class="text-end min-w-70px">Actions</th>
+                                      <tr class="text-gray-600 fw-bold fs-7 text-uppercase gs-0">
+                                        <th class="min-w-100px text-center">Date</th>
+                                        <th class="min-w-80px text-center ps-0">TXID</th>
+                                        <th class="min-w-70px text-center ps-0">Account</th>
+                                        <th class="min-w-70px text-center ps-0">Method</th>
+                                        <th class="min-w-70px text-center ps-0">Amount</th>
+                                        <th class="min-w-100px text-center ps-0">Status</th>
+                                        <th class="min-w-70px text-center ps-0">Actions</th>
                                       </tr>
                                     </thead>
                                     <tbody class="fw-semibold text-gray-600">

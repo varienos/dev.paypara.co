@@ -256,17 +256,17 @@ $.varien = {
             var datacount = depositFetchWeekly[0].dayTotal + depositFetchWeekly[1].dayTotal + depositFetchWeekly[2].dayTotal + depositFetchWeekly[3].dayTotal + depositFetchWeekly[4].dayTotal + depositFetchWeekly[5].dayTotal + depositFetchWeekly[6].dayTotal;
             datacount += withdrawFetchWeekly[0].dayTotal + withdrawFetchWeekly[1].dayTotal + withdrawFetchWeekly[2].dayTotal + withdrawFetchWeekly[3].dayTotal + withdrawFetchWeekly[4].dayTotal + withdrawFetchWeekly[5].dayTotal + withdrawFetchWeekly[6].dayTotal;
             if (datacount > 0) {
-                let element = document.getElementById('kt_apexcharts_1');
+                let element = document.getElementById('chart-dashboard');
                 let height = parseInt(KTUtil.css(element, 'height'));
                 let labelColor = '#7E8299';
                 let baseColor = '#a4d19f';
                 let secondaryColor = '#e3868c';
                 let options = {
                     series: [{
-                        name: 'Yatırım',
+                        name: 'Deposit',
                         data: [depositFetchWeekly[0].dayTotal, depositFetchWeekly[1].dayTotal, depositFetchWeekly[2].dayTotal, depositFetchWeekly[3].dayTotal, depositFetchWeekly[4].dayTotal, depositFetchWeekly[5].dayTotal, depositFetchWeekly[6].dayTotal]
                     }, {
-                        name: 'Çekim',
+                        name: 'Withdraw',
                         data: [withdrawFetchWeekly[0].dayTotal, withdrawFetchWeekly[1].dayTotal, withdrawFetchWeekly[2].dayTotal, withdrawFetchWeekly[3].dayTotal, withdrawFetchWeekly[4].dayTotal, withdrawFetchWeekly[5].dayTotal, withdrawFetchWeekly[6].dayTotal]
                     }],
                     chart: {
@@ -325,11 +325,14 @@ $.varien = {
                         y: {
                             formatter: function(value) {
                                 let val = Math.abs(value);
-                                if (val <= 1000000) {
-                                    val = (val / 1000).toFixed(0) + 'k';
-                                } else {
+                                if (val > 1000000)
                                     val = (val / 1000000).toFixed(2) + 'm';
-                                }
+                                else if (val >= 1000 && val < 1000000)
+                                    val = (val / 1000).toFixed(0) + 'k';
+                                else if (val > 0 && val < 1000)
+                                    val = val;
+                                else val = "none";
+
                                 return val;
                             }
                         }
@@ -623,7 +626,7 @@ $.varien = {
                         processData: false,
                         contentType: false,
                         success: function(response) {
-                            toastr.success("Hesap güncellendi");
+                            toastr.success("Account updated");
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             Swal.fire({
@@ -982,7 +985,7 @@ $.varien = {
                 $("#refresh").on("click", function(e) {
                     $.varien.eventControl(e);
                     $.varien.transaction.datatable.reload();
-                    toastr.success("İşlemler Yenilendi");
+                    toastr.success("Transactions refreshed");
                 });
                 $("[app-onchange-datatable-reload]").on("change input", function(e) {
                     $.varien.eventControl(e);
@@ -1129,7 +1132,7 @@ $.varien = {
                                 if (result == true) {
                                     $.each($.rowArray, function(index, value) {
                                         $.reject("transaction/update", value.id).then(function(response) {
-                                            toastr.success("#" + value.transId + ": talep otomatik reddedildi");
+                                            toastr.success("#" + value.transId + ": transaction rejected");
                                             $.varien.transaction.datatable.reload();
                                         });
                                     });
@@ -1393,7 +1396,7 @@ $.varien = {
                                     url: urlAjax,
                                     success: function() {
                                         $.table.ajax.reload();
-                                        toastr.error("hesap verisi silindi !");
+                                        toastr.error("Account deleted");
                                     }
                                 });
                             }
@@ -1500,7 +1503,7 @@ $.varien = {
                             success: function() {
                                 $.table.ajax.reload();
                                 $("#ajaxModal").modal('toggle');
-                                toastr.success("İzinler Yapılandırıldı.");
+                                toastr.success("Roles updated");
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 Swal.fire({
@@ -1522,7 +1525,7 @@ $.varien = {
                         bootbox.confirm({
                             backdrop: true,
                             centerVertical: true,
-                            title: "Kullanıcı Rolünü Sil",
+                            title: "Delete Role",
                             buttons: {
                                 confirm: {
                                     label: "Confirm"
@@ -1531,7 +1534,7 @@ $.varien = {
                                     label: "Cancel"
                                 }
                             },
-                            message: "Kullanıcı rolünü silme işlemini onaylıyor musunuz ?",
+                            message: "Do you approve to delete user role?",
                             callback: (result) => {
                                 if (result == true) {
                                     $.ajax({
@@ -1539,7 +1542,7 @@ $.varien = {
                                         url: "user/removeRole/" + id,
                                         success: function() {
                                             $.table.ajax.reload();
-                                            toastr.error("Kullanıcı rolü silindi !");
+                                            toastr.error("Role deleted");
                                         }
                                     });
                                 }
@@ -1668,7 +1671,7 @@ $.varien = {
                                             if (response == 200) {
                                                 $.varien.modal.event.toggle();
                                                 Swal.fire({
-                                                    text: "2 Adımlı doğrulama hesabınızda başarıyla aktive edildi ve sayfa tekrar yüklenecek",
+                                                    text: "2-Step verification has been successfully activated",
                                                     icon: "success",
                                                     buttonsStyling: false,
                                                     confirmButtonText: "Close",
@@ -1681,14 +1684,14 @@ $.varien = {
                                                 });
                                             }
                                         }).catch(e => {
-                                            toastr.error("Kod doğrulanamadı. Tekrar deneyiniz.");
+                                            toastr.error("Couldn't verify the code. Please try again.");
                                         });
                                     }
                                 }).catch(e => {
-                                    toastr.error("Kod doğrulanamadı. Tekrar deneyiniz.");
+                                    toastr.error("Couldn't verify the code. Please try again.");
                                 });
                             } else {
-                                toastr.error("6 rakamlı doğrulama kodunu giriniz !");
+                                toastr.error("Please enter your verification code");
                             }
                         });
                     },
@@ -1700,25 +1703,25 @@ $.varien = {
                                     centerVertical: true,
                                     buttons: {
                                         confirm: {
-                                            label: "Kaldır"
+                                            label: "Remove"
                                         },
                                         cancel: {
-                                            label: "Vazgeç"
+                                            label: "Cancel"
                                         }
                                     },
-                                    title: "İki Adımlı Doğrulamayı Kaldır",
-                                    message: "İki adımlı doğrulamayı kaldırmak istediğinize emin misiniz ?",
+                                    title: "Remove 2-Step Verification",
+                                    message: "Are you sure you want to remove 2-step verification?",
                                     callback: (result) => {
                                         if (result == true) {
                                             $.varien.user.detail.twoFA.disable2fa().then(response => {
                                                 if (response == 200) {
-                                                    toastr.success("İki adımlı doğrulama başarıyla kaldırıldı.");
+                                                    toastr.success("2-step verification has been successfully removed");
                                                     $.wait(1000).then(function() {
                                                         location.reload();
                                                     });
                                                 }
                                             }).catch(e => {
-                                                toastr.error("İşlem Başarısız. Tekrar deneyiniz.");
+                                                toastr.error("Couldn't remove 2FA. Please try again.");
                                             });
                                         }
                                     }
@@ -1735,7 +1738,7 @@ $.varien = {
                         $("#firms").append("<li>" + $(this).text() + "</li>");
                     });
                 } else {
-                    $("#firms").append("<li>Tüm Firmalar</li>");
+                    $("#firms").append("<li>All Firms</li>");
                 }
             },
             remove: function() {
@@ -1752,15 +1755,15 @@ $.varien = {
                                 label: "Cancel"
                             }
                         },
-                        title: "Kullanıcıyı Sil",
-                        message: "Kullanıcıyı silmek istediğinize emin misiniz ?",
+                        title: "Delete User",
+                        message: "Do you approve to delete the user?",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
                                     type: 'POST',
                                     url: "user/remove/" + id,
                                     success: function() {
-                                        toastr.error("Kullanıcı sistemden silindi !");
+                                        toastr.error("User deleted");
                                         window.location.href = "user/index";
                                     }
                                 });
@@ -1775,32 +1778,32 @@ $.varien = {
                 var n = $("#user_pass").val();
                 var v = $("#confirm_password").val();
                 if (c == "" && $.resource.root !== 1) {
-                    toastr.error("Mevcut Şifrenizi Giriniz !");
+                    toastr.error("Please enter your current password");
                     $("#current_password").focus();
                     return false;
                 }
                 if (n == "") {
-                    toastr.error("Yeni Şifrenizi Giriniz !");
+                    toastr.error("Please enter your new password");
                     $("#user_pass").focus();
                     return false;
                 }
                 if (v == "") {
-                    toastr.error("Yeni Şifrenizi Tekrar Giriniz !");
+                    toastr.error("Please confirm your new password");
                     $("#confirm_password").focus();
                     return false;
                 }
                 if (c != d && $.resource.root !== 1) {
-                    toastr.error("Mevcut Şifrenizi Yanlış Girdiniz !");
+                    toastr.error("You've entered your current password incorrectly");
                     $("#current_password").focus();
                     return false;
                 }
                 if (n != v) {
-                    toastr.error("Yeni şifrenizi yanlış girdiniz !");
+                    toastr.error("You've entered your new password incorrectly");
                     $("#confirm_password").focus();
                     return false;
                 }
                 if (n.length < 8) {
-                    toastr.error("Yeni şifreniz en az 8 karakterli olmalı !");
+                    toastr.error("Your new password must have at least 8 characters");
                     $("#user_pass").focus();
                     return false;
                 }
@@ -1821,7 +1824,7 @@ $.varien = {
                     if (dataName == "email") {
                         $.varien.user.check("email", $("[app-submit-email-check]").val(), $("[app-submit-email-check]").attr('current-email')).then((response) => {
                             if (response > 0) {
-                                toastr.error($("[app-submit-email-check]").val() + " adresi zaten mevcut");
+                                toastr.error($("[app-submit-email-check]").val() + " is already exists");
                                 $("[app-submit-email-check]").addClass('inputError');
                                 $("[app-submit-email-check]").focus();
                                 return false;
@@ -1832,7 +1835,7 @@ $.varien = {
                                     data: "dataName=" + dataName + "&dataValue=" + dataValue,
                                     success: function() {
                                         $('[name=' + dataName + ']').html(dataValue);
-                                        toastr.success("Kullanıcı verisi güncellendi !");
+                                        toastr.success("User updated");
                                         $("#" + modal).modal('toggle');
                                     }
                                 });
@@ -1849,7 +1852,7 @@ $.varien = {
                                 } else {
                                     $('[name=' + dataName + ']').html(dataValue);
                                 }
-                                toastr.success("Kullanıcı verisi güncellendi !");
+                                toastr.success("User updated");
                                 $("#" + modal).modal('toggle');
                                 if (dataName == "role_id") location.reload();
                             }
@@ -1973,13 +1976,13 @@ $.varien = {
                 $("[app-submit-email-check]").focusout(function() {
                     $.varien.user.check("email", $("[app-submit-email-check]").val()).then((response) => {
                         if (response > 0) {
-                            toastr.error($("[app-submit-email-check]").val() + " adresi zaten mevcut");
+                            toastr.error($("[app-submit-email-check]").val() + " already exists");
                             $("[app-submit-email-check]").addClass('inputError');
                             $("[app-submit-email-check]").focus();
                             $(':input[type="submit"]').prop('disabled', true);
                             return false;
                         } else {
-                            toastr.success($("[app-submit-email-check]").val() + " adresi kullanılabilir");
+                            toastr.success($("[app-submit-email-check]").val() + " is available");
                             $("[app-submit-email-check]").removeClass('inputError');
                             $(':input[type="submit"]').prop('disabled', false);
                         }
@@ -1989,7 +1992,7 @@ $.varien = {
                     $.varien.eventControl(e);
                     $.varien.user.check("email", $("[app-submit-email-check]").val()).then((response) => {
                         if (response > 0) {
-                            toastr.error($("[app-submit-email-check]").val() + " adresi zaten mevcut");
+                            toastr.error($("[app-submit-email-check]").val() + " already exists");
                             $("[app-submit-email-check]").addClass('inputError');
                             $("[app-submit-email-check]").focus();
                             $(':input[type="submit"]').prop('disabled', true);
@@ -2009,7 +2012,7 @@ $.varien = {
                                 success: function() {
                                     $.table.ajax.reload();
                                     $("#ajaxModal").modal('toggle');
-                                    toastr.success("Kullanıcı Eklendi !");
+                                    toastr.success("User created");
                                 },
                                 error: function(jqXHR, textStatus, errorThrown) {
                                     Swal.fire({
@@ -2368,6 +2371,202 @@ $.varien = {
                     });
                 },
             },
+        }
+    },
+    reports: {
+        init: function() {
+            // Initiate charts
+            $.varien.reports.charts.main.init();
+            $.varien.reports.charts.pie.init();
+        },
+        charts: function() {
+            // Pie chart
+            let pie = function() {
+                let chart = {
+                    self: null,
+                    rendered: false
+                };
+
+                // Private methods
+                let initChart = function(chart) {
+                    let element = document.getElementById("chart-reports-pie");
+
+                    if (!element) return;
+
+                    let options = {
+                        series: [39, 30, 16, 9, 6], // TODO: To be replaced with dynamic data
+                        labels: ['Papara', 'Matching', 'Bank', 'Cross', 'Virtual POS'],
+                        colors:['#ba435f', '#CA3660', '#21416f', '#698b55', '#ed8a3d'],
+                        chart: { type: 'pie' },
+                        legend: { show: false },
+                        stroke: { colors: undefined },
+                        tooltip: { y: { formatter: (value) => value + "%" }},
+                        dataLabels: {
+                            background: {
+                                padding: 4,
+                                opacity: 0.5,
+                                enabled: true,
+                                borderWidth: 1,
+                                borderRadius: 2,
+                                foreColor: '#000',
+                                borderColor: '#000'
+                            }
+                        },
+                        responsive: [{
+                            breakpoint: 1200,
+                            options: { chart: { width: 250 }}
+                        }]
+                    };
+
+                    chart.self = new ApexCharts(element, options);
+
+                    // Set timeout to properly get the parent elements width
+                    setTimeout(function() {
+                        chart.self.render();
+                        chart.rendered = true;
+                    }, 200);
+                }
+
+                // Public methods
+                return {
+                    init: function () {
+                        initChart(chart);
+
+                        // Update chart on theme mode change
+                        KTThemeMode.on("kt.thememode.change", function() {
+                            if (chart.rendered) {
+                                chart.self.destroy();
+                            }
+
+                            initChart(chart);
+                        });
+                    }
+                }
+            }
+
+            // Main chart
+            let main = function() {
+                let chart = {
+                    self: null,
+                    rendered: false
+                };
+
+                // Private methods
+                let initChart = function(chart) {
+                    let element = document.getElementById("chart-reports-main");
+
+                    if (!element) return;
+
+                    let height = parseInt(KTUtil.css(element, 'height'));
+                    let labelColor = KTUtil.getCssVariableValue('--kt-gray-700');
+                    let depositColor = KTUtil.getCssVariableValue('--kt-success');
+                    let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
+                    let borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
+
+                    let options = {
+                        // TODO: To be replaced with dynamic data
+                        series: [{
+                            name: 'Deposit',
+                            data: [725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50],
+                        },
+                        {
+                            name: 'Withdrawal',
+                            data: [458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00],
+                        }],
+                        chart: {
+                            type: 'area',
+                            height: height,
+                            fontFamily: 'inherit',
+                            toolbar: { show: false },
+                            zoom: { enabled: false }
+                        },
+                        legend: { show: false },
+                        dataLabels: { enabled: false },
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                opacityTo: 0,
+                                opacityFrom: .5,
+                                shadeIntensity: .5,
+                                stops: [0, 80, 100]
+                            }
+                        },
+                        stroke: {
+                            width: 3,
+                            colors: [depositColor, withdrawColor]
+                        },
+                        xaxis: {
+                            tickAmount: 5,
+                            tickPlacement: "between",
+                            axisTicks: { show: false },
+                            axisBorder: { show: false },
+                            // TODO: To be replaced with dynamic data
+                            // Shows entire month day by day
+                            categories: ["Apr 01", "Apr 02", "Apr 03", "Apr 04", "Apr 05", "Apr 06", "Apr 07", "Apr 08", "Apr 09", "Apr 10", "Apr 11", "Apr 12", "Apr 13", "Apr 14", "Apr 17", "Apr 18", "Apr 19", "Apr 21", "Apr 22", "Apr 23", "Apr 24", "Apr 25", "Apr 26", "Apr 27", "Apr 28", "Apr 29", "Apr 30", "Apr 31"],
+                            labels: {
+                                rotate: -25,
+                                rotateAlways: true,
+                                style: {
+                                    fontSize: '12px',
+                                    colors: labelColor
+                                }
+                            },
+                        },
+                        yaxis: {
+                            tickAmount: 5,
+                            labels: {
+                            style: { colors: labelColor, fontSize: '12px' },
+                                formatter: function (value) {
+                                    let val = Math.abs(value);
+                                    if(val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
+                                    if(val > 1000000) val = (val / 1000000).toFixed(0) + 'm';
+                                    return "₺" + val;
+                                }
+                            }
+                        },
+                        tooltip: {
+                            style: { fontSize: '13px' },
+                            y: {
+                                formatter: function (value) {
+                                    let val = Math.abs(value);
+                                    if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
+                                    if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
+                                    return val == 0 ? 'none' : "₺" + val;
+                                }
+                            }
+                        },
+                        colors: [depositColor, withdrawColor],
+                        grid: {
+                            strokeDashArray: 4,
+                            borderColor: borderColor,
+                        }
+                    };
+
+                    chart.self = new ApexCharts(element, options);
+
+                    // Set timeout to properly get the parent elements width
+                    setTimeout(function() {
+                        chart.self.render();
+                        chart.rendered = true;
+                    }, 200);
+                }
+
+                // Public methods
+                return {
+                    init: function () {
+                        initChart(chart);
+
+                        // Update chart on theme mode change
+                        KTThemeMode.on("kt.thememode.change", function() {
+                            if (chart.rendered) {
+                                chart.self.destroy();
+                            }
+
+                            initChart(chart);
+                        });
+                    }
+                }
+            }
         }
     },
     setting: {

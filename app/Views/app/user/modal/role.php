@@ -1,7 +1,7 @@
 <form class="form" action="javascript:" id="roleForm" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?=$role->id ?>" />
     <div class="modal-header">
-        <h2 class="fw-bold"><?=($role->id>0 ? "Yetkiyi Düzenle" : "Yeni Yetki Ekle")?></h2>
+        <h2 class="fw-bold"><?=($role->id>0 ? "Edit Permission" : "Add New Permission")?></h2>
         <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-roles-modal-action="close" data-bs-dismiss="modal">
             <span class="svg-icon svg-icon-1">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -14,7 +14,7 @@
     <div class="modal-body scroll-y mx-0 mx-md-5 mt-2 mb-4">
         <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_roles_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_roles_header" data-kt-scroll-wrappers="#kt_modal_roles_scroll" data-kt-scroll-offset="300px">
           <div class="row mb-3">
-            <div class="col-12 col-md-3 d-flex align-items-center">
+            <div class="col-12 col-md-3 d-flex align-items-center pe-0">
                 <label class="col-form-label fw-bold p-0 pb-1 fs-5 required">Permission name</label>
             </div>
             <div class="col-12 col-md-9 d-flex align-items-center">
@@ -27,7 +27,7 @@
             </div>
             <div class="col-12 col-md-9 d-flex align-items-center">
               <select class="form-select form-select-solid border h-40px" id="accountType" data-control="select2" data-hide-search="true">
-                <option>Normal Account</option>
+                <option>Paypara Account</option>
                 <option value="1" <? if($role->partner==1): ?>selected<? endif; ?>>Partner Account</option>
                 <option value="2" <? if($role->root==1): ?>selected<? endif; ?>>Root Account</option>
               </select>

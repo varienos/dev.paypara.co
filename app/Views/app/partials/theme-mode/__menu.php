@@ -7,7 +7,7 @@
 					</svg>
 				</span>
 			</span>
-			<span class="menu-title">Açık</span>
+			<span class="menu-title">Light</span>
 		</a>
 	</div>
 	<div class="menu-item px-3 my-0">
@@ -18,7 +18,7 @@
 					</svg>
 				</span>
 			</span>
-			<span class="menu-title">Koyu</span>
+			<span class="menu-title">Dark</span>
 		</a>
 	</div>
 	<div class="menu-item px-3 my-0">
@@ -29,7 +29,7 @@
 					</svg>
 				</span>
 			</span>
-			<span class="menu-title">Sistem</span>
+			<span class="menu-title">System</span>
 		</a>
 	</div>
 </div>
