@@ -703,13 +703,13 @@
 										<div class="d-flex flex-column mb-5 fv-row">
 											<label class="required fs-5 fw-semibold mb-2">API Key</label>
 											<div class="d-flex flex-row">
-												<input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" placeholder="Unique API key that belongs the firm" name="api_key" />
+												<input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" placeholder="Unique API key that belongs to the firm" name="api_key" />
 												<button type="button" id="generateKey" class="btn btn-light ms-3 mw-100px">Generate</button>
 											</div>
 										</div>
 										<div class="d-flex flex-column mb-5 fv-row">
 											<label class="required fs-5 fw-semibold mb-2">Is it authorized to send requests?</label>
-											<select class="form-select form-select-solid border" data-control="select2" <?=edit_firm!==true?"disabled":null; ?> name="status" data-set="statusSwitch" id="modalStatus" data-set="statusSwitch" data-placeholder="Choose and option" data-hide-search="true">
+											<select class="form-select form-select-solid border" data-control="select2" <?=edit_firm!==true?"disabled":null; ?> name="status" data-set="statusSwitch" id="modalStatus" data-set="statusSwitch" data-placeholder="Choose an option" data-hide-search="true">
 												<option></option>
 												<option value="on">Yes</option>
 												<option value="0">No</option>
