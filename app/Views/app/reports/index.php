@@ -97,7 +97,7 @@
               </div>
             </div>
 
-            <? if(getAuth($user->role_id,'partner') == true): ?>
+            <? if(partner === true): ?>
               <?php require appViewPath().'reports/_partner.php' ?>
             <? else: ?>
               <?php require appViewPath().'reports/_admin.php' ?>
