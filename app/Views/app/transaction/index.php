@@ -80,7 +80,7 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-4 d-flex align-items-center">
-                                                            <label class="form-label fs-6 fw-semibold">Firm:</label>
+                                                            <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Firm:</label>
                                                         </div>
                                                         <div class="col ps-0">
                                                             <select class="form-select form-select-solid border border-1 fw-bold" name="siteId" id="siteId" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
@@ -94,7 +94,7 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-4 d-flex align-items-center">
-                                                            <label class="form-label fs-6 fw-semibold">Account:</label>
+                                                            <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Account:</label>
                                                         </div>
                                                         <div class="col ps-0">
                                                             <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountIdFilter" id="accountIdFilter" placeholder="All" app-onchange-datatable-reload>
@@ -103,7 +103,7 @@
 
                                                     <div class="row mb-3">
                                                         <div class="col-4 d-flex align-items-center">
-                                                            <label class="form-label fs-6 fw-semibold">Status:</label>
+                                                            <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Status:</label>
                                                         </div>
                                                         <div class="col ps-0">
                                                             <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
