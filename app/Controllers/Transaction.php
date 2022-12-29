@@ -166,7 +166,7 @@ class Transaction extends BaseController
                     '<div class="text-center">' . $row->gamer_site_id . '</div>',
                     '<div class="text-center">' . $row->account_id . '</div>',
                     '<div class="text-center">' . $row->site_name . '</div>',
-                    '<div class="text-center badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Banka':$row->method)) . '</div>',
+                    '<div class="text-center badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Bank':$row->method)) . '</div>',
                     '<div class="text-center">' . $row->gamer_name . '</div>',
                     '<div class="text-center">' . number_format($row->price,2) . '₺</div>',
                     $status,
@@ -259,7 +259,7 @@ class Transaction extends BaseController
                 '<div class="text-center' . $row->request_time . '</div>',
                 '<div class="text-center' . $row->transaction_id . '</div>',
                 '<div class="text-center' . $row->account_id . '</div>',
-                '<div class="text-center badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Banka':$row->method)).'</div>',
+                '<div class="text-center badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Bank':$row->method)).'</div>',
                 '<div class="text-center">' . number_format($row->price,2) . '₺</div>',
                 $status,
                 '<button class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal" id="inspect" data-bs-target="#inspect" data-url="transaction/modal/'.$row->request.'/inspect/'.$id.'">View</button>'

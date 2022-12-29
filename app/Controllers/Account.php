@@ -107,7 +107,7 @@ class Account extends BaseController
 				if(count((array)$match)==0) echo '<li onClick="$.varien.account.detail.match('.$row->gamer_site_id.')"><i style="color:#bbb" class="fa fa-user fs-6 me-1"></i> '.$row->gamer_nick.' '.$row->site_name.'</li>';
 			}
 		}else{
-			echo '<li>Müşteri Bulunamadı...</li>';
+			echo '<li>No Customer Found...</li>';
 		}
 	}
     public function form($type,$id=0)
