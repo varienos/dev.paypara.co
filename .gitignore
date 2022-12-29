@@ -5,8 +5,9 @@
 local_access_log
 local_error_log
 error_log
-revision/
-assets/metronic/tools/node_modules/*
+revision
+assets/metronic/template/dist
+assets/metronic/tools/node_modules
 
 #-------------------------
 # Operating Specific Junk Files
