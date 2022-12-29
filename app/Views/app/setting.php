@@ -461,7 +461,7 @@
 													<label class="fw-semibold text-gray-600 lh-sm">Bank options where accounts can be defined</label>
 												</div>
 												<div class="col-xxl-8 d-flex flex-center">
-													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="availableBanks[]" data-close-on-select="false" data-placeholder="Tüm bankalar" data-allow-clear="true" multiple="multiple">
+													<select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="availableBanks[]" data-close-on-select="false" data-placeholder="All banks" data-allow-clear="true" multiple="multiple">
 														<option></option>
 														<? foreach(bankArray() as $key=>$value){ $x=explode(",",availableBanks); ?>
 														<option value="<?=$key ?>" <?=(in_array($key,$x ?? []) ? "selected" : "") ?>><?=$value ?></option>
@@ -703,13 +703,13 @@
 										<div class="d-flex flex-column mb-5 fv-row">
 											<label class="required fs-5 fw-semibold mb-2">API Key</label>
 											<div class="d-flex flex-row">
-												<input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" placeholder="Unique API key that belong the the firm" name="api_key" />
+												<input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" placeholder="Unique API key that belongs the firm" name="api_key" />
 												<button type="button" id="generateKey" class="btn btn-light ms-3 mw-100px">Generate</button>
 											</div>
 										</div>
 										<div class="d-flex flex-column mb-5 fv-row">
 											<label class="required fs-5 fw-semibold mb-2">Is it authorized to send requests?</label>
-											<select class="form-select form-select-solid border" data-control="select2" <?=edit_firm!==true?"disabled":null; ?> name="status" data-set="statusSwitch" id="modalStatus" data-set="statusSwitch" data-placeholder="Bir seçenek seçin" data-hide-search="true">
+											<select class="form-select form-select-solid border" data-control="select2" <?=edit_firm!==true?"disabled":null; ?> name="status" data-set="statusSwitch" id="modalStatus" data-set="statusSwitch" data-placeholder="Choose and option" data-hide-search="true">
 												<option></option>
 												<option value="on">Yes</option>
 												<option value="0">No</option>
