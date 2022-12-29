@@ -38,7 +38,7 @@
             <? endif; ?>
             <div class="row mb-5">
               <label class="form-label fs-5 fw-bold">E-Mail</label>
-              <input type="text" placeholder="E-posta adresiniz" name="x" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
+              <input type="text" placeholder="Your e-mail address" name="x" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
             </div>
             <div class="row position-relative mb-8" data-kt-password-meter="true">
               <label class="form-label fs-5 fw-bold">Password</label>
