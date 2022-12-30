@@ -114,6 +114,15 @@
 											<div class="card-title m-0">
 												<h3>Payment Limits</h3>
 											</div>
+											<div class="card-toolbar">
+												<div class="w-200px">
+													<select class="form-select form-select-solid border" data-control="select2" data-hide-search="true">
+														<option value="1" selected>All Firms</option>
+														<option value="2">Firm 1</option>
+														<option value="3">Firm 2</option>
+													</select>
+												</div>
+											</div>
 										</div>
 										<div class="card-body p-9">
 											<div class="row mb-6">
