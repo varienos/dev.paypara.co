@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paypara'ya Hoşgeldin</title>
+    <title>Paypara'ya Hoşgeldin!</title>
     <link rel="shortcut icon" href="<?= base_url('assets/branding/favicon.ico') ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
@@ -26,9 +26,11 @@
         <div class="col-lg-11">
           <div class="d-flex pb-20 pb-md-0 min-vh-100 align-items-center">
             <div class="container-wrap d-flex align-items-stretch rounded-3 overflow-hidden w-100 shadow-lg bg-white">
-              <video class="hero-media d-none d-xl-flex" autoplay muted loop>
-                <source src="<?= base_url() ?>/assets/core/iframe/images/backgrounds/hero-video.mp4" type="video/mp4">
-              </video>
+              <div class="col-xl-3 d-none d-xl-flex">
+                <video class="hero-media" autoplay muted loop>
+                  <source src="<?= base_url() ?>/assets/core/iframe/images/backgrounds/hero-video.mp4" type="video/mp4">
+                </video>
+              </div>
               <div class="col-12 col-xl-9">
                 <div class="progress h-5px rounded-0">
                   <div aria-valuemax="100" aria-valuemin="0" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%"></div>
