@@ -38,7 +38,7 @@ $.varien = {
         if ($.varien.environment() == 'dev') $.varien.dev.init();
     },
     authorization: () => {
-        $('[auth="false"]').each(function(i) {
+        $('[auth="false"]').each(function() {
             $(this).remove();
         });
         setTimeout(function() {
@@ -1773,7 +1773,7 @@ $.varien = {
                 var c = $("#current_password").val();
                 var n = $("#user_pass").val();
                 var v = $("#confirm_password").val();
-                if (c == "" && $.resource.root !== 1) {
+                if (c == "" && $.resource.root != 1) {
                     toastr.error("Please enter your current password");
                     $("#current_password").focus();
                     return false;
@@ -1788,7 +1788,7 @@ $.varien = {
                     $("#confirm_password").focus();
                     return false;
                 }
-                if (c != d && $.resource.root !== 1) {
+                if (c != d && $.resource.root != 1) {
                     toastr.error("You've entered your current password incorrectly");
                     $("#current_password").focus();
                     return false;
@@ -1816,6 +1816,9 @@ $.varien = {
                         if (!$.varien.user.detail.password()) {
                             return false;
                         }
+                        $('input#user_pass').val('');
+                        $('input#user_pass').trigger('change');
+                        $('input#confirm_password').val('');
                     }
                     if (dataName == "email") {
                         $.varien.user.check("email", $("[app-submit-email-check]").val(), $("[app-submit-email-check]").attr('current-email')).then((response) => {
