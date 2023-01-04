@@ -65,6 +65,9 @@ vendor/
 # IDE / Development Files
 #-------------------------
 
+# Local Development Enviroment
+.ddev
+
 # Modules Testing
 _modules/*
 
