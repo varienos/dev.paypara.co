@@ -3,8 +3,12 @@ namespace App\Models;
 use CodeIgniter\Model;
 class ApiModel extends Model
 {
-    protected $table   = 'finance';
-    protected $site_id = "";
+    protected $table        = "finance";
+    protected $site_id      = "";
+    protected $minDeposit   = "";
+    protected $maxDeposit   = "";
+    protected $minWithdraw  = "";
+    protected $maxWithdraw  = "";
 
     function __construct()
     {
@@ -35,7 +39,7 @@ class ApiModel extends Model
         `platform`      ='".$this->agent->getPlatform()."',
         `isMobil`       ='".$this->agent->getMobile()."',
         `browserVersion`='".$this->agent->getVersion()."',
-        `timestamp`     =NOW()
+        `timestamp`     =NOW() 
         ");
     }
 
@@ -212,6 +216,19 @@ class ApiModel extends Model
 			die();
 		}else{
 			$this->site_id	= $data->id;
+
+            // SITE LIMITS
+            $this->minDeposit  = $data->limitDepositMin<0?$data->limitDepositMin:minDeposit;
+            $this->maxDeposit  = $data->limitDepositMax>0?$data->limitDepositMax:maxDeposit;
+            $this->minWithdraw = $data->limitWithdrawMin<0?$data->limitWithdrawMin:minWithdraw;
+            $this->maxWithdraw = $data->limitWithdrawMax>0?$data->limitWithdrawMax:maxWithdraw;
+
+            // GLOBAL LIMITS
+            $this->minDeposit   = $this->minDeposit>minDeposit?minDeposit:$this->minDeposit;
+            $this->maxDeposit   = $this->maxDeposit>maxDeposit?maxDeposit:$this->maxDeposit;
+            $this->minWithdraw  = $this->minWithdraw>minWithdraw?minWithdraw:$this->minWithdraw;
+            $this->maxWithdraw  = $this->maxWithdraw>maxWithdraw?maxWithdraw:$this->maxWithdraw;
+
             return true;
 		}
 	}
@@ -223,17 +240,19 @@ class ApiModel extends Model
             die();
         }
 
+        $siteData    = $this->db->query("select * from site where status='on' and api_key='".md5($_POST["apiKey"])."'")->getRow();
+       
 		$obj["papara"] = array
         (
             "deposit" => array
             (
-                "limitMin"		=>floatval(number_format(minDeposit, 2, '.', '')),
-                "limitMax"		=>floatval(number_format(maxDeposit, 2, '.', '')),
+                "limitMin"		=>floatval(number_format($this->minDeposit, 2, '.', '')),
+                "limitMax"		=>floatval(number_format($this->maxDeposit, 2, '.', '')),
             ),
             "withdraw" => array
             (
-                "limitMin"		=>floatval(number_format(minWithdraw, 2, '.', '')),
-                "limitMax"		=>floatval(number_format(maxWithdraw, 2, '.', ''))
+                "limitMin"		=>floatval(number_format($this->minWithdraw, 2, '.', '')),
+                "limitMax"		=>floatval(number_format($this->maxWithdraw, 2, '.', ''))
             )
 		);
         $this->log($this->getSiteId($_POST["apiKey"]),$obj,__FUNCTION__);
@@ -247,14 +266,12 @@ class ApiModel extends Model
 	}
 	public function getAccountPrepare($key, $price, $userId, $transaction_id, $method)
 	{
-
-
 		$obj = $this->error->string("account_not_found",__CLASS__,__FUNCTION__);
-        if($this->paypara->setNumber($price)<$this->paypara->setNumber(minDeposit))
+        if($this->paypara->setNumber($price)<$this->paypara->setNumber($this->minDeposit))
         {
             return $obj = $this->error->string("min_deposit_error",__CLASS__,__FUNCTION__);
         }
-        if($this->paypara->setNumber($price)>$this->paypara->setNumber(maxDeposit))
+        if($this->paypara->setNumber($price)>$this->paypara->setNumber($this->maxDeposit))
         {
             return $obj = $this->error->string("max_deposit_error",__CLASS__,__FUNCTION__);
         }
@@ -449,12 +466,12 @@ class ApiModel extends Model
         $account_number	    = $_POST['account_number'];
 		$callBackUrl		= $_POST['callback'];
 
-        if($this->paypara->setNumber($price)<$this->paypara->setNumber(minWithdraw))
+        if($this->paypara->setNumber($price)<$this->paypara->setNumber($this->minWithdraw))
         {
             $this->log($this->getSiteId($key),$this->error->string("min_withdraw_error",__CLASS__,__FUNCTION__),__FUNCTION__);
             return $this->error->string("min_withdraw_error",__CLASS__,__FUNCTION__);
         }
-        if($this->paypara->setNumber($price)>$this->paypara->setNumber(maxDeposit))
+        if($this->paypara->setNumber($price)>$this->paypara->setNumber($this->maxDeposit))
         {
             $this->log($this->getSiteId($key),$this->error->string("max_withdraw_error",__CLASS__,__FUNCTION__),__FUNCTION__);
             return $this->error->string("max_withdraw_error",__CLASS__,__FUNCTION__);
