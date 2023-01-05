@@ -101,7 +101,7 @@ class User extends BaseController
 		$this->twoFA    	= new \App\Libraries\TwoFA();
 		$data['secret'] 	= $this->twoFA->createSecret();
 		$data['qr'] 		= $this->twoFA->getQRCodeImageAsDataUri($data['secret']);
-		$data['manuel'] 	= chunk_split($data['secret'], 4, ' ');
+		$data['manuel'] 	= chunk_split($data['secret'], 4, ' '); 
 		echo view('app/user/modal/2fa', $data);
 	}
 	public function include($fileName)

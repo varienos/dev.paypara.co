@@ -506,8 +506,8 @@
                                                 <div class="col-xxl-8 d-flex flex-center">
                                                     <select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="availableBanks[]" data-close-on-select="false" data-placeholder="All banks" data-allow-clear="true" multiple="multiple">
                                                         <option></option>
-                                                        <? foreach(bankArray() as $key=>$value){ $x=explode(",",availableBanks); ?>
-                                                        <option value="<?=$key ?>" <?=(in_array($key,$x ?? []) ? "selected" : "") ?>><?=$value ?></option>
+                                                        <? foreach(bankArray(0) as $key=>$value){ $ab=explode(",",availableBanks); ?>
+                                                        <option value="<?=$key ?>" <?=(in_array($key,$ab ?? []) ? "selected" : "") ?>><?=$value ?></option>
                                                         <? } ?>
                                                     </select>
                                                 </div>
