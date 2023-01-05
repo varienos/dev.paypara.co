@@ -86,7 +86,7 @@ _modules/*
 
 # Visual Studio Code
 .vscode/
-
+.ddev/
 /results/
 /phpunit*.xml
 /.phpunit.*.cache
