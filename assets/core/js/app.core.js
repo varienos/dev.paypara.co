@@ -2779,6 +2779,10 @@ $.varien = {
                     } else {
                         $('[name="id"]').val(0);
                         $('[name="site_name"]').val("");
+                        $('[name="limitDepositMin"]').val($('[name="limitDepositMin"]').attr('data-default'));
+                        $('[name="limitDepositMax"]').val($('[name="limitDepositMax"]').attr('data-default'));
+                        $('[name="limitWithdrawMin"]').val($('[name="limitWithdrawMin"]').attr('data-default'));
+                        $('[name="limitWithdrawMax"]').val($('[name="limitWithdrawMax"]').attr('data-default'));
                         $('[name="api_key"]').val("");
                         $('[id="modalStatus"]').val("").change();
                         $('[data-title]').html("Add New Firm");
@@ -2788,6 +2792,10 @@ $.varien = {
                         setTimeout(function() {
                             $('[name="id"]').val("");
                             $('[name="site_name"]').val("");
+                            $('[name="limitDepositMin"]').val($('[name="limitDepositMin"]').attr('data-default'));
+                            $('[name="limitDepositMax"]').val($('[name="limitDepositMax"]').attr('data-default'));
+                            $('[name="limitWithdrawMin"]').val($('[name="limitWithdrawMin"]').attr('data-default'));
+                            $('[name="limitWithdrawMax"]').val($('[name="limitWithdrawMax"]').attr('data-default'));
                             $('[name="api_key"]').val("");
                             $('[id="modalStatus"]').val("").change();
                         }, 300);
@@ -2805,6 +2813,10 @@ $.varien = {
                     success: function(response) {
                         $('[name="id"]').val(response.id);
                         $('[name="site_name"]').val(response.site_name);
+                        $('[name="limitDepositMin"]').val(response.limitDepositMin);
+                        $('[name="limitDepositMax"]').val(response.limitDepositMax);
+                        $('[name="limitWithdrawMin"]').val(response.limitWithdrawMin);
+                        $('[name="limitWithdrawMax"]').val(response.limitWithdrawMax);
                         $('[name="api_key"]').val(response.api_key_pin + "-****-****-****-************");
                         $('[id="modalStatus"]').val(response.status).change();
                     }
@@ -2843,6 +2855,14 @@ $.varien = {
                     var site_name = $('[name="site_name"]').val();
                     var api_key = $('[name="api_key"]').val();
                     var status = $('[id="modalStatus"]').find(":selected").val();
+                    var limitDepositMin = $('[name="limitDepositMin"]').val();
+                    var limitDepositMax = $('[name="limitDepositMax"]').val();
+                    var limitWithdrawMin = $('[name="limitWithdrawMin"]').val();
+                    var limitWithdrawMax = $('[name="limitWithdrawMax"]').val();
+                    var minDeposit = $('[name="minDeposit"]').val();
+                    var maxDeposit = $('[name="maxDeposit"]').val();
+                    var minWithdraw = $('[name="minWithdraw"]').val();
+                    var maxWithdraw = $('[name="maxWithdraw"]').val();
                     if (site_name == "") {
                         toastr.error("Please enter firm's name");
                         return false;
@@ -2851,12 +2871,44 @@ $.varien = {
                         toastr.error("Please enter API Key");
                         return false;
                     }
+                    if (limitDepositMin == "") {
+                        toastr.error("Please enter min. deposit limit");
+                        return false;
+                    }
+                    if (limitDepositMax == "") {
+                        toastr.error("Please enter max. deposit limit");
+                        return false;
+                    }
+                    if (limitWithdrawMin == "") {
+                        toastr.error("Please enter min. withdraw limit");
+                        return false;
+                    }
+                    if (limitWithdrawMax == "") {
+                        toastr.error("Please enter max. withdraw limit");
+                        return false;
+                    }
+                    if (Number.parseFloat(limitDepositMin) < Number.parseFloat(minDeposit)) {
+                        toastr.error("Please enter min. deposit limit more than " + Number.parseFloat(minDeposit) + " amount of data.");
+                        return false;
+                    }
+                    if (Number.parseFloat(limitDepositMax) < Number.parseFloat(maxDeposit)) {
+                        toastr.error("Please enter max. deposit limit under than " + Number.parseFloat(maxDeposit) + " amount of data.");
+                        return false;
+                    }
+                    if (Number.parseFloat(limitWithdrawMin) < Number.parseFloat(minWithdraw)) {
+                        toastr.error("Please enter min. withdraw limit more than " + Number.parseFloat(minWithdraw) + " amount of data.");
+                        return false;
+                    }
+                    if (Number.parseFloat(limitWithdrawMax) < Number.parseFloat(maxWithdraw)) {
+                        toastr.error("Please enter max. withdraw limit under than " + Number.parseFloat(maxWithdraw) + " amount of data.");
+                        return false;
+                    }
                     $.ajax({
                         url: "client/save",
                         type: "POST",
                         dataType: "html",
                         crossDomain: true,
-                        data: 'id=' + id + '&site_name=' + site_name + '&api_key=' + api_key + '&status=' + status,
+                        data: 'id=' + id + '&site_name=' + site_name + '&api_key=' + api_key + '&limitDepositMin=' + limitDepositMin + '&limitDepositMax=' + limitDepositMax + '&limitWithdrawMin=' + limitWithdrawMin + '&limitWithdrawMax=' + limitWithdrawMax + '&status=' + status,
                         xhrFields: {
                             withCredentials: true
                         },

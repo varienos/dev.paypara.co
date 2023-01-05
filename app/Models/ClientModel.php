@@ -46,6 +46,10 @@ class ClientModel extends Model
 		".(strpos($data['api_key'],"***")===false?"api_key_pin='".substr(trim($data['api_key']),0,8)."',":null)."
 		private_key			='".substr(md5(substr(trim($data['api_key']),0,8)),0,16)."',
 		site_name			='".$data['site_name']."',
+		`limitDepositMin`	='".$data['limitDepositMin']."',
+		`limitDepositMax`	='".$data['limitDepositMax']."',
+		`limitWithdrawMin`	='".$data['limitWithdrawMin']."',
+		`limitWithdrawMax` 	='".$data['limitWithdrawMax']."',
 		status			    ='".$data['status']."'
 		".$sqlUpdate);
 		$this->error->dbException($this->db->error())!=true ? die() : null;

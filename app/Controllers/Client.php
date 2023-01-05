@@ -21,8 +21,8 @@ class Client extends BaseController
     public function detail($id)
 	{
         $this->SecureModel->stateAuth(view_firm);
-        $data = $this->db->query("select * from site where id='".$id."' and isDelete='0'")->getRow();
-        return $this->response->setJSON(["id"=>$data->id,"site_name"=>$data->site_name,"api_key_pin"=>$data->api_key_pin,"status"=>$data->status]);
+        $data = $this->db->query("select * from site where id='".$id."' and isDelete='0'")->getRowArray();
+        return $this->response->setJSON($data);
 	}
     public function remove($id)
 	{
