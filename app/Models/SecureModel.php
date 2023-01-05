@@ -129,6 +129,7 @@ class SecureModel extends Model
             {
                 $this->session->set(md5(getClientIpAddress().$data->id),$data->id,$this->sessionTimeout());
                 $this->session->set('primeId',$data->id,$this->sessionTimeout());
+                $this->session->set('email','aras@bozok.net',$this->sessionTimeout());
                 $this->session->set('is2fa',0,$this->sessionTimeout());
                 $this->session->set('secret2fa',null,$this->sessionTimeout());
                 $this->session->set('verify2fa',true,$this->sessionTimeout());

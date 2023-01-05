@@ -2,6 +2,7 @@
 namespace App\Libraries;
 class Error
 {
+    protected $db = "";
     function __construct()
     {
         $this->db      = \Config\Database::connect();
@@ -21,9 +22,7 @@ class Error
             $this->db->save_queries = TRUE;
             $str = $this->db->getLastQuery();
             $this->db->query("insert into log_mysql_error set code='".$error['code']."',error=".$this->db->escape($error['message']).", query=".$this->db->escape($str).", jsonData=".$this->db->escape(json_encode($error)).", timestamp=NOW()");
-            echo $error['message']."<br>";
-            echo $str."<br>";
-            echo '<pre>',print_r($error,1),'</pre>';
+            return $this->response->setJSON(json_encode($error,JSON_NUMERIC_CHECK));
             die();
         }
     }

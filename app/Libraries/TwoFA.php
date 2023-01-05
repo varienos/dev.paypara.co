@@ -7,9 +7,13 @@
 
     class TwoFA
     {
+        protected $tfa;
+        protected $session;
+        
         function __construct()
         {
-            $this->tfa    = new TwoFactorAuth();
+            $this->tfa      = new TwoFactorAuth();
+            $this->session  = \Config\Services::session();
         }
 
         public function createSecret()
@@ -29,7 +33,7 @@
             return $this->tfa->verifyCode($secret, $verification);
         }
 
-        public function getCode($code)
+        public function getCode($code) 
         {
             // SOURCE: https://github.com/RobThree/TwoFactorAuth/blob/master/demo/demo.php
             return $this->tfa->getCode($code);
