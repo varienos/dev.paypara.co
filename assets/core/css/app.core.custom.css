@@ -2,17 +2,6 @@
     filter: drop-shadow(0 0 2rem #d95158);
 }
 
-#kt_aside,
-#kt_wrapper {
-    margin-top: 40px;
-}
-
-@media (max-width: 991px) {
-    #kt_wrapper {
-        margin-top: 55px;
-    }
-}
-
 .table-striped>tbody>tr:nth-of-type(2n + 1)>* {
     color: var(--kt-text-gray-800) !important;
 }
