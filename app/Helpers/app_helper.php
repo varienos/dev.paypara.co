@@ -146,7 +146,7 @@ function bankArray($available=1)
             "22"=>"QNB Finansbank"];
 
     if($available==1) {
-        if(strlen(availableBanks)==0) {
+        if(strlen(availableBanks)<1) {
             return $x;
         } else {
             $availableBanks=[];
