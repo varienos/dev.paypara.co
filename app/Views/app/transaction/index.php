@@ -197,16 +197,11 @@
                                     </div>
                                 </div>
                                 <div class="card-body pt-0">
-                                    <div id="datatableContent_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                                        <div class="table-responsive">
-                                            <table class="table align-middle table-row-dashed fs-6 gy-4 dataTable no-footer">
-                                                <div class="table-responsive">
-                                                    <table class="table table-responsive table-striped table-row-bordered align-middle dataTable fs-6 gy-3" id="datatable_content">
-                                                        <thead datatable-head></thead>
-                                                        <tbody class="fw-semibold text-gray-600"></tbody>
-                                                    </table>
-                                                </div>
-                                        </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-row-bordered align-middle dataTable fs-6 gy-3" id="datatable_content">
+                                            <thead datatable-head></thead>
+                                            <tbody class="fw-semibold text-gray-700"></tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
