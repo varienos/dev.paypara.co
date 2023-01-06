@@ -271,7 +271,7 @@
                                     </div>
                                   </div>
                                   <div class="row mb-3">
-                                    <div class="col-3 d-flex align-items-center">
+                                    <div class="col-4 d-flex align-items-center">
                                       <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Status:</label>
                                     </div>
                                     <div class="col ps-0">
