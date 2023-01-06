@@ -74,7 +74,7 @@
                         <div class="badge badge-lg badge-light-danger d-inline">VIP User</div>
                         <? endif; ?>
                         <? if($customer->isVip=="0"): ?>
-                        <div class="badge badge-lg badge-light-dark d-inline">Basic User</div>
+                        <div class="badge badge-lg badge-light-primary d-inline">Basic User</div>
                         <? endif; ?>
                       </div>
                       <div class="separator separator-dashed my-3"></div>
