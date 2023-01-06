@@ -441,29 +441,41 @@
                                   </div>
                                   <div class="separator border-gray-200"></div>
                                   <div class="px-7 py-5" data-kt-user-table-filter="form">
-                                    <div class="mb-5">
-                                      <label class="form-label fs-6 fw-semibold">Firm:</label>
-                                      <select class="form-select form-select-solid border border-1 fw-bold" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
-                                        <option></option>
-                                        <option value="Administrator">Lorem</option>
-                                        <option value="Analyst">Ipsum</option>
-                                        <option value="Developer">Dolar</option>
-                                        <option value="Support">Sit</option>
-                                        <option value="Trial">Amet</option>
-                                      </select>
+                                    <div class="row mb-3">
+                                      <div class="col-4 d-flex align-items-center">
+                                        <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Firm:</label>
+                                      </div>
+                                      <div class="col">
+                                        <select class="form-select form-select-solid border border-1 fw-bold" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+                                          <option></option>
+                                          <option value="Administrator">Lorem</option>
+                                          <option value="Analyst">Ipsum</option>
+                                          <option value="Developer">Dolar</option>
+                                          <option value="Support">Sit</option>
+                                          <option value="Trial">Amet</option>
+                                        </select>
+                                      </div>
                                     </div>
-                                    <div class="mb-5">
-                                      <label class="form-label fs-6 fw-semibold">Account:</label>
-                                      <input type="text" class="form-control form-control-solid border border-1 fw-bold" placeholder="All" />
+                                    <div class="row mb-3">
+                                      <div class="col-4 d-flex align-items-center">
+                                        <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Account:</label>
+                                      </div>
+                                      <div class="col">
+                                        <input type="text" class="form-control form-control-solid border border-1 fw-bold" placeholder="All" />
+                                      </div>
                                     </div>
-                                    <div class="mb-5">
-                                      <label class="form-label fs-6 fw-semibold">Status:</label>
-                                      <select class="form-select form-select-solid border border-1 fw-bold" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
-                                        <option></option>
-                                        <option value="Administrator">Pending</option>
-                                        <option value="Analyst">Approved</option>
-                                        <option value="Analyst">Rejected</option>
-                                    </select>
+                                    <div class="row mb-3">
+                                      <div class="col-4 d-flex align-items-center">
+                                        <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Status:</label>
+                                      </div>
+                                      <div class="col">
+                                        <select class="form-select form-select-solid border border-1 fw-bold" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+                                          <option></option>
+                                          <option value="Administrator">Pending</option>
+                                          <option value="Analyst">Approved</option>
+                                          <option value="Analyst">Rejected</option>
+                                        </select>
+                                      </div>
                                     </div>
                                     <div class="d-flex justify-content-end">
                                       <button type="reset" class="btn btn-sm btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
