@@ -136,6 +136,7 @@
                                                                         </button>
                                                                     </td>
                                                                 </tr>
+                                                                <? if(edit_user === true): ?>
                                                                 <tr>
                                                                     <td>Role</td>
                                                                     <td name="role"><?= getRoleName($user->role_id); ?></td>
@@ -148,6 +149,7 @@
                                                                         </button>
                                                                     </td>
                                                                 </tr>
+                                                                <? endif; ?>
                                                                 <? if(getAuth($user->role_id,'partner') == true): ?>
                                                                 <tr>
                                                                     <td>Firm</td>
