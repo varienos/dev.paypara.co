@@ -2871,36 +2871,19 @@ $.varien = {
                         toastr.error("Please enter API Key");
                         return false;
                     }
-                    if (limitDepositMin == "") {
-                        toastr.error("Please enter min. deposit limit");
+                    if (limitDepositMin == "" || limitDepositMax == "") {
+                        toastr.error("Please enter deposit limits correctly");
                         return false;
                     }
-                    if (limitDepositMax == "") {
-                        toastr.error("Please enter max. deposit limit");
+                    if (limitWithdrawMin == "" || limitWithdrawMax == "") {
+                        toastr.error("Please enter withdraw limits correctly");
                         return false;
                     }
-                    if (limitWithdrawMin == "") {
-                        toastr.error("Please enter min. withdraw limit");
-                        return false;
-                    }
-                    if (limitWithdrawMax == "") {
-                        toastr.error("Please enter max. withdraw limit");
-                        return false;
-                    }
-                    if (Number.parseFloat(limitDepositMin) < Number.parseFloat(minDeposit)) {
-                        toastr.error("Please enter min. deposit limit more than " + Number.parseFloat(minDeposit) + " amount of data.");
-                        return false;
-                    }
-                    if (Number.parseFloat(limitDepositMax) < Number.parseFloat(maxDeposit)) {
-                        toastr.error("Please enter max. deposit limit under than " + Number.parseFloat(maxDeposit) + " amount of data.");
-                        return false;
-                    }
-                    if (Number.parseFloat(limitWithdrawMin) < Number.parseFloat(minWithdraw)) {
-                        toastr.error("Please enter min. withdraw limit more than " + Number.parseFloat(minWithdraw) + " amount of data.");
-                        return false;
-                    }
-                    if (Number.parseFloat(limitWithdrawMax) < Number.parseFloat(maxWithdraw)) {
-                        toastr.error("Please enter max. withdraw limit under than " + Number.parseFloat(maxWithdraw) + " amount of data.");
+                    if (Number.parseFloat(limitDepositMin) < Number.parseFloat(minDeposit)
+                     || Number.parseFloat(limitDepositMax) < Number.parseFloat(maxDeposit)
+                     || Number.parseFloat(limitWithdrawMin) < Number.parseFloat(minWithdraw)
+                     || Number.parseFloat(limitWithdrawMax) < Number.parseFloat(maxWithdraw)) {
+                        toastr.error("Firm's limit range must be between globally defined limit range.");
                         return false;
                     }
                     $.ajax({
