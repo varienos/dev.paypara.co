@@ -762,7 +762,7 @@
                                                 <option value="0">No</option>
                                             </select>
                                         </div>
-                                        <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#firm-limits" role="button" aria-expanded="false">
+                                        <div class="fw-bold fs-3 rotate collapsible collapsed mb-7" data-bs-toggle="collapse" href="#firm-limits" role="button" aria-expanded="false">
                                             Firm Limits
                                             <span class="ms-2 rotate-180">
                                                 <span class="svg-icon svg-icon-3">

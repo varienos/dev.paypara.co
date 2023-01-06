@@ -25,7 +25,7 @@
         </label>
         <input type="text" class="form-control form-control-solid border" placeholder="Papara account number" maxlength="10" name="account_number" value="<?=$update->account_number ?>" required />
       </div>
-      <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
+      <div class="fw-bold fs-3 rotate collapsible collapsed mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
         Account Settings
         <span class="ms-2 rotate-180">
           <span class="svg-icon svg-icon-3">
@@ -89,7 +89,7 @@
         </label>
         <input type="text" class="form-control form-control-solid border" placeholder="Papara account number" name="account_number" value="<?=$update->account_number ?>" />
       </div>
-      <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
+      <div class="fw-bold fs-3 rotate collapsible collapsed mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
         Account Settings
           <span class="ms-2 rotate-180">
             <span class="svg-icon svg-icon-3">
@@ -172,7 +172,7 @@
         </label>
         <input type="text" class="form-control form-control-solid border" placeholder="Bank IBAN Number" maxlength="34" name="account_number" value="<?=$update->account_number ?>" required />
       </div>
-      <div class="fw-bold fs-3 rotate collapsible mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
+      <div class="fw-bold fs-3 rotate collapsible collapsed mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
         Account Settings
         <span class="ms-2 rotate-180">
           <span class="svg-icon svg-icon-3">
