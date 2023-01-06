@@ -177,9 +177,9 @@ class User extends BaseController
 			$end    = strtotime(date('Y-m-d H:i:s'));
 			$second = $end - $start;
 			if ($second < $this->secure->sessionTimeout()) {
-				$ses = "<span class='text-success'>Aktif oturum</span>";
+				$ses = "<span class='text-success'>Active</span>";
 			} else {
-				$ses = "<span class='text-danger'>Süresi doldu</span>";
+				$ses = "<span class='text-danger'>Expired</span>";
 			}
 			$v = explode(".", $row->browserVersion);
 			$records["data"][$i] = array(
