@@ -80,7 +80,7 @@
             <div class="card-header min-h-50px mh-50px p-0">
               <h5 class="card-title fw-bold flex-center flex-nowrap text-gray-700 w-100 m-0">Monthly Average</h5>
             </div>
-            <div class="card-body d-flex">
+            <div class="card-body d-flex px-3">
               <div class="col-6 text-center">
                 <h5 class="card-title fw-semibold text-gray-700 pb-2">Yatırım</h5>
                 <h3 class="fw-bolder text-gray-700 m-0">₺<?= number_format(depositMonthly() / date('t'), 2) ?></h3>
@@ -97,7 +97,7 @@
             <div class="card-header min-h-50px mh-50px p-0">
               <h5 class="card-title fw-bold flex-center flex-nowrap text-gray-700 w-100 m-0">Transaction Count</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body px-3">
               <div class="row d-flex">
                 <div class="col-6 col-sm-2 text-center p-0 mb-5 mb-sm-0">
                   <h5 class="card-title fw-semibold text-gray-700 pb-0 pb-sm-2">Deposit</h5>
