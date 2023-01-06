@@ -10,7 +10,7 @@
           <div id="kt_header" class="header">
             <div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
               <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
-                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-account-type>Müşteri Profili</h1>
+                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-account-type>Client Profile</h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
                     <a href="dashboard" class="text-muted">Dashboard</a>
