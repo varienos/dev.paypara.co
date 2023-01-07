@@ -2,7 +2,7 @@
 <div class="w-100 hover-scroll-overlay-y d-flex pe-2" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_aside_logo, #kt_aside_footer" data-kt-scroll-wrappers="#kt_aside, #kt_aside_menu, #kt_aside_menu_wrapper" data-kt-scroll-offset="100">
     <div class="menu menu-column menu-rounded menu-sub-indention menu-active-bg fw-semibold my-auto" id="#kt_aside_menu" data-kt-menu="true">
         <div class="menu-item menu-accordion">
-            <a class="menu-link <? if($page == '1') { echo 'active'; } ?>" href="dashboard">
+            <a class="menu-link <? if(segment[0] == 'dashboard') { echo 'active'; } ?>" href="dashboard">
                 <span class="menu-icon">
                     <span class="svg-icon svg-icon-5">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
