@@ -131,7 +131,8 @@ ul#firms li {
 }
 
 .dt-button-info {
-    border: 1px solid #f0f2f5 !important;
+    background-color: var(--kt-page-bg) !important;
+    border: 1px solid var(--kt-gray-600) !important;
     box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075) !important;
 }
 
@@ -154,7 +155,6 @@ ul#firms li {
 }
 
 @keyframes dots {
-
     0%,
     20% {
         color: rgba(0, 0, 0, 0);
