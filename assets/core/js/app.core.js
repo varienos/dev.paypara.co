@@ -625,15 +625,7 @@ $.varien = {
                             toastr.success("Account updated");
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire({
-                                text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Close",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
+                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                         }
                     });
                 }));
@@ -769,15 +761,7 @@ $.varien = {
                             $("#ajaxModal").modal('toggle');
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire({
-                                text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Close",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
+                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                         }
                     });
                 }));
@@ -1345,27 +1329,11 @@ $.varien = {
                         $.blockDatatable.release();
                         $.blockModalContent.release();
                     }, function error(jqXHR, textStatus, errorThrown) {
-                        Swal.fire({
-                            text: jqXHR.status + " " + textStatus + " " + errorThrown,
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Close",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
+                        toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                         $.blockDatatable.release();
                         $.blockModalContent.release();
                     }).catch(function(error) {
-                        Swal.fire({
-                            text: error.message,
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Close",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
+                        toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                         $.blockDatatable.release();
                         $.blockModalContent.release();
                     });
@@ -1502,15 +1470,7 @@ $.varien = {
                                 toastr.success("Roles updated");
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
-                                Swal.fire({
-                                    text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Close",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
+                                toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                             }
                         });
                     }));
@@ -1666,15 +1626,7 @@ $.varien = {
                                             console.log(response);
                                             if (response == 200) {
                                                 $.varien.modal.event.toggle();
-                                                Swal.fire({
-                                                    text: "2-Step verification has been successfully activated",
-                                                    icon: "success",
-                                                    buttonsStyling: false,
-                                                    confirmButtonText: "Close",
-                                                    customClass: {
-                                                        confirmButton: "btn btn-primary"
-                                                    }
-                                                });
+                                                toastr.success("2-Step verification has been successfully activated");
                                                 $.wait(3000).then(() => {
                                                     location.reload();
                                                 });
@@ -2014,15 +1966,7 @@ $.varien = {
                                     toastr.success("User created");
                                 },
                                 error: function(jqXHR, textStatus, errorThrown) {
-                                    Swal.fire({
-                                        text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                                        icon: "error",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Close",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    });
+                                    toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                                 }
                             });
                         }
@@ -2094,15 +2038,7 @@ $.varien = {
                     });
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    Swal.fire({
-                        text: "XHR ERROR - " + jqXHR.status + "*" + textStatus + "*" + errorThrown,
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Close",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
+                    toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                 }
             });
         },
@@ -2204,15 +2140,7 @@ $.varien = {
                             $("#ajaxModal").modal('toggle');
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire({
-                                text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Close",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
+                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                         }
                     });
                 }));
@@ -2257,15 +2185,7 @@ $.varien = {
                             toastr.success("Customer note updated");
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire({
-                                text: "XHR ERROR - " + jqXHR.status + "*" + textStatus + "*" + errorThrown,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Close",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
+                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                         }
                     });
                 });
@@ -2670,15 +2590,7 @@ $.varien = {
                         toastr.success("Settings updated");
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire({
-                            text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Close",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
+                        toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                     }
                 });
             }));
@@ -2697,15 +2609,7 @@ $.varien = {
                         if (name == "maintenanceStatus") location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire({
-                            text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Close",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
+                        toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                     }
                 });
             }));
@@ -2902,15 +2806,7 @@ $.varien = {
                             return false;
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            Swal.fire({
-                                text: "XHR ERROR - " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Close",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
+                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
                         }
                     });
                     return false;
