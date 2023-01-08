@@ -24,10 +24,10 @@ const twoFA = {
                         window.location = window.location.protocol + "//" + window.location.hostname + "/dashboard/success";
                     }
                 }).catch(e => {
-                    toastr.error("Kod doğrulanamadı. Tekrar deneyiniz.");
+                    toastr.error("2FA Verification Failed. Please try again.");
                 });
             } else {
-                toastr.error("6 rakamlı doğrulama kodunu giriniz !");
+                toastr.error("Please enter 2FA verification code.");
             }
         });
     },
