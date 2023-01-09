@@ -81,7 +81,7 @@
                       <div class="mt-5">
                         <div class="d-flex flex-stack">
                           <div class="fw-bold">User ID</div>
-                          <div class="text-gray-700 badge badge-light-dark fs-7"><?=$customer->gamer_site_id ?></div>
+                          <div class="fw-bold text-gray-700 fs-7"><?=$customer->gamer_site_id ?></div>
                         </div>
                         <div class="d-flex flex-stack my-5">
                           <div class="fw-bold">Firm</div>
@@ -89,11 +89,11 @@
                         </div>
                         <div class="d-flex flex-stack my-5">
                           <div class="fw-bold">First Transaction</div>
-                          <div class="text-gray-700 badge badge-light-dark fs-7"><?= $customer->firstProcess == "" ? "No transaction" : $customer->firstProcess ?></div>
+                          <div class="fw-bold text-gray-700 fs-7"><?= $customer->firstProcess == "" ? "No transaction" : $customer->firstProcess ?></div>
                         </div>
                         <div class="d-flex flex-stack">
                           <div class="fw-bold">Last Transaction</div>
-                          <div class="text-gray-700 badge badge-light-dark fs-7"><?= $customer->lastProcess == "" ? "No transaction" : $customer->lastProcess ?></div>
+                          <div class="fw-bold text-gray-700 fs-7"><?= $customer->lastProcess == "" ? "No transaction" : $customer->lastProcess ?></div>
                         </div>
                       </div>
                     </div>
