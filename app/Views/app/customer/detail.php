@@ -318,56 +318,7 @@
                                         <th class="min-w-70px text-center ps-0">Actions</th>
                                       </tr>
                                     </thead>
-                                    <tbody class="fw-semibold text-gray-600">
-
-                                      <!--
-                                      <tr>
-                                        <td>19.03.2022 16:30</td>
-                                        <td>456789125</td>
-                                        <td>123456</td>
-                                        <td>
-                                          <div class="badge badge-light-danger">Papara</div>
-                                        </td>
-                                        <td>₺14.520,50</td>
-                                        <td>
-                                          <div class="badge badge-light-success">Onaylandı</div>
-                                        </td>
-                                        <td class="text-end">
-                                          <button class="btn btn-sm btn-light btn-active-light-primary">İncele</button>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td>18.03.2022 22:49</td>
-                                        <td>854216487</td>
-                                        <td>456789</td>
-                                        <td>
-                                          <div class="badge badge-light-danger">Eşleşme</div>
-                                        </td>
-                                        <td>₺7.450,00</td>
-                                        <td>
-                                          <div class="badge badge-light-success">Onaylandı</div>
-                                        </td>
-                                        <td class="text-end">
-                                          <button class="btn btn-sm btn-light btn-active-light-primary">İncele</button>
-                                        </td>
-                                      </tr>
-                                      <tr>
-                                        <td>17.03.2022 09:16</td>
-                                        <td>654321987</td>
-                                        <td>789456</td>
-                                        <td>
-                                          <div class="badge badge-light-dark">IBAN</div>
-                                        </td>
-                                        <td>₺2.500,00</td>
-                                        <td>
-                                          <div class="badge badge-light-danger">Reddedildi</div>
-                                        </td>
-                                        <td class="text-end">
-                                          <button class="btn btn-sm btn-light btn-active-light-primary">İncele</button>
-                                        </td>
-                                      </tr>
-                                      -->
-                                    </tbody>
+                                    <tbody class="fw-semibold text-gray-600"></tbody>
                                   </table>
                                 </div>
                             </div>

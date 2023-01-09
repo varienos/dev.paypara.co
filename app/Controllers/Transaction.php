@@ -242,23 +242,12 @@ class Transaction extends BaseController
                 $status_id  = 3;
 			}
 
-
-            /*
-            <th class="min-w-100px">Tarih</th>
-            <th class="min-w-80px">TXID</th>
-            <th class="min-w-70px">Hesap</th>
-            <th class="min-w-70px">Yöntem</th>
-            <th class="min-w-70px">Tutar</th>
-            <th class="min-w-100px">Durum</th>
-            <th class="text-end min-w-70px">İşlemler</th>
-            */
-
             $records["data"][$i] = array
             (
                 "DT_RowId"  => $row->id,
-                '<div class="text-center' . $row->request_time . '</div>',
-                '<div class="text-center' . $row->transaction_id . '</div>',
-                '<div class="text-center' . $row->account_id . '</div>',
+                '<div class="text-center">' . $row->request_time . '</div>',
+                '<div class="text-center">' . $row->transaction_id . '</div>',
+                '<div class="text-center">' . $row->account_id . '</div>',
                 '<div class="text-center badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Bank':$row->method)).'</div>',
                 '<div class="text-center">' . number_format($row->price,2) . '₺</div>',
                 $status,

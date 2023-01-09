@@ -2090,7 +2090,6 @@ $.varien = {
                 $.table.on('draw', function() {
                     setTimeout(function() {
                         $.varien.datatable.exportEvents();
-                        $("tbody td:nth-child(8)").addClass('text-end');
                         $('input[data-set="switch"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
