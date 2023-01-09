@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=coreAssets() ?>/css/app.core.min.css?v=<?=md5(microtime()) ?>">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=coreAssets() ?>/css/app.core.custom.css?v=<?=md5(microtime()) ?>">
 </head>
 <? if(maintenanceStatus=="on"): ?>
 <div class="notice d-flex flex-center shadow-lg bg-danger position-fixed h-45px w-100" style="z-index: 999;">

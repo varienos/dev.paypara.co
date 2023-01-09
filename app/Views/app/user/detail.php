@@ -158,7 +158,9 @@
                                                                 <? if(getAuth($user->role_id,'partner') == true): ?>
                                                                 <tr>
                                                                     <td>Firm</td>
-                                                                    <td name="perm_site"><ul id="firms"></ul></td>
+                                                                    <td name="perm_site">
+                                                                        <ul id="firms" class="list-unstyled"></ul>
+                                                                    </td>
                                                                     <td class="text-end">
                                                                         <? if(edit_user===true): ?>
                                                                             <button type="button" class="btn btn-icon btn-active-light-primary w-30px h-30px ms-auto" data-bs-toggle="modal" data-bs-target="#kt_modal_update_firms">

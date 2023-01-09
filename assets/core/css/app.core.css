@@ -18,9 +18,32 @@
     src: url(https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.6/fonts/Roboto/Roboto-Regular.ttf);
 }
 
+/* Misc */
+
 .logo:hover {
     filter: drop-shadow(0 0 2rem #d95158);
 }
+
+#dashboardDate {
+    position: absolute;
+    right: 90px;
+}
+
+#listDisableMatch_wrapper #listDisableMatch_info {
+    display: none !important;
+}
+
+.inputError {
+    border-color: #ffbfbf !important;
+    color: #ee5a5a !important;
+}
+
+[auth="false"] {
+    opacity: 0 !important;
+    display: none !important;
+}
+
+/* Modals */
 
 .modal-backdrop.show {
     opacity: 1;
@@ -39,19 +62,6 @@
     height: auto;
 }
 
-.mx-wi-p-80 {
-    max-width: 80% !important;
-}
-
-.devScrollTable {
-    font-family: "VT323", monospace;
-    padding: 30px;
-    border-radius: 15px;
-    -webkit-box-shadow: inset 0px 0px 20px 3px rgb(0 0 0 / 10%);
-    -moz-box-shadow: inset 0px 0px 20px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: inset 0px 0px 20px 3px rgb(0 0 0 / 10%);
-}
-
 .ajaxModalContent {
     height: 0px;
     -moz-transition: height 1s ease;
@@ -66,32 +76,32 @@
     font-size: 15px;
 }
 
-#listDisableMatch_wrapper #listDisableMatch_info {
-    display: none !important;
+/* Transaction Modal Colors */
+
+[data-theme="light"] #approve-info {
+    background-color: #56e496;
 }
 
-[auth="false"] {
-    opacity: 0 !important;
-    display: none !important;
+[data-theme="dark"] #approve-info {
+    background-color: #41ae72;
 }
+
+[data-theme="light"] #reject-info {
+    background-color: #f96085;
+}
+
+[data-theme="dark"] #reject-info {
+    background-color: #b33c58;
+}
+
+[data-theme="light"] #inspect-info {
+    background: linear-gradient(#f6f7f9, #fff);
+}
+
+/* DataTables */
 
 .sorting_disabled {
     pointer-events: none !important;
-}
-
-ul#firms {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-ul#firms li {
-    float: left;
-    margin-right: 5px;
-    border-radius: 15px;
-    background-color: #f0f0f0;
-    padding: 5px 10px;
-    font-size: 12px;
 }
 
 .table-striped>tbody>tr:nth-of-type(2n + 1)>* {
@@ -103,27 +113,7 @@ ul#firms li {
     box-shadow: 0 0.5rem 1rem 0.5rem rgba(0, 0, 0, 0.05) !important;
 }
 
-#dashboardDate {
-    position: absolute;
-    right: 90px;
-}
-
-#console {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-#console li::before {
-    content: ">";
-    padding-right: 8px;
-    color: white;
-}
-
-.inputError {
-    border-color: #ffbfbf !important;
-    color: #ee5a5a !important;
-}
+/* Clipboard Message */
 
 .dt-button-info>h2,
 #dtExportButtonsWrapper {
@@ -148,7 +138,29 @@ ul#firms li {
     content: "Copied to clipboard";
 }
 
-/* loading dots */
+/* Dev Console */
+
+#console {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#console li::before {
+    content: ">";
+    padding-right: 8px;
+    color: white;
+}
+
+.devScrollTable {
+    font-family: "VT323", monospace;
+    padding: 30px;
+    border-radius: 15px;
+    -webkit-box-shadow: inset 0px 0px 20px 3px rgb(0 0 0 / 10%);
+    -moz-box-shadow: inset 0px 0px 20px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0px 0px 20px 3px rgb(0 0 0 / 10%);
+}
+
 .cmdloading:after {
     content: " .";
     animation: dots 1s steps(5, end) infinite;

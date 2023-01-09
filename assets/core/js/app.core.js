@@ -141,7 +141,10 @@ $.varien = {
             hide: function() {
                 $("#ajaxModal").on('hidden.bs.modal', function(e) {
                     $("#ajaxModalContent").html('');
-                    if ($(".modal-dialog").length) $(".modal-dialog").removeClass('mx-wi-p-80');
+                    if ($(".modal-dialog").length) {
+                        $(".modal-dialog").addClass('mw-650px');
+                        $(".modal-dialog").removeClass('w-75');
+                    }
                 });
             },
             show: function() {
@@ -214,7 +217,8 @@ $.varien = {
             document.addEventListener('keydown', function(event) {
                 if (event.keyCode == 36) {
                     $.varien.modal.event.load("dev", function() {
-                        $(".modal-dialog").addClass('mx-wi-p-80');
+                        $(".modal-dialog").addClass('w-75');
+                        $(".modal-dialog").removeClass('mw-650px');
                         new ResizeSensor(document.getElementById('console'), function() {
                             $("#devConsole").animate({
                                 scrollTop: $('#devConsole').prop("scrollHeight")
@@ -1683,10 +1687,10 @@ $.varien = {
                 $("#firms").html("");
                 if ($("#perm_site").val() != "") {
                     $("#perm_site option:selected").each(function() {
-                        $("#firms").append("<li>" + $(this).text() + "</li>");
+                        $("#firms").append("<li class='badge badge-secondary'>" + $(this).text() + "</li>");
                     });
                 } else {
-                    $("#firms").append("<li>All Firms</li>");
+                    $("#firms").append("<li class='badge badge-secondary'>All Firms</li>");
                 }
             },
             remove: function() {
