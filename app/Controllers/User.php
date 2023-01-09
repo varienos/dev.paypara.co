@@ -101,7 +101,7 @@ class User extends BaseController
 		$this->twoFA    	= new \App\Libraries\TwoFA();
 		$data['secret'] 	= $this->twoFA->createSecret();
 		$data['qr'] 		= $this->twoFA->getQRCodeImageAsDataUri($data['secret']);
-		$data['manuel'] 	= chunk_split($data['secret'], 4, ' '); 
+		$data['manuel'] 	= chunk_split($data['secret'], 4, ' ');
 		echo view('app/user/modal/2fa', $data);
 	}
 	public function include($fileName)
@@ -138,8 +138,8 @@ class User extends BaseController
                   <a href="javascript:;" class="text-gray-800 text-hover-primary mb-1">' . $row->user_name . '</a>
                 </div>',
 				getRoleName($row->role_id),
-				'<div class="badge badge-light fw-bold">' . ($row->user_last_login == "" ? "Giriş Yapmadı" : $row->user_last_login) . '</div>',
-				($row->is2fa == "on" ? '<div class="badge badge-light-success fw-bold">Açık</div>' : '<div class="badge badge-light-danger fw-bold">Off</div>'),
+				'<div class="badge badge-light fw-bold">' . ($row->user_last_login == "" ? '<div class="badge badge-light fw-bold">Not Logged In</div>' : $row->user_last_login) . '</div>',
+				($row->is2fa == "on" ? '<div class="badge badge-light-success fw-bold">Active</div>' : '<div class="badge badge-light fw-bold">Disabled</div>'),
 				$row->user_create_time,
 				'<button onclick="location.href=\'user/detail/' . $row->hash_id . '\'" class="btn btn-sm btn-light btn-active-light-primary">Edit</button> <button ' . (delete_user !== true ? "auth=\"false\"" : null) . ' data-set="remove" data-id="' . $row->hash_id . '" class="btn btn-sm btn-light-danger">Delete</button>'
 			);

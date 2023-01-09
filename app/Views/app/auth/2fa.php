@@ -26,7 +26,7 @@
             </div>
             <div class="row my-7">
                 <div class="col-8 pe-0">
-                    <input type="text" placeholder="Kodu girin" name="verificationCode" verificationCode autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
+                    <input type="text" placeholder="Enter code" name="verificationCode" verificationCode autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
                 </div>
                 <div class="col-4">
                     <button type="button" verify class="btn btn-light-dark w-100">Verify</button>

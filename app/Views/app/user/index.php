@@ -79,8 +79,8 @@
                             <div class="col ps-0">
                               <select class="form-select form-select-solid border border-1 fw-bold" name="is2fa" id="is2fa" data-kt-select2="true" data-placeholder="All" data-kt-user-table-filter="two-step" data-hide-search="true">
                                 <option></option>
-                                <option value="on">On</option>
-                                <option value="0">Off</option>
+                                <option value="on">Active</option>
+                                <option value="0">Disabled</option>
                               </select>
                             </div>
                           </div>

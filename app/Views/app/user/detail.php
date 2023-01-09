@@ -58,18 +58,18 @@
                                             <div class="mt-5">
                                                 <div class="d-flex flex-stack text-gray-800">
                                                     <div class="fw-bold">Created At</div>
-                                                    <div class="text-gray-700 badge badge-light-dark"><?=$user->user_create_time ?></div>
+                                                    <div class="fw-bold text-gray-700"><?=$user->user_create_time ?></div>
                                                 </div>
                                                 <div class="d-flex flex-stack text-gray-800 my-5">
                                                     <div class="fw-bold">Last Login</div>
-                                                    <div class="text-gray-700 badge badge-light-dark"><?=( $user->user_last_login == "" ? "Not Signed In" : $user->user_last_login ) ?></div>
+                                                    <div class="fw-bold text-gray-700"><?=( $user->user_last_login == "" ? "Not Signed In" : $user->user_last_login ) ?></div>
                                                 </div>
                                                 <div class="d-flex flex-stack text-gray-800">
                                                     <div class="fw-bold">2FA Verification</div>
                                                     <? if($user->is2fa=="0"): ?>
-                                                    <div class="badge badge-light-danger">Off</div>
+                                                    <div class="badge badge-secondary">Disabled</div>
                                                     <? else: ?>
-                                                    <div class="badge badge-light-success">On</div>
+                                                    <div class="badge badge-light-success">Active</div>
                                                     <? endif; ?>
                                                 </div>
                                             </div>
