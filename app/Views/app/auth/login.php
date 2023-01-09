@@ -38,11 +38,11 @@
             <? endif; ?>
             <div class="row mb-5">
               <label class="form-label fs-5 fw-bold">E-Mail</label>
-              <input type="text" placeholder="Your e-mail address" name="x" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
+              <input type="email" placeholder="Your e-mail address" name="x" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50" required>
             </div>
             <div class="row position-relative mb-8" data-kt-password-meter="true">
               <label class="form-label fs-5 fw-bold">Password</label>
-              <input type="password" placeholder="••••••••" name="y" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50"/>
+              <input type="password" placeholder="••••••••" name="y" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50" required/>
               <span class="btn btn-sm btn-icon position-absolute top-50 end-0 me-2 pb-1" data-kt-password-meter-control="visibility">
                 <i class="bi bi-eye-slash fs-2"></i>
                 <i class="bi bi-eye fs-2 d-none"></i>
