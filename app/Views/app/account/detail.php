@@ -144,15 +144,15 @@
                   <div class="flex-lg-row-fluid ms-xl-15">
                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
                       <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#account_information">Account Information</a>
+                        <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4 active" data-bs-toggle="tab" href="#account_information">Account Information</a>
                       </li>
                       <? if ($update->dataType == 2): ?>
                       <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#matched-clients">Matching Settings</a>
+                        <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4" data-bs-toggle="tab" href="#matched-clients">Matching Settings</a>
                       </li>
                       <? endif; ?>
                       <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#payment-clients">Transaction History</a>
+                        <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4" data-bs-toggle="tab" href="#payment-clients">Transaction History</a>
                       </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">

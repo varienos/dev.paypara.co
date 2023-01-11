@@ -10,10 +10,10 @@
                     <div class="card-title w-100 m-0">
                         <ul id="myTab" class="nav nav-tabs nav-line-tabs nav-line-tabs-2x align-items-end fs-6 w-100 h-100 ps-5">
                             <li class="nav-item">
-                                <a class="nav-link active fs-4 fw-semibold text-muted text-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_details">Details</a>
+                                <a class="nav-link active fs-4 fw-semibold text-muted text-active-dark border-hover-dark border-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_details">Details</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link fs-4 fw-semibold text-muted text-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_actions">Actions</a>
+                                <a class="nav-link fs-4 fw-semibold text-muted text-active-dark border-hover-dark border-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_actions">Actions</a>
                             </li>
                         </ul>
                     </div>
