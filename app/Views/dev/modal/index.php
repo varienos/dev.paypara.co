@@ -15,11 +15,10 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-	<!--begin::Form-->
 	<div>
 		<div class="mb-5">
 			<div class="flex-column current" data-kt-stepper-element="content">
-				<div class="scroll-y h-500px fv-row mb-10" id="devConsole"
+				<div class="scroll-y h-500px mb-10" id="devConsole"
 					style="background:#041526; font-family: 'VT323', monospace; font-size:15px; color:#a5c5e5; padding: 15px; border-radius:10px">
 					<ul id="console">
 						<li>Hello
@@ -50,19 +49,10 @@
 				</div>
 			</div>
 		</div>
-		<!--begin::Group-->
 		<div class="mb-5">
-			<!--begin::Step 1-->
 			<div class="flex-column current" data-kt-stepper-element="content">
-				<!--begin::Input group-->
-				<div class="fv-row">
-					<input type="text" style="font-family: 'VT323', monospace;" class="form-control form-control-solid"
-						placeholder="cmd" id="cmd">
-				</div>
+				<input type="text" style="font-family: 'VT323', monospace;" class="form-control form-control-solid" placeholder="cmd" id="cmd">
 			</div>
-			<!--begin::Step 1-->
 		</div>
-		<!--end::Actions-->
-		<!--end::Form-->
 	</div>
 </div>

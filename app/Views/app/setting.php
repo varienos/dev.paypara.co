@@ -742,19 +742,19 @@
                                 </div>
                                 <div class="modal-body py-10 px-lg-17">
                                     <div class="scroll-y me-n7 pe-7" id="kt_modal_create_new_firm_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_create_new_firm_header" data-kt-scroll-wrappers="#kt_modal_create_new_firm_scroll" data-kt-scroll-offset="300px">
-                                        <div class="mb-5 fv-row">
+                                        <div class="mb-5">
                                             <label class="required fs-5 fw-semibold mb-2">Firm's Name</label>
                                             <input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" name="site_name" />
                                             <input type="hidden" name="id" />
                                         </div>
-                                        <div class="d-flex flex-column mb-5 fv-row">
+                                        <div class="d-flex flex-column mb-5">
                                             <label class="required fs-5 fw-semibold mb-2">API Key</label>
                                             <div class="d-flex flex-row">
                                                 <input type="text" <?=edit_firm!==true?"disabled":null; ?> class="form-control form-control-solid border" placeholder="Unique API key that belongs to the firm" name="api_key" />
                                                 <button type="button" id="generateKey" class="btn btn-light ms-3 mw-100px">Generate</button>
                                             </div>
                                         </div>
-                                        <div class="d-flex flex-column mb-5 fv-row">
+                                        <div class="d-flex flex-column mb-5">
                                             <label class="required fs-5 fw-semibold mb-2">Is it authorized to send requests?</label>
                                             <select class="form-select form-select-solid border" data-control="select2" <?=edit_firm!==true?"disabled":null; ?> name="status" data-set="statusSwitch" id="modalStatus" data-set="statusSwitch" data-placeholder="Choose an option" data-hide-search="true">
                                                 <option></option>

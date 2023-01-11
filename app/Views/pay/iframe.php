@@ -117,7 +117,7 @@
                           </div>
                         </div>
                         <h4 class=" text-center text-wrap mw-600px mb-3 fs-4 fs-md-2">Papara Black kartın var mı?</h4>
-                        <div class="fv-row d-flex flex-column flex-center">
+                        <div class="d-flex flex-column flex-center">
                           <div class="d-flex">
                             <input type="radio" id="kt_black_card_1" name="blackCardInput" class="btn-check" value="1">
                             <label class="btn btn-active-light-danger border border-white me-3" for="kt_black_card_1" id="card_label_1">
@@ -175,18 +175,18 @@
                         <div class="fs-2 fw-bold text-center text-wrap mb-5">Papara Black kart bilgilerini girerek yatırım yapabilirsin</div>
                         <div class="row d-flex mb-4 mb-md-7">
                           <div class="d-flex flex-column mb-1">
-                            <div class="fv-row form-floating mb-3 mb-md-4">
+                            <div class="form-floating mb-3 mb-md-4">
                               <input type="text" id="card-holder-name" name="cardHolderName" class="form-control form-control-solid" placeholder="Kartının üzerinde yazan isim soyisim" />
                               <label class="required fs-6 fw-semibold form-label" for="card_name">İsim Soyisim</label>
                             </div>
-                            <div class="fv-row form-floating mb-2 mb-md-3">
+                            <div class="form-floating mb-2 mb-md-3">
                               <input type="text" id="card-number" name="cardNumber" inputmode="numeric" class="form-control form-control-solid" placeholder="16 haneli kart numaran" />
                               <label class="required fs-6 fw-semibold form-label" for="card_number">Kart Numarası</label>
                             </div>
                           </div>
                           <div class="d-flex">
                             <div class="col-8">
-                              <div class="fv-row">
+                              <div class="">
                                 <label class="required fs-6 fw-semibold form-label mb-2">Geçerlilik Tarihi</label>
                                 <div class="d-flex">
                                   <select id="card-expiry-month" name="cardExpMonth" class="form-select form-select-solid mw-md-125px" data-control="select2" data-hide-search="true">
@@ -222,7 +222,7 @@
                               </div>
                             </div>
                             <div class="col-4">
-                              <div class="fv-row">
+                              <div class="">
                                 <label class="required fs-6 fw-semibold form-label mb-2">CVV</label>
                                 <input type="text" id="card-cvv" name="cardCVV" class="form-control form-control-solid" minlength="3" maxlength="3" min="100" max="999" inputmode="numeric" placeholder="CVV" />
                               </div>
@@ -274,7 +274,7 @@
                           <span class="fw-bolder text-gradient">Papara</span> hesabına girerek aşağıdaki hesaba yatırım yapabilirsin:
                         </div>
                       </h4>
-                      <div class="fv-row text-center mb-0 mb-md-4">
+                      <div class="text-center mb-0 mb-md-4">
                         <div class="fs-5 fw-bold">Kalan Süre: <span id="papara-time-left">05:00</span></div>
                       </div>
                       <div class="row mb-3">

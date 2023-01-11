@@ -13,13 +13,13 @@
   <? if($type==1): ?>
   <div class="modal-body py-10 px-lg-17">
     <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-      <div class="fv-row mb-7">
+      <div class="mb-7">
         <label class="fs-6 fw-semibold mb-2">
           <span class="required">Name Surname</span>
         </label>
         <input type="text" class="form-control form-control-solid border" placeholder="Account holders name and surname" name="account_name" maxlength="40" value="<?=$update->account_name ?>" required />
       </div>
-      <div class="fv-row mb-7">
+      <div class="mb-7">
         <label class="fs-6 fw-semibold mb-2">
           <span class="required">Account Number</span>
         </label>
@@ -35,7 +35,7 @@
         </span>
       </div>
       <div id="kt_modal_add_customer_billing_info" class="collapse">
-        <div class="fv-row mb-7">
+        <div class="mb-7">
           <div class="d-flex flex-unset align-items-center">
             <div class="me-5"><label class="fs-6 fw-semibold">Activate the account?</label></div>
             <label class="form-check form-switch form-check-custom form-check-solid">
@@ -44,23 +44,23 @@
             </label>
           </div>
         </div>
-        <div class="d-flex flex-column mb-7 fv-row">
+        <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Deposit Limit</label>
           <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified deposit limit</div>
           <div class="input-group input-group-solid border">
             <span class="input-group-text">₺</span>
-            <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" id="kt_inputmask_1" aria-label="Miktar" />
+            <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" aria-label="Miktar" />
           </div>
         </div>
-        <div class="d-flex flex-column mb-7 fv-row">
+        <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
           <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
           <div class="input-group input-group-solid border">
-            <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" id="kt_inputmask_1" max="1000" maxlength="4" aria-label="Miktar" />
+            <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" max="1000" maxlength="5" aria-label="Miktar" />
             <span class="input-group-text">transactions</span>
           </div>
         </div>
-        <div class="d-flex flex-column mb-7 fv-row">
+        <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Active Firms</label>
           <div class="fs-7 fw-semibold text-muted mb-2">At which firms the account should be used?</div>
           <select class="form-select form-select-solid form-select-lg border" data-control="select2" data-close-on-select="false" data-placeholder="All firms" name="perm_site[]" data-allow-clear="true" multiple="multiple">
@@ -77,13 +77,13 @@
   <? if($type==2): ?>
   <div class="modal-body py-10 px-lg-17">
     <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-      <div class="fv-row mb-7">
+      <div class="mb-7">
         <label class="fs-6 fw-semibold mb-2">
           <span class="required">Name Surname</span>
         </label>
         <input type="text" class="form-control form-control-solid border" placeholder="Account holders name and surname" name="account_name" value="<?=$update->account_name ?>" />
       </div>
-      <div class="fv-row mb-7">
+      <div class="mb-7">
         <label class="fs-6 fw-semibold mb-2">
           <span class="required">Account Number</span>
         </label>
@@ -99,7 +99,7 @@
           </span>
       </div>
       <div id="kt_modal_add_customer_billing_info" class="collapse">
-        <div class="fv-row mb-7">
+        <div class="mb-7">
           <div class="d-flex flex-unset align-items-center">
             <div class="me-5">
               <label class="fs-6 fw-semibold">Activate the account?</label>
@@ -110,31 +110,31 @@
             </label>
           </div>
         </div>
-        <div class="d-flex flex-column mb-7 fv-row">
+        <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Clients to be Matched</label>
           <div class="fs-7 fw-semibold text-muted mb-2">Specified number of clients will be matched to account.</div>
           <div class="input-group input-group-solid border">
             <input type="text" class="form-control" value="<?=$update->match_limit=="" ? 5 : $update->match_limit ?>" name="match_limit" />
           </div>
         </div>
-        <div class="d-flex flex-column mb-7 fv-row">
+        <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Deposit Limit</label>
           <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified deposit limit</div>
           <div class="input-group input-group-solid border">
             <span class="input-group-text">₺</span>
-            <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" id="kt_inputmask_1" aria-label="Miktar" />
+            <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" aria-label="Miktar" />
             <span class="input-group-text">.00</span>
           </div>
         </div>
-        <div class="d-flex flex-column mb-7 fv-row">
+        <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
           <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
           <div class="input-group input-group-solid border">
-            <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" id="kt_inputmask_1" max="1000" maxlength="4" aria-label="Miktar" />
+            <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" max="1000" maxlength="5" aria-label="Miktar" />
             <span class="input-group-text">transactions</span>
           </div>
         </div>
-        <div class="d-flex flex-column mb-7 fv-row">
+        <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Active Firms</label>
           <div class="fs-7 fw-semibold text-muted mb-2">At which firms the account should be used?</div>
           <select class="form-select form-select-solid form-select-lg border" data-control="select2" data-close-on-select="false" data-placeholder="All firms" name="perm_site[]" data-allow-clear="true" multiple="multiple">
@@ -151,13 +151,13 @@
   <? if($type==3): ?>
   <div class="modal-body py-10 px-lg-17">
     <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-      <div class="fv-row mb-7">
+      <div class="mb-7">
         <label class="fs-6 fw-semibold mb-2">
           <span class="required">Name Surname</span>
         </label>
         <input type="text" class="form-control form-control-solid border" placeholder="Account holders name and surname" name="account_name" maxlength="40" value="<?=$update->account_name ?>" required />
       </div>
-      <div class="fv-row mb-7">
+      <div class="mb-7">
         <label class="required fs-6 fw-semibold mb-2">Bank</label>
         <select class="form-select form-select-solid border" name="bank_id" data-control="select2" data-placeholder="Select bank" required>
           <option></option>
@@ -166,7 +166,7 @@
           <? } ?>
         </select>
       </div>
-      <div class="fv-row mb-7">
+      <div class="mb-7">
         <label class="fs-6 fw-semibold mb-2">
           <span class="required">IBAN Number</span>
         </label>
@@ -182,7 +182,7 @@
         </span>
       </div>
       <div id="kt_modal_add_customer_billing_info" class="collapse">
-        <div class="fv-row mb-7">
+        <div class="mb-7">
           <div class="d-flex flex-unset align-items-center">
             <div class="me-5">
               <label class="fs-6 fw-semibold">Activate the account?</label>
@@ -193,23 +193,23 @@
             </label>
           </div>
         </div>
-          <div class="d-flex flex-column mb-7 fv-row">
+          <div class="d-flex flex-column mb-7">
             <label class="required fs-6 fw-semibold mb-2">Monthly Deposit Limit</label>
             <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified deposit limit</div>
             <div class="input-group input-group-solid border">
               <span class="input-group-text">₺</span>
-              <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" id="kt_inputmask_1" aria-label="Miktar" />
+              <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" aria-label="Miktar" />
             </div>
           </div>
-          <div class="d-flex flex-column mb-7 fv-row">
+          <div class="d-flex flex-column mb-7">
             <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
             <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
             <div class="input-group input-group-solid border">
-              <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" id="kt_inputmask_1" max="1000" maxlength="4" aria-label="Miktar" />
+              <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" max="1000" maxlength="5" aria-label="Miktar" />
               <span class="input-group-text">transactions</span>
             </div>
           </div>
-          <div class="d-flex flex-column mb-7 fv-row">
+          <div class="d-flex flex-column mb-7">
             <label class="required fs-6 fw-semibold mb-2">Active Firms</label>
             <div class="fs-7 fw-semibold text-muted mb-2">At which firms the account should be used?</div>
             <select class="form-select form-select-solid form-select-lg border" data-control="select2" data-close-on-select="false" data-placeholder="All firms" name="perm_site[]" data-allow-clear="true" multiple="multiple">

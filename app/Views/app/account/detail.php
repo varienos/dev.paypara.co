@@ -165,11 +165,11 @@
                             <div class="card-body pt-0">
                               <div class="d-flex flex-column gap-5 gap-md-7">
                                 <div class="d-flex flex-column flex-xxl-row mt-5 gap-5">
-                                  <div class="fv-row flex-row-fluid">
+                                  <div class="flex-row-fluid">
                                     <label class="required form-label">Name Surname</label>
                                     <input class="form-control" placeholder="" value="<?=$update->account_name?>" name="account_name" id="account_name" maxlength="40" />
                                 </div>
-                                <div class="fv-row flex-row-fluid">
+                                <div class="flex-row-fluid">
                                   <label class="required form-label"><? if ($update->dataType == 3){ ?>IBAN Number<? } else { ?>Account Number<? } ?></label>
                                   <?php if ($update->dataType == 3) { ?>
                                   <input class="form-control" value="<?=$update->account_number?>" name="account_number" id="account_number" maxlength="32" />
@@ -181,7 +181,7 @@
                               <? if ($update->dataType == 1): ?>
                               <div class="d-flex flex-column gap-5 gap-md-7">
                                 <div class="d-flex flex-column flex-xxl-row gap-5">
-                                  <div class="fv-row flex-row-fluid w-100">
+                                  <div class="flex-row-fluid">
                                     <label class="form-label">Monthy Transaction Limit</label>
                                     <div class="input-group">
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
@@ -189,7 +189,7 @@
                                     </div>
                                     <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions.</div>
                                   </div>
-                                  <div class="fv-row flex-row-fluid w-100">
+                                  <div class="flex-row-fluid">
                                     <label class="form-label">Monthly Deposit Limit</label>
                                     <div class="input-group">
                                       <span class="input-group-text">₺</span>
@@ -214,7 +214,7 @@
                               <? if ($update->dataType == 3): ?>
                               <div class="d-flex flex-column gap-5 gap-md-7">
                                 <div class="d-flex flex-column flex-xxl-row gap-5">
-                                  <div class="fv-row flex-row-fluid w-100">
+                                  <div class="flex-row-fluid">
                                     <label class="form-label">Bank</label>
                                     <select class="form-select form-select-lg" name="bank_id" data-control="select2" data-placeholder="Select bank" required>
                                       <option></option>
@@ -223,7 +223,7 @@
                                     </select>
                                     <div class="text-gray-600 fs-7 mt-2">Bank which account belong to.</div>
                                   </div>
-                                  <div class="fv-row flex-row-fluid w-100">
+                                  <div class="flex-row-fluid">
                                     <label class="form-label">Monthly Deposit Limit</label>
                                     <div class="input-group">
                                       <span class="input-group-text">₺</span>
@@ -233,7 +233,7 @@
                                   </div>
                                 </div>
                                 <div class="d-flex flex-column flex-xxl-row gap-5">
-                                  <div class="fv-row flex-row-fluid w-100">
+                                  <div class="flex-row-fluid">
                                     <label class="form-label">Monthly Transaction Limit</label>
                                     <div class="input-group">
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
@@ -241,7 +241,7 @@
                                     </div>
                                     <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions</div>
                                   </div>
-                                  <div class="fv-row flex-row-fluid w-100">
+                                  <div class="flex-row-fluid">
                                     <label class="form-label">Active Firms</label>
                                     <select class="form-select form-select-lg" data-control="select2" data-close-on-select="false" data-placeholder="All firms" name="perm_site[]" data-allow-clear="true" multiple="multiple">
                                       <option></option>
@@ -258,7 +258,7 @@
                               <? if ($update->dataType == 2): ?>
                               <div class="d-flex flex-column gap-5 gap-md-7">
                                 <div class="d-flex flex-column flex-xxl-row gap-5">
-                                  <div class="fv-row flex-row-fluid">
+                                  <div class="flex-row-fluid">
                                     <label class="form-label">Monthly Transaction Limit</label>
                                     <div class="input-group">
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
@@ -276,12 +276,12 @@
                                   </div>
                                 </div>
                                 <div class="d-flex flex-column flex-xxl-row gap-5">
-                                    <div class="fv-row flex-row-fluid w-100">
+                                    <div class="flex-row-fluid">
                                       <label class="form-label">Match Limit</label>
                                       <input type="text" class="form-control" name="match_limit" value="<?=$update->match_limit?>" />
                                       <div class="text-gray-600 fs-7 mt-2">How many different clients the account should be shared with?</div>
                                     </div>
-                                    <div class="fv-row flex-row-fluid w-100">
+                                    <div class="flex-row-fluid">
                                       <label class="form-label">Active Firms</label>
                                       <select class="form-select form-select-lg" data-control="select2" data-close-on-select="false" data-placeholder="All firms" name="perm_site[]" data-allow-clear="true" multiple="multiple">
                                         <option></option>
