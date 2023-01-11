@@ -358,7 +358,7 @@ $.varien = {
                 if ($.varien.segment(3) == "1") {
                     $("[data-page-title]").html("Papara Accounts");
                     $.varien.account.setType(1);
-                    $.varien.include("account/include/datatableHeadNormal", "datatable-head").then(function(colNum) {
+                    $.varien.include("account/include/datatableHeadPapara", "datatable-head").then(function(colNum) {
                         $.varien.account.datatable.init(colNum);
                     });
                 }
@@ -712,9 +712,6 @@ $.varien = {
                 $.table.on('draw', function() {
                     setTimeout(function() {
                         $.varien.datatable.exportEvents();
-                        if ($.varien.segment(3) == "1") $("tbody td:nth-child(7)").addClass('text-end');
-                        if ($.varien.segment(3) == "2") $("tbody td:nth-child(8)").addClass('text-end');
-                        if ($.varien.segment(3) == "3") $("tbody td:nth-child(8)").addClass('text-end');
                         $('input[data-set="index"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.account.datatable.status($(this).attr("data-id"), "on");
