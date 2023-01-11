@@ -164,7 +164,7 @@
                           <div class="card card-flush border py-4">
                             <div class="card-body pt-0">
                               <div class="d-flex flex-column gap-5 gap-md-7">
-                                <div class="d-flex flex-column flex-xxl-row mt-5 gap-5">
+                                <div class="d-flex flex-column flex-xxl-row gap-5 mt-5">
                                   <div class="flex-row-fluid">
                                     <label class="required form-label">Name Surname</label>
                                     <input class="form-control" placeholder="" value="<?=$update->account_name?>" name="account_name" id="account_name" maxlength="40" />
@@ -179,24 +179,22 @@
                                 </div>
                               </div>
                               <? if ($update->dataType == 1): ?>
-                              <div class="d-flex flex-column gap-5 gap-md-7">
-                                <div class="d-flex flex-column flex-xxl-row gap-5">
-                                  <div class="flex-row-fluid">
-                                    <label class="form-label">Monthy Transaction Limit</label>
-                                    <div class="input-group">
-                                      <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
-                                      <span class="input-group-text">transactions</span>
-                                    </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions.</div>
+                              <div class="row d-flex flex-column flex-xxl-row">
+                                <div class="col">
+                                  <label class="form-label">Monthy Transaction Limit</label>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
+                                    <span class="input-group-text">transactions</span>
                                   </div>
-                                  <div class="flex-row-fluid">
-                                    <label class="form-label">Monthly Deposit Limit</label>
-                                    <div class="input-group">
-                                      <span class="input-group-text">₺</span>
-                                      <input type="text" class="form-control" value="<?=$update->limitDeposit?>" name="limitDeposit" id="limitDeposit" placeholder="Amount" max="1000000" maxlength="7" />
-                                    </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
+                                  <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions.</div>
+                                </div>
+                                <div class="col mt-5 mt-xxl-0">
+                                  <label class="form-label">Monthly Deposit Limit</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text">₺</span>
+                                    <input type="text" class="form-control" value="<?=$update->limitDeposit?>" name="limitDeposit" id="limitDeposit" placeholder="Amount" max="1000000" maxlength="7" />
                                   </div>
+                                  <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
                                 </div>
                               </div>
                               <div class="flex-row-fluid">
@@ -213,8 +211,8 @@
                               <? endif; ?>
                               <? if ($update->dataType == 3): ?>
                               <div class="d-flex flex-column gap-5 gap-md-7">
-                                <div class="d-flex flex-column flex-xxl-row gap-5">
-                                  <div class="flex-row-fluid">
+                                <div class="row d-flex flex-column flex-xxl-row">
+                                  <div class="col">
                                     <label class="form-label">Bank</label>
                                     <select class="form-select form-select-lg" name="bank_id" data-control="select2" data-placeholder="Select bank" required>
                                       <option></option>
@@ -223,7 +221,7 @@
                                     </select>
                                     <div class="text-gray-600 fs-7 mt-2">Bank which account belong to.</div>
                                   </div>
-                                  <div class="flex-row-fluid">
+                                  <div class="col mt-5 mt-xxl-0">
                                     <label class="form-label">Monthly Deposit Limit</label>
                                     <div class="input-group">
                                       <span class="input-group-text">₺</span>
@@ -232,8 +230,8 @@
                                     <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
                                   </div>
                                 </div>
-                                <div class="d-flex flex-column flex-xxl-row gap-5">
-                                  <div class="flex-row-fluid">
+                                <div class="row d-flex flex-column flex-xxl-row">
+                                  <div class="col">
                                     <label class="form-label">Monthly Transaction Limit</label>
                                     <div class="input-group">
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
@@ -241,7 +239,7 @@
                                     </div>
                                     <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions</div>
                                   </div>
-                                  <div class="flex-row-fluid">
+                                  <div class="col mt-5 mt-xxl-0">
                                     <label class="form-label">Active Firms</label>
                                     <select class="form-select form-select-lg" data-control="select2" data-close-on-select="false" data-placeholder="All firms" name="perm_site[]" data-allow-clear="true" multiple="multiple">
                                       <option></option>
@@ -257,8 +255,8 @@
                               <? endif; ?>
                               <? if ($update->dataType == 2): ?>
                               <div class="d-flex flex-column gap-5 gap-md-7">
-                                <div class="d-flex flex-column flex-xxl-row gap-5">
-                                  <div class="flex-row-fluid">
+                                <div class="row d-flex flex-column flex-xxl-row">
+                                  <div class="col">
                                     <label class="form-label">Monthly Transaction Limit</label>
                                     <div class="input-group">
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
@@ -266,7 +264,7 @@
                                     </div>
                                     <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions.</div>
                                   </div>
-                                  <div class="flex-row-fluid">
+                                  <div class="col mt-5 mt-xxl-0">
                                     <label class="form-label">Monthly Deposit Limit</label>
                                     <div class="input-group">
                                       <span class="input-group-text">₺</span>
