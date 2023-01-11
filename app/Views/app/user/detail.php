@@ -79,14 +79,14 @@
                                 <div class="flex-lg-row-fluid ms-lg-15">
                                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
                                         <li class="nav-item">
-                                            <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_user_view_overview_tab">User Details</a>
+                                            <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4 active" data-bs-toggle="tab" href="#kt_user_view_overview_tab">User Details</a>
                                         </li>
                                         <? if(root === true): ?>
                                         <li class="nav-item">
-                                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#transaction-logs">Transaction Logs</a>
+                                            <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4" data-bs-toggle="tab" href="#transaction-logs">Transaction Logs</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#session-logs">Session Logs</a>
+                                            <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4" data-bs-toggle="tab" href="#session-logs">Session Logs</a>
                                         </li>
                                         <? endif; ?>
                                         <li class="nav-item ms-auto" <?=(delete_user!==true?"auth=\"false\"":null) ?>>

@@ -163,7 +163,7 @@
                 <div class="flex-lg-row-fluid ms-lg-15">
                   <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
                     <li class="nav-item">
-                      <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">Overview</a>
+                      <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4 active" data-bs-toggle="tab" href="#kt_customer_view_overview_tab">Overview</a>
                     </li>
                   </ul>
                   <div class="tab-content" id="myTabContent">
