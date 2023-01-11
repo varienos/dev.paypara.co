@@ -58,12 +58,10 @@ class Account extends BaseController
             foreach($listMatch as $row)
             {
             echo '<tr>
-                <td>
-                    <a class="text-gray-800 fs-5 fw-bold">'.$row->gamer_site_id.'</a>
-                </td>
-                <td><a class="text-gray-800 fs-5 fw-bold">'.$row->gamer_name.'</a><div class="fw-semibold fs-7">'.$row->gamer_nick.'</div></td>
+                <td><a class="text-gray-800 fs-5 fw-bold">'.$row->gamer_site_id.'</a></td>
+                <td class="text-start"><a class="text-gray-800 fs-5 fw-bold">'.$row->gamer_name.'</a><div class="fw-semibold fs-7">'.$row->gamer_nick.'</div></td>
                 <td>'.$row->site_name.'</td>
-                <td>'.(getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)=="0" ? "none" : getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)." tx").' </td>
+                <td>'.(getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)=="0" ? "none" : getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)." txn").' </td>
                 <td>₺'.number_format(getCustomerTotalDepositWithAccount($row->gamer_site_id,$account_id),2).'</td>
                 <td>'.($row->lastProcess=="" ? "none" : $row->lastProcess).'</td>
                 <td class="text-end"><button class="btn btn-sm btn-light-danger" onClick="$.varien.account.detail.removeMatch('.$row->id.')">Remove</button>
@@ -263,12 +261,12 @@ class Account extends BaseController
             $records["data"][$i] = array
             (
                 "DT_RowId"  => $row->id,
-                '<a>'.$row->gamer_site_id.'</a>',
+                '<div class="text-center">'.$row->gamer_site_id.'</div>',
                 '<a class="text-gray-800 fs-5 fw-bold">'.$row->gamer_name.'</a><div class="fw-semibold fs-7">'.$row->gamer_nick.'</div>',
-                $row->site_name,
-                (getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)=="0" ? "none" : getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)." tx"),
-                '₺'.number_format(getCustomerTotalDepositWithAccount($row->gamer_site_id,$account_id),2),
-                ($row->lastProcess=="" ? "none" : $row->lastProcess)
+                '<div class="text-center">' . $row->site_name . '</div>',
+                '<div class="text-center">' . (getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)=="0" ? "none" : getCustomerTotalProcessWithAccount($row->gamer_site_id,$account_id)." txn") . '</div>',
+                '<div class="text-center">₺' . number_format(getCustomerTotalDepositWithAccount($row->gamer_site_id,$account_id),2) . '</div>',
+                '<div class="text-center">' . ($row->lastProcess=="" ? "none" : $row->lastProcess) . '</div>'
             );
 		$i++;
 		}

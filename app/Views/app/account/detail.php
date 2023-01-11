@@ -332,17 +332,17 @@
                               <div class="table-responsive">
                                 <table class="table overflow-auto align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_edit_order_product_table">
                                   <thead>
-                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                    <tr class="text-center text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                       <th class="min-w-50px">User ID</th>
-                                      <th class="min-w-100px">User Info</th>
+                                      <th class="min-w-100px text-start">User Info</th>
                                       <th class="min-w-50px">Firm</th>
-                                      <th class="min-w-75px">TX Count</th>
+                                      <th class="min-w-75px">Total TXN</th>
                                       <th class="min-w-75px">Deposited</th>
-                                      <th class="min-w-75px">Last TX</th>
+                                      <th class="min-w-75px">Last TXN</th>
                                       <th class="min-w-50px text-end pe-5">Actions</th>
                                     </tr>
                                   </thead>
-                                  <tbody class="fw-semibold text-gray-600" id="listMatch"></tbody>
+                                  <tbody class="fw-semibold text-gray-600 text-center" id="listMatch"></tbody>
                                 </table>
                               </div>
                             </div>
@@ -359,13 +359,13 @@
                               <div class="table-responsive">
                                 <table class="table overflow-auto align-middle table-row-dashed fs-6 gy-5" id="listDisableMatch">
                                   <thead>
-                                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                      <th class="min-w-50px">User ID</th>
-                                      <th class="min-w-100px">User Info</th>
-                                      <th class="min-w-50px">Firm</th>
-                                      <th class="min-w-75px">TX Count</th>
-                                      <th class="min-w-75px">Deposited</th>
-                                      <th class="min-w-100px">Last TX</th>
+                                    <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                      <th class="min-w-50px text-center">User ID</th>
+                                      <th class="min-w-100px text-start">User Info</th>
+                                      <th class="min-w-50px text-center">Firm</th>
+                                      <th class="min-w-75px text-center">Total TXN</th>
+                                      <th class="min-w-75px text-center">Deposited</th>
+                                      <th class="min-w-100px text-center">Last TXN</th>
                                     </tr>
                                   </thead>
                                   <tbody class="fw-semibold text-gray-400"></tbody>

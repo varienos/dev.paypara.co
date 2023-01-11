@@ -552,13 +552,13 @@ $.varien = {
                             dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
                             buttons: ['copy', 'csv', 'excel', 'pdf'],
                             stateSave: false,
-                            lengthMenu: [10, 25, 50, 100],
+                            lengthMenu: [5, 10, 25, 50],
                             order: [0, 'desc'],
                             searching: false,
                             ordering: false,
                             processing: true,
                             serverSide: true,
-                            pageLength: 10,
+                            pageLength: 5,
                             ajax: {
                                 url: 'account/listDisableMatch/' + $.varien.segment(3),
                             }
