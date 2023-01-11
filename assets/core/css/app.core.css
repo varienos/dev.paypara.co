@@ -70,12 +70,6 @@
     transition: height 1s ease;
 }
 
-.bootbox-close-button {
-    border: 0px !important;
-    background: transparent !important;
-    font-size: 15px;
-}
-
 /* Transaction Modal Colors */
 
 [data-theme="light"] #approve-info {

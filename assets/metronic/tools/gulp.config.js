@@ -149,6 +149,11 @@ const gulpConfig = {
                 "{$config.path.node_modules}/bootstrap-icons/font/fonts/**",
               ],
             },
+            bootbox: {
+              scripts: [
+                "{$config.path.node_modules}/bootbox/dist/bootbox.min.js",
+              ],
+            },
           },
           override: {
             styles: ["{$config.path.src}/sass/plugins.scss"],
@@ -162,9 +167,6 @@ const gulpConfig = {
         },
       },
       custom: {
-        bootbox: {
-          scripts: ["{$config.path.node_modules}/bootbox/dist/bootbox.min.js"],
-        },
         "css-element-queries": {
           src: {
             scripts: [
