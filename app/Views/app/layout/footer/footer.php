@@ -8,8 +8,6 @@
 
 		<script src="<?=baseUrl(gulpAssets().'/') ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
         <script src="<?=baseUrl(gulpAssets().'/') ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
-		<script src="<?=baseUrl(gulpAssets().'/') ?>/js/widgets.bundle.js?v=<?=getVersion() ?>"></script>
-		<!--<script src="<?=baseUrl(gulpAssets().'/') ?>/js/custom/widgets.js?v=<?=getVersion() ?>"></script>-->
         <script src="<?=appJs() ?>"></script>
 	</body>
 </html>
