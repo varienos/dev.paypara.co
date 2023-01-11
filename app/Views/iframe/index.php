@@ -86,7 +86,7 @@
     </div>
     <script src="<?=baseUrl() ?>/<?=gulpAssets() ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
-    
+
     <script>
     const first = ["Acun", "Alp", "Burak", "Mustafa", "Selim", "Levent", "Kemal", "Mehmet", "Sefa", "Nuri", "Erman", "Zafer"];
     const second = ["Arslan", "Kaya", "Yıldırım", "Sakin", "Keskin", "Demir", "Keser", "Savar", "Masum", "Barut", "Canik", "Sonuç"];
@@ -127,15 +127,7 @@
           }
 
         }).fail(function(jqXHR, textStatus, errorThrown) {
-          Swal.fire({
-            text: "Hata oluştu: " + jqXHR.status + " " + textStatus + " " + errorThrown,
-            icon: "error",
-            buttonsStyling: false,
-            confirmButtonText: "Kapat",
-            customClass: {
-              confirmButton: "btn btn-primary"
-            }
-          });
+          toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
         });
       }
     }

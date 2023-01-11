@@ -49,7 +49,7 @@ const demo = {
                 $("#error").html(response.error);
             }
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`)
+            toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
         });
     }
 }
