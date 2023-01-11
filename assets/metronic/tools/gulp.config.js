@@ -188,17 +188,6 @@ const gulpConfig = {
               "{$config.dist}/plugins/custom/davidshimjs-qrcodejs/qrcode.bundle.js",
           },
         },
-        "javascript-obfuscator": {
-          src: {
-            scripts: [
-              "{$config.path.node_modules}/javascript-obfuscator/dist/index.browser.js",
-            ],
-          },
-          dist: {
-            scripts:
-              "{$config.dist}/plugins/custom/javascript-obfuscator/javascript.obfuscator.bundle.js",
-          },
-        },
       },
     },
     widgets: {
