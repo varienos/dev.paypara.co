@@ -20,15 +20,15 @@
             data-kt-scroll-offset="300px">
             <div class="mb-7">
                 <label class="required fw-semibold fs-6 mb-2">Name</label>
-                <input type="text" name="user_name" class="form-control form-control-solid border mb-3 mb-lg-0" />
+                <input type="text" name="user_name" placeholder="User's name" class="form-control form-control-solid border mb-3 mb-lg-0" />
             </div>
             <div class="mb-7">
                 <label class="required fw-semibold fs-6 mb-2" autocomplete="off" value="">E-Mail</label>
-                <input type="email" name="email" app-submit-email-check class="form-control form-control-solid border mb-3 mb-lg-0" />
+                <input type="email" name="email" placeholder="User's email" app-submit-email-check class="form-control form-control-solid border mb-3 mb-lg-0" />
             </div>
             <div class="mb-7">
                 <label class="required fw-semibold fs-6 mb-2" autocomplete="off" value="">Password</label>
-                <input type="password" name="user_pass" class="form-control form-control-solid border mb-3 mb-lg-0" />
+                <input type="password" name="user_pass" placeholder="User's password" class="form-control form-control-solid border mb-3 mb-lg-0" />
             </div>
             <div class="mb-7">
                 <label class="required fw-semibold fs-6 mb-5">User Role</label>
