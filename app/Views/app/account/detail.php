@@ -24,7 +24,7 @@
                   <? if ($update->dataType == 3): ?>
                   <li class="breadcrumb-item text-muted"><a href="account/index/2" class="text-muted">Bank Accounts</a></li>
                   <? endif; ?>
-                  <li class="breadcrumb-item text-dark" data-page-title><?=$id?></li>
+                  <li class="breadcrumb-item text-dark" data-page-title><?=$update->account_name?></li>
                 </ul>
               </div>
               <div class="d-flex d-lg-none align-items-center ms-n2 me-2">
@@ -499,8 +499,8 @@
                                 <thead datatable-head>
                                   <tr class="text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="min-w-150px text-center table-sort-desc">DATE</th>
-                                    <th class="min-w-20px text-center table-sort-desc">TXID</th>
-                                    <th class="min-w-20px text-center table-sort-desc">USER ID</th>
+                                    <th class="min-w-50px text-center table-sort-desc">TXID</th>
+                                    <th class="min-w-50px text-center table-sort-desc">USER ID</th>
                                     <th class="min-w-55px text-center table-sort-desc">FIRM</th>
                                     <th class="min-w-150px text-center table-sort-desc">NAME SURNAME</th>
                                     <th class="min-w-85px text-center table-sort-desc">AMOUNT</th>
