@@ -44,7 +44,7 @@ $grays: (
 	"700": $gray-700,
 	"800": $gray-800,
 	"900": $gray-900
-) !default; 
+) !default;
 
 $grays-dark: (
 	"100": $gray-100-dark,
@@ -78,7 +78,7 @@ $secondary-inverse-dark:		$gray-800-dark !default;
 
 // Light colors
 $light: 						$gray-100 !default;
-$light-dark: 					$gray-200-dark !default; 
+$light-dark: 					$gray-200-dark !default;
 $light-active: 					$gray-200 !default;
 $light-active-dark: 			$gray-300-dark !default;
 $light-light: 					gba($gray-100, 0.75) !default;
@@ -86,28 +86,28 @@ $light-inverse:					$gray-600 !default;
 $light-inverse-dark: 			$gray-600-dark !default;
 
 // Success colors
-$success: 						#1BC5BD !default; 
+$success: 						#1BC5BD !default;
 $success-active: 				#0BB7AF !default;
 $success-light: 				#C9F7F5 !default;
 $success-light-dark:			#1C3833 !default;
 $success-inverse: 				$white !default;
 
 // Info colors
-$info: 							#8950FC !default; 
+$info: 							#8950FC !default;
 $info-active: 					#7337EE !default;
 $info-light: 					#EEE5FF !default;
 $info-light-dark: 				#2F264F !default;
 $info-inverse: 					$white !default;
 
 // Warning colors
-$warning: 						#FFA800 !default; 
+$warning: 						#FFA800 !default;
 $warning-active: 				#EE9D01 !default;
 $warning-light: 				#FFF4DE !default;
 $warning-light-dark: 			#392F28 !default;
 $warning-inverse: 				$white !default;
 
 // Danger colors
-$danger: 						#F64E60 !default; 
+$danger: 						#F64E60 !default;
 $danger-active: 				#EE2D41 !default;
 $danger-light: 					#FFE2E5 !default;
 $danger-light-dark:				#3A2434 !default;
@@ -115,13 +115,13 @@ $danger-inverse: 				$white !default;
 
 // Dark colors
 $dark: 							$gray-900 !default;
-$dark-dark: 					$gray-900-dark !default; 
+$dark-dark: 					$gray-900-dark !default;
 $dark-active: 					darken($gray-900, 3%) !default;
 $dark-active-dark: 				lighten($gray-900-dark, 3%) !default;
-$dark-light: 					$gray-200 !default; 
+$dark-light: 					$gray-200 !default;
 $dark-light-dark: 				$gray-200-dark !default;
 $dark-inverse: 					$white !default;
-$dark-inverse-dark: 			$gray-100-dark !default; 
+$dark-inverse-dark: 			$gray-100-dark !default;
 
 // Contextual colors
 $theme-colors: (
@@ -135,7 +135,7 @@ $theme-colors: (
 	"danger": $danger,
 	"dark": $dark
 ) !default;
-	
+
 $theme-colors-dark: (
 	"dark":    $dark-dark,
 	"light":   $light-dark,
@@ -152,7 +152,7 @@ $theme-active-colors: (
 	"warning": $warning-active,
 	"danger":  $danger-active,
 	"dark":    $dark-active
-) !default; 
+) !default;
 
 $theme-active-colors-dark: (
 	"dark":    $dark-active-dark,
@@ -170,7 +170,7 @@ $theme-inverse-colors: (
 	"warning": $warning-inverse,
 	"danger":  $danger-inverse,
 	"dark":    $dark-inverse
-) !default; 
+) !default;
 
 $theme-inverse-colors-dark: (
 	"dark":    $dark-inverse-dark,
@@ -187,7 +187,7 @@ $theme-light-colors: (
 	"warning": $warning-light,
 	"danger":  $danger-light,
 	"dark":    $dark-light
-) !default; 
+) !default;
 
 $theme-light-colors-dark: (
 	"primary": $primary-light-dark,
@@ -197,8 +197,8 @@ $theme-light-colors-dark: (
 	"danger":  $danger-light-dark,
 	"dark":    $dark-light-dark,
 	"secondary":  $secondary-light-dark
-) !default; 
-	
+) !default;
+
 // Text colors
 $theme-text-colors: (
 	"white":   $white,
@@ -220,7 +220,7 @@ $theme-text-colors: (
 	"gray-700":   $gray-700,
 	"gray-800":   $gray-800,
 	"gray-900":   $gray-900
-) !default; 
+) !default;
 
 $theme-text-colors-dark: (
 	"dark":    $dark-dark,
@@ -235,7 +235,7 @@ $theme-text-colors-dark: (
 	"gray-700":   $gray-700-dark,
 	"gray-800":   $gray-800-dark,
 	"gray-900":   $gray-900-dark
-) !default; 
+) !default;
 
 
 // Options
@@ -355,7 +355,7 @@ $border-width:                  1px !default;
 $border-color:                  $gray-200 !default;
 $border-color-dark:             $gray-200-dark !default;
 $border-dashed-color:           $gray-300 !default;
-$border-dashed-color-dark:      $gray-300-dark !default; 
+$border-dashed-color-dark:      $gray-300-dark !default;
 
 $border-widths: (
 	0: 0,
@@ -393,8 +393,8 @@ $component-checked-bg:           $primary !default;
 $component-checked-bg-dark:      $primary !default;
 
 // Keenthemes custom transition settings
-$transition-link: color .2s ease !default; 
-$transition-input: color .2s ease !default; 
+$transition-link: color .2s ease !default;
+$transition-input: color .2s ease !default;
 
 // Box shadow
 $box-shadow-xs: 0 .1rem 0.75rem 0.25rem rgba($black, 0.05) !default;
@@ -491,7 +491,7 @@ $font-sizes: (
 	4qx: $font-size-base * 4.25, // 55.25px
 	4hx: $font-size-base * 4.5,  // 58.5px
 	4tx: $font-size-base * 4.75, // 61.75px
-	
+
 	5x: $font-size-base * 5,  // 65px
 	5qx: $font-size-base * 5.25, // 68.25px
 	5hx: $font-size-base * 5.5,  // 71.5px
@@ -698,8 +698,8 @@ $input-solid-bg:                            $gray-100 !default;
 $input-solid-bg-dark:                       $gray-100-dark !default;
 $input-solid-bg-focus:                      darken($gray-100, 2%) !default;
 $input-solid-bg-focus-dark:                 lighten($gray-100-dark, 2%) !default;
-$input-solid-placeholder-color:             $input-placeholder-color !default; 
-$input-solid-placeholder-color-dark:        $input-placeholder-color-dark !default; 
+$input-solid-placeholder-color:             $input-placeholder-color !default;
+$input-solid-placeholder-color-dark:        $input-placeholder-color-dark !default;
 $input-solid-color:         	            $gray-700 !default;
 $input-solid-color-dark:                    $gray-700-dark !default;
 
@@ -1049,20 +1049,20 @@ $popover-header-bg:     				$popover-bg !default;
 $popover-header-bg-dark:     			$popover-bg-dark !default;
 $popover-header-color:     				$gray-800 !default;
 $popover-header-color-dark:     		$gray-800-dark !default;
-$popover-header-font-weight:     		500 !default; 
-$popover-header-font-size:    			1rem !default; 
+$popover-header-font-weight:     		500 !default;
+$popover-header-font-size:    			1rem !default;
 $popover-header-padding-y:    			1rem !default;
 $popover-header-padding-x:    			1.25rem !default;
-$popover-header-border-color:           $gray-200 !default; 
-$popover-header-border-color-dark:      $gray-300-dark !default; 
+$popover-header-border-color:           $gray-200 !default;
+$popover-header-border-color-dark:      $gray-300-dark !default;
 $popover-body-color:    				$gray-800 !default;
 $popover-body-color-dark:    			$gray-800-dark !default;
 $popover-body-padding-y:                1.25rem !default;
 $popover-body-padding-x:                1.25rem !default;
 
-$popover-dissmis-btn-height:            1.5rem !default; 
-$popover-dissmis-btn-top:               0.85rem !default; 
-$popover-dissmis-btn-end:               0.85rem !default; 
+$popover-dissmis-btn-height:            1.5rem !default;
+$popover-dissmis-btn-top:               0.85rem !default;
+$popover-dissmis-btn-end:               0.85rem !default;
 
 
 // Toasts
@@ -1257,9 +1257,9 @@ $code-box-shadow-dark:      0px 3px 9px rgba(0, 0, 0, 0.08) !default;
 $code-padding:              0.1rem 0.4rem !default;
 $code-margin:               0 0.5rem !default;
 $code-font-weight:          400 !default;
-$code-border-radius:        0.3rem !default; 
-$code-color:                #b93993 !default; 
-$code-color-dark:           #b93993 !default; 
+$code-border-radius:        0.3rem !default;
+$code-color:                #b93993 !default;
+$code-color-dark:           #b93993 !default;
 $code-space:                0.25rem !default;
 
 // Opacity
@@ -1407,32 +1407,6 @@ $bullet-line-height: 1px !default;
 $bullet-line-width: 5px !default;
 
 
-// Keenthemes scrolltop component
-$scrolltop-z-index: 105 !default;
-$scrolltop-opacity: 0 !default;
-$scrolltop-opacity-dark: 0 !default;
-$scrolltop-opacity-on: 0.3 !default;
-$scrolltop-opacity-on-dark: 0.3 !default;
-$scrolltop-opacity-hover: 1 !default;
-$scrolltop-opacity-hover-dark: 1 !default;
-$scrolltop-bottom: 40px !default;
-$scrolltop-bottom-mobile: 30px !default;
-$scrolltop-end: 20px !default;
-$scrolltop-end-mobile: 15px !default;
-$scrolltop-size: 36px !default;
-$scrolltop-size-mobile: 30px !default;
-$scrolltop-box-shadow: $box-shadow !default;
-$scrolltop-box-shadow-dark: $box-shadow-dark !default;
-$scrolltop-bg-color: $primary !default;
-$scrolltop-bg-color-dark: $primary !default;
-$scrolltop-bg-color-hover: $primary !default;
-$scrolltop-bg-color-hover-dark: $primary !default;
-$scrolltop-icon-color: $primary-inverse !default;
-$scrolltop-icon-color-dark: $primary-inverse !default;
-$scrolltop-icon-color-hover: $primary-inverse !default;
-$scrolltop-icon-color-hover-dark: $primary-inverse !default;
-
-
 // Keenthemes sticky toolbar component
 $sticky-toolbar-z-index: 95 !default;
 
@@ -1448,7 +1422,7 @@ $drawer-overlay-bg-color: rgba($black, 0.2) !default;
 $drawer-overlay-bg-color-dark: rgba($black, 0.4) !default;
 $drawer-overlay-animation-speed: 0.3s !default;
 
-// Keenthemes menu component   
+// Keenthemes menu component
 $menu-dropdown-box-shadow: $dropdown-box-shadow !default;
 $menu-dropdown-box-shadow-dark: $dropdown-box-shadow-dark !default;
 $menu-dropdown-z-index: 107 !default;
@@ -1491,7 +1465,7 @@ $menu-arrow-space: 5px !default;
 $menu-heading-color: $text-muted !default;
 $menu-heading-color-dark: $text-muted-dark !default;
 
-// Keenthemes feedback component 
+// Keenthemes feedback component
 $feedback-popup-z-index: 1000 !default;
 $feedback-popup-box-shadow: $dropdown-box-shadow !default;
 $feedback-popup-box-shadow-dark: $dropdown-box-shadow-dark !default;
@@ -1501,7 +1475,7 @@ $feedback-popup-border-radius: $border-radius !default;
 $feedback-popup-transition-speed: 0.6s !default;
 $feedback-popup-padding: 1rem 1.25rem !default;
 
-// Keenthemes scrollbar component 
+// Keenthemes scrollbar component
 $scrollbar-space: 0.5rem !default;
 $scrollbar-border-radius: 0.5rem !default;
 $scrollbar-width: 0.4rem !default;
@@ -1511,21 +1485,21 @@ $scrollbar-color-dark: $gray-200-dark !default;
 $scrollbar-hover-color: darken($gray-200, 2%) !default;
 $scrollbar-hover-color-dark: darken($gray-200-dark, 2%) !default;
 
-// Keenthemes overlay component 
+// Keenthemes overlay component
 $overlay-bg: rgba($black, 0.05)  !default;
 $overlay-bg-dark: rgba($white, 0.05) !default;
 
-// Keenthemes blockui component 
+// Keenthemes blockui component
 $blockui-overlay-bg: rgba($black, 0.05) !default;
 $blockui-overlay-bg-dark: rgba($white, 0.05) !default;
 
-// Keenthemes rating component 
+// Keenthemes rating component
 $rating-color-default: $gray-400 !default;
 $rating-color-default-dark: $gray-400-dark !default;
 $rating-color-active: #FFAD0F !default;
 $rating-color-active-dark: #FFAD0F !default;
 
-// Keenthemes ribbon component 
+// Keenthemes ribbon component
 $ribbon-label-box-shadow: 0px -1px 5px 0px rgba($dark, 0.1) !default;
 $ribbon-label-box-shadow-dark: 0px -1px 5px 0px rgba($white, 0.1) !default;
 $ribbon-label-bg: $primary !default;
@@ -1535,7 +1509,7 @@ $ribbon-label-border-color-dark: darken($primary, 20%) !default;
 $ribbon-clip-bg: $dark !default;
 $ribbon-clip-bg-dark: $light !default;
 
-// Keenthemes fixed component 
+// Keenthemes fixed component
 $fixed-z-index: 101 !default;
 
 // Engage panel

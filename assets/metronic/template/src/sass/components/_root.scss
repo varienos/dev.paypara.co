@@ -162,7 +162,7 @@
     --kt-form-check-input-checked-border-color: #{$form-check-input-checked-border-color};
     --kt-form-check-input-checked-bg-image: #{escape-svg($form-check-input-checked-bg-image)};
     --kt-form-check-radio-checked-bg-image: #{escape-svg($form-check-radio-checked-bg-image)};
-    
+
     --kt-form-check-input-indeterminate-color: #{$form-check-input-indeterminate-color};
     --kt-form-check-input-indeterminate-bg-color: #{$form-check-input-indeterminate-bg-color};
     --kt-form-check-input-indeterminate-border-color: #{$form-check-input-indeterminate-border-color};
@@ -214,7 +214,7 @@
     --kt-nav-pills-link-active-color: #{$nav-pills-link-active-color};
     --kt-nav-pills-link-active-bg: #{$nav-pills-link-active-bg};
 
-    // Dropdowns        
+    // Dropdowns
     --kt-dropdown-color: #{$dropdown-color};
     --kt-dropdown-bg: #{$dropdown-bg};
     --kt-dropdown-divider-bg: #{$dropdown-divider-bg};
@@ -256,10 +256,10 @@
     // Accordion
     --kt-accordion-color: #{$accordion-color};
     --kt-accordion-bg: #{$accordion-bg};
-    --kt-accordion-border-color: #{$accordion-border-color}; 
-    --kt-accordion-button-bg: #{$accordion-button-bg};   
+    --kt-accordion-border-color: #{$accordion-border-color};
+    --kt-accordion-button-bg: #{$accordion-button-bg};
     --kt-accordion-button-color: #{$accordion-button-color};
-    --kt-accordion-button-active-bg: #{$accordion-button-active-bg};   
+    --kt-accordion-button-active-bg: #{$accordion-button-active-bg};
     --kt-accordion-button-active-color: #{$accordion-button-active-color};
     --kt-accordion-button-focus-border-color: #{$accordion-button-focus-border-color};
     --kt-accordion-button-focus-box-shadow: #{$accordion-button-focus-box-shadow};
@@ -274,7 +274,7 @@
     --kt-tooltip-bg: #{$tooltip-bg};
     --kt-tooltip-opacity: #{$tooltip-opacity};
     --kt-tooltip-box-shadow: #{$tooltip-box-shadow};
-   
+
     // Popovers
     --kt-popover-bg: #{$popover-bg};
     --kt-popover-border-color: #{$popover-border-color};
@@ -283,7 +283,7 @@
     --kt-popover-header-color: #{$popover-header-color};
     --kt-popover-header-border-color: #{$popover-header-border-color};
     --kt-popover-body-color: #{$popover-body-color};
-    
+
     // Dropdowns
     --kt-dropdown-box-shadow: #{$dropdown-box-shadow};
     --kt-dropdown-bg: #{$dropdown-bg};
@@ -294,16 +294,16 @@
     --kt-toast-box-shadow: #{$toast-box-shadow};
     --kt-toast-header-color: #{$toast-header-color};
     --kt-toast-header-background-color: #{$toast-header-background-color};
-    --kt-toast-header-border-color: #{$toast-header-border-color};  
+    --kt-toast-header-border-color: #{$toast-header-border-color};
 
     // Badges
     --kt-badge-color: #{$badge-color};
 
-    // Modals    
+    // Modals
     --kt-modal-bg: #{$modal-content-bg};
     --kt-modal-color: #{$modal-content-color};
     --kt-modal-border-color: #{$modal-content-border-color};
-    --kt-modal-box-shadow: #{$modal-content-box-shadow};    
+    --kt-modal-box-shadow: #{$modal-content-box-shadow};
     --kt-modal-content-color: #{$modal-content-color};
     --kt-modal-content-bg: #{$modal-content-bg};
     --kt-modal-content-border-color: #{$modal-content-border-color};
@@ -373,20 +373,10 @@
     // Symbol
     --kt-symbol-label-color: #{$symbol-label-color};
     --kt-symbol-label-bg: #{$symbol-label-bg};
-    --kt-symbol-border-color: #{$symbol-border-color};   
+    --kt-symbol-border-color: #{$symbol-border-color};
 
     // Bullet
     --kt-bullet-bg-color: #{$bullet-bg-color};
-
-    // Scrolltop
-    --kt-scrolltop-opacity: #{$scrolltop-opacity};
-    --kt-scrolltop-opacity-on: #{$scrolltop-opacity-on};
-    --kt-scrolltop-opacity-hover: #{$scrolltop-opacity-hover};
-    --kt-scrolltop-box-shadow: #{$scrolltop-box-shadow};
-    --kt-scrolltop-bg-color: #{$scrolltop-bg-color};
-    --kt-scrolltop-bg-color-hover: #{$scrolltop-bg-color-hover};
-    --kt-scrolltop-icon-color: #{$scrolltop-icon-color};
-    --kt-scrolltop-icon-color-hover: #{$scrolltop-icon-color-hover};
 
     // Keenthemes drawer component
     --kt-drawer-box-shadow: #{$drawer-box-shadow};
@@ -404,20 +394,20 @@
     --kt-menu-link-bg-color-hover: #{$menu-link-bg-color-hover};
     --kt-menu-link-bg-color-show: #{$menu-link-bg-color-show};
     --kt-menu-link-bg-color-here: #{$menu-link-bg-color-here};
-    --kt-menu-link-bg-color-active: #{$menu-link-bg-color-active};    
+    --kt-menu-link-bg-color-active: #{$menu-link-bg-color-active};
 
     // Keenthemes feedback component
     --kt-feedback-popup-box-shadow: #{$feedback-popup-box-shadow};
     --kt-feedback-popup-background-color: #{$feedback-popup-background-color};
 
-    // Keenthemes scrollbar component 
+    // Keenthemes scrollbar component
     --kt-scrollbar-color: #{$scrollbar-color};
     --kt-scrollbar-hover-color: #{$scrollbar-hover-color};
     --kt-scrollbar-width: #{$scrollbar-width};
     --kt-scrollbar-height: #{$scrollbar-height};
     --kt-scrollbar-space: #{$scrollbar-space};
 
-    // Keenthemes overlay component 
+    // Keenthemes overlay component
     --kt-overlay-bg: #{$overlay-bg};
 
     // Keenthemes blockui component
@@ -427,11 +417,11 @@
     --kt-rating-color-default: #{$rating-color-default};
     --kt-rating-color-active: #{$rating-color-active};
 
-    // Keenthemes ribbon component 
+    // Keenthemes ribbon component
     --kt-ribbon-label-box-shadow: #{$ribbon-label-box-shadow};
     --kt-ribbon-label-bg: #{$ribbon-label-bg};
     --kt-ribbon-label-border-color: #{$ribbon-label-border-color};
-    --kt-ribbon-clip-bg: #{$ribbon-clip-bg}; 
+    --kt-ribbon-clip-bg: #{$ribbon-clip-bg};
 
     // Engage panel
     --kt-engage-btn-bg: #{$engage-btn-bg};
@@ -559,7 +549,7 @@
 
     --kt-input-color: #{$input-color-dark};
     --kt-input-border-color: #{$input-border-color-dark};
-    
+
     --kt-input-focus-bg: #{$input-focus-bg-dark};
     --kt-input-focus-border-color: #{$input-focus-border-color-dark};
     --kt-input-focus-color: #{$input-focus-color-dark};
@@ -586,7 +576,7 @@
     --kt-form-check-input-checked-border-color: #{$form-check-input-checked-border-color-dark};
     --kt-form-check-input-checked-bg-image: #{escape-svg($form-check-input-checked-bg-image-dark)};
     --kt-form-check-radio-checked-bg-image: #{escape-svg($form-check-radio-checked-bg-image-dark)};
-    
+
     --kt-form-check-input-indeterminate-color: #{$form-check-input-indeterminate-color-dark};
     --kt-form-check-input-indeterminate-bg-color: #{$form-check-input-indeterminate-bg-color-dark};
     --kt-form-check-input-indeterminate-border-color: #{$form-check-input-indeterminate-border-color-dark};
@@ -638,7 +628,7 @@
     --kt-nav-pills-link-active-color: #{$nav-pills-link-active-color-dark};
     --kt-nav-pills-link-active-bg: #{$nav-pills-link-active-bg-dark};
 
-    // Dropdowns        
+    // Dropdowns
     --kt-dropdown-color: #{$dropdown-color-dark};
     --kt-dropdown-bg: #{$dropdown-bg-dark};
     --kt-dropdown-divider-bg: #{$dropdown-divider-bg-dark};
@@ -679,11 +669,11 @@
 
     // Accordion
     --kt-accordion-color: #{$accordion-color-dark};
-    --kt-accordion-bg: #{$accordion-bg-dark};    
-    --kt-accordion-border-color: #{$accordion-border-color-dark}; 
+    --kt-accordion-bg: #{$accordion-bg-dark};
+    --kt-accordion-border-color: #{$accordion-border-color-dark};
     --kt-accordion-button-color: #{$accordion-button-color-dark};
-    --kt-accordion-button-bg: #{$accordion-button-bg-dark};   
-    --kt-accordion-button-active-bg: #{$accordion-button-active-bg-dark};   
+    --kt-accordion-button-bg: #{$accordion-button-bg-dark};
+    --kt-accordion-button-active-bg: #{$accordion-button-active-bg-dark};
     --kt-accordion-button-active-color: #{$accordion-button-active-color-dark};
     --kt-accordion-button-focus-border-color: #{$accordion-button-focus-border-color-dark};
     --kt-accordion-button-focus-box-shadow: #{$accordion-button-focus-box-shadow-dark};
@@ -698,7 +688,7 @@
     --kt-tooltip-bg: #{$tooltip-bg-dark};
     --kt-tooltip-opacity: #{$tooltip-opacity-dark};
     --kt-tooltip-box-shadow: #{$tooltip-box-shadow-dark};
-   
+
     // Popovers
     --kt-popover-bg: #{$popover-bg-dark};
     --kt-popover-border-color: #{$popover-border-color-dark};
@@ -707,7 +697,7 @@
     --kt-popover-header-color: #{$popover-header-color-dark};
     --kt-popover-header-border-color: #{$popover-header-border-color-dark};
     --kt-popover-body-color: #{$popover-body-color-dark};
-    
+
     // Dropdowns
     --kt-dropdown-box-shadow: #{$dropdown-box-shadow-dark};
     --kt-dropdown-bg: #{$dropdown-bg-dark};
@@ -718,12 +708,12 @@
     --kt-toast-box-shadow: #{$toast-box-shadow-dark};
     --kt-toast-header-color: #{$toast-header-color-dark};
     --kt-toast-header-background-color: #{$toast-header-background-color-dark};
-    --kt-toast-header-border-color: #{$toast-header-border-color-dark};  
+    --kt-toast-header-border-color: #{$toast-header-border-color-dark};
 
     // Badges
     --kt-badge-color: #{$badge-color-dark};
 
-    // Modals    
+    // Modals
     --kt-modal-bg: #{$modal-content-bg-dark};
     --kt-modal-color: #{$modal-content-color-dark};
     --kt-modal-border-color: #{$modal-content-border-color-dark};
@@ -797,25 +787,15 @@
     // Code
     --kt-code-bg: #{$code-bg-dark};
     --kt-code-box-shadow: #{$code-box-shadow-dark};
-    --kt-code-color: #{$code-color-dark};  
+    --kt-code-color: #{$code-color-dark};
 
     // Symbol
     --kt-symbol-label-color: #{$symbol-label-color-dark};
     --kt-symbol-label-bg: #{$symbol-label-bg-dark};
-    --kt-symbol-border-color: #{$symbol-border-color-dark};   
+    --kt-symbol-border-color: #{$symbol-border-color-dark};
 
     // Bullet
     --kt-bullet-bg-color: #{$bullet-bg-color-dark};
-
-    // Scrolltop
-    --kt-scrolltop-opacity: #{$scrolltop-opacity-dark};
-    --kt-scrolltop-opacity-on: #{$scrolltop-opacity-on-dark};
-    --kt-scrolltop-opacity-hover: #{$scrolltop-opacity-hover-dark};
-    --kt-scrolltop-box-shadow: #{$scrolltop-box-shadow-dark};
-    --kt-scrolltop-bg-color: #{$scrolltop-bg-color-dark};
-    --kt-scrolltop-bg-color-hover: #{$scrolltop-bg-color-hover-dark};
-    --kt-scrolltop-icon-color: #{$scrolltop-icon-color-dark};
-    --kt-scrolltop-icon-color-hover: #{$scrolltop-icon-color-hover-dark};
 
     // Keenthemes drawer component
     --kt-drawer-box-shadow: #{$drawer-box-shadow-dark};
@@ -826,7 +806,7 @@
     --kt-menu-dropdown-box-shadow: #{$menu-dropdown-box-shadow-dark};
     --kt-menu-dropdown-bg-color: #{$menu-dropdown-bg-color-dark};
     --kt-menu-heading-color: #{$menu-heading-color-dark};
-    
+
     --kt-menu-link-color-hover: #{$menu-link-color-hover-dark};
     --kt-menu-link-color-show: #{$menu-link-color-show-dark};
     --kt-menu-link-color-here: #{$menu-link-color-here-dark};
@@ -835,17 +815,17 @@
     --kt-menu-link-bg-color-show: #{$menu-link-bg-color-show-dark};
     --kt-menu-link-bg-color-here: #{$menu-link-bg-color-here-dark};
     --kt-menu-link-bg-color-active: #{$menu-link-bg-color-active-dark};
-    
+
 
     // Keenthemes feedback component
     --kt-feedback-popup-box-shadow: #{$feedback-popup-box-shadow-dark};
     --kt-feedback-popup-background-color: #{$feedback-popup-background-color-dark};
 
-    // Keenthemes scrollbar component 
+    // Keenthemes scrollbar component
     --kt-scrollbar-color: #{$scrollbar-color-dark};
     --kt-scrollbar-hover-color: #{$scrollbar-hover-color-dark};
 
-    // Keenthemes overlay component 
+    // Keenthemes overlay component
     --kt-overlay-bg: #{$overlay-bg-dark};
 
     // Keenthemes blockui component
@@ -855,11 +835,11 @@
     --kt-rating-color-default: #{$rating-color-default-dark};
     --kt-rating-color-active: #{$rating-color-active-dark};
 
-    // Keenthemes ribbon component 
+    // Keenthemes ribbon component
     --kt-ribbon-label-box-shadow: #{$ribbon-label-box-shadow-dark};
     --kt-ribbon-label-bg: #{$ribbon-label-bg-dark};
     --kt-ribbon-label-border-color: #{$ribbon-label-border-color-dark};
-    --kt-ribbon-clip-bg: #{$ribbon-clip-bg-dark};  
+    --kt-ribbon-clip-bg: #{$ribbon-clip-bg-dark};
 
     // Engage panel
     --kt-engage-btn-bg: #{$engage-btn-bg-dark};
