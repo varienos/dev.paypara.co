@@ -43,7 +43,7 @@
                     <div class="card-body pt-15">
                       <div class="d-flex flex-center flex-column mb-5">
                         <div class="symbol symbol-100px symbol-circle mb-7">
-                          <img src="<?=gulpAssets() ?>/media/avatars/blank.png" alt="image" />
+                          <img src="<?=gulpAssets() ?>/media/avatar.png" alt="image" />
                         </div>
                         <div class="fs-3 text-gray-800 fw-bold mb-1"><?=$customer->gamer_name ?></div>
                         <div class="fs-5 fw-semibold text-muted mb-6"><?=$customer->gamer_nick ?></div>

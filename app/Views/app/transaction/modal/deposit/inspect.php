@@ -29,7 +29,7 @@
                   <div class="card shadow-sm mt-13">
                     <div class="card-body px-0 pb-0 pt-8">
                       <div class="d-flex flex-column rounded-2 w-100 p-0 mt-5">
-                        <img class="position-absolute align-self-center border rounded-4 w-50px h-50px" style="top: -27px;" src="assets/media/avatars/blank.png" alt=""/>
+                        <img class="position-absolute align-self-center border rounded-4 w-50px h-50px" style="top: -27px;" src="assets/media/avatar.png" alt=""/>
                         <div class="d-flex flex-column flex-center">
                           <a href="javascript:;" onclick="alert('Redirects to customer detail page as target=\'_blank\'');" class="d-flex text-reset text-hover-primary">
                             <p class="fs-3 fw-bolder m-0 me-2 text-dark">Mustafa Veli Topal</p>
@@ -55,10 +55,10 @@
                     </div>
                   </div>
 
-                  <!-- 
+                  <!--
                     Suan islem durumunu revize etmek icin gereken
                     altyapi mevcut degil. Aktif edilinciye dek bu
-                    bolum ve alttaki seperator 'd-none' seklinde 
+                    bolum ve alttaki seperator 'd-none' seklinde
                     gizli tutulabilir.
                   -->
                   <div class="alert bg-light-warning border border-warning border-dashed d-flex align-items-center w-100 p-3 mt-10 mb-5">
@@ -119,7 +119,7 @@
                     <a href="#" class="btn text-primary text-hover-dark fs-4 p-0">Ekle</a>
                   </div>
                   <div class="d-flex p-0">
-                    <img class="align-self-center rounded-circle w-50px p-0 me-3" src="assets/media/avatars/blank.png" alt=""/>
+                    <img class="align-self-center rounded-circle w-50px p-0 me-3" src="assets/media/avatar.png" alt=""/>
                     <div class="d-flex flex-column justify-content-center">
                       <p class="fs-5 fw-bolder m-0">Mustafa Veli Topal</p>
                       <p class="fs-6 fw-semibold text-gray-700 m-0">Rezerv Yeri: Yatırım</p>

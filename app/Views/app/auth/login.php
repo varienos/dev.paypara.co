@@ -12,7 +12,7 @@
     <link href="<?=baseUrl(gulpAssets().'/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
   </head>
   <body id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
-    <style>body{background-image:url('<?=baseUrl(gulpAssets().'/media/auth/bg10.jpeg') ?>')}[data-theme=dark] body{background-image:url('<?=baseUrl(gulpAssets().'/media/auth/bg10-dark.jpeg') ?>')} .logo:hover {filter: drop-shadow(0 0 2rem #d95158)};</style>
+    <style>body{background-image:url('<?=baseUrl(gulpAssets().'/media/background.jpeg') ?>')}[data-theme=dark] body{background-image:url('<?=baseUrl(gulpAssets().'/media/background-dark.jpeg') ?>')} .logo:hover {filter: drop-shadow(0 0 2rem #d95158)};</style>
     <div class="d-flex my-auto">
       <div class="d-flex flex-column flex-center mx-auto">
         <div class="mb-15">

@@ -24,11 +24,11 @@
     </script>
     <style>
         body {
-            background-image: url("<?= base_url('assets/metronic/template/dist/media/auth/bg10.jpeg') ?>")
+            background-image: url("<?= base_url('assets/metronic/template/dist/media/background.jpeg') ?>")
         }
 
         [data-theme=dark] body {
-            background-image: url("<?= base_url('assets/metronic/template/dist/media/auth/bg10-dark.jpeg') ?>")
+            background-image: url("<?= base_url('assets/metronic/template/dist/media/background-dark.jpeg') ?>")
         }
 
         .border-end {

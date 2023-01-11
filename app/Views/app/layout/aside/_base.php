@@ -17,7 +17,7 @@
     <div class="d-flex flex-stack">
       <div class="d-flex align-items-center">
         <div class="symbol symbol-circle symbol-40px">
-          <img src="<?=baseUrl(gulpAssets().'/') ?>/media/avatars/blank.png" alt="photo" />
+          <img src="<?=baseUrl(gulpAssets().'/') ?>/media/avatar.png" alt="photo" />
         </div>
         <div class="ms-2">
           <a href="<?= baseUrl('user/detail/'.md5(userId)) ?>" class="text-gray-800 text-hover-primary fs-6 fw-bold lh-1"><?=ucfirst(user_name) ?></a>
