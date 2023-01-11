@@ -1929,19 +1929,21 @@ $.varien = {
             },
             submit: function() {
                 $("[app-submit-email-check]").focusout(function() {
-                    $.varien.user.check("email", $("[app-submit-email-check]").val()).then((response) => {
-                        if (response > 0) {
-                            toastr.error($("[app-submit-email-check]").val() + " already exists");
-                            $("[app-submit-email-check]").addClass('inputError');
-                            $("[app-submit-email-check]").focus();
-                            $(':input[type="submit"]').prop('disabled', true);
-                            return false;
-                        } else {
-                            toastr.success($("[app-submit-email-check]").val() + " is available");
-                            $("[app-submit-email-check]").removeClass('inputError');
-                            $(':input[type="submit"]').prop('disabled', false);
-                        }
-                    });
+                    if($("[app-submit-email-check]").val() !== "") {
+                        $.varien.user.check("email", $("[app-submit-email-check]").val()).then((response) => {
+                            if (response > 0) {
+                                toastr.error($("[app-submit-email-check]").val() + " already exists");
+                                $("[app-submit-email-check]").addClass('inputError');
+                                $("[app-submit-email-check]").focus();
+                                $(':input[type="submit"]').prop('disabled', true);
+                                return false;
+                            } else {
+                                toastr.success($("[app-submit-email-check]").val() + " is available");
+                                $("[app-submit-email-check]").removeClass('inputError');
+                                $(':input[type="submit"]').prop('disabled', false);
+                            }
+                        });
+                    }
                 });
                 $("form#modalForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
