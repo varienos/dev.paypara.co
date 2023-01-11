@@ -190,36 +190,9 @@ const gulpConfig = {
         },
       },
     },
-    widgets: {
-      src: {
-        scripts: ["{$config.path.common_src}/js/widgets/**/*.js"],
-      },
-      dist: {
-        scripts: "{$config.dist}/js/widgets.bundle.js",
-      },
-    },
-    custom: {
-      src: {
-        styles: [
-          "{$config.path.common_src}/sass/custom/**/*.scss",
-          "{$config.path.src}/sass/custom/**/*.scss",
-        ],
-        scripts: [
-          "{$config.path.common_src}/js/custom/**/*.js",
-          "{$config.path.src}/js/custom/**/*.js",
-        ],
-      },
-      dist: {
-        styles: "{$config.dist}/css/custom/",
-        scripts: "{$config.dist}/js/custom/",
-      },
-    },
     media: {
       src: {
-        media: [
-          "{$config.path.common_src}/media/**/*.*",
-          "{$config.path.src}/media/**/*.*",
-        ],
+        media: ["{$config.path.src}/media/**/*.*"],
       },
       dist: {
         media: "{$config.dist}/media/",
