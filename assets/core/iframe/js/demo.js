@@ -49,15 +49,7 @@ const demo = {
                 $("#error").html(response.error);
             }
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            Swal.fire({
-                text: "Hata oluştu: " + jqXHR.status + " " + textStatus + " " + errorThrown,
-                icon: "error",
-                buttonsStyling: false,
-                confirmButtonText: "Kapat",
-                customClass: {
-                    confirmButton: "btn btn-primary"
-                }
-            });
+            toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`)
         });
     }
 }

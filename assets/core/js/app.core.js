@@ -629,7 +629,7 @@ $.varien = {
                             toastr.success("Account updated");
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                            toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
                 }));
@@ -765,7 +765,7 @@ $.varien = {
                             $("#ajaxModal").modal('toggle');
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                            toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
                 }));
@@ -1333,11 +1333,11 @@ $.varien = {
                         $.blockDatatable.release();
                         $.blockModalContent.release();
                     }, function error(jqXHR, textStatus, errorThrown) {
-                        toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         $.blockDatatable.release();
                         $.blockModalContent.release();
                     }).catch(function(error) {
-                        toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         $.blockDatatable.release();
                         $.blockModalContent.release();
                     });
@@ -1474,7 +1474,7 @@ $.varien = {
                                 toastr.success("Roles updated");
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
-                                toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                                toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                             }
                         });
                     }));
@@ -1972,7 +1972,7 @@ $.varien = {
                                     toastr.success("User created");
                                 },
                                 error: function(jqXHR, textStatus, errorThrown) {
-                                    toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                                    toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                                 }
                             });
                         }
@@ -2044,7 +2044,7 @@ $.varien = {
                     });
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                    toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                 }
             });
         },
@@ -2145,7 +2145,7 @@ $.varien = {
                             $("#ajaxModal").modal('toggle');
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                            toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
                 }));
@@ -2190,7 +2190,7 @@ $.varien = {
                             toastr.success("Customer note updated");
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                            toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
                 });
@@ -2595,7 +2595,7 @@ $.varien = {
                         toastr.success("Settings updated");
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
             }));
@@ -2614,7 +2614,7 @@ $.varien = {
                         if (name == "maintenanceStatus") location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
             }));
@@ -2811,7 +2811,7 @@ $.varien = {
                             return false;
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-                            toastr.error(`${textStatus}<br>${errorThrown}`, `XHR Error)`);
+                            toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
                     return false;
