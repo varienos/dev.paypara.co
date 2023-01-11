@@ -319,41 +319,6 @@
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" /><path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
                                     </svg>
                                   </span>
-                                  <style>
-                                    #customerQuery {
-                                        z-index: 99;
-                                        position: absolute;
-                                        background: var(--kt-card-bg);
-                                    }
-
-                                    #customerQuery ul {
-                                        margin: 0;
-                                        width: 250px;
-                                        left: -23.5px;
-                                        padding: 10px 0;
-                                        overflow: hidden;
-                                        list-style: none;
-                                        border-radius: .65rem;
-                                        box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15)
-                                    }
-
-                                    #customerQuery ul li {
-                                        padding: 1rem;
-                                        color: #5e6278;
-                                        font-size: 1rem;
-                                        cursor: pointer;
-                                        font-weight: 500;
-                                    }
-
-                                    #customerQuery ul li:last-child {
-                                        border-bottom: none;
-                                    }
-
-                                    #customerQuery ul li:hover {
-                                        color: #469cf0;
-                                        background: var(--kt-light);
-                                    }
-                                  </style>
                                   <input type="text" data-kt-ecommerce-edit-order-filter="search" onfocusout="$.varien.account.detail.customerQueryFocusOut()" onkeyup="$.varien.account.detail.customerQuery(this.value,<?=$id ?>)" id="customerQueryInput" name="gamers_ids" value="<?=$update->gamers_ids ?>" class="form-control form-control-solid border w-100 ps-14" placeholder="Add new match" />
                                   <div id="customerQuery" style="display:none">
                                     <ul></ul>
