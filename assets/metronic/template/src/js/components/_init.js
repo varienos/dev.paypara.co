@@ -10,7 +10,6 @@ var KTComponents = (function () {
       KTApp.init();
       KTDrawer.init();
       KTMenu.init();
-      KTSticky.init();
       KTPasswordMeter.init();
     },
   };

@@ -55,22 +55,6 @@ if (fs.existsSync(`${__dirname}/../gulp.config.json`)) {
     }
 }
 
-
-// docs build option
-let docsOption = Object.keys(argv).find((value) => {
-    return value.indexOf('docs-') !== -1;
-});
-if (typeof docsOption !== 'undefined') {
-    var l = docsOption.split('-');
-    theme = l[1];
-    if (theme === 'asp') {
-        theme += '.net-core'
-    }
-    build.config.path.src = '../../../themes/docs/{theme}/src';
-    build.config.dist = ['../../../themes/docs/{theme}/dist/assets'];
-}
-
-
 // set dist to demo folder
 const dist = [];
 build.config.dist.forEach((d) => {

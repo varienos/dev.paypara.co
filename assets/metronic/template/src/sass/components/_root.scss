@@ -275,15 +275,6 @@
     --kt-tooltip-opacity: #{$tooltip-opacity};
     --kt-tooltip-box-shadow: #{$tooltip-box-shadow};
 
-    // Popovers
-    --kt-popover-bg: #{$popover-bg};
-    --kt-popover-border-color: #{$popover-border-color};
-    --kt-popover-box-shadow: #{$popover-box-shadow};
-    --kt-popover-header-bg: #{$popover-header-bg};
-    --kt-popover-header-color: #{$popover-header-color};
-    --kt-popover-header-border-color: #{$popover-header-border-color};
-    --kt-popover-body-color: #{$popover-body-color};
-
     // Dropdowns
     --kt-dropdown-box-shadow: #{$dropdown-box-shadow};
     --kt-dropdown-bg: #{$dropdown-bg};
@@ -688,15 +679,6 @@
     --kt-tooltip-bg: #{$tooltip-bg-dark};
     --kt-tooltip-opacity: #{$tooltip-opacity-dark};
     --kt-tooltip-box-shadow: #{$tooltip-box-shadow-dark};
-
-    // Popovers
-    --kt-popover-bg: #{$popover-bg-dark};
-    --kt-popover-border-color: #{$popover-border-color-dark};
-    --kt-popover-box-shadow: #{$popover-box-shadow-dark};
-    --kt-popover-header-bg: #{$popover-header-bg-dark};
-    --kt-popover-header-color: #{$popover-header-color-dark};
-    --kt-popover-header-border-color: #{$popover-header-border-color-dark};
-    --kt-popover-body-color: #{$popover-body-color-dark};
 
     // Dropdowns
     --kt-dropdown-box-shadow: #{$dropdown-box-shadow-dark};
