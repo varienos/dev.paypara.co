@@ -36,7 +36,7 @@ function updateVersion()
         $z      = $y==100 ? (intval($v[0])+1) : (intval($v[0]));
         $y      = $y==100 ? 0 : $y;
         $newVersion = $z.".".$y.".".$x;
-        file_put_contents("version.txt", ""); 
+        file_put_contents("version.txt", "");
         fwrite($version, $newVersion);
     } else {
         fwrite($version, "1.0.0");
@@ -58,7 +58,7 @@ function appViewPath()
 
 function gulpAssets()
 {
-    return 'assets/metronic/template/dist';
+    return 'assets/build/dist';
 }
 
 function coreAssets()
@@ -66,24 +66,20 @@ function coreAssets()
     return 'assets/core';
 }
 
-function appJs()
+function activeDomain()
 {
-    $appPath = (strpos(HOSTNAME, "localhost")>0 ? 'http://' : 'https://').(SUBDOMAIN=="dev"||SUBDOMAIN=="deploy" ? (SUBDOMAIN == "deploy" ? "deploy." : null)."dev" : "app").'.paypara.'.(strpos(HOSTNAME, "localhost")>0 ? 'localhost' : 'co').'/'.coreAssets().'/js/app.core.min.js?v='.md5(microtime());
-    //ob_start();
-    //readfile($appPath);
-    //$jsCode = ob_get_contents();
-    //ob_end_clean();
-    return $appPath;
-}
+    $domain = strpos(HOSTNAME, "localhost") > 0 ? "http://" : "https://";
+    $domain .= SUBDOMAIN == "dev" || SUBDOMAIN == "deploy" ? (SUBDOMAIN == "deploy" ? "deploy." : null)  . "dev.paypara." : "app.paypara.";
 
-function app2FAJs()
-{
-    $appPath = (strpos(HOSTNAME, "localhost")>0 ? 'http://' : 'https://'). (SUBDOMAIN == "dev" || SUBDOMAIN == "deploy" ? (SUBDOMAIN == "deploy" ? "deploy." : null) . "dev" : "app").'.paypara.'.(strpos(HOSTNAME, "localhost")>0 ? 'localhost' : 'co').'/'.coreAssets().'/js/app.2fa.min.js?v='.md5(microtime());
-    //ob_start();
-    //readfile($appPath);
-    //$jsCode = ob_get_contents();
-    //ob_end_clean();
-    return $appPath;
+    if (strpos(HOSTNAME, "localhost") > 0) {
+        $domain .= "localhost";
+    } else if (substr(HOSTNAME, -3) == "dev") {
+        $domain .= "dev";
+    } else {
+        $domain .= "co";
+    }
+
+    return $domain;
 }
 
 function isExec()
@@ -184,7 +180,7 @@ function htmlMinify($Html)
      "$1>",
      "=$1");
 
-    $Html = preg_replace($Search, $Replace, $Html); 
+    $Html = preg_replace($Search, $Replace, $Html);
     return $Html;
 }
 

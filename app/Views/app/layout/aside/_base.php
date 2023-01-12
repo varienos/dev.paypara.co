@@ -1,8 +1,8 @@
 <div id="kt_aside" class="aside border shadow py-9" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_toggle">
   <div class="aside-logo flex-column px-9 my-3 justify-content-center" id="kt_aside_logo">
     <a href="dashboard">
-      <img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="h-60px logo theme-light-show" />
-      <img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="h-60px logo theme-dark-show" />
+      <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="h-60px logo theme-light-show" />
+      <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="h-60px logo theme-dark-show" />
     </a>
     <? if(partner === true): ?>
     <div class="d-flex flex-center mt-4">

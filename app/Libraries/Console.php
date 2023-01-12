@@ -132,7 +132,6 @@ class Console
                 rm -Rf $release/release;
                 rm -Rf $release/deploy;
                 rm -Rf $release/well-known;
-                rm -Rf $release/assets/metronic/tools;
                 rm -Rf $release/deploy.dev.paypara.co;
                 rm -Rf $release/revision;
                 rm -Rf $release/release.dev.paypara.co;

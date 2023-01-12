@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="<?=base_url("assets/branding/favicon.ico") ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?=base_url("assets/core/images/favicon.ico") ?>" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link href="<?=baseUrl(gulpAssets().'/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?=baseUrl(gulpAssets().'/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
@@ -16,8 +16,8 @@
     <div class="d-flex my-auto">
       <div class="d-flex flex-column flex-center mx-auto">
         <div class="mb-15">
-          <img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="logo theme-light-show h-60px h-sm-70px">
-          <img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="logo theme-dark-show h-60px h-sm-70px">
+          <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="logo theme-light-show h-60px h-sm-70px">
+          <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="logo theme-dark-show h-60px h-sm-70px">
         </div>
         <div class="bg-body d-flex flex-center rounded border shadow p-10 min-w-sm-450px">
           <form class="form w-100" method="post" action="<?=baseUrl('secure/authentication') ?>">

@@ -60,7 +60,7 @@ function appViewPath()
 
 function gulpAssets()
 {
-    return 'assets/metronic/template/dist';
+    return 'assets/build/dist';
 }
 
 function coreAssets()
@@ -68,24 +68,20 @@ function coreAssets()
     return 'assets/core';
 }
 
-function appJs()
+function activeDomain()
 {
-    $appPath = (strpos(HOSTNAME,"localhost")>0?'http://':'https://').(SUBDOMAIN=="dev"||SUBDOMAIN=="deploy"?"dev":"app").'.paypara.'.(strpos(HOSTNAME,"localhost")>0?'localhost':'co').'/'.coreAssets().'/js/app.core.js?v='.md5(microtime());
-    //ob_start();
-    //readfile($appPath);
-    //$jsCode = ob_get_contents();
-    //ob_end_clean();
-    return $appPath;
-}
+    $domain = strpos(HOSTNAME, "localhost") > 0 ? "http://" : "https://";
+    $domain .= SUBDOMAIN == "dev" || SUBDOMAIN == "deploy" ? "dev.paypara." : "app.paypara.";
 
-function app2FAJs()
-{
-    $appPath = (strpos(HOSTNAME,"localhost")>0?'http://':'https://').(SUBDOMAIN=="dev"||SUBDOMAIN=="deploy"?"dev":"app").'.paypara.'.(strpos(HOSTNAME,"localhost")>0?'localhost':'co').'/'.coreAssets().'/js/app.2fa.js?v='.md5(microtime());
-    //ob_start();
-    //readfile($appPath);
-    //$jsCode = ob_get_contents();
-    //ob_end_clean();
-    return $appPath;
+    if (strpos(HOSTNAME, "localhost") > 0) {
+        $domain .= "localhost";
+    } else if (substr(HOSTNAME, -3) == "dev") {
+        $domain .= "dev";
+    } else {
+        $domain .= "co";
+    }
+
+    return $domain;
 }
 
 function isExec()
@@ -99,8 +95,6 @@ function isMd5($md5)
 {
     return preg_match('/^[a-f0-9]{32}$/', $md5);
 }
-
-
 
 function stringNormalize($string)
 {
@@ -279,7 +273,6 @@ function jsMinify($str) {
     $input);
 
     return str_replace("var "," var ",$js).";";
-
 }
 
 function phpError($file, $line, $message)
@@ -305,8 +298,6 @@ function userNameShort($name)
 
     return strtoupper($strNew);
 }
-
-
 
 function getString($flag,$controller,$method)
 {
@@ -337,6 +328,5 @@ function getSettingSiteStatus($site_id,$setting)
         return false;
     }
 }
-
 
 ?>

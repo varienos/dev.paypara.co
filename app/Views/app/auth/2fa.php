@@ -16,8 +16,8 @@
     <div class="d-flex my-auto">
       <div class="d-flex flex-column flex-center mx-auto">
         <div class="mb-15">
-          <img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="logo theme-light-show h-60px h-sm-70px">
-          <img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="logo theme-dark-show h-60px h-sm-70px">
+          <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="logo theme-light-show h-60px h-sm-70px">
+          <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="logo theme-dark-show h-60px h-sm-70px">
         </div>
         <div class="bg-body d-flex flex-center rounded border shadow p-10 min-w-sm-450px">
           <form class="form w-100" method="post" action="">
@@ -38,6 +38,6 @@
     </div>
     <script src="<?=baseUrl(gulpAssets().'/plugins/global/plugins.bundle.js') ?>"></script>
     <script src="<?=baseUrl(gulpAssets().'/js/scripts.bundle.js') ?>"></script>
-    <script src="<?=app2FAJs() ?>"></script>
+    <script src="<?=activeDomain() . "/" . coreAssets() . "/js/2fa.js?v=" . md5(microtime()); ?>"></script>
   </body>
 </html>

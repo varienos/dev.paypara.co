@@ -7,11 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:site_name" content="Paypara" />
-    <link rel="shortcut icon" href="<?=base_url("assets/branding/favicon.ico") ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?=base_url("assets/core/images/favicon.ico") ?>" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=coreAssets() ?>/css/app.core.min.css?v=<?=md5(microtime()) ?>">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=coreAssets() ?>/css/app.min.css?v=<?=md5(microtime()) ?>">
 </head>
 <? if(maintenanceStatus=="on"): ?>
 <div class="notice d-flex flex-center shadow-lg bg-danger position-fixed h-45px w-100" style="z-index: 999;">

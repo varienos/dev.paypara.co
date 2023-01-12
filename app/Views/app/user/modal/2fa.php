@@ -54,15 +54,15 @@
                 Enter the code that appears in the Authenticator app and verify the setup.
             </div>
             <div class="d-flex flex-center mb-5 d-none" data-set-2fa-verify>
-                <input type="num" class="form-control form-control-solid text-center w-50 mx-auto" verificationCode maxlength="6" name="verificationCode" id="verificationCode" autocomplete="off" placeholder="Kodu girin"/>
+                <input type="num" class="form-control form-control-solid text-center w-50 mx-auto" verificationCode maxlength="6" name="verificationCode" id="verificationCode" autocomplete="off" placeholder="Enter the code"/>
             </div>
         </div>
         <div class="d-flex flex-center">
-            <div class="btn btn-light-primary" data-set-2fa-qr data-action-button-qr>Enter Code</div>
+            <div class="btn btn-light-primary" data-set-2fa-qr data-action-button-qr>Enter Manually</div>
             <div class="btn btn-light-primary d-none" data-set-2fa-manual data-action-button-manual>Scan QR</div>
-            <div class="btn btn-light-info ms-2" data-set-2fa-next data-action-button-next>Activate</div>
+            <div class="btn btn-success ms-2" data-set-2fa-next data-action-button-next>Activate</div>
             <div class="btn btn-light-primary d-none" data-set-2fa-verify data-action-button-back>Go Back</div>
-            <div class="btn btn-light-success ms-2 d-none" data-set-2fa-verify data-action-button-verify>Verify</div>
+            <div class="btn btn-success ms-2 d-none" data-set-2fa-verify data-action-button-verify>Activate</div>
         </div>
     </div>
 </form>

@@ -24,8 +24,8 @@
                                     </span>
                                 </div>
                                 <a href="dashboard" class="d-flex align-items-center">
-                                    <img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="theme-light-show h-30px" />
-                                    <img alt="Logo" src="<?=baseUrl('assets/branding/logo.png') ?>" class="theme-dark-show h-30px" />
+                                    <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="theme-light-show h-30px" />
+                                    <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="theme-dark-show h-30px" />
                                 </a>
                             </div>
                             <?php require appViewPath().'layout/header/__topbar.php' ?>

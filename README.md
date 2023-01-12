@@ -1,6 +1,6 @@
 <br />
 <div align="center">
-  <img src="assets/branding/logo.png" alt="Paypara Logo" width="350"/>
+  <img src="assets/core/images/logo.png" alt="Paypara Logo" width="350"/>
 </div>
 <br />
 

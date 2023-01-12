@@ -7,10 +7,10 @@
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="<?=base_url('assets/branding/favicon.ico') ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?=base_url('assets/core/images/favicon.ico') ?>" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-    <link href="<?=base_url('assets/metronic/template/dist/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
-    <link href="<?=base_url('assets/metronic/template/dist/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url('assets/build/dist/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?=base_url('assets/build/dist/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
 </head>
 
 <body id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
@@ -24,11 +24,11 @@
     </script>
     <style>
         body {
-            background-image: url("<?= base_url('assets/metronic/template/dist/media/background.jpeg') ?>")
+            background-image: url("<?= base_url('assets/build/dist/media/background.jpeg') ?>")
         }
 
         [data-theme=dark] body {
-            background-image: url("<?= base_url('assets/metronic/template/dist/media/background-dark.jpeg') ?>")
+            background-image: url("<?= base_url('assets/build/dist/media/background-dark.jpeg') ?>")
         }
 
         .border-end {
