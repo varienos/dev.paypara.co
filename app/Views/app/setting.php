@@ -117,19 +117,25 @@
                     <div class="container-xxl" id="kt_container">
                         <div class="card card-flush mb-5 mb-xxl-10 border" style="padding-bottom: 1px;">
                             <div class="card-body pt-3 pb-0">
-                                <ul class="nav nav-line-tabs nav-line-tabs-2x border-transparent fs-4 fw-semibold">
-                                    <li class="nav-item" <?=view_setting!==true?"auth=\"false\"":null; ?>>
-                                        <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5 active" data-bs-toggle="tab" href="#settings-general">General</a>
+                                <ul class="nav nav-line-tabs nav-line-tabs-2x border-transparent fs-4 fw-semibold flex-center flex-md-start">
+                                    <? if(view_setting === true): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark active" data-bs-toggle="tab" href="#settings-general">General</a>
                                     </li>
-                                    <li class="nav-item" <?=view_setting!==true?"auth=\"false\"":null; ?>>
-                                        <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5" data-bs-toggle="tab" href="#settings-methods">Methods</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark" data-bs-toggle="tab" href="#settings-methods">Methods</a>
                                     </li>
-                                    <li class="nav-item" <?=view_firm!==true?"auth=\"false\"":null; ?>>
-                                        <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark me-5  <?=view_setting!==true&&view_firm===true?"active":null; ?>" data-bs-toggle="tab" href="#settings-firms">Firms</a>
+                                    <? endif; ?>
+                                    <? if(view_firm === true): ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark <?= view_setting !== true && view_firm === true ? "active" : null; ?>" data-bs-toggle="tab" href="#settings-firms">Firms</a>
                                     </li>
-                                    <li class="nav-item" <?=view_setting!==true?"auth=\"false\"":null; ?>>
+                                    <? endif; ?>
+                                    <? if(view_setting === true): ?>
+                                    <li class="nav-item">
                                         <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark" data-bs-toggle="tab" href="#settings-logs">Logs</a>
                                     </li>
+                                    <? endif; ?>
                                 </ul>
                             </div>
                         </div>
@@ -264,7 +270,7 @@
                                     </div>
                                     <form id="maintenance-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
                                         <div class="card-body p-9">
-                                            <div class="notice d-flex justify-content-between bg-light-danger rounded border-danger border border-dashed p-6">
+                                            <div class="notice d-flex flex-column flex-md-row justify-content-between bg-light-danger rounded border-danger border border-dashed p-6">
                                                 <div class="d-flex">
                                                     <div class="svg-icon svg-icon-2tx svg-icon-danger me-4">
                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -278,7 +284,7 @@
                                                         <div class="text-gray-700 fs-6 fw-semibold">Activating maintenance mode will halt all transactions throughout the system!</div>
                                                     </div>
                                                 </div>
-                                                <div class="d-flex">
+                                                <div class="d-flex justify-content-center justify-content-md-end mt-5 mt-md-0">
                                                     <label class="form-check form-switch form-switch-md form-check-custom form-check-danger form-check-solid">
                                                         <label class="col-form-label fw-semibold p-0 fs-4 lh-sm me-3">Maintenance:</label>
                                                         <input class="form-check-input w-70px h-30px border border-gray-500" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="maintenanceStatus" data-set="statusSwitch" <? if($param["maintenanceStatus"]=="on" ): ?>checked="checked"
@@ -560,7 +566,7 @@
                                                         <th class="min-w-200px">API Key</td>
                                                         <th class="min-w-80px">Secret Key</td>
                                                         <th class="min-w-60px">Authorized</td>
-                                                        <th class="min-w-100px text-end">Actions</td>
+                                                        <th class="min-w-125px text-end">Actions</td>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>
