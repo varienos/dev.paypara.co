@@ -825,7 +825,7 @@ $.varien = {
             });
             $.blockDatatable = new KTBlockUI(document.querySelector("#datatable_content"));
             $.blockModalContent = new KTBlockUI(document.querySelector("#ajaxModalContent"));
-            KTCookie.set('recordsTotal', 0);
+            KTCookie.set('recordsTotal', 0, {sameSite: 'None', secure: true});
             let created = false;
             $(document).on("click", () => {
                 if (!created) {
@@ -1140,7 +1140,7 @@ $.varien = {
                         $.varien.transaction.datatable.sound();
                     }
                 }
-                KTCookie.set('recordsTotal', info.recordsTotal);
+                KTCookie.set('recordsTotal', info.recordsTotal, {sameSite: 'None', secure: true});
             },
             onLoad: function() {
                 $.table.on('draw', function() {
@@ -2533,12 +2533,12 @@ $.varien = {
                             },
                             callback: (result) => {
                                 if (result == true) {
-                                    KTCookie.set('cancel', 0);
+                                    KTCookie.set('cancel', 0, {sameSite: 'None', secure: true});
                                     $.varien.setting.switch(elm);
                                     $.varien.setting.submitStatus(formId, elm.attr('name'));
                                     $("form#" + formId).submit();
                                 } else {
-                                    KTCookie.set('cancel', 1);
+                                    KTCookie.set('cancel', 1, {sameSite: 'None', secure: true});
                                     elm.trigger("click");
                                 }
                             }
@@ -2549,7 +2549,7 @@ $.varien = {
                             $.varien.setting.submitStatus(formId, elm.attr('name'));
                             $("form#" + formId).submit();
                         }
-                        KTCookie.set('cancel', 0);
+                        KTCookie.set('cancel', 0, {sameSite: 'None', secure: true});
                     }
                 }
             });
