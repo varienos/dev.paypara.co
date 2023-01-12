@@ -1,5 +1,5 @@
 <tr class="text-gray-600 fw-bold fs-7 text-uppercase gs-0">
-  <th class="min-w-50px text-center">DATE</th>
+  <th class="min-w-150px text-center">DATE</th>
   <th class="min-w-50px text-center px-0">TXID</th>
   <th class="min-w-50px text-center px-0">USER ID</th>
   <th class="min-w-50px text-center px-0">ACCOUNT</th>
