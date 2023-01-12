@@ -36,21 +36,21 @@
                         <div class="container-xxl" id="kt_content_container">
                             <div class="card border">
                                 <div class="card-header border-0 pt-6">
-                                    <div class="card-title">
-                                        <div class="d-flex align-items-center position-relative my-1">
+                                    <div class="card-title w-100 w-xxl-auto">
+                                        <div class="d-flex align-items-center w-100 w-xxl-auto my-1">
                                             <span class="svg-icon svg-icon-1 position-absolute ms-6">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
                                                     <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
                                                 </svg>
                                             </span>
-                                            <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-225px ps-15" placeholder="Search transaction" />
+                                            <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-100 w-xxl-225px ps-15" placeholder="Search transaction" />
                                         </div>
                                     </div>
-                                    <div class="card-toolbar">
-                                        <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
-                                            <input class="form-control form-control-solid border border-1 mw-225px me-3" placeholder="Tarih aralığı seçin" value="<?=date("Y-m-d") ?>" name="transactionDate" id="transactionDate" />
-                                            <button type="button" class="btn btn-light mw-125px me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="filtre">
+                                    <div class="card-toolbar w-100 w-xxl-auto">
+                                        <div class="d-flex flex-wrap justify-content-center justify-content-xxl-end gap-3 w-100">
+                                            <input class="form-control form-control-solid border border-1 mw-225px" placeholder="Select a date range" value="<?=date("Y-m-d") ?>" name="transactionDate" id="transactionDate" />
+                                            <button type="button" class="btn btn-light mw-125px" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="filtre">
                                                 <span class="svg-icon svg-icon-2">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor" />
@@ -120,9 +120,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="card-toolbar">
-                                            <a href="#" class="btn btn-light ps-7 me-3" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="islemler">Actions <span class="svg-icon svg-icon-2 me-0">
+                                            <a href="#" class="btn btn-light ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="islemler">Actions <span class="svg-icon svg-icon-2 me-0">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
                                                     </svg>
@@ -142,16 +140,6 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <!--
-                                                <div class="menu-item px-3">
-                                                <div class="menu-content px-3">
-                                                    <label class="form-check form-switch form-check-custom form-check-solid">
-                                                    <div class="form-check-label text-gray-800 fs-6 ps-2 me-3" for="notificationSound">Bildirim Sesleri</div>
-                                                    <input class="form-check-input w-30px h-20px" type="checkbox" value="" name="notificationSound" <? if(notificationSound==1): ?>checked="checked"<? endif; ?> id="notificationSound" />
-                                                    </label>
-                                                </div>
-                                                </div>
-                                                    -->
                                                 <? endif ?>
                                                 <div class="menu-item px-3">
                                                     <div class="menu-content px-3">
@@ -171,9 +159,7 @@
                                                 </div>
                                                 <? endif ?>
                                             </div>
-                                        </div>
-                                        <div class="card-toolbar">
-                                            <button type="button" class="btn btn-light me-3" id="refresh">
+                                            <button type="button" class="btn btn-light" id="refresh">
                                                 <span class="svg-icon svg-icon-2 m-0">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M14.5 20.7259C14.6 21.2259 14.2 21.826 13.7 21.926C13.2 22.026 12.6 22.0259 12.1 22.0259C9.5 22.0259 6.9 21.0259 5 19.1259C1.4 15.5259 1.09998 9.72592 4.29998 5.82592L5.70001 7.22595C3.30001 10.3259 3.59999 14.8259 6.39999 17.7259C8.19999 19.5259 10.8 20.426 13.4 19.926C13.9 19.826 14.4 20.2259 14.5 20.7259ZM18.4 16.8259L19.8 18.2259C22.9 14.3259 22.7 8.52593 19 4.92593C16.7 2.62593 13.5 1.62594 10.3 2.12594C9.79998 2.22594 9.4 2.72595 9.5 3.22595C9.6 3.72595 10.1 4.12594 10.6 4.02594C13.1 3.62594 15.7 4.42595 17.6 6.22595C20.5 9.22595 20.7 13.7259 18.4 16.8259Z" fill="currentColor" />
@@ -181,8 +167,6 @@
                                                     </svg>
                                                 </span>
                                             </button>
-                                        </div>
-                                        <div class="card-toolbar">
                                             <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="export">
                                                 <span class="svg-icon svg-icon-2 m-0">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
