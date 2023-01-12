@@ -2019,7 +2019,7 @@ $.varien = {
     },
     customer: {
         init: function() {
-            $("[data-page-title]").html("Clients");
+            $("[data-page-title]").html("Customers");
             if ($.varien.segment(2) == "index") {
                 $.varien.include("customer/include/datatableHead", "datatable-head").then(function(colNum) {
                     $.varien.customer.datatable.init(colNum)
@@ -2070,8 +2070,6 @@ $.varien = {
                         data: function(d) {
                             d.selectClient = $("#selectClient").val();
                             d.isVip = $("#isVip").val();
-                            //d.deposit      = $("#deposit").val();
-                            //d.withdraw     = $("#withdraw").val();
                         }
                     }
                 });
