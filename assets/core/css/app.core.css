@@ -55,7 +55,7 @@
 }
 
 .fade {
-    transition: 0.12 -webkit-filter linear;
+    transition: .1s -webkit-filter linear;
 }
 
 .show .ajaxModalContent {
