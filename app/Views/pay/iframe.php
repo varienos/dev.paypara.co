@@ -44,7 +44,7 @@
                       </div>
                       <p id="description" class="fs-6 text-gray-700 fw-normal text-wrap"><span class="fw-bold text-dark"><?= $clientName ?></span> hesabına bakiye yüklemek için adımları takip et.</p>
                     </div>
-                    <img src="<?= base_url() ?>/assets/core/iframe/images/logo.png" class="m-0" width="146px" height="47px" alt="Paypara Logo">
+                    <img src="<?= base_url() ?>/assets/core/iframe/images/logo.png" class="m-0 logo" width="146px" height="47px" alt="Paypara Logo">
                   </div>
                   <div class="steps-wrapper d-flex flex-row flex-center h-100">
                     <!-- API Status -->

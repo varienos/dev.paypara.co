@@ -304,8 +304,8 @@
                                                             <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                                                                 <tr class="text-start text-muted text-uppercase gs-0">
                                                                     <th class="min-w-100px">Location</th>
-                                                                    <th>Device</th>
-                                                                    <th>IP Address</th>
+                                                                    <th class="min-w-100px">Device</th>
+                                                                    <th class="min-w-100px">IP Address</th>
                                                                     <th class="min-w-125px">Last Login</th>
                                                                     <th class="min-w-70px">Session</th>
                                                                 </tr>
