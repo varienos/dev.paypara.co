@@ -1,16 +1,16 @@
-import { cleanTask } from "./assets/build/clean.js";
+import { cleanTask } from "./assets/build/src/clean.js";
 import {
   localHostTask,
   reloadTask,
   watchTask,
   watchSCSSTask,
   watchJSTask,
-} from "./assets/build/watch.js";
+} from "./assets/build/src/watch.js";
 import {
   // rtlTask,
   // buildBundleTask,
   compileTask,
-} from "./assets/build/compile.js";
+} from "./assets/build/src/compile.js";
 
 // Clean tasks:
 export { cleanTask as clean };
