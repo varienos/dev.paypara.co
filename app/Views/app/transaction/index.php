@@ -139,7 +139,7 @@
                                                     <div class="menu-content px-3">
                                                         <label class="form-check form-switch form-check-custom form-check-solid">
                                                             <div class="form-check-label text-gray-800 fs-6 ps-2 me-3" for="notifications">Notifications</div>
-                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="" name="notifications" <? if(notificationSound==1): ?>checked="checked"
+                                                            <input class="form-check-input w-35px h-20px" type="checkbox" value="" name="notifications" <? if(notificationSound==1): ?>checked="checked"
                                                             <? endif; ?> id="notifications" />
                                                         </label>
                                                     </div>
@@ -149,7 +149,7 @@
                                                     <div class="menu-content px-3">
                                                         <label class="form-check form-switch form-check-custom form-check-solid">
                                                             <div class="form-check-label text-gray-800 fs-6 ps-2 me-3" for="sync">Auto Refresh</div>
-                                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="" " name=" sync" checked="checked" id="sync" />
+                                                            <input class="form-check-input w-35px h-20px" type="checkbox" value="" " name=" sync" checked="checked" id="sync" />
                                                         </label>
                                                     </div>
                                                 </div>
