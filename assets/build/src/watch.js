@@ -2,7 +2,6 @@ import gulp from "gulp";
 import connect from "gulp-connect";
 import { build } from "./build.js";
 import { compileTask } from "./compile.js";
-import { getDemo } from "./helpers.js";
 
 // localhost site
 const localHostTask = (cb) => {

@@ -5,14 +5,8 @@ const gulpConfig = {
   config: {
     debug: false,
     compile: {
-      rtl: {
-        enabled: false,
-        skip: [],
-      },
       jsMinify: true,
       cssMinify: true,
-      jsSourcemaps: false,
-      cssSourcemaps: false,
     },
     path: {
       src: "assets/build/src",

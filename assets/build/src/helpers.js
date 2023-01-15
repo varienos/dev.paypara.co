@@ -1,21 +1,19 @@
-import gulp from "gulp";
-import sass from "gulp-dart-sass";
-import rename from "gulp-rename";
-import rewrite from "gulp-rewrite-css";
-import concat from "gulp-concat";
-import lazypipe from "lazypipe";
-import gulpif from "gulp-if";
-import terser from "gulp-terser";
-import sourcemaps from "gulp-sourcemaps";
-import path, * as pathDir from "path";
 import fs from "fs";
-import rtlcss from "gulp-rtlcss";
-import cleancss from "gulp-clean-css";
-import yargs from "yargs";
-import {hideBin} from 'yargs/helpers'
 import glob from "glob";
-import {fileURLToPath} from 'url';
-import {build} from "./build.js";
+import gulp from "gulp";
+import yargs from "yargs";
+import gulpif from "gulp-if";
+import lazypipe from "lazypipe";
+import rename from "gulp-rename";
+import terser from "gulp-terser";
+import concat from "gulp-concat";
+import sass from "gulp-dart-sass";
+import { build } from "./build.js";
+import { fileURLToPath } from 'url';
+import path, * as pathDir from "path";
+import cleancss from "gulp-clean-css";
+import rewrite from "gulp-rewrite-css";
+import { hideBin } from 'yargs/helpers';
 
 const argv = yargs(hideBin(process.argv)).argv;
 
@@ -39,7 +37,6 @@ if (args.sass === false && args.js === false && args.media === false) {
 const config = Object.assign(
   {},
   {
-    demo: "",
     debug: true,
     compile: {
       jsMinify: false,
@@ -99,35 +96,20 @@ function objectWalkRecursive(array, funcname, userdata) {
  */
 const jsChannel = () => {
   const { compile } = config;
-  const { jsSourcemaps, jsMinify } = compile;
+  const { jsMinify } = compile;
   return lazypipe()
-    .pipe(() => {
-      return gulpif(
-        jsSourcemaps,
-        sourcemaps.init({ loadMaps: true, debug: config.debug })
-      );
-    })
     .pipe(() => {
       return gulpif(jsMinify, terser());
     })
-    .pipe(() => {
-      return gulpif(jsSourcemaps, sourcemaps.write("./"));
-    });
 };
 
 /**
  * Add CSS compilation options to gulp pipe
  */
-const cssChannel = (rtl, includePaths) => {
+const cssChannel = (includePaths) => {
   const { compile } = config;
-  const { cssSourcemaps, cssMinify } = compile;
+  const { cssMinify } = compile;
   return lazypipe()
-    .pipe(() => {
-      return gulpif(
-        cssSourcemaps,
-        sourcemaps.init({ loadMaps: true, debug: config.debug })
-      );
-    })
     .pipe(() => {
       return sass({
         errLogToConsole: true,
@@ -138,15 +120,8 @@ const cssChannel = (rtl, includePaths) => {
       }).on("error", sass.logError);
     })
     .pipe(() => {
-      // convert rtl for style.bundle.css only here, others already converted before
-      return gulpif(rtl, rtlcss());
-    })
-    .pipe(() => {
       return gulpif(cssMinify, cleancss());
     })
-    .pipe(() => {
-      return gulpif(cssSourcemaps, sourcemaps.write("./"));
-    });
 };
 
 /**
@@ -305,87 +280,13 @@ const baseFileName = (path) => {
   return "";
 };
 
-const baseName = (str, extension) => {
-  let base = new String(str).substring(str.lastIndexOf("/") + 1);
-  if (!extension && base.lastIndexOf(".") != -1) {
-    base = base.substring(0, base.lastIndexOf("."));
-  }
-  return base;
-};
-
-/**
- * Remove file name and get the path
- */
-const pathOnly = (str) => {
-  const array = str.split("/");
-  if (array.length > 0) {
-    array.pop();
-  }
-
-  return array.join("/");
-};
-
-const getDemos = () => {
-  if (build.build.demos) {
-    return [];
-  }
-
-  let demos = Object.keys(build.build.demos);
-  // build by demo, leave demo empty to generate all demos
-  if (typeof build.config.demo !== "undefined" && build.config.demo !== "") {
-    demos = build.config.demo.split(",").map((item) => {
-      return item.trim();
-    });
-  }
-  return demos;
-};
-
-const getFolders = (dir) => {
-  return fs.readdirSync(dir).filter((file) => {
-    return fs.statSync(path.join(dir, file)).isDirectory();
-  });
-};
-
-const getParameters = () => {
-  // remove first 2 unused elements from array
-  let argv = JSON.parse(process.env.npm_config_argv).cooked.slice(2);
-  argv = argv.map((arg) => {
-    return arg.replace(/--/i, "");
-  });
-  return argv;
-};
-
-const getDemo = () => {
-  // get demo from parameters
-  let demo = Object.keys(argv)
-      .join(" ")
-      .match(/(demo\d+)/gi) || "";
-
-  if (typeof demo === "object") {
-    demo = demo[0];
-  }
-
-  return demo === '' ? 'demo3' : demo;
-};
-
-const getTheme = () => {
-  // get demo from parameters
-  const theme = Object.keys(argv)[1];
-  const folders = getFolders(build.config.path.src.split("{theme}")[0]);
-  if (folders.indexOf(theme) !== -1) {
-    return theme;
-  }
-  // default theme
-  return "start";
-};
-
 const bundleStreams = [];
 
 /**
  * Bundle
  * @param bundle
  */
-const bundle = (bundle) => {
+const bundler = (bundle) => {
   let stream;
 
   if (bundle.hasOwnProperty("src") && bundle.hasOwnProperty("dist")) {
@@ -464,9 +365,7 @@ const bundle = (bundle) => {
         continue;
       }
       // skip if not array
-      if (
-        Object.prototype.toString.call(bundle.src[type]) !== "[object Array]"
-      ) {
+      if (Object.prototype.toString.call(bundle.src[type]) !== "[object Array]") {
         continue;
       }
       // skip if no bundle output is provided
@@ -480,49 +379,6 @@ const bundle = (bundle) => {
       switch (type) {
         case "styles":
           if (bundle.dist.hasOwnProperty(type)) {
-
-            // rtl css bundle
-            if (
-              typeof build.config.compile.rtl !== "undefined" &&
-              build.config.compile.rtl.enabled
-            ) {
-              let toRtlFiles = [];
-              let rtlFiles = [];
-              bundle.src[type].forEach((path) => {
-                // get rtl css file path
-                let cssFile =
-                  pathOnly(path) + "/" + baseName(path) + ".rtl.css";
-                // check if rtl file is exist
-                if (
-                  fs.existsSync(cssFile) &&
-                  build.config.compile.rtl.skip.indexOf(baseName(path)) === -1
-                ) {
-                  rtlFiles = rtlFiles.concat(cssFile);
-                } else {
-                  // rtl css file not exist, use default css file
-                  cssFile = path;
-                }
-                toRtlFiles = toRtlFiles.concat(cssFile);
-              });
-
-              let shouldRtl = false;
-              if (baseName(bundle.dist[type]) === "style.bundle") {
-                shouldRtl = true;
-              }
-
-              const rtlOutput = pathOnly(bundle.dist[type]) + "/" + baseName(bundle.dist[type]) + ".rtl.css";
-              stream = gulp
-                .src(toRtlFiles, { allowEmpty: true })
-                .pipe(cssRewriter(bundle.dist)())
-                .pipe(concat(baseName(bundle.dist[type]) + ".rtl.css"))
-                .pipe(cssChannel(shouldRtl)());
-              const outputRTLCSS = outputChannel(rtlOutput, baseName(bundle.dist[type]) + ".rtl.css", type)();
-              if (outputRTLCSS) {
-                stream.pipe(outputRTLCSS);
-              }
-              bundleStreams.push(stream);
-            }
-
             // default css bundle
             stream = gulp
               .src(bundle.src[type], { allowEmpty: true })
@@ -550,9 +406,7 @@ const bundle = (bundle) => {
             }
             bundleStreams.push(stream);
           }
-
           break;
-
         case "fonts":
         case "images":
           if (bundle.dist.hasOwnProperty(type)) {
@@ -591,7 +445,6 @@ const outputFunc = (bundle) => {
       if (bundle.dist.hasOwnProperty(type)) {
         switch (type) {
           case "styles":
-            // non rtl styles
             stream = gulp
               .src(bundle.src[type], { allowEmpty: true })
               .pipe(cssChannel()());
@@ -600,28 +453,6 @@ const outputFunc = (bundle) => {
               stream.pipe(outputStyles);
             }
             outputFuncStreams.push(stream);
-
-            // rtl styles for scss
-            let shouldRtl = false;
-            if (
-              typeof build.config.compile.rtl !== "undefined" &&
-              build.config.compile.rtl.enabled
-            ) {
-              bundle.src[type].forEach((output) => {
-                if (output.indexOf(".scss") !== -1) {
-                  shouldRtl = true;
-                }
-              });
-              stream = gulp
-                .src(bundle.src[type], { allowEmpty: true })
-                .pipe(cssChannel(shouldRtl)())
-                .pipe(rename({ suffix: ".rtl" }));
-              const rtlOutput = outputChannel(bundle.dist[type], undefined, type)();
-              if (rtlOutput) {
-                stream.pipe(rtlOutput);
-              }
-              outputFuncStreams.push(stream);
-            }
             break;
           case "scripts":
             /**
@@ -635,9 +466,7 @@ const outputFunc = (bundle) => {
 
               const __filename = fileURLToPath(import.meta.url);
               const __dirname = pathDir.dirname(__filename);
-              const needBundleFiles = glob.sync(
-                path.resolve(__dirname, "../" + needBundleFileWildLocation)
-              );
+              const needBundleFiles = glob.sync(path.resolve(__dirname, "../" + needBundleFileWildLocation));
               if (needBundleFiles.length > 0) {
                 const needBundleByGroup = [];
                 needBundleFiles.forEach((js) => {
@@ -679,11 +508,9 @@ const outputFunc = (bundle) => {
                   outputFuncStreams.push(needBundleStream);
 
                   // exclude bundle folder from next gulp process
-                  bundle.src[type].push(
-                    "!" +
-                      path
-                        .dirname(needBundleFileWildLocation)
-                        .replace(/\*+?\/bundle/, "") +
+                  bundle.src[type].push("!" +
+                      path.dirname(needBundleFileWildLocation)
+                      .replace(/\*+?\/bundle/, "") +
                       needBundleDir.replace(/\/bundle.*?$/, "/**")
                   );
                 }
@@ -722,12 +549,7 @@ const outputFunc = (bundle) => {
 // Exports
 export {
   argv,
-  getDemo,
-  getTheme,
-  objectWalkRecursive,
-  dotPath,
-  pathOnly,
+  bundler,
   outputFunc,
-  bundle,
-  getFolders,
+  objectWalkRecursive,
 };
