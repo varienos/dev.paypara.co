@@ -4,13 +4,20 @@
 </div>
 <br />
 
-## 1. Getting Started
+## Getting Started
 
-- TODO
+- Clone this repository
+- Run `composer update` to install php modules
+- Run `yarn install` to install node modules
+- Run `yarn build` to build the frontend assets
 
-## 2. Contributing
-
-- TODO
+## Setup Local Dev Environment
+- To setup your local development environment with ddev:
+  - Install docker and ddev using the [docs](https://ddev.readthedocs.io/en/stable/)
+  - Run `ddev start` to start the project
+  - Run `ddev restart` to restart the project
+  - Run `ddev status` to get the detailed information
+  - Run `ddev ssh` and `ping db` to find out the db ip address
 
 ## Server Requirements
 
@@ -18,17 +25,12 @@ PHP version 8.0 is required, with the following extensions installed:
 
 - [intl](http://php.net/manual/en/intl.requirements.php)
 - [libcurl](http://php.net/manual/en/curl.requirements.php)
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
 - [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
 
 ## License
 
-The contents of this project are proprietary and confidential.
+Paypara is released under the proprietary license and it is confidential.
+
 Unauthorized copying, transferring or reproduction of the contents of this project, via any medium is strictly prohibited.
 
-See [LICENSE](https://github.com/OpenBB-finance/OpenBBTerminal/blob/main/LICENSE) for more information.
+See [LICENSE](https://github.com/bozoknet/dev.paypara.co/blob/master/LICENSE) for more information.
