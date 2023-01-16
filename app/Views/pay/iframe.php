@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paypara'ya Hoşgeldin!</title>
     <link rel="shortcut icon" href="<?= base_url('assets/core/images/favicon.ico') ?>" type="image/x-icon">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/css/custom.css?v=<?=md5(microtime()) ?>">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/css/custom.css?v=<?=md5(microtime()) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -354,10 +354,10 @@
     const userNick = <?= isset($userNick) ? json_encode(base64_encode($userNick)) : "null" ?>;
     const callback = <?= isset($callbackUrl) ? json_encode(base64_encode($callbackUrl)) : "null" ?>;
     </script>
-    <script src="<?=baseUrl() ?>/<?=gulpAssets() ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
-    <script src="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
-    <script src="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/js/imask.min.js?v=<?=getVersion() ?>"></script>
-    <script src="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/js/qrcode.min.js?v=<?=getVersion() ?>"></script>
-    <script src="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/js/script.js?v=<?= md5(microtime()) ?>"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/imask.min.js?v=<?=getVersion() ?>"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/qrcode.min.js?v=<?=getVersion() ?>"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/script.js?v=<?= md5(microtime()) ?>"></script>
   </body>
 </html>

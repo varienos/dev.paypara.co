@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<?=base_url("assets/core/images/favicon.ico") ?>" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
-    <link href="<?=baseUrl(gulpAssets().'/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
-    <link href="<?=baseUrl(gulpAssets().'/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?=baseUrl(assetsPath().'/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?=baseUrl(assetsPath().'/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
   </head>
   <body id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
-    <style>body{background-image:url('<?=baseUrl(gulpAssets().'/media/background.jpeg') ?>')}[data-theme=dark] body{background-image:url('<?=baseUrl(gulpAssets().'/media/background-dark.jpeg') ?>')} .logo:hover {filter: drop-shadow(0 0 2rem #d95158)};</style>
+    <style>body{background-image:url('<?=baseUrl(assetsPath().'/media/background.jpeg') ?>')}[data-theme=dark] body{background-image:url('<?=baseUrl(assetsPath().'/media/background-dark.jpeg') ?>')} .logo:hover {filter: drop-shadow(0 0 2rem #d95158)};</style>
     <div class="d-flex my-auto">
       <div class="d-flex flex-column flex-center mx-auto">
         <div class="mb-15">
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    <script src="<?=baseUrl(gulpAssets().'/plugins/global/plugins.bundle.js') ?>"></script>
-    <script src="<?=baseUrl(gulpAssets().'/js/scripts.bundle.js') ?>"></script>
+    <script src="<?=baseUrl(assetsPath().'/plugins/global/plugins.bundle.js') ?>"></script>
+    <script src="<?=baseUrl(assetsPath().'/js/scripts.bundle.js') ?>"></script>
   </body>
 </html

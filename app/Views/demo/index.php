@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paypara Payment Demo</title>
-    <link rel="shortcut icon" href="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.css">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=gulpAssets() ?>/css/style.bundle.css">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/css/custom.css?v=<?=md5(microtime()) ?>">
+    <link rel="shortcut icon" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.css">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/css/style.bundle.css">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/css/custom.css?v=<?=md5(microtime()) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
                     <i class="bi-code-slash fs-2hx text-dark me-3"></i>
                     <h3 id="header" class="fs-2x fw-bolder"></i>Payment Demo</h3>
                   </div>
-                  <img src="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/images/logo.png" class="d-none d-sm-block m-0" width="110px" height="37px" alt="Paypara Logo">
+                  <img src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/logo.png" class="d-none d-sm-block m-0" width="110px" height="37px" alt="Paypara Logo">
                 </div>
                 <div class="overflow-scroll rounded border p-10 h-100">
                   <form id="demoForm" class="form ps-0" method="post" enctype="multipart/form-data" target="_blank" autocomplete="off">
@@ -84,10 +84,10 @@
         </div>
       </div>
     </div>
-    <script src="<?=baseUrl() ?>/<?=gulpAssets() ?>/js/scripts.bundle.js"></script>
-    <script src="<?=baseUrl() ?>/<?=gulpAssets() ?>/plugins/global/plugins.bundle.js"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/js/scripts.bundle.js"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.js"></script>
     <script><?=jsObfuscator(getJsClientData,'inline'); ?></script>
-    <!--<script src="https://dev.paypara.co/<?=coreAssets() ?>/js/app.core.error.handler.js?v=<?=md5(microtime()) ?>"></script>-->
-    <script src="<?=baseUrl() ?>/<?=coreAssets() ?>/iframe/js/demo.js?v=<?=md5(microtime()) ?>"></script>
+    <!--<script src="https://dev.paypara.co/<?=assetsPath() ?>/js/app.core.error.handler.js?v=<?=md5(microtime()) ?>"></script>-->
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/demo.js?v=<?=md5(microtime()) ?>"></script>
   </body>
 </html>

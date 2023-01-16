@@ -31,6 +31,21 @@ const gulpConfig = {
         scripts: "{$config.dist}/js/scripts.bundle.js",
       },
     },
+    core: {
+      src: {
+        styles: [
+          "{$config.path.core_path}/css/app.css"
+        ],
+        scripts: [
+          "{$config.path.core_path}/js/2fa.js",
+          "{$config.path.core_path}/js/app.js",
+        ],
+      },
+      dist: {
+        styles: "{$config.dist}/css/",
+        scripts: "{$config.dist}/js/",
+      },
+    },
     plugins: {
       global: {
         src: {

@@ -1,7 +1,7 @@
 import gulp from "gulp";
 import connect from "gulp-connect";
 import { build } from "./build.js";
-import { compileTask } from "./compile.js";
+import { bundleTask } from "./compile.js";
 
 // localhost site
 const localHostTask = (cb) => {
@@ -20,21 +20,21 @@ const reloadTask = (cb) => {
 const watchTask = () => {
   return gulp.watch(
     [build.config.path.src + "/**/*.js", build.config.path.src + "/**/*.scss"],
-    gulp.series(compileTask)
+    gulp.series(bundleTask)
   );
 };
 
 const watchSCSSTask = () => {
   return gulp.watch(
     build.config.path.src + "/**/*.scss",
-    gulp.parallel(compileTask)
+    gulp.parallel(bundleTask)
   );
 };
 
 const watchJSTask = () => {
   return gulp.watch(
     build.config.path.src + "/**/*.js",
-    gulp.parallel(compileTask)
+    gulp.parallel(bundleTask)
   );
 };
 

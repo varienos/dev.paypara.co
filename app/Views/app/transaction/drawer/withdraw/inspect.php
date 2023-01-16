@@ -36,7 +36,7 @@
                             <div class="card shadow-sm mt-13">
                                 <div class="card-body px-0 pb-0 pt-8">
                                     <div class="d-flex flex-column rounded-2 w-100 p-0 mt-5">
-                                        <img class="position-absolute align-self-center border rounded-4 w-50px h-50px" style="top: -27px;" src="<?=baseUrl() ?>/<?=gulpAssets() ?>/media/avatar.png" alt="" />
+                                        <img class="position-absolute align-self-center border rounded-4 w-50px h-50px" style="top: -27px;" src="<?=baseUrl() ?>/<?=assetsPath() ?>/media/avatar.png" alt="" />
                                         <div class="d-flex flex-column flex-center">
                                             <a href="javascript:;" data-set-customerLink class="d-flex text-reset text-hover-primary">
                                                 <p class="fs-3 fw-bolder m-0 me-2 text-dark" data-set-customer></p>
@@ -127,7 +127,7 @@
                             <div class="separator separator-dashed my-6"></div>
                             <div class="row ps-3">
                                 <h4 class="mb-3 p-0">Client Note</h4>
-                                <textarea class="form-control form-control-solid border p-2" style="resize: none; overflow: scroll;" spellcheck="false" disabled data-set-customerNote></textarea>
+                                <textarea class="form-control form-control-solid border h-75px p-2" style="resize: none; overflow: auto;" spellcheck="false" disabled data-set-customerNote></textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade p-5" id="tab_actions" role="tabpanel">
@@ -137,7 +137,7 @@
                                     <a href="#" class="btn text-primary text-hover-dark fs-4 p-0">Add</a>
                                 </div>
                                 <div class="d-flex p-0">
-                                    <img class="align-self-center rounded-circle w-50px p-0 me-3" src="<?=baseUrl() ?>/<?=gulpAssets() ?>/media/avatar.png" alt="" />
+                                    <img class="align-self-center rounded-circle w-50px p-0 me-3" src="<?=baseUrl() ?>/<?=assetsPath() ?>/media/avatar.png" alt="" />
                                     <div class="d-flex flex-column justify-content-center">
                                         <p class="fs-5 fw-bolder m-0">Mustafa Veli Topal</p>
                                         <p class="fs-6 fw-semibold text-gray-700 m-0">Reserved At: Deposit</p>

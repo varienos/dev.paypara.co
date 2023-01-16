@@ -27,11 +27,11 @@ if (args.prod !== false) {
 }
 
 // task to bundle js/css
-let bundle = (cb) => {
+let compile = (cb) => {
   var streams = [];
   objectWalkRecursive(build.build, function (val, key) {
     if (val.hasOwnProperty("src") && val.hasOwnProperty("dist")) {
-      if (["custom", "media", "api", "misc"].indexOf(key) !== -1) {
+      if (["core", "custom", "media", "api", "misc"].indexOf(key) !== -1) {
         outputFunc(val);
       } else {
         streams = bundler(val);
@@ -47,14 +47,14 @@ if (!args.sass && !args.js && !args.media) {
   tasks.push(clean);
 }
 
-tasks.push(bundle);
+tasks.push(compile);
 
 if (args.presets && fs.existsSync(build.config.path.src + '/sass/presets')) {
   const presets = fs.readdirSync(build.config.path.src + '/sass/presets');
 
   objectWalkRecursive(build.build, function (val, key) {
     if (val.hasOwnProperty("src") && val.hasOwnProperty("dist")) {
-      if (["custom", "media", "api", "misc"].indexOf(key) !== -1) {
+      if (["core", "custom", "media", "api", "misc"].indexOf(key) !== -1) {
       } else {
         // build for presets
         if (typeof val.src.styles !== 'undefined') {
@@ -92,4 +92,4 @@ if (args.presets && fs.existsSync(build.config.path.src + '/sass/presets')) {
 }
 
 // entry point
-export const compileTask = gulp.series(...tasks);
+export const bundleTask = gulp.series(...tasks);

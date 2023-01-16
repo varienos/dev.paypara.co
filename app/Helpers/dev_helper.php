@@ -58,14 +58,9 @@ function appViewPath()
     return APPPATH.'Views/app/';
 }
 
-function gulpAssets()
+function assetsPath()
 {
     return 'assets/build/dist';
-}
-
-function coreAssets()
-{
-    return 'assets/core';
 }
 
 function activeDomain()

@@ -213,7 +213,7 @@ $.varien = {
     },
     dev: {
         init: function() {
-            $.getScript(window.location.protocol + "//" + window.location.hostname + "/" + $.resource.gulpAssets + "/plugins/custom/css-element-queries/css.element.queries.bundle.js");
+            $.getScript(window.location.protocol + "//" + window.location.hostname + "/" + $.resource.assetsPath + "/plugins/custom/css-element-queries/css.element.queries.bundle.js");
             document.addEventListener('keydown', function(event) {
                 if (event.keyCode == 36) {
                     $.varien.modal.event.load("dev", function() {
@@ -832,7 +832,7 @@ $.varien = {
                     created = true;
                     console.log('document.createElement("audio")');
                     let v = document.createElement("audio");
-                    v.setAttribute("src", $.resource.coreAssets + "/audio/notification.mp3");
+                    v.setAttribute("src", $.resource.assetsPath + "/audio/notification.mp3");
                     v.setAttribute("muted", "muted");
                     v.setAttribute("id", "notification");
                     document.body.appendChild(v);

@@ -4,8 +4,8 @@
             </div>
         </div>
 
-		<script src="<?=baseUrl(gulpAssets().'/') ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
-        <script src="<?=baseUrl(gulpAssets().'/') ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
-        <script src="<?=activeDomain() . "/" . coreAssets() . "/js/app.js?v=" . md5(microtime()); ?>"></script>
+		<script src="<?=baseUrl(assetsPath().'/') ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
+        <script src="<?=baseUrl(assetsPath().'/') ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
+        <script src="<?=activeDomain() . "/" . assetsPath() . "/js/app.js?v=" . md5(microtime()); ?>"></script>
 	</body>
 </html>
