@@ -1,19 +1,19 @@
 import { clean } from "./assets/build/src/clean.js";
-import { bundleTask } from "./assets/build/src/compile.js";
-import { localHostTask, reloadTask, watchTask, watchSCSSTask, watchJSTask } from "./assets/build/src/watch.js";
+import { bundle } from "./assets/build/src/compile.js";
+import { localhost, reload, watch, watchCSS, watchJS } from "./assets/build/src/watch.js";
 
 // Clean tasks:
 export { clean };
 
 // Watch tasks:
-export { localHostTask as localhost };
-export { reloadTask as reload };
-export { watchTask as watch };
-export { watchSCSSTask as watchSCSS };
-export { watchJSTask as watchJS };
+export { localhost };
+export { reload };
+export { watch };
+export { watchCSS };
+export { watchJS };
 
 // Main tasks:
-export { bundleTask as bundle };
+export { bundle };
 
 // Entry point:
-export default bundleTask;
+export default bundle;

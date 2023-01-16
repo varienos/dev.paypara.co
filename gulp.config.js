@@ -46,6 +46,21 @@ const gulpConfig = {
         scripts: "{$config.dist}/js/",
       },
     },
+    iframe: {
+      src: {
+        styles: [
+          "{$config.path.core_path}/iframe/css/app.css"
+        ],
+        scripts: [
+          "{$config.path.core_path}/iframe/js/app.js",
+          "{$config.path.core_path}/iframe/js/demo.js",
+        ],
+      },
+      dist: {
+        styles: "{$config.dist}/iframe/css/",
+        scripts: "{$config.dist}/iframe/js/",
+      },
+    },
     plugins: {
       global: {
         src: {

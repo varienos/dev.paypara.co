@@ -1,10 +1,10 @@
 import gulp from "gulp";
 import connect from "gulp-connect";
 import { build } from "./build.js";
-import { bundleTask } from "./compile.js";
+import { bundle } from "./compile.js";
 
 // localhost site
-const localHostTask = (cb) => {
+const localhost = (cb) => {
   connect.server({
     root: "..",
     livereload: true,
@@ -12,34 +12,34 @@ const localHostTask = (cb) => {
   cb();
 };
 
-const reloadTask = (cb) => {
+const reload = (cb) => {
   connect.reload();
   cb();
 };
 
-const watchTask = () => {
+const watch = () => {
   return gulp.watch(
-    [build.config.path.src + "/**/*.js", build.config.path.src + "/**/*.scss"],
-    gulp.series(bundleTask)
+    [build.config.path.core_path + "/js/**/*.js", build.config.path.core_path + "/css/**/*.css"],
+    gulp.series(bundle)
   );
 };
 
-const watchSCSSTask = () => {
+const watchCSS = () => {
   return gulp.watch(
-    build.config.path.src + "/**/*.scss",
-    gulp.parallel(bundleTask)
+    build.config.path.core_path + "/css/**/*.css",
+    gulp.parallel(bundle)
   );
 };
 
-const watchJSTask = () => {
+const watchJS = () => {
   return gulp.watch(
-    build.config.path.src + "/**/*.js",
-    gulp.parallel(bundleTask)
+    build.config.path.core_path + "/js/**/*.js",
+    gulp.parallel(bundle)
   );
 };
 
 // Exports
 export {
-  localHostTask,
-  reloadTask, watchTask, watchSCSSTask, watchJSTask
+  localhost,
+  reload, watch, watchCSS, watchJS
 };

@@ -113,28 +113,30 @@ function bankName($key)
 
 function bankArray($available=1)
 {
-    $x=     ["1"=>"Akbank",
-            "2"=>"Albaraka Türk",
-            "3"=>"Alternatif Bank",
-            "4"=>"Burgan Bank",
-            "5"=>"Denizbank",
-            "6"=>"Fibabanka",
-            "7"=>"Garanti BBVA",
-            "8"=>"Halkbank",
-            "9"=>"HSBC",
-            "10"=>"ING Bank",
-            "11"=>"İş Bankası",
-            "12"=>"Kuveyt Türk",
-            "13"=>"Şekerbank",
-            "14"=>"Odeabank",
-            "15"=>"TEB",
-            "16"=>"Türkiye Finans",
-            "17"=>"Vakıf Katılım",
-            "18"=>"Vakıfbank",
-            "19"=>"Yapı Kredi",
-            "20"=>"Ziraat Bankası",
-            "21"=>"Ziraat Katılım",
-            "22"=>"QNB Finansbank"];
+    $x = [
+        "1"=>"Akbank",
+        "2"=>"Albaraka Türk",
+        "3"=>"Alternatif Bank",
+        "4"=>"Burgan Bank",
+        "5"=>"Denizbank",
+        "6"=>"Fibabanka",
+        "7"=>"Garanti BBVA",
+        "8"=>"Halkbank",
+        "9"=>"HSBC",
+        "10"=>"ING Bank",
+        "11"=>"İş Bankası",
+        "12"=>"Kuveyt Türk",
+        "13"=>"Şekerbank",
+        "14"=>"Odeabank",
+        "15"=>"TEB",
+        "16"=>"Türkiye Finans",
+        "17"=>"Vakıf Katılım",
+        "18"=>"Vakıfbank",
+        "19"=>"Yapı Kredi",
+        "20"=>"Ziraat Bankası",
+        "21"=>"Ziraat Katılım",
+        "22"=>"QNB Finansbank"
+    ];
 
     if($available==1) {
         if(strlen(availableBanks)<1) {

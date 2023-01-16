@@ -164,7 +164,7 @@ function setActiveSteps() {
 function generateQR(accountNumber, amount, clear = false) {
   try {
     if (clear) qrCode.clear();
-    qrCode.makeCode("https://www.papara.com/personal/qr?accountNumber=" + accountNumber + "&currency=0&amount=" + amount); 
+    qrCode.makeCode("https://www.papara.com/personal/qr?accountNumber=" + accountNumber + "&currency=0&amount=" + amount);
   } catch {}
 }
 
