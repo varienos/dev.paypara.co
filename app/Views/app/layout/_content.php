@@ -3,19 +3,19 @@
     <div class="col-xl-3 p-0 pe-xl-3">
       <div class="card card-bordered bg-success bg-opacity-25 mb-5">
         <div class="card-body">
-          <h5 class="card-title fw-semibold text-gray-700 pb-2">Approved Deposits</h5>
+          <h5 class="card-title fw-semibold text-gray-700 pb-2">Deposits</h5>
           <h3 class="fw-bolder m-0">₺<?= number_format(depositDaily(), 2) ?></h3>
         </div>
       </div>
       <div class="card card-bordered bg-danger bg-opacity-20 mb-5">
         <div class="card-body">
-          <h5 class="card-title fw-semibold text-gray-700 pb-2">Approved Withdrawals</h5>
+          <h5 class="card-title fw-semibold text-gray-700 pb-2">Withdrawals</h5>
           <h3 class="fw-bolder m-0">₺<?= number_format(withdrawDaily(), 2) ?></h3>
         </div>
       </div>
       <div class="card card-bordered mb-5">
         <div class="card-body">
-          <h5 class="card-title fw-semibold text-gray-700 pb-2">Pending Deposit</h5>
+          <h5 class="card-title fw-semibold text-gray-700 pb-2">Pending Deposits</h5>
           <h3 class="fw-bolder m-0">₺<?= number_format(depositPendingDaily() ,2) ?>
             <? if(pendingProcessDaily('deposit') > 0): ?>
             <span class="text-gray-600 fs-5 fw-semibold"> (<?= pendingProcessDaily('deposit') ?> tx)</span>
@@ -25,7 +25,7 @@
       </div>
       <div class="card card-bordered mb-5">
         <div class="card-body">
-          <h5 class="card-title fw-semibold text-gray-700 pb-2">Pending Withdrawal</h5>
+          <h5 class="card-title fw-semibold text-gray-700 pb-2">Pending Withdrawals</h5>
           <h3 class="fw-bolder m-0">₺<?= number_format(withdrawPendingDaily(), 2)?>
             <? if(pendingProcessDaily('withdraw') > 0): ?>
             <span class="text-gray-600 fs-5 fw-semibold"> (<?= pendingProcessDaily('withdraw') ?> tx)</span>
