@@ -1,5 +1,5 @@
-const gulpConfig = {
-  name: "Metronic",
+const config = {
+  name: "Paypara",
   desc: "Gulp build config",
   version: "8.1.6",
   config: {
@@ -29,36 +29,6 @@ const gulpConfig = {
       dist: {
         styles: "{$config.dist}/css/style.bundle.css",
         scripts: "{$config.dist}/js/scripts.bundle.js",
-      },
-    },
-    core: {
-      src: {
-        styles: [
-          "{$config.path.core_path}/css/app.css"
-        ],
-        scripts: [
-          "{$config.path.core_path}/js/2fa.js",
-          "{$config.path.core_path}/js/app.js",
-        ],
-      },
-      dist: {
-        styles: "{$config.dist}/css/",
-        scripts: "{$config.dist}/js/",
-      },
-    },
-    iframe: {
-      src: {
-        styles: [
-          "{$config.path.core_path}/iframe/css/app.css"
-        ],
-        scripts: [
-          "{$config.path.core_path}/iframe/js/app.js",
-          "{$config.path.core_path}/iframe/js/demo.js",
-        ],
-      },
-      dist: {
-        styles: "{$config.dist}/iframe/css/",
-        scripts: "{$config.dist}/iframe/js/",
       },
     },
     plugins: {
@@ -226,6 +196,38 @@ const gulpConfig = {
       },
     },
   },
+  compile: {
+    core: {
+      src: {
+        styles: [
+          "{$config.path.core_path}/css/app.css"
+        ],
+        scripts: [
+          "{$config.path.core_path}/js/2fa.js",
+          "{$config.path.core_path}/js/app.js",
+        ],
+      },
+      dist: {
+        styles: "{$config.dist}/css/",
+        scripts: "{$config.dist}/js/",
+      },
+    },
+    iframe: {
+      src: {
+        styles: [
+          "{$config.path.core_path}/iframe/css/app.css"
+        ],
+        scripts: [
+          "{$config.path.core_path}/iframe/js/app.js",
+          "{$config.path.core_path}/iframe/js/demo.js",
+        ],
+      },
+      dist: {
+        styles: "{$config.dist}/iframe/css/",
+        scripts: "{$config.dist}/iframe/js/",
+      },
+    },
+  }
 };
 
-export { gulpConfig };
+export { config };

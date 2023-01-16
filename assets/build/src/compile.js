@@ -27,7 +27,7 @@ if (args.prod !== false) {
 }
 
 // task to bundle js/css
-let compile = (cb) => {
+let bundle = (cb) => {
   var streams = [];
   objectWalkRecursive(build.build, function (val, key) {
     if (val.hasOwnProperty("src") && val.hasOwnProperty("dist")) {
@@ -47,7 +47,7 @@ if (!args.sass && !args.js && !args.media) {
   tasks.push(clean);
 }
 
-tasks.push(compile);
+tasks.push(bundle);
 
 if (args.presets && fs.existsSync(build.config.path.src + '/sass/presets')) {
   const presets = fs.readdirSync(build.config.path.src + '/sass/presets');
@@ -92,4 +92,16 @@ if (args.presets && fs.existsSync(build.config.path.src + '/sass/presets')) {
 }
 
 // entry point
-export const bundle = gulp.series(...tasks);
+export const bundleTasks = gulp.series(...tasks);
+
+// task to compile core assets
+export let compile = (cb) => {
+  var streams = [];
+  objectWalkRecursive(build.compile, function (val, key) {
+    if (val.hasOwnProperty("src") && val.hasOwnProperty("dist")) {
+      outputFunc(val);
+    }
+  });
+  cb();
+  return merge(streams);
+};

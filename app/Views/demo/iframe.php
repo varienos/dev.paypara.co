@@ -355,7 +355,7 @@
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/imask.min.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/qrcode.min.js?v=<?=getVersion() ?>"></script>
-    <script src="<?=baseUrl() ?>/assets/core/iframe/js/script.js?v=<?= md5(microtime()) ?>"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/app.js?v=<?= md5(microtime()) ?>"></script>
   </body>
 
 </html>

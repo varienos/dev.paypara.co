@@ -1,4 +1,3 @@
-import fs from "fs";
 import glob from "glob";
 import gulp from "gulp";
 import yargs from "yargs";
@@ -14,6 +13,7 @@ import path, * as pathDir from "path";
 import cleancss from "gulp-clean-css";
 import rewrite from "gulp-rewrite-css";
 import { hideBin } from 'yargs/helpers';
+import obfuscator from "gulp-javascript-obfuscator";
 
 const argv = yargs(hideBin(process.argv)).argv;
 
@@ -302,7 +302,7 @@ const bundler = (bundle) => {
 
           switch (type) {
             case "fonts":
-              stream = gulp.src(vendorObj[type], { allowEmpty: true });
+              stream = gulp.src(vendorObj[type], { allowEmpty: true, since: gulp.lastRun(bundler) });
               const outputFonts = outputChannel(bundle.dist[type] + "/" + vendor, undefined, type)();
               if (outputFonts) {
                 stream.pipe(outputFonts);
@@ -310,7 +310,7 @@ const bundler = (bundle) => {
               bundleStreams.push(stream);
               break;
             case "images":
-              stream = gulp.src(vendorObj[type], { allowEmpty: true });
+              stream = gulp.src(vendorObj[type], { allowEmpty: true, since: gulp.lastRun(bundler) });
               const outputImages = outputChannel(bundle.dist[type] + "/" + vendor, undefined, type)();
               if (outputImages) {
                 stream.pipe(outputImages);
@@ -363,7 +363,7 @@ const bundler = (bundle) => {
           if (bundle.dist.hasOwnProperty(type)) {
             // default css bundle
             stream = gulp
-              .src(bundle.src[type], { allowEmpty: true })
+              .src(bundle.src[type], { allowEmpty: true, since: gulp.lastRun(bundler) })
               .pipe(cssRewriter(bundle.dist)())
               .pipe(concat(outputFile))
               .pipe(cssChannel()());
@@ -378,7 +378,7 @@ const bundler = (bundle) => {
         case "scripts":
           if (bundle.dist.hasOwnProperty(type)) {
             stream = gulp
-              .src(bundle.src[type], { allowEmpty: true })
+              .src(bundle.src[type], { allowEmpty: true, since: gulp.lastRun(bundler) })
               .pipe(concat(outputFile))
               .pipe(jsChannel()())
               .on("error", console.error.bind(console));
@@ -392,7 +392,7 @@ const bundler = (bundle) => {
         case "fonts":
         case "images":
           if (bundle.dist.hasOwnProperty(type)) {
-            stream = gulp.src(bundle.src[type], { allowEmpty: true });
+            stream = gulp.src(bundle.src[type], { allowEmpty: true, since: gulp.lastRun(bundler) });
             const outputImages = outputChannel(bundle.dist[type], undefined, type)();
             if (outputImages) {
               stream.pipe(outputImages);
@@ -502,18 +502,22 @@ const outputFunc = (bundle) => {
              * END: bundle by folder
              */
 
-            stream = gulp
-              .src(bundle.src[type], { allowEmpty: true })
-              .pipe(jsChannel()())
-              .on("error", console.error.bind(console));
-            const output2 = outputChannel(bundle.dist[type], undefined, type)();
-            if (output2) {
-              stream.pipe(output2);
-            }
+            bundle.src[type].forEach((file) => {
+              stream = gulp
+                .src(file, { allowEmpty: true, since: gulp.lastRun(bundler) })
+                .pipe(jsChannel()())
+                .pipe(gulpif(file.includes("/core/iframe/js/"), obfuscator({ compact: true })))
+                .on("error", console.error.bind(console));
+              const output2 = outputChannel(bundle.dist[type], undefined, type)();
+              if (output2) {
+                stream.pipe(output2);
+              }
+            });
+
             outputFuncStreams.push(stream);
             break;
           default:
-            stream = gulp.src(bundle.src[type], { allowEmpty: true });
+            stream = gulp.src(bundle.src[type], { allowEmpty: true, since: gulp.lastRun(bundler) });
             const outputDefault = outputChannel(bundle.dist[type], undefined, type)();
             if (outputDefault) {
               stream.pipe(outputDefault);
