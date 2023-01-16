@@ -34,6 +34,7 @@ $.varien = {
         if ($.varien.segment(1) == "customer") $.varien.customer.init();
         if ($.varien.segment(1) == "user") $.varien.user.init();
         if ($.varien.segment(1) == "transaction") $.varien.transaction.init();
+        if ($.varien.segment(1) == "reports") $.varien.reports.init();
         if ($.varien.segment(1) == "setting") $.varien.setting.init();
         if ($.varien.environment() == 'dev') $.varien.dev.init();
     },
@@ -2293,70 +2294,69 @@ $.varien = {
         }
     },
     reports: {
-        init: function() {
-            // Initiate charts
-            $.varien.reports.charts.main.init();
+        init: () => {
             $.varien.reports.charts.pie.init();
+            $.varien.reports.charts.main.init();
         },
-        charts: function() {
-            // Pie chart
-            let pie = function() {
-                let chart = {
-                    self: null,
-                    rendered: false
-                };
-                // Private methods
-                let initChart = function(chart) {
-                    let element = document.getElementById("chart-reports-pie");
-                    if (!element) return;
-                    let options = {
-                        series: [39, 30, 16, 9, 6], // TODO: To be replaced with dynamic data
-                        labels: ['Papara', 'Matching', 'Bank', 'Cross', 'Virtual POS'],
-                        colors: ['#ba435f', '#CA3660', '#21416f', '#698b55', '#ed8a3d'],
-                        chart: {
-                            type: 'pie'
-                        },
-                        legend: {
-                            show: false
-                        },
-                        stroke: {
-                            colors: undefined
-                        },
-                        tooltip: {
-                            y: {
-                                formatter: (value) => value + "%"
-                            }
-                        },
-                        dataLabels: {
-                            background: {
-                                padding: 4,
-                                opacity: 0.5,
-                                enabled: true,
-                                borderWidth: 1,
-                                borderRadius: 2,
-                                foreColor: '#000',
-                                borderColor: '#000'
-                            }
-                        },
-                        responsive: [{
-                            breakpoint: 1200,
-                            options: {
-                                chart: {
-                                    width: 250
-                                }
-                            }
-                        }]
+        charts: {
+            pie: {
+                init: () => {
+                    let chart = {
+                        self: null,
+                        rendered: false
                     };
-                    chart.self = new ApexCharts(element, options);
-                    // Set timeout to properly get the parent elements width
-                    setTimeout(function() {
-                        chart.self.render();
-                        chart.rendered = true;
-                    }, 200);
-                }
-                // Public methods
-                return {
-                    init: function() {
+
+                    let initChart = (chart) => {
+                        let element = document.getElementById("chart-reports-pie");
+                        if (!element) return;
+                        let options = {
+                            series: [39, 30, 16, 9, 6], // TODO: To be replaced with dynamic data
+                            labels: ['Papara', 'Matching', 'Bank', 'Cross', 'Virtual POS'],
+                            colors: ['#ba435f', '#CA3660', '#21416f', '#698b55', '#ed8a3d'],
+                            chart: {
+                                type: 'pie'
+                            },
+                            legend: {
+                                show: false
+                            },
+                            stroke: {
+                                colors: undefined
+                            },
+                            tooltip: {
+                                y: {
+                                    formatter: (value) => value + "%"
+                                }
+                            },
+                            dataLabels: {
+                                background: {
+                                    padding: 4,
+                                    opacity: 0.5,
+                                    enabled: true,
+                                    borderWidth: 1,
+                                    borderRadius: 2,
+                                    foreColor: '#000',
+                                    borderColor: '#000'
+                                }
+                            },
+                            responsive: [{
+                                breakpoint: 1200,
+                                options: {
+                                    chart: {
+                                        width: 250
+                                    }
+                                }
+                            }]
+                        };
+                        chart.self = new ApexCharts(element, options);
+                        // Set timeout to properly get the parent elements width
+                        setTimeout(function() {
+                            chart.self.render();
+                            chart.rendered = true;
+                        }, 200);
+                    }
+
+                    // Public methods
+                    (function () {
                         initChart(chart);
                         // Update chart on theme mode change
                         KTThemeMode.on("kt.thememode.change", function() {
@@ -2365,128 +2365,128 @@ $.varien = {
                             }
                             initChart(chart);
                         });
-                    }
+                    })();
                 }
-            }
-            // Main chart
-            let main = function() {
-                let chart = {
-                    self: null,
-                    rendered: false
-                };
-                // Private methods
-                let initChart = function(chart) {
-                    let element = document.getElementById("chart-reports-main");
-                    if (!element) return;
-                    let height = parseInt(KTUtil.css(element, 'height'));
-                    let labelColor = KTUtil.getCssVariableValue('--kt-gray-700');
-                    let depositColor = KTUtil.getCssVariableValue('--kt-success');
-                    let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
-                    let borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
-                    let options = {
-                        // TODO: To be replaced with dynamic data
-                        series: [{
-                            name: 'Deposit',
-                            data: [725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50],
-                        }, {
-                            name: 'Withdrawal',
-                            data: [458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00],
-                        }],
-                        chart: {
-                            type: 'area',
-                            height: height,
-                            fontFamily: 'inherit',
-                            toolbar: {
-                                show: false
-                            },
-                            zoom: {
-                                enabled: false
-                            }
-                        },
-                        legend: {
-                            show: false
-                        },
-                        dataLabels: {
-                            enabled: false
-                        },
-                        fill: {
-                            type: "gradient",
-                            gradient: {
-                                opacityTo: 0,
-                                opacityFrom: .5,
-                                shadeIntensity: .5,
-                                stops: [0, 80, 100]
-                            }
-                        },
-                        stroke: {
-                            width: 3,
-                            colors: [depositColor, withdrawColor]
-                        },
-                        xaxis: {
-                            tickAmount: 5,
-                            tickPlacement: "between",
-                            axisTicks: {
-                                show: false
-                            },
-                            axisBorder: {
-                                show: false
-                            },
+            },
+            main: {
+                init: () => {
+                    let chart = {
+                        self: null,
+                        rendered: false
+                    };
+
+                    let initChart = (chart) => {
+                        let element = document.getElementById("chart-reports-main");
+                        if (!element) return;
+                        let height = parseInt(KTUtil.css(element, 'height'));
+                        let labelColor = KTUtil.getCssVariableValue('--kt-gray-700');
+                        let depositColor = KTUtil.getCssVariableValue('--kt-success');
+                        let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
+                        let borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
+                        let options = {
                             // TODO: To be replaced with dynamic data
-                            // Shows entire month day by day
-                            categories: ["Apr 01", "Apr 02", "Apr 03", "Apr 04", "Apr 05", "Apr 06", "Apr 07", "Apr 08", "Apr 09", "Apr 10", "Apr 11", "Apr 12", "Apr 13", "Apr 14", "Apr 17", "Apr 18", "Apr 19", "Apr 21", "Apr 22", "Apr 23", "Apr 24", "Apr 25", "Apr 26", "Apr 27", "Apr 28", "Apr 29", "Apr 30", "Apr 31"],
-                            labels: {
-                                rotate: -25,
-                                rotateAlways: true,
-                                style: {
-                                    fontSize: '12px',
-                                    colors: labelColor
-                                }
-                            },
-                        },
-                        yaxis: {
-                            tickAmount: 5,
-                            labels: {
-                                style: {
-                                    colors: labelColor,
-                                    fontSize: '12px'
+                            series: [{
+                                name: 'Deposit',
+                                data: [725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50],
+                            }, {
+                                name: 'Withdrawal',
+                                data: [458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00],
+                            }],
+                            chart: {
+                                type: 'area',
+                                height: height,
+                                fontFamily: 'inherit',
+                                toolbar: {
+                                    show: false
                                 },
-                                formatter: function(value) {
-                                    let val = Math.abs(value);
-                                    if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
-                                    if (val > 1000000) val = (val / 1000000).toFixed(0) + 'm';
-                                    return "₺" + val;
+                                zoom: {
+                                    enabled: false
                                 }
-                            }
-                        },
-                        tooltip: {
-                            style: {
-                                fontSize: '13px'
                             },
-                            y: {
-                                formatter: function(value) {
-                                    let val = Math.abs(value);
-                                    if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
-                                    if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
-                                    return val == 0 ? 'none' : "₺" + val;
+                            legend: {
+                                show: false
+                            },
+                            dataLabels: {
+                                enabled: false
+                            },
+                            fill: {
+                                type: "gradient",
+                                gradient: {
+                                    opacityTo: 0,
+                                    opacityFrom: .5,
+                                    shadeIntensity: .5,
+                                    stops: [0, 80, 100]
                                 }
+                            },
+                            stroke: {
+                                width: 3,
+                                colors: [depositColor, withdrawColor]
+                            },
+                            xaxis: {
+                                tickAmount: 5,
+                                tickPlacement: "between",
+                                axisTicks: {
+                                    show: false
+                                },
+                                axisBorder: {
+                                    show: false
+                                },
+                                // TODO: To be replaced with dynamic data
+                                // Shows entire month day by day
+                                categories: ["Apr 01", "Apr 02", "Apr 03", "Apr 04", "Apr 05", "Apr 06", "Apr 07", "Apr 08", "Apr 09", "Apr 10", "Apr 11", "Apr 12", "Apr 13", "Apr 14", "Apr 17", "Apr 18", "Apr 19", "Apr 21", "Apr 22", "Apr 23", "Apr 24", "Apr 25", "Apr 26", "Apr 27", "Apr 28", "Apr 29", "Apr 30", "Apr 31"],
+                                labels: {
+                                    rotate: -25,
+                                    rotateAlways: true,
+                                    style: {
+                                        fontSize: '12px',
+                                        colors: labelColor
+                                    }
+                                },
+                            },
+                            yaxis: {
+                                tickAmount: 5,
+                                labels: {
+                                    style: {
+                                        colors: labelColor,
+                                        fontSize: '12px'
+                                    },
+                                    formatter: function(value) {
+                                        let val = Math.abs(value);
+                                        if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
+                                        if (val > 1000000) val = (val / 1000000).toFixed(0) + 'm';
+                                        return "₺" + val;
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                style: {
+                                    fontSize: '13px'
+                                },
+                                y: {
+                                    formatter: function(value) {
+                                        let val = Math.abs(value);
+                                        if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
+                                        if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
+                                        return val == 0 ? 'none' : "₺" + val;
+                                    }
+                                }
+                            },
+                            colors: [depositColor, withdrawColor],
+                            grid: {
+                                strokeDashArray: 4,
+                                borderColor: borderColor,
                             }
-                        },
-                        colors: [depositColor, withdrawColor],
-                        grid: {
-                            strokeDashArray: 4,
-                            borderColor: borderColor,
-                        }
-                    };
-                    chart.self = new ApexCharts(element, options);
-                    // Set timeout to properly get the parent elements width
-                    setTimeout(function() {
-                        chart.self.render();
-                        chart.rendered = true;
-                    }, 200);
-                }
-                // Public methods
-                return {
-                    init: function() {
+                        };
+                        chart.self = new ApexCharts(element, options);
+                        // Set timeout to properly get the parent elements width
+                        setTimeout(function() {
+                            chart.self.render();
+                            chart.rendered = true;
+                        }, 200);
+                    }
+
+                    // Public methods
+                    (function () {
                         initChart(chart);
                         // Update chart on theme mode change
                         KTThemeMode.on("kt.thememode.change", function() {
@@ -2495,7 +2495,7 @@ $.varien = {
                             }
                             initChart(chart);
                         });
-                    }
+                    })();
                 }
             }
         }
