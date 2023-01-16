@@ -7,6 +7,7 @@ import rename from "gulp-rename";
 import terser from "gulp-terser";
 import concat from "gulp-concat";
 import sass from "gulp-dart-sass";
+import plumber from "gulp-plumber";
 import { build } from "./build.js";
 import { fileURLToPath } from 'url';
 import path, * as pathDir from "path";
@@ -505,9 +506,9 @@ const outputFunc = (bundle) => {
             bundle.src[type].forEach((file) => {
               stream = gulp
                 .src(file, { allowEmpty: true, since: gulp.lastRun(bundler) })
+                .pipe(plumber())
                 .pipe(jsChannel()())
                 .pipe(gulpif(file.includes("/core/iframe/js/"), obfuscator({ compact: true })))
-                .on("error", console.error.bind(console));
               const output2 = outputChannel(bundle.dist[type], undefined, type)();
               if (output2) {
                 stream.pipe(output2);
