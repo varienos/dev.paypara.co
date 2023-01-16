@@ -38,7 +38,6 @@ const watchJSTask = () => {
   );
 };
 
-
 // Exports
 export {
   localHostTask,

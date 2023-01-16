@@ -132,24 +132,6 @@ const cssChannel = (includePaths) => {
  * @returns {*}
  */
 const outputChannel = (path, outputFile, type) => {
-  if (!allAssets) {
-    if (args.sass && ["styles"].indexOf(type) === -1) {
-      return lazypipe().pipe(() => {
-        // noop
-      });
-    }
-    if (args.js && ["scripts"].indexOf(type) === -1) {
-      return lazypipe().pipe(() => {
-        // noop
-      });
-    }
-    if (args.media && ["media", "fonts", "images"].indexOf(type) === -1) {
-      return lazypipe().pipe(() => {
-        // noop
-      });
-    }
-  }
-
   if (typeof path === "undefined") {
     console.log("Output path not defined");
   }

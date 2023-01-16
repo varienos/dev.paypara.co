@@ -2,12 +2,9 @@ import fs from "fs";
 import _ from "lodash";
 import gulp from "gulp";
 import merge from "merge-stream";
-import { fileURLToPath } from 'url';
 import { clean } from "./clean.js";
 import { build as buildMaster } from "./build.js";
 import { argv, objectWalkRecursive, outputFunc, bundler } from "./helpers.js";
-
-const __filename = fileURLToPath(import.meta.url);
 
 // merge with default parameters
 const args = Object.assign(
@@ -30,7 +27,7 @@ if (args.prod !== false) {
 }
 
 // task to bundle js/css
-let buildBundleTask = (cb) => {
+let bundle = (cb) => {
   var streams = [];
   objectWalkRecursive(build.build, function (val, key) {
     if (val.hasOwnProperty("src") && val.hasOwnProperty("dist")) {
@@ -50,7 +47,7 @@ if (!args.sass && !args.js && !args.media) {
   tasks.push(clean);
 }
 
-tasks.push(buildBundleTask);
+tasks.push(bundle);
 
 if (args.presets && fs.existsSync(build.config.path.src + '/sass/presets')) {
   const presets = fs.readdirSync(build.config.path.src + '/sass/presets');
@@ -95,9 +92,4 @@ if (args.presets && fs.existsSync(build.config.path.src + '/sass/presets')) {
 }
 
 // entry point
-const compileTask = gulp.series(...tasks);
-
-// Exports
-export {
-  compileTask,
-};
+export const compileTask = gulp.series(...tasks);
