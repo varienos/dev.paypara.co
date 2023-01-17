@@ -354,7 +354,6 @@ $.varien = {
     },
     account: {
         init: () => {
-            //console.log("$.varien.account.init");
             if ($.varien.segment(2) == "index") {
                 if ($.varien.segment(3) == "1") {
                     $("[data-page-title]").html("Papara Accounts");
@@ -450,7 +449,6 @@ $.varien = {
             },
             match: function(customer_id) {
                 var matchLimit = $('input[name="match_limit"]').val();
-                //console.log("match");
                 $.varien.account.detail.accountTotalMatch().done(function(response) {
                     var accountTotalGamerMatch = response.total;
                     if (accountTotalGamerMatch >= matchLimit) {
@@ -465,7 +463,6 @@ $.varien = {
                             success: function() {
                                 toastr.success("The customer is paired with the account");
                                 $.varien.account.detail.listMatch();
-                                //$.varien.account.detail.listDisableMatch();
                                 $.varien.account.detail.datatable.listDisableMatch.reload();
                                 $.varien.account.detail.refreshMatchTotalBadge();
                             }
@@ -479,7 +476,6 @@ $.varien = {
                     dataType: "html",
                     success: function() {
                         $.varien.account.detail.listMatch();
-                        //$.varien.account.detail.listDisableMatch();
                         $.varien.account.detail.datatable.listDisableMatch.reload();
                         $.varien.account.detail.refreshMatchTotalBadge();
                     }
@@ -972,7 +968,6 @@ $.varien = {
                 $("[app-onchange-datatable-reload]").on("change input", function(e) {
                     $.varien.eventControl(e);
                     $.varien.transaction.datatable.reload();
-                    //toastr.success("İşlemler Filtrelendi");
                 });
                 $("[app-onclick-datatable-reset]").on("click", function(e) {
                     $.varien.eventControl(e);
@@ -981,25 +976,7 @@ $.varien = {
                     $("#status").val("").trigger('change');
                     $("#accountIdFilter").val('');
                     $.varien.transaction.datatable.reload();
-                    //toastr.success("Filtre Temizlendi");
                 });
-                /*
-                $("#notificationSound").on("click", function()
-                {
-                    if ($(this).is(":checked") == false)
-                    {
-                        $.varien.transaction.datatable.notificationSound(0);
-                        toastr.error("Bildirim Sesi Kapatıldı");
-                    }
-
-                    if ($(this).is(":checked") == true)
-                    {
-                        $.varien.transaction.datatable.notificationSound(1);
-                        toastr.success("Bildirim Sesi Açıldı");
-                    }
-
-                });
-                */
             },
             isToday: function() {
                 var val = $("#transactionDate").val();
@@ -1227,43 +1204,25 @@ $.varien = {
                         $.varien.eventControl(e);
                         window.open($.customerLink, '_blank');
                     });
-                    /*
-                        0: TARİH
-                        1: TXID
-                        2: USERID
-                        3: HESAP
-                        4: FİRMA
-                        5: YÖNTEM
-                        6: MÜŞTERİ
-                        7: TUTAR
-                        8: DURUM
-                        9: SÜRE
-                        10: İŞLEMLER
-                        .find('p').contents().unwrap();
-                        badge-light-warning: beklemede
-                        badge-light-success: onaylandı
-                        badge-light-danger: reddedildi
-
-                    */
-                    $.requestTime = $('#' + $.rowId).find("td").eq(0).html();
-                    $.txid = $('#' + $.rowId).find("td").eq(1).html();
-                    $.customerSiteId = $('#' + $.rowId).find("td").eq(2).html();
-                    $.accountId = $('#' + $.rowId).find("td").eq(3).html();
-                    $.client = $('#' + $.rowId).find("td").eq(4).html();
-                    $.method = $('#' + $.rowId).find("td").eq(5).html();
-                    $.customer = $('#' + $.rowId).find("td").eq(6).html();
-                    $.amount = $('#' + $.rowId).find("td").eq(7).html();
-                    $.status = $('#' + $.rowId).find("td").eq(8).html();
-                    $.time = $('#' + $.rowId).find("td").eq(9).html();
-                    $('[data-set-date]').html($.requestTime);
-                    $('[data-set-time]').html($.time);
-                    $('[data-set-txid]').html($.txid);
-                    $('[data-set-accountName]').html($.accountName);
-                    $('[data-set-accountId]').html($.accountId);
-                    $('[data-set-client]').html($.client);
-                    $('[data-set-method]').html($.method).find('div').contents().unwrap();
-                    $('[data-set-customer]').html($.customer);
-                    $('[data-set-status]').html($.status).find('div').contents().unwrap();
+                    $.requestTime = $('#' + $.rowId).find("td").eq(0).text();
+                    $.txid = $('#' + $.rowId).find("td").eq(1).text();
+                    $.customerSiteId = $('#' + $.rowId).find("td").eq(2).text();
+                    $.accountId = $('#' + $.rowId).find("td").eq(3).text();
+                    $.client = $('#' + $.rowId).find("td").eq(4).text();
+                    $.method = $('#' + $.rowId).find("td").eq(5).text();
+                    $.customer = $('#' + $.rowId).find("td").eq(6).text();
+                    $.amount = $('#' + $.rowId).find("td").eq(7).text();
+                    $.status = $('#' + $.rowId).find("td").eq(8).text();
+                    $.time = $('#' + $.rowId).find("td").eq(9).text();
+                    $('[data-set-date]').text($.requestTime);
+                    $('[data-set-time]').text($.time);
+                    $('[data-set-txid]').text($.txid);
+                    $('[data-set-accountName]').text($.accountName);
+                    $('[data-set-accountId]').text($.accountId);
+                    $('[data-set-client]').text($.client);
+                    $('[data-set-method]').text($.method).find('div').contents().unwrap();
+                    $('[data-set-customer]').text($.customer);
+                    $('[data-set-status]').text($.status).find('div').contents().unwrap();
                     if ($.trim($('[data-set-status]').html()) == 'Pending') {
                         $('[data-set-status]').addClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-success');
@@ -2037,7 +1996,6 @@ $.varien = {
                 dataType: "json",
                 success: function(response) {
                     $.each(response, function(i) {
-                        //console.log(response);
                         $("#selectClient").append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
                     });
                 },
@@ -2231,7 +2189,6 @@ $.varien = {
                     $("[app-onclick-datatable-reload]").on("click", function(e) {
                         $.varien.eventControl(e);
                         $.varien.customer.detail.datatable.reload();
-                        //toastr.success("İşlemler Filtrelendi");
                     });
                     $("[app-onclick-datatable-reset]").on("click", function(e) {
                         $.varien.eventControl(e);
@@ -2239,7 +2196,6 @@ $.varien = {
                         $("#status").val("").trigger('change');
                         $("#accountIdFilter").val('');
                         $.varien.customer.detail.datatable.reload();
-                        //toastr.success("Filtre Temizlendi");
                     });
                 },
                 reload: function() {
@@ -2502,7 +2458,6 @@ $.varien = {
     },
     setting: {
         init: function() {
-            //console.log("$.varien.setting.init");
             $('[id="updateSetting"]').on('click', function(e) {
                 $('[name="maintenanceStatus"]').closest("form").attr('id');
                 var formId = $(this).attr("data-form-id");
