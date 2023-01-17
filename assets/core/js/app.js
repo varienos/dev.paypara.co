@@ -827,9 +827,8 @@ $.varien = {
             $(document).on("click", () => {
                 if (!created) {
                     created = true;
-                    console.log('document.createElement("audio")');
                     let v = document.createElement("audio");
-                    v.setAttribute("src", $.resource.assetsPath + "/audio/notification.mp3");
+                    v.setAttribute("src", $.resource.assetsPath + "/media/notification.mp3");
                     v.setAttribute("muted", "muted");
                     v.setAttribute("id", "notification");
                     document.body.appendChild(v);
