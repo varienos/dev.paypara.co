@@ -174,17 +174,6 @@ const config = {
               "{$config.dist}/plugins/custom/css-element-queries/css.element.queries.bundle.js",
           },
         },
-        "davidshimjs-qrcodejs": {
-          src: {
-            scripts: [
-              "{$config.path.node_modules}/davidshimjs-qrcodejs/qrcode.js",
-            ],
-          },
-          dist: {
-            scripts:
-              "{$config.dist}/plugins/custom/davidshimjs-qrcodejs/qrcode.bundle.js",
-          },
-        },
       },
     },
     media: {

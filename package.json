@@ -23,7 +23,6 @@
         "datatables.net-plugins": "^1.11.5",
         "datatables.net-responsive": "^2.3.0",
         "datatables.net-responsive-bs5": "^2.3.0",
-        "davidshimjs-qrcodejs": "^0.0.2",
         "es6-promise": "^4.2.8",
         "es6-promise-polyfill": "^1.2.0",
         "es6-shim": "^0.35.5",
