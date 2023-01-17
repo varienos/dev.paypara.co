@@ -64,8 +64,8 @@ class Transaction extends BaseController
             if($status=="beklemede")
             {
                 $css            = '';
-                $tagsApprove    = 'data-bs-toggle="modal" id="approved" data-bs-target="#ajaxModal" data-url="transaction/modal/'.$request.'/approve/'.$id.'"';
-                $tagsReject     = 'data-bs-toggle="modal" id="reject" data-bs-target="#ajaxModal" data-url="transaction/modal/'.$request.'/reject/'.$id.'"';
+                $tagsApprove    = 'id="approved" data-bs-target="#ajaxModal" data-url="transaction/modal/'.$request.'/approve/'.$id.'"';
+                $tagsReject     = 'id="reject" data-bs-target="#ajaxModal" data-url="transaction/modal/'.$request.'/reject/'.$id.'"';
             }else{
                 $css            = 'style="opacity:0.2; cursor: not-allowed;"';
                 $tagsApprove    = $css;
@@ -87,7 +87,7 @@ class Transaction extends BaseController
                   </svg>
                 </span>
             </button>
-            <button class="btn btn-icon rounded-circle w-30px h-30px" data-bs-toggle="modal" id="inspect" data-row-id="'.$row->id."-".$status_id."-".$row->transaction_id.'" data-process-note="'.$row->processNotes.'" data-customer-note="'.$row->customerNotes.'" data-user-name="'.$row->user_name.'" data-customer-deposit="'.$row->deposit.'" data-customer-withdraw="'.$row->withdraw.'" data-customer-vip="'.$row->isVip.'"  data-account-name="'.$row->account_name.'" data-customer-id="'.$row->customer_id.'"data-customer-link="customer/detail/' . $row->customer_id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" data-account-link="account/detail/'.$row->account_id.'/'.$row->account_type.'">
+            <button id="inspect" class="btn btn-icon rounded-circle w-30px h-30px" data-row-id="'.$row->id."-".$status_id."-".$row->transaction_id.'" data-process-note="'.$row->processNotes.'" data-customer-note="'.$row->customerNotes.'" data-user-name="'.$row->user_name.'" data-customer-deposit="'.$row->deposit.'" data-customer-withdraw="'.$row->withdraw.'" data-customer-vip="'.$row->isVip.'"  data-account-name="'.$row->account_name.'" data-customer-id="'.$row->customer_id.'"data-customer-link="customer/detail/' . $row->customer_id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" data-account-link="account/detail/'.$row->account_id.'/'.$row->account_type.'">
                 <span class="svg-icon svg-icon-2hx svg-icon-primary">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect><rect x="11" y="11" width="2" height="2" rx="1" fill="currentColor"></rect><rect x="15" y="11" width="2" height="2" rx="1" fill="currentColor"></rect><rect x="7" y="11" width="2" height="2" rx="1" fill="currentColor"></rect>
@@ -239,7 +239,7 @@ class Transaction extends BaseController
                 '<div class="text-center badge '.($row->method!='bank'?'badge-light-danger':'badge-light-dark').' py-2 fs-7 px-3">'.ucfirst(($row->method=='bank'?'Bank':$row->method)).'</div>',
                 '<div class="text-center">' . number_format($row->price,2) . '₺</div>',
                 $status,
-                '<button class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal" id="inspect" data-bs-target="#inspect" data-url="transaction/modal/'.$row->request.'/inspect/'.$id.'">View</button>'
+                '<button class="btn btn-sm btn-light btn-active-light-primary" id="inspect" data-bs-target="#inspect" data-url="transaction/modal/'.$row->request.'/inspect/'.$id.'">View</button>'
             );
 		$i++;
 		}

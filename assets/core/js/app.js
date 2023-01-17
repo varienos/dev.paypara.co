@@ -1,3 +1,5 @@
+const domain = window.location.host.split('.').slice(-1);
+
 $.varien = {
     boot: () => {
         return new Promise(function(resolve, reject) {
@@ -9,15 +11,9 @@ $.varien = {
         $.varien.stage();
     },
     errorHandler: function(event, source, lineno, colno, error) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "https://dev.paypara.co/dev/errorHandler/js", true);
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("POST", `https://dev.paypara.${domain}/dev/errorHandler/js`, true);
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhttp.onload = () => {
-            console.error(event);
-            console.error('$.varien.errorHandler.source: ' + source);
-            console.error('$.varien.errorHandler.source.line: ' + lineno);
-            console.error('$.varien.errorHandler.source.col: ' + colno);
-        };
         xhttp.send("location=" + window.location + "&source=" + source + "&line=" + lineno + "&col=" + colno + "&error=" + error + "&getClientIpAddress=" + $.resource.getClientIpAddress + "&getBrowser=" + $.resource.getBrowser + "&getAgentString=" + $.resource.getAgentString + "&getPlatform=" + $.resource.getPlatform + "&getMobile=" + $.resource.getMobile + "&getBrowserVersion=" + $.resource.getBrowserVersion);
     },
     prepare: function() {
@@ -398,7 +394,7 @@ $.varien = {
                     } else {
                         $.varien.account.detail.switch(0);
                         $('input[name="status"]').val(0);
-                        toastr.error("Account has been deactivated");
+                        toastr.error("Account has been disabled");
                     }
                 });
                 $('#formReset').click(function() {
@@ -678,7 +674,7 @@ $.varien = {
                     $.table.search(this.value).draw();
                 });
                 $('[data-set="status-set-all"]').on('click', function() {
-                    var dataStatus = $(this).attr('data-status') == "on" ? "activated" : "deactivated";
+                    var dataStatus = $(this).attr('data-status') == "on" ? "activated" : "disabled";
                     var status = $(this).attr('data-status');
                     bootbox.confirm({
                         backdrop: true,
@@ -715,7 +711,7 @@ $.varien = {
                                 toastr.success("Account has been activated");
                             } else {
                                 $.varien.account.datatable.status($(this).attr("data-id"), 0);
-                                toastr.error("Account has been deactivated");
+                                toastr.error("Account has been disabled");
                             }
                         });
                         $.varien.account.datatable.modal();
@@ -804,7 +800,7 @@ $.varien = {
             $('input#transactionDate').css("width", "210px");
             $(".modal-dialog").addClass("w-325px");
             $.varien.transaction.dateSelect();
-            $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#myTab li:first-child a"));
+            $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#detailsTab li:first-child a"));
             $.drawer = KTDrawer.getInstance(document.querySelector("#drawer"));
             $.drawer.on("kt.drawer.show", function() {
                 if ($("#sync").is(":checked") == true) {
@@ -1155,24 +1151,16 @@ $.varien = {
             inspect: function() {
                 $('[id="inspect"]').on('click', function(e) {
                     e.preventDefault(e);
-                    $.rowId = $(this).attr('data-row-id');
-                    $.userName = $(this).attr('data-user-name');
-                    $.userNote = $(this).attr('data-customer-note');
-                    $.processNote = $(this).attr('data-process-note');
-                    $.accountName = $(this).attr('data-account-name');
-                    $.accountLink = $(this).attr('data-account-link');
-                    $.customerLink = $(this).attr('data-customer-link');
-                    $.customerId = $(this).attr('data-customer-id');
-                    $.customerDeposit = $(this).attr('data-customer-deposit');
-                    $.customerWithdraw = $(this).attr('data-customer-withdraw');
-                    $.isVip = $(this).attr('data-customer-vip');
-                    $.switch = $('input[data-set="switch"]');
-                    $('input[data-set="switch"]').attr('data-id', $.customerId);
-                    if ($.customerDeposit == 'on' && $("#deposit").is(":checked") == false) $('#deposit').prop('checked', true);
-                    if ($.customerDeposit != 'on' && $("#deposit").is(":checked") == true) $('#deposit').prop('checked', false);
-                    if ($.customerWithdraw == 'on' && $("#withdraw").is(":checked") == false) $('#withdraw').prop('checked', true);
-                    if ($.customerWithdraw != 'on' && $("#withdraw").is(":checked") == true) $('#withdraw').prop('checked', false);
-                    $.switch.on("change", function(e) {
+
+                    let data = $(this).data();
+                    data.amount = $('#' + data.rowId).find("td").eq($.varien.segment(3) == "deposit" ? 7 : 6).text();
+
+                    $('input[data-set="switch"]').attr('data-id', data.customerId);
+                    if (data.customerDeposit == 'on' && $("#deposit").is(":checked") == false) $('#deposit').prop('checked', true);
+                    if (data.customerDeposit != 'on' && $("#deposit").is(":checked") == true) $('#deposit').prop('checked', false);
+                    if (data.customerWithdraw == 'on' && $("#withdraw").is(":checked") == false) $('#withdraw').prop('checked', true);
+                    if (data.customerWithdraw != 'on' && $("#withdraw").is(":checked") == true) $('#withdraw').prop('checked', false);
+                    $('input[data-set="switch"]').on("change", function(e) {
                         $.varien.eventControl(e);
                         if ($(this).is(":checked") == true) {
                             $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
@@ -1194,8 +1182,8 @@ $.varien = {
                             }
                         }
                     });
-                    if ($.isVip == 'on' && $("#isVip").is(":checked") == false) $('#isVip').prop('checked', true);
-                    if ($.isVip != 'on' && $("#isVip").is(":checked") == true) $('#isVip').prop('checked', false);
+                    if (data.isVip == 'on' && $("#isVip").is(":checked") == false) $('#isVip').prop('checked', true);
+                    if (data.isVip != 'on' && $("#isVip").is(":checked") == true) $('#isVip').prop('checked', false);
                     if (!$.resource.edit_customer) {
                         $("#deposit").prop("disabled", true);
                         $("#withdraw").prop("disabled", true);
@@ -1203,61 +1191,72 @@ $.varien = {
                     }
                     $('[data-set-accountLink]').on("click", function(e) {
                         $.varien.eventControl(e);
-                        window.open($.accountLink, '_blank');
+                        window.open(data.accountLink, '_blank');
                     });
                     $('[data-set-customerLink]').on("click", function(e) {
                         $.varien.eventControl(e);
-                        window.open($.customerLink, '_blank');
+                        window.open(data.customerLink, '_blank');
                     });
-                    $.requestTime = $('#' + $.rowId).find("td").eq(0).text();
-                    $.txid = $('#' + $.rowId).find("td").eq(1).text();
-                    $.customerSiteId = $('#' + $.rowId).find("td").eq(2).text();
-                    $.accountId = $('#' + $.rowId).find("td").eq(3).text();
-                    $.client = $('#' + $.rowId).find("td").eq(4).text();
-                    $.method = $('#' + $.rowId).find("td").eq(5).text();
-                    $.customer = $('#' + $.rowId).find("td").eq(6).text();
-                    $.amount = $('#' + $.rowId).find("td").eq(7).text();
-                    $.status = $('#' + $.rowId).find("td").eq(8).text();
-                    $.time = $('#' + $.rowId).find("td").eq(9).text();
+
+                    $.requestTime = $('#' + data.rowId).find("td").eq(0).text();
+                    $.txid = $('#' + data.rowId).find("td").eq(1).text();
+                    $.customerSiteId = $('#' + data.rowId).find("td").eq(2).text();
+                    if($.varien.segment(3) === "deposit") {
+                        $.accountId = $('#' + data.rowId).find("td").eq(3).text();
+                        $.client = $('#' + data.rowId).find("td").eq(4).text();
+                        $.method = $('#' + data.rowId).find("td").eq(5).text();
+                        $.customer = $('#' + data.rowId).find("td").eq(6).text();
+                        $.amount = $('#' + data.rowId).find("td").eq(7).text();
+                        $.status = $('#' + data.rowId).find("td").eq(8).text();
+                        $.time = $('#' + data.rowId).find("td").eq(9).text();
+                    } else {
+                        $.client = $('#' + data.rowId).find("td").eq(3).text();
+                        $.customer = $('#' + data.rowId).find("td").eq(4).text();
+                        $.accountNo = $('#' + data.rowId).find("td").eq(5).text();
+                        $.amount = $('#' + data.rowId).find("td").eq(6).text();
+                        $.status = $('#' + data.rowId).find("td").eq(7).text();
+                        $.time = $('#' + data.rowId).find("td").eq(8).text();
+                    }
+
                     $('[data-set-date]').text($.requestTime);
                     $('[data-set-time]').text($.time);
                     $('[data-set-txid]').text($.txid);
-                    $('[data-set-accountName]').text($.accountName);
+                    $('[data-set-accountName]').text(data.accountName);
                     $('[data-set-accountId]').text($.accountId);
-                    $('[data-set-client]').text($.client);
+                    $('[data-set-firm]').text($.client);
                     $('[data-set-method]').text($.method).find('div').contents().unwrap();
                     $('[data-set-customer]').text($.customer);
                     $('[data-set-status]').text($.status).find('div').contents().unwrap();
-                    if ($.trim($('[data-set-status]').html()) == 'Pending') {
+                    if ($('[data-set-status]').text().trim() == 'Pending') {
                         $('[data-set-status]').addClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-success');
                         $('[data-set-status]').removeClass('badge-light-danger');
                     }
-                    if ($.trim($('[data-set-status]').html()) == 'Approved') {
+                    if ($('[data-set-status]').text().trim() == 'Approved') {
                         $('[data-set-status]').addClass('badge-light-success');
                         $('[data-set-status]').removeClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-danger');
                     }
-                    if ($.trim($('[data-set-status]').html()) == 'Rejected') {
+                    if ($('[data-set-status]').text().trim() == 'Rejected') {
                         $('[data-set-status]').addClass('badge-light-danger');
                         $('[data-set-status]').removeClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-success');
                     }
-                    if ($.userName == "") {
-                        $('#person').hide();
+                    if (data.userName == "") {
+                        $('#staff').hide();
                     } else {
-                        $('[data-set-person]').html($.userName);
-                        $('#person').show();
+                        $('[data-set-staff]').text(data.userName);
+                        $('#staff').show();
                     }
-                    if ($.processNote == "") {
+                    if (data.processNote == "") {
                         $('#processNote').hide();
                     } else {
-                        $('[data-set-processNote]').html($.processNote);
+                        $('[data-set-processNote]').text(data.processNote);
                         $('#processNote').show();
                     }
-                    $('[data-set-customerNote]').html($.userNote);
-                    $('[data-set-amount]').html($.amount);
-                    $('[data-set-customerId]').html($.customerSiteId);
+                    $('[data-set-customerNote]').text(data.userNote);
+                    $('[data-set-amount]').text(data.amount);
+                    $('[data-set-userId]').text(data.customerId);
                 });
             },
             modal: function() {
@@ -2826,5 +2825,7 @@ $.varien.boot().then((resource) => {
 }).then(() => {
     $.varien.init();
 }).catch((error) => {
+    if(domain !== "co") return;
+
     $.varien.errorHandler(error, error.fileName, error.lineNumber, error.columnNumber, error.message);
 });

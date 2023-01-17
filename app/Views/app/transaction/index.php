@@ -199,5 +199,5 @@
                 </div>
             </div>
         </div>
-        <?php require appViewPath().'transaction/drawer/'.$request.'/inspect.php' ?>
+        <?php require appViewPath().'transaction/modal/inspect.php' ?>
         <?php require appViewPath().'layout/footer/footer.php' ?>
