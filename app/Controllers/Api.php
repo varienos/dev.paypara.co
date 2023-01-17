@@ -4,25 +4,11 @@ class Api extends BaseController
 {
     public function __construct()
     {
-        $this->api = new \App\Models\ApiModel(); 
+        $this->api = new \App\Models\ApiModel();
 	}
     public function index()
     {
         $this->response->setStatusCode(444, 'No Response');
-    }
-
-    public function iframetest()
-    {
-        return view('iframe/index');
-    }
-
-    public function iframe($token)
-    {
-        return view('iframe/iframe', $this->api->iframe($token));
-    }
-    public function newIframe($token)
-    {
-        return view('iframe/iframe',$this->api->newIframe($token));
     }
 
     public function tokenStatus($token,$response=0)
