@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paypara'ya Hoşgeldin!</title>
-    <link rel="shortcut icon" href="<?= base_url('assets/core/images/favicon.ico') ?>" type="image/x-icon">
+    <link rel="shortcut icon" href="<?=baseUrl() ?>/<?=assetsPath() ?>/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/css/app.css?v=<?=md5(microtime()) ?>">

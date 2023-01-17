@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paypara'ya Hoşgeldin</title>
-    <link rel="shortcut icon" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.css">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/css/style.bundle.css">
+    <title>Paypara'ya Hoşgeldin!</title>
+    <link rel="shortcut icon" href="<?=baseUrl() ?>/<?=assetsPath() ?>/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/css/app.css?v=<?=md5(microtime()) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script data-token="8BA6K8H77930" async src="https://cdn.splitbee.io/sb.js"></script>
   </head>
   <body onload="preloader()">
     <config id="statusTxPending" value="<?= $pending ?>"></config>
@@ -25,9 +26,11 @@
         <div class="col-lg-11">
           <div class="d-flex pb-20 pb-md-0 min-vh-100 align-items-center">
             <div class="container-wrap d-flex align-items-stretch rounded-3 overflow-hidden w-100 shadow-lg bg-white">
-              <video class="hero-media d-none d-xl-flex" autoplay muted loop>
-                <source src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/backgrounds/hero-video.mp4" type="video/mp4">
-              </video>
+              <div class="col-xl-3 d-none d-xl-flex">
+                <video class="hero-media" autoplay muted loop>
+                  <source src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/backgrounds/hero-video.mp4" type="video/mp4">
+                </video>
+              </div>
               <div class="col-12 col-xl-9">
                 <div class="progress h-5px rounded-0">
                   <div aria-valuemax="100" aria-valuemin="0" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%"></div>
@@ -36,19 +39,19 @@
                   <div class="d-flex flex-column-reverse flex-md-row justify-content-md-between align-items-center align-items-md-start">
                     <div class="mt-12 mt-md-0 text-center text-md-start">
                       <div class="d-flex justify-content-center justify-content-md-start">
-                        <img src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/emojis/waving-hand.png" width="24px" height="24px" alt="">
+                        <img src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/emojis/waving-hand.png" width="24px" height="24px">
                         <h3 id="header" class="fs-1 fw-bolder ms-2 mb-4 mb-md-1">Hoşgeldin <?= strtok($userName, " ") ?>,</h3>
                       </div>
                       <p id="description" class="fs-6 text-gray-700 fw-normal text-wrap"><span class="fw-bold text-dark"><?= $clientName ?></span> hesabına bakiye yüklemek için adımları takip et.</p>
                     </div>
-                    <img src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/logo.png" class="m-0" width="146px" height="47px" alt="Paypara Logo">
+                    <img src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/logo.png" class="m-0 logo" width="146px" height="47px" alt="Paypara Logo">
                   </div>
                   <div class="steps-wrapper d-flex flex-row flex-center h-100">
                     <!-- API Status -->
                     <div id="api-status" class="d-none">
                       <div class="d-flex flex-column text-center">
                         <div class="mb-8">
-                          <img class="h-100px h-md-125px" src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/svg/warning.svg" alt="">
+                          <img class="h-100px h-md-125px" src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/svg/warning.svg">
                         </div>
                         <p id="api-status-title" class="fs-2x fw-bolder text-gradient">Geçersiz İşlem</p>
                         <p id="api-status-desc" class="fs-3 fw-semibold mw-500px">Denediğin işlemin süresi doldu veya artık geçersiz<br>Lütfen geri dönerek yeni talep oluştur</p>
@@ -58,7 +61,7 @@
                     <div id="maintenance" class="d-none">
                       <div class="d-flex flex-column text-center">
                         <div class="mb-6 mb-md-3">
-                          <img class="h-100px h-md-150px" src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/svg/maintenance-<?php echo rand(1, 4); ?>.svg" alt="">
+                          <img class="h-100px h-md-150px" src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/svg/maintenance-<?php echo rand(1, 4); ?>.svg">
                         </div>
                         <p class="fw-semibold fs-4 mw-400px mt-0 mt-md-8">
                           Sorunsuz hizmet vermeye kaldığımız yerden devam edebilmek için şu an güncelleme altındayız.<br><br>
@@ -70,7 +73,7 @@
                     <div id="user-check" class="d-none">
                       <div class="d-flex flex-column text-center">
                         <div class="mb-5 mb-md-8">
-                          <img class="h-100px h-md-150px" src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/svg/access-denied.svg" alt="">
+                          <img class="h-100px h-md-150px" src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/svg/access-denied.svg">
                         </div>
                         <div class="fs-2x fs-md-1 mb-4">
                           <p class="m-0"><span class="text-gradient fw-bold">İşlemine devam edemiyoruz</span>
@@ -87,7 +90,7 @@
                       <div class="d-flex flex-column text-center">
                         <p class="fs-6 text-muted mb-2">TXID: #<?= $pendingTransaction ?></p>
                         <div class="mb-3">
-                          <img class="h-100px h-md-150px" src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/svg/pending-tx.svg" alt="">
+                          <img class="h-100px h-md-150px" src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/svg/pending-tx.svg">
                         </div>
                         <div class="mw-550px fw-normal fs-5 fs-sm-3">
                           <p class="m-0 mb-2 mb-md-4">
@@ -119,14 +122,14 @@
                             <input type="radio" id="kt_black_card_1" name="blackCardInput" class="btn-check" value="1">
                             <label class="btn btn-active-light-danger border border-white me-3" for="kt_black_card_1" id="card_label_1">
                               <span class="fw-semibold text-start">
-                                <img src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/emojis/smiling-face-with-sunglasses.png" alt="">
+                                <img src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/emojis/smiling-face-with-sunglasses.png">
                                 <span class="text-dark fw-bold fs-6 fs-md-5">Evet var</span>
                               </span>
                             </label>
                             <input type="radio" id="kt_black_card_2" name="blackCardInput" class="btn-check" value="0">
                             <label class="btn btn-active-light-danger border border-white" for="kt_black_card_2" id="card_label_2">
                               <span class="fw-semibold text-start">
-                                <img src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/emojis/folded-hands.png" alt="">
+                                <img src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/emojis/folded-hands.png">
                                 <span class="text-dark fw-bold fs-6 fs-md-5">Hayır yok</span>
                               </span>
                             </label>
@@ -314,7 +317,7 @@
                     <div id="success" class="step d-none">
                       <div class="d-flex flex-column text-center">
                         <div class="mb-6 mb-md-3">
-                          <img class="h-100px h-md-125px" src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/svg/success.svg" alt="">
+                          <img class="h-100px h-md-125px" src="<?= base_url() ?>/<?=assetsPath() ?>/iframe/images/svg/success.svg">
                         </div>
                         <h4 class="fs-2x fw-bolder mb-5 mt-md-10 text-gradient">İşlem Tamamlandı</h4>
                         <p class="fs-3 fw-semibold mw-400px mt-0 mt-md-5">
@@ -349,7 +352,7 @@
     const userId = <?= isset($userId) ? json_encode(base64_encode($userId)) : "null" ?>;
     const userName = <?= isset($userName) ? json_encode(base64_encode($userName)) : "null" ?>;
     const userNick = <?= isset($userNick) ? json_encode(base64_encode($userNick)) : "null" ?>;
-    const callback = <?= isset($callback) ? json_encode(base64_encode($callback)) : "null" ?>;
+    const callback = <?= isset($callbackUrl) ? json_encode(base64_encode($callbackUrl)) : "null" ?>;
     </script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
@@ -357,5 +360,4 @@
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/qrcode.min.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/app.js?v=<?= md5(microtime()) ?>"></script>
   </body>
-
 </html>
