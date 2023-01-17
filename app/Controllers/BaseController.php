@@ -28,12 +28,12 @@ abstract class BaseController extends Controller
      * @var CLIRequest|IncomingRequest
      */
     public $request;
-	public $session;
-	public $db;
+    public $session;
+    public $db;
     public $router;
     public $error;
-	public $setting;
-	public $paypara;
+    public $setting;
+    public $paypara;
     public $SecureModel;
     public $JsObfuscator;
     public $agent;
@@ -46,7 +46,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = ['cookie','app','string','user','dashboard','jsObfuscator'];
+    protected $helpers = ['cookie', 'app', 'string', 'user', 'dashboard', 'jsObfuscator'];
 
     /**
      * Constructor.
@@ -59,17 +59,15 @@ abstract class BaseController extends Controller
 
         $this->Init             = new \App\Libraries\Init($this->request);
         $this->Init->prepare();
-        $this->session 			= $this->Init->session;
+        $this->session             = $this->Init->session;
         $this->router           = $this->Init->router;
-        $this->db      			= $this->Init->db;
-        $this->setting 		    = $this->Init->setting;
+        $this->db                  = $this->Init->db;
+        $this->setting             = $this->Init->setting;
         $this->paypara          = $this->Init->paypara;
-        $this->error  			= $this->Init->error;
+        $this->error              = $this->Init->error;
         $this->JsObfuscator     = $this->Init->JsObfuscator;
-        $this->SecureModel 		= $this->Init->SecureModel;
-        $this->agent 	        = $this->Init->agent;
+        $this->SecureModel         = $this->Init->SecureModel;
+        $this->agent             = $this->Init->agent;
         $this->uri              = $this->Init->uri;
-
-
     }
 }

@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <base href="<?=base_url() ?>" />
   </head>
+
   <body>
     <div class="container overflow-hidden">
       <div class="row justify-content-center">
@@ -86,8 +87,11 @@
     </div>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/js/scripts.bundle.js"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.js"></script>
-    <script><?=jsObfuscator(getJsClientData,'inline'); ?></script>
+    <script>
+    <?=jsObfuscator(getJsClientData,'inline'); ?>
+    </script>
     <!--<script src="https://dev.paypara.co/<?=assetsPath() ?>/js/app.core.error.handler.js?v=<?=md5(microtime()) ?>"></script>-->
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/demo.js?v=<?=md5(microtime()) ?>"></script>
   </body>
+
 </html>

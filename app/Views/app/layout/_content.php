@@ -16,9 +16,9 @@
       <div class="card card-bordered mb-5">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Pending Deposits</h5>
-          <h3 class="fw-bolder m-0">₺<?= number_format(depositPendingDaily() ,2) ?>
-            <? if(pendingProcessDaily('deposit') > 0): ?>
-            <span class="text-gray-600 fs-5 fw-semibold"> (<?= pendingProcessDaily('deposit') ?> tx)</span>
+          <h3 class="fw-bolder m-0">₺<?= number_format(depositPendingDaily(), 2) ?>
+            <? if (pendingProcessDaily('deposit') > 0) : ?>
+            <span class="text-gray-600 fs-5 fw-semibold"> (<?= pendingProcessDaily('deposit') ?> txn)</span>
             <? endif ?>
           </h3>
         </div>
@@ -26,9 +26,9 @@
       <div class="card card-bordered mb-5">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Pending Withdrawals</h5>
-          <h3 class="fw-bolder m-0">₺<?= number_format(withdrawPendingDaily(), 2)?>
-            <? if(pendingProcessDaily('withdraw') > 0): ?>
-            <span class="text-gray-600 fs-5 fw-semibold"> (<?= pendingProcessDaily('withdraw') ?> tx)</span>
+          <h3 class="fw-bolder m-0">₺<?= number_format(withdrawPendingDaily(), 2) ?>
+            <? if (pendingProcessDaily('withdraw') > 0) : ?>
+            <span class="text-gray-600 fs-5 fw-semibold"> (<?= pendingProcessDaily('withdraw') ?> txn)</span>
             <? endif ?>
           </h3>
         </div>
@@ -37,8 +37,8 @@
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Number of Transactions</h5>
           <div class="d-flex">
-            <h3 class="fs-4 m-0 me-3">Deposit: <span class="text-gray-600 fs-4 fw-semibold"><?=depositProcessDaily() ?></span></h3>
-            <h3 class="fs-4 m-0">Withdrawal: <span class="text-gray-600 fs-4 fw-semibold"><?=withdrawProcessDaily() ?></span></h3>
+            <h3 class="fs-4 m-0 me-3">Deposit: <span class="text-gray-600 fs-4 fw-semibold"><?= depositProcessDaily() ?></span></h3>
+            <h3 class="fs-4 m-0">Withdrawal: <span class="text-gray-600 fs-4 fw-semibold"><?= withdrawProcessDaily() ?></span></h3>
           </div>
         </div>
       </div>
@@ -55,25 +55,29 @@
             </div>
             <div class="card-body">
               <?php
-                $withdrawFetchWeekly  = withdrawFetchWeekly();
-                $depositFetchWeekly   = depositFetchWeekly();
-                foreach (json_decode($withdrawFetchWeekly) as $value) { $withdrawFetchWeeklyCount += $value->dayTotal; }
-                foreach (json_decode($depositFetchWeekly) as $value) { $depositFetchWeeklyCount += $value->dayTotal; } ?>
-                <script>
-                  const withdrawFetchWeekly= <?=$withdrawFetchWeekly!=""?$withdrawFetchWeekly:'{[]}'; ?>;
-                  const depositFetchWeekly = <?=$depositFetchWeekly!=""?$depositFetchWeekly:'{[]}'; ?>;
-                </script>
-                <? if( $withdrawFetchWeeklyCount>0 or $depositFetchWeeklyCount>0 ): ?>
+              $withdrawFetchWeekly  = withdrawFetchWeekly();
+              $depositFetchWeekly   = depositFetchWeekly();
+              foreach (json_decode($withdrawFetchWeekly) as $value) {
+                $withdrawFetchWeeklyCount += $value->dayTotal;
+              }
+              foreach (json_decode($depositFetchWeekly) as $value) {
+                $depositFetchWeeklyCount += $value->dayTotal;
+              } ?>
+              <script>
+              const withdrawFetchWeekly = <?= $withdrawFetchWeekly != "" ? $withdrawFetchWeekly : '{[]}'; ?>;
+              const depositFetchWeekly = <?= $depositFetchWeekly != "" ? $depositFetchWeekly : '{[]}'; ?>;
+              </script>
+              <? if ($withdrawFetchWeeklyCount > 0 or $depositFetchWeeklyCount > 0) : ?>
 
-                <div id="chart-dashboard" class="h-100"></div>
-              <?php else: ?>
-                <h3 class="d-flex flex-center text-center text-gray-700 h-100 m-0">No transactions this week</h3>
+              <div id="chart-dashboard" class="h-100"></div>
+              <?php else : ?>
+              <h3 class="d-flex flex-center text-center text-gray-700 h-100 m-0">No transactions this week</h3>
               <?php endif ?>
             </div>
           </div>
         </div>
       </div>
-      <? if(partner !== true): ?>
+      <? if (partner !== true) : ?>
       <div class="row">
         <div class="col-12 col-lg-4 mb-5 mb-lg-0">
           <div class="card card-bordered h-100">

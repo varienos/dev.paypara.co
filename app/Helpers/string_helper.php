@@ -45,6 +45,3 @@ function userNameShort($name)
 
     return strtoupper($strNew);
 }
-
-
-?>

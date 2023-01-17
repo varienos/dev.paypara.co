@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Libraries;
 
 class Init
@@ -64,7 +65,7 @@ class Init
         header('X-Robots-Tag: noindex');
         header('X-Robots-Tag: googlebot: noindex, nofollow');
         header('X-Robots-Tag: otherbot: noindex, nofollow');
-        define('CI_INIT_FIRE',microtime(true));
+        define('CI_INIT_FIRE', microtime(true));
     }
 
     public function setSetting()
@@ -98,15 +99,13 @@ class Init
 
     public function auth()
     {
-        if (!$this->SecureModel->security()) 
-        {
+        if (!$this->SecureModel->security()) {
             return base_url('secure/login');
         }
-        if(!$this->session->has('verify2fa'))
-        {
+        if (!$this->session->has('verify2fa')) {
             return base_url('dashboard');
         }
-        if(!$this->session->get("verify2fa")){
+        if (!$this->session->get("verify2fa")) {
             return base_url('secure/2fa');
         }
         return true;
@@ -148,15 +147,11 @@ class Init
 
     public function initialize()
     {
-       
-        if(SUBDOMAIN == 'api' || $this->request->getVar('core') != 'deploy' || $this->request->uri->getSegment(1) != 'json')
-        {
-            if (SUBDOMAIN == 'dev' || SUBDOMAIN == 'app' || SUBDOMAIN == 'deploy')
-            {
-                if($this->request->uri->getSegment(1) != 'secure')
-                {
-                    if($this->auth() !== true)
-                    {
+
+        if (SUBDOMAIN == 'api' || $this->request->getVar('core') != 'deploy' || $this->request->uri->getSegment(1) != 'json') {
+            if (SUBDOMAIN == 'dev' || SUBDOMAIN == 'app' || SUBDOMAIN == 'deploy') {
+                if ($this->request->uri->getSegment(1) != 'secure') {
+                    if ($this->auth() !== true) {
                         header('Location: ' . $this->auth());
                         die();
                     }
@@ -165,6 +160,5 @@ class Init
                 }
             }
         }
-        
     }
 }

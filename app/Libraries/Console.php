@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Libraries;
+
 class Console
 {
     protected $remoteConsole = "https://app.paypara.co/dev/console";
@@ -10,55 +11,52 @@ class Console
         \error_reporting(1);
         date_default_timezone_set('Europe/Istanbul');
         $this->mysqlSync     = new \App\Libraries\mysqlSync();
-        define("SERVER_PATH",(strpos($_SERVER['HTTP_HOST'],'localhost')>0?'/Applications/XAMPP/xamppfiles/htdocs/dev.paypara.composer/':'/home/devpaypara/public_html/'));
+        define("SERVER_PATH", (strpos($_SERVER['HTTP_HOST'], 'localhost') > 0 ? '/Applications/XAMPP/xamppfiles/htdocs/dev.paypara.composer/' : '/home/devpaypara/public_html/'));
     }
 
     function manuel()
     {
         $help = [];
-        $help[] =['desc'=>'Yazılımı dağıtım için paketler:','cmd'=>'package'];
-        $help[] =['desc'=>'Yazılımı üretim ortamı sunucusuna yükler ve yayına alır:','cmd'=>'deploy veya deploy ~~CI4'];
-        $help[] =['desc'=>'CI4 ile versiyon yükseltilemiyorsa core php ile acil durum yüklemesi:','cmd'=>'deploy ~~core-php'];
-        $help[] =['desc'=>'Üretim ortamı sunucusunda ssh komutu çalıştırıp cevabı döndürür:','cmd'=>'remote.ssh ~~[cmd] veya remote ~~ssh ~~[cmd_1];[cmd_2]'];
-        $help[] =['desc'=>'Dev ve prod versiyonlarını döndürür:','cmd'=>'version'];
-        $help[] =['desc'=>'Dev ortamı versiyonunu yükseltir. `Assets` için `cache` yeniler.','cmd'=>'version.update'];
-        $help[] =['desc'=>'Dev ve prod veritabanlarının tablolarını senkron eder, veriler işlenmez:','cmd'=>'db.sync'];
-        $help[] =['desc'=>'Hedef ortamın veri tabanı yedeğini sql.gz formatında verir:','cmd'=>'db.backup ~~production veya db.backup ~~development'];
+        $help[] = ['desc' => 'Yazılımı dağıtım için paketler:', 'cmd' => 'package'];
+        $help[] = ['desc' => 'Yazılımı üretim ortamı sunucusuna yükler ve yayına alır:', 'cmd' => 'deploy veya deploy ~~CI4'];
+        $help[] = ['desc' => 'CI4 ile versiyon yükseltilemiyorsa core php ile acil durum yüklemesi:', 'cmd' => 'deploy ~~core-php'];
+        $help[] = ['desc' => 'Üretim ortamı sunucusunda ssh komutu çalıştırıp cevabı döndürür:', 'cmd' => 'remote.ssh ~~[cmd] veya remote ~~ssh ~~[cmd_1];[cmd_2]'];
+        $help[] = ['desc' => 'Dev ve prod versiyonlarını döndürür:', 'cmd' => 'version'];
+        $help[] = ['desc' => 'Dev ortamı versiyonunu yükseltir. `Assets` için `cache` yeniler.', 'cmd' => 'version.update'];
+        $help[] = ['desc' => 'Dev ve prod veritabanlarının tablolarını senkron eder, veriler işlenmez:', 'cmd' => 'db.sync'];
+        $help[] = ['desc' => 'Hedef ortamın veri tabanı yedeğini sql.gz formatında verir:', 'cmd' => 'db.backup ~~production veya db.backup ~~development'];
 
 
-        for($i=0;$i<count($help);$i++)
-        {
-            echo "<li style='color:magenta'>".$help[$i]['desc']."</li>";
-            echo "<li style='color:orange'>".$help[$i]['cmd']."</li>";
+        for ($i = 0; $i < count($help); $i++) {
+            echo "<li style='color:magenta'>" . $help[$i]['desc'] . "</li>";
+            echo "<li style='color:orange'>" . $help[$i]['cmd'] . "</li>";
         }
     }
 
     function cmd($cmd)
     {
-        if($this->isExec())
-        {
-            echo "<li style='color:red'>warning: ".SUBDOMAIN.".paypara.co server 'exec' function disabled in php.ini</li>";
+        if ($this->isExec()) {
+            echo "<li style='color:red'>warning: " . SUBDOMAIN . ".paypara.co server 'exec' function disabled in php.ini</li>";
             die();
         }
-        $opt="";
-        if(strpos($cmd,' ~~')>0)
-        {
-            $explode    = explode(' ~~',$cmd);
+        $opt = "";
+        if (strpos($cmd, ' ~~') > 0) {
+            $explode    = explode(' ~~', $cmd);
             $opt        = trim($explode[1]);
             $cmd        = trim($explode[0]);
             $optArray   = $explode;
         }
 
-        if($cmd=="help") $this->manuel();
-        if($cmd=="db.backup" && $opt=="production") $this->backup($optArray);
-        if($cmd=="remote.ssh") $this->remotessh($optArray);
-        if($cmd=="remote") $this->remote($optArray);
-        if($cmd=="package") $this->package();
-        if($cmd=="version") echo "<li>development:".$this->getVer()." production:".$this->remoteGetVer()."</li>";
-        if($cmd=="version.update") echo "<li>".$this->getVer()." upgrade to ".updateVersion()."</li>";
-        if($cmd=="deploy")  $this->deploy($optArray);
-        if($cmd=="db.sync")    $this->mysqlSync->init();
-        if($cmd=="fileExists") $this->fileExists($opt);
+        if ($cmd == "help") $this->manuel();
+        if ($cmd == "db.backup" && $opt == "production") $this->backup($optArray);
+        if ($cmd == "remote.ssh") $this->remotessh($optArray);
+        if ($cmd == "remote") $this->remote($optArray);
+        if ($cmd == "package") $this->package();
+        if ($cmd == "version") echo "<li>development:" . $this->getVer() . " production:" . $this->remoteGetVer() . "</li>";
+        if ($cmd == "version.update") echo "<li>" . $this->getVer() . " upgrade to " . updateVersion() . "</li>";
+        if ($cmd == "deploy")  $this->deploy($optArray);
+        if ($cmd == "db.sync")    $this->mysqlSync->init();
+        if ($cmd == "fileExists") $this->fileExists($opt);
         //if($cmd!="") echo "<li>unknow cmd: '".$cmd."'</li>";
     }
 
@@ -66,22 +64,20 @@ class Console
     {
         $disabled = explode(',', ini_get('disable_functions'));
         return in_array('exec', $disabled);
-
     }
 
     function fileExists($file)
     {
-        if(!file_exists($file))
-        {
+        if (!file_exists($file)) {
             echo 'path or file name incorrect</li>';
-        }else{
-            echo 'true => '.$file.'</li>';
+        } else {
+            echo 'true => ' . $file . '</li>';
         }
     }
 
     function setVer()
     {
-        if(!file_exists("version.txt")):
+        if (!file_exists("version.txt")) :
             $version = fopen("version.txt", "w");
             $v       = "1.0.0";
             fwrite($version, $v);
@@ -90,17 +86,16 @@ class Console
         endif;
         $v          = $this->getVer();
         $version    = fopen("version.txt", "w");
-        if($v!="")
-        {
-            $v      = explode(".",$v);
-            $x      = intval($v[2])+1;
-            $y      = $x==100?(intval($v[1])+1):(intval($v[1]));
-            $x      = $x==100?0:$x;
-            $z      = $y==100?(intval($v[0])+1):(intval($v[0]));
-            $y      = $y==100?0:$y;
+        if ($v != "") {
+            $v      = explode(".", $v);
+            $x      = intval($v[2]) + 1;
+            $y      = $x == 100 ? (intval($v[1]) + 1) : (intval($v[1]));
+            $x      = $x == 100 ? 0 : $x;
+            $z      = $y == 100 ? (intval($v[0]) + 1) : (intval($v[0]));
+            $y      = $y == 100 ? 0 : $y;
             file_put_contents("version.txt", "");
-            fwrite($version, $z.".".$y.".".$x);
-        }else{
+            fwrite($version, $z . "." . $y . "." . $x);
+        } else {
             fwrite($version, "1.0.0");
         }
         fclose($version);
@@ -109,17 +104,18 @@ class Console
     function getVer()
     {
         $version    = fopen("version.txt", "r");
-        $v          = fgets($version); fclose($version);
+        $v          = fgets($version);
+        fclose($version);
         return $v;
     }
 
     function package()
     {
         $source    = SERVER_PATH;
-        $release   = SERVER_PATH."deploy.dev.paypara.co";
+        $release   = SERVER_PATH . "deploy.dev.paypara.co";
         $output    = null;
         $retval    = null;
-        $file      = "deploy.paypara.".date("Y.m.d").'.'.$this->getVer().".tar.gz";
+        $file      = "deploy.paypara." . date("Y.m.d") . '.' . $this->getVer() . ".tar.gz";
         exec("  rm -Rf $release/*;
                 cp -Rf $source/* $release;
                 rm -Rf $release/cgi-bin;
@@ -151,14 +147,14 @@ class Console
                 rm $release/README.md;
                 rm $release/local_error_log;
                 rm $release/local_access_log;
-                rm '".$file."';
-                tar -czvf ".$source."/deploy/".$file." $release/*;
+                rm '" . $file . "';
+                tar -czvf " . $source . "/deploy/" . $file . " $release/*;
                 cp -Rf $source/.htaccess $release;
                 cp -Rf $source/.env $release;", $output, $retval);
         echo "<li>Returned with exec $retval and output:\n";
         print_r($output);
         echo "</li>";
-        echo "<li><a href='https://deploy.dev.paypara.co/secure/login' target='_blank' style='color:#46ff6c'>https://deploy.dev.paypara.co</a> v.".$this->getVer()." is ready for production!<br />Awaiting for deploy ...</li>";
+        echo "<li><a href='https://deploy.dev.paypara.co/secure/login' target='_blank' style='color:#46ff6c'>https://deploy.dev.paypara.co</a> v." . $this->getVer() . " is ready for production!<br />Awaiting for deploy ...</li>";
         die();
     }
 
@@ -166,35 +162,32 @@ class Console
 
     function deploy($opt)
     {
-        $version = ($opt[2]!=""?$opt[2]:$this->getVer());
+        $version = ($opt[2] != "" ? $opt[2] : $this->getVer());
 
-        if(file_exists("deploy/deploy.paypara.".date("Y.m.d").".".$version.".tar.gz"))
-        {
+        if (file_exists("deploy/deploy.paypara." . date("Y.m.d") . "." . $version . ".tar.gz")) {
             $this->mysqlSync->init();
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL,$opt[1]==""||$opt[1]=="CI4"?$this->remoteConsole:"https://app.paypara.co/deploy/app.core.update.php");
+            curl_setopt($ch, CURLOPT_URL, $opt[1] == "" || $opt[1] == "CI4" ? $this->remoteConsole : "https://app.paypara.co/deploy/app.core.update.php");
             curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,($opt[1]==""||$opt[1]=="CI4"?"core=deploy&cmd=remote ~~update":"cmd=update")."&token=".md5("update".date("Y.m.d"))."&f=deploy.paypara.".date("Y.m.d").".".$version.".tar.gz&v=".$version);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, ($opt[1] == "" || $opt[1] == "CI4" ? "core=deploy&cmd=remote ~~update" : "cmd=update") . "&token=" . md5("update" . date("Y.m.d")) . "&f=deploy.paypara." . date("Y.m.d") . "." . $version . ".tar.gz&v=" . $version);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 0);
             $server_output = curl_exec($ch);
-            if(!empty(curl_error($ch))) die("<li>CURL Error: ".curl_error($ch)."</li>");
-            echo "<li>request to " . ($opt[1] == "" || $opt[1] == "CI4" ? $this->remoteConsole : "https://app.paypara.co/deploy/app.core.update.php" )."</li>";
+            if (!empty(curl_error($ch))) die("<li>CURL Error: " . curl_error($ch) . "</li>");
+            echo "<li>request to " . ($opt[1] == "" || $opt[1] == "CI4" ? $this->remoteConsole : "https://app.paypara.co/deploy/app.core.update.php") . "</li>";
             echo "<li>" . ($opt[1] == "" || $opt[1] == "CI4" ? "core=deploy&cmd=remote ~~update" : "cmd=update") . "&token=" . md5("update" . date("Y.m.d")) . "&f=deploy.paypara." . date("Y.m.d") . "." . $version . ".tar.gz&v=" . $version . "</li>";
-            echo "<li><b>varien.core.update:</b> ".($server_output==""?"<span style='color:red'>deploy operation faild !...</span>":"<span style='color:green'>connected</span>")."</li>";
-            if($server_output=="")
-            {
+            echo "<li><b>varien.core.update:</b> " . ($server_output == "" ? "<span style='color:red'>deploy operation faild !...</span>" : "<span style='color:green'>connected</span>") . "</li>";
+            if ($server_output == "") {
                 echo "<li><b>varien.core.update:</b> try deploy core-php ...</li>";
                 echo "<li><b>varien.core.update:</b> deploy ~~core-php</li>";
-                $this->deploy(explode(' ~~','deploy ~~core-php'));
+                $this->deploy(explode(' ~~', 'deploy ~~core-php'));
             }
-            curl_close ($ch);
+            curl_close($ch);
             $this->setVer();
             die();
-
-        }else{
-            echo "<li style='color:red'>error: version ".$version." not found or broken !</li>";
+        } else {
+            echo "<li style='color:red'>error: version " . $version . " not found or broken !</li>";
             echo "<li style='color:red'>please cmd first: 'package'</li>";
         }
     }
@@ -202,37 +195,36 @@ class Console
     function remotessh($opt)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL,$this->remoteConsole);
+        curl_setopt($ch, CURLOPT_URL, $this->remoteConsole);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,"core=deploy&cmd=remote ~~ssh ~~".$opt[1]."&token=".md5("ssh".date("Y.m.d")));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "core=deploy&cmd=remote ~~ssh ~~" . $opt[1] . "&token=" . md5("ssh" . date("Y.m.d")));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
         curl_setopt($ch, CURLOPT_TIMEOUT, 0);
         $server_output = curl_exec($ch);
-        if(!empty(curl_error($ch))) die("<li>CURL Error: ".curl_error($ch)."</li>");
-        echo "<li>remote (app.paypara.co) server response: ".$server_output."</li>";
-        curl_close ($ch);
+        if (!empty(curl_error($ch))) die("<li>CURL Error: " . curl_error($ch) . "</li>");
+        echo "<li>remote (app.paypara.co) server response: " . $server_output . "</li>";
+        curl_close($ch);
         die();
     }
 
     function backup($opt)
     {
         $timestamp = date("Y.m.d.H.i");
-        if($opt[1]=="production")
-        {
+        if ($opt[1] == "production") {
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL,$this->remoteConsole);
+            curl_setopt($ch, CURLOPT_URL, $this->remoteConsole);
             curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS,"core=deploy&cmd=remote ~~ssh ~~mysqldump --single-transaction --quick payp_production | gzip  > /home/paypara.co/app.paypara.co/deploy/db.backup.".$timestamp.".sql.gz"."&token=".md5("ssh".date("Y.m.d")));
+            curl_setopt($ch, CURLOPT_POSTFIELDS, "core=deploy&cmd=remote ~~ssh ~~mysqldump --single-transaction --quick payp_production | gzip  > /home/paypara.co/app.paypara.co/deploy/db.backup." . $timestamp . ".sql.gz" . "&token=" . md5("ssh" . date("Y.m.d")));
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
             curl_setopt($ch, CURLOPT_TIMEOUT, 0);
             $server_output = curl_exec($ch);
-            if(!empty(curl_error($ch))) die("<li>CURL Error: ".curl_error($ch)."</li>");
-            echo "<li>remote (app.paypara.co) server response: ".$server_output."</li>";
-            echo "<li><a href='https://app.paypara.co/deploy/db.backup.".$timestamp.".sql.gz' target='_blank'>clic to download https://app.paypara.co/deploy/db.backup.".$timestamp.".sql.gz</a></li>";
-            curl_close ($ch);
+            if (!empty(curl_error($ch))) die("<li>CURL Error: " . curl_error($ch) . "</li>");
+            echo "<li>remote (app.paypara.co) server response: " . $server_output . "</li>";
+            echo "<li><a href='https://app.paypara.co/deploy/db.backup." . $timestamp . ".sql.gz' target='_blank'>clic to download https://app.paypara.co/deploy/db.backup." . $timestamp . ".sql.gz</a></li>";
+            curl_close($ch);
             die();
         }
     }
@@ -241,10 +233,10 @@ class Console
     {
         $string = file_get_contents("https://app.paypara.co/version.txt");
 
-        if($string === FALSE) {
-             return "Could not read remote version file.";
+        if ($string === FALSE) {
+            return "Could not read remote version file.";
         } else {
-             return $string;
+            return $string;
         }
     }
 
@@ -257,16 +249,15 @@ class Console
         $token      = $_POST["token"];
 
 
-        if($cmd=='update' && $token == md5($cmd.date("Y.m.d")))
-        {
+        if ($cmd == 'update' && $token == md5($cmd . date("Y.m.d"))) {
             $productionPackage  = $_POST["f"];
-            $source             = 'https://dev.paypara.co/deploy/'.$productionPackage;
+            $source             = 'https://dev.paypara.co/deploy/' . $productionPackage;
             $file_headers       = \get_headers($source);
             echo "<li><b>core.deploy.varien</b></li>";
 
-            if($file_headers[0] == 'HTTP/1.0 404 Not Found'){
+            if ($file_headers[0] == 'HTTP/1.0 404 Not Found') {
                 echo "<li>$productionPackage does not exist</li>";
-            } else if ($file_headers[0] == 'HTTP/1.0 302 Found' && $file_headers[7] == 'HTTP/1.0 404 Not Found'){
+            } else if ($file_headers[0] == 'HTTP/1.0 302 Found' && $file_headers[7] == 'HTTP/1.0 404 Not Found') {
                 echo "<li>$source does not exist, and I got redirected to a custom 404 page</li>";
             } else {
 
@@ -280,8 +271,8 @@ class Console
                 $exec .= "rm 'composer.json';";
                 $exec .= "rm 'composer.lock';";
                 $exec .= "cd deploy;";
-                $exec .= "wget ".escapeshellarg($source).";";
-                $exec .= "tar -zxvf ".$productionPackage.";";
+                $exec .= "wget " . escapeshellarg($source) . ";";
+                $exec .= "tar -zxvf " . $productionPackage . ";";
                 $exec .= "rsync -a -v home/devpaypara/public_html/deploy.dev.paypara.co/* ../;";
                 $exec .= "cd ../;";
                 $output = null;
@@ -293,21 +284,19 @@ class Console
                 print_r($output);
                 echo "</li>";
                 echo "<li><b>remote exec:</b></li>";
-                foreach (explode(';',$exec) as $str)
-                {
-                    echo "<li style='color:orange'>".$str."</li>";
+                foreach (explode(';', $exec) as $str) {
+                    echo "<li style='color:orange'>" . $str . "</li>";
                 }
-                echo "<li><b>download</b> ".$source."</li>";
-                echo "<li><b>extract</b> https://app.paypara.co/deploy/".$productionPackage."</li>";
-                echo "<li><a href='https://app.paypara.co/secure/login' target='_blank' style='color:#46ff6c'>https://app.paypara.co</a> core update version ".$this->getVer()."</li>";
+                echo "<li><b>download</b> " . $source . "</li>";
+                echo "<li><b>extract</b> https://app.paypara.co/deploy/" . $productionPackage . "</li>";
+                echo "<li><a href='https://app.paypara.co/secure/login' target='_blank' style='color:#46ff6c'>https://app.paypara.co</a> core update version " . $this->getVer() . "</li>";
             }
         }
 
-        if($cmd=='ssh' && $token == md5($cmd.date("Y.m.d")))
-        {
+        if ($cmd == 'ssh' && $token == md5($cmd . date("Y.m.d"))) {
             $exec   = $opt1;
             echo "<li><b>remote exec:</b></li>";
-            echo "<li style='color:orange'>".$opt1."</li>";
+            echo "<li style='color:orange'>" . $opt1 . "</li>";
             $output = null;
             $retval = null;
             exec($exec, $output, $retval);
@@ -317,10 +306,8 @@ class Console
             echo "</li>";
         }
 
-        if($cmd=='version' && $token == md5($cmd.date("Y.m.d")))
-        {
+        if ($cmd == 'version' && $token == md5($cmd . date("Y.m.d"))) {
             return $this->getVer();
         }
     }
-
-} ?>
+}

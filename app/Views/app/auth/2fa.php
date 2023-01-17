@@ -11,8 +11,23 @@
     <link href="<?=baseUrl(assetsPath().'/plugins/global/plugins.bundle.css') ?>" rel="stylesheet" type="text/css" />
     <link href="<?=baseUrl(assetsPath().'/css/style.bundle.css') ?>" rel="stylesheet" type="text/css" />
   </head>
+
   <body id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
-  <style>body{background-image:url('<?=baseUrl(assetsPath().'/media/background.jpeg') ?>')}[data-theme=dark] body{background-image:url('<?=baseUrl(assetsPath().'/media/background-dark.jpeg') ?>')} .logo:hover {filter: drop-shadow(0 0 2rem #d95158)};</style>
+    <style>
+    body {
+      background-image: url('<?=baseUrl(assetsPath().'/media/background.jpeg') ?>')
+    }
+
+    [data-theme=dark] body {
+      background-image: url('<?=baseUrl(assetsPath().'/media/background-dark.jpeg') ?>')
+    }
+
+    .logo:hover {
+      filter: drop-shadow(0 0 2rem #d95158)
+    }
+
+    ;
+    </style>
     <div class="d-flex my-auto">
       <div class="d-flex flex-column flex-center mx-auto">
         <div class="mb-15">
@@ -25,12 +40,12 @@
               <h2 class="fw-bold m-0"><i class="fs-2 bi bi-lock-fill text-dark"></i> 2FA Verification</h2>
             </div>
             <div class="row my-7">
-                <div class="col-8 pe-0">
-                    <input type="text" placeholder="Enter code" name="verificationCode" verificationCode autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
-                </div>
-                <div class="col-4">
-                    <button type="button" verify class="btn btn-light-dark w-100">Verify</button>
-                </div>
+              <div class="col-8 pe-0">
+                <input type="text" placeholder="Enter code" name="verificationCode" verificationCode autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50">
+              </div>
+              <div class="col-4">
+                <button type="button" verify class="btn btn-light-dark w-100">Verify</button>
+              </div>
             </div>
           </form>
         </div>
@@ -40,4 +55,5 @@
     <script src="<?=baseUrl(assetsPath().'/js/scripts.bundle.js') ?>"></script>
     <script src="<?=activeDomain() . "/" . assetsPath() . "/js/2fa.js?v=" . md5(microtime()); ?>"></script>
   </body>
+
 </html>

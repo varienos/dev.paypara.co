@@ -2,10 +2,14 @@
   <input type="hidden" value="<?=$id ?>" name="id"></input>
   <input type="hidden" value="<?=$type ?>" name="dataType"></input>
   <div class="modal-header" id="kt_modal_add_customer_header">
-    <h2 class="fw-bold"><? echo $id>0 ? "Edit Account" : "Add New Account" ?></h2>
+    <h2 class="fw-bold">
+      <? echo $id>0 ? "Edit Account" : "Add New Account" ?>
+    </h2>
     <div id="kt_modal_add_customer_close" class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
       <span class="svg-icon svg-icon-1">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" /><rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+          <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
         </svg>
       </span>
     </div>
@@ -29,7 +33,8 @@
         Account Settings
         <span class="ms-2 rotate-180">
           <span class="svg-icon svg-icon-3">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
             </svg>
           </span>
         </span>
@@ -91,12 +96,13 @@
       </div>
       <div class="fw-bold fs-3 rotate collapsible collapsed mb-7" data-bs-toggle="collapse" href="#kt_modal_add_customer_billing_info" role="button" aria-expanded="false" aria-controls="kt_customer_view_details">
         Account Settings
-          <span class="ms-2 rotate-180">
-            <span class="svg-icon svg-icon-3">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
-              </svg>
-            </span>
+        <span class="ms-2 rotate-180">
+          <span class="svg-icon svg-icon-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
+            </svg>
           </span>
+        </span>
       </div>
       <div id="kt_modal_add_customer_billing_info" class="collapse">
         <div class="mb-7">
@@ -176,7 +182,8 @@
         Account Settings
         <span class="ms-2 rotate-180">
           <span class="svg-icon svg-icon-3">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
             </svg>
           </span>
         </span>
@@ -193,38 +200,40 @@
             </label>
           </div>
         </div>
-          <div class="d-flex flex-column mb-7">
-            <label class="required fs-6 fw-semibold mb-2">Monthly Deposit Limit</label>
-            <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified deposit limit</div>
-            <div class="input-group input-group-solid border">
-              <span class="input-group-text">₺</span>
-              <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" aria-label="Miktar" />
-            </div>
+        <div class="d-flex flex-column mb-7">
+          <label class="required fs-6 fw-semibold mb-2">Monthly Deposit Limit</label>
+          <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified deposit limit</div>
+          <div class="input-group input-group-solid border">
+            <span class="input-group-text">₺</span>
+            <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" aria-label="Miktar" />
           </div>
-          <div class="d-flex flex-column mb-7">
-            <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
-            <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
-            <div class="input-group input-group-solid border">
-              <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" max="1000" maxlength="5" aria-label="Miktar" />
-              <span class="input-group-text">transactions</span>
-            </div>
+        </div>
+        <div class="d-flex flex-column mb-7">
+          <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
+          <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
+          <div class="input-group input-group-solid border">
+            <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" max="1000" maxlength="5" aria-label="Miktar" />
+            <span class="input-group-text">transactions</span>
           </div>
-          <div class="d-flex flex-column mb-7">
-            <label class="required fs-6 fw-semibold mb-2">Active Firms</label>
-            <div class="fs-7 fw-semibold text-muted mb-2">At which firms the account should be used?</div>
-            <select class="form-select form-select-solid form-select-lg border" data-control="select2" data-close-on-select="false" data-placeholder="All firms" name="perm_site[]" data-allow-clear="true" multiple="multiple">
-              <option></option>
-              <? $site = explode(",",$update->perm_site); foreach($siteSelect as $row){ $selected = in_array($row->id, $site) ? "selected" : null; ?>
-              <option value="<?=$row->id ?>" <?=$selected ?>> <?=$row->site_name ?></option>
-              <? } ?>
-            </select>
-          </div>
+        </div>
+        <div class="d-flex flex-column mb-7">
+          <label class="required fs-6 fw-semibold mb-2">Active Firms</label>
+          <div class="fs-7 fw-semibold text-muted mb-2">At which firms the account should be used?</div>
+          <select class="form-select form-select-solid form-select-lg border" data-control="select2" data-close-on-select="false" data-placeholder="All firms" name="perm_site[]" data-allow-clear="true" multiple="multiple">
+            <option></option>
+            <? $site = explode(",",$update->perm_site); foreach($siteSelect as $row){ $selected = in_array($row->id, $site) ? "selected" : null; ?>
+            <option value="<?=$row->id ?>" <?=$selected ?>> <?=$row->site_name ?></option>
+            <? } ?>
+          </select>
+        </div>
       </div>
     </div>
   </div>
   <? endif; ?>
   <div class="modal-footer flex-center">
-      <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-      <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary"><? echo $id>0 ? "Update" : "Add" ?></button>
+    <button type="reset" id="kt_modal_add_customer_cancel" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
+    <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
+      <? echo $id>0 ? "Update" : "Add" ?>
+    </button>
   </div>
 </form>

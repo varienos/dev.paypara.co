@@ -6,7 +6,6 @@ class Secure extends BaseController
 {
     public function index()
     {
-       
     }
 
     public function twoFa($stage = null, $code = null)
@@ -15,10 +14,10 @@ class Secure extends BaseController
             echo view('app/auth/2fa');
         } elseif ($stage == 'verify') {
 
-            $this->twoFA     = new \App\Libraries\TwoFA(); 
+            $this->twoFA     = new \App\Libraries\TwoFA();
             //$this->verify    = $this->twoFA->getCode($code);
             if ($this->twoFA->verifyCode((!empty($this->request->getVar('secret')) ? $this->request->getVar('secret') : $this->session->get('secret2fa')), $code)) {
-                $this->session->set('verify2fa',true,$this->SecureModel->sessionTimeout());
+                $this->session->set('verify2fa', true, $this->SecureModel->sessionTimeout());
                 $this->response->setStatusCode(200, 'OK');
             } else {
                 $this->response->setStatusCode(401, $this->twoFA->ensureCorrectTime());
@@ -61,8 +60,7 @@ class Secure extends BaseController
     }
     public function login()
     {
-         if ($this->SecureModel->security()) 
-        {
+        if ($this->SecureModel->security()) {
             return redirect()->to(base_url('dashboard'));
         }
         echo view('app/auth/login');

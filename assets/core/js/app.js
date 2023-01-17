@@ -1223,6 +1223,7 @@ $.varien = {
                     $('[data-set-txid]').text($.txid);
                     $('[data-set-accountName]').text(data.accountName);
                     $('[data-set-accountId]').text($.accountId);
+                    $('[data-set-account-num]').text($.accountNo);
                     $('[data-set-firm]').text($.client);
                     $('[data-set-method]').text($.method).find('div').contents().unwrap();
                     $('[data-set-customer]').text($.customer);

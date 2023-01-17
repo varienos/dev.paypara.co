@@ -205,18 +205,10 @@ function cssMinify($str)
         array(
             // Remove comment(s)
             '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')|\/\*(?!\!)(?>.*?\*\/)|^\s*|\s*$#s',
-            // Remove unused white-space(s)
-            '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/))|\s*+;\s*+(})\s*+|\s*+([*$~^|]?+=|[{};,>~]|\s(?![0-9\.])|!important\b)\s*+|([[(:])\s++|\s++([])])|\s++(:)\s*+(?!(?>[^{}"\']++|"(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')*+{)|^\s++|\s++\z|(\s)\s+#si',
-            // Replace `0(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)` with `0`
-            '#(?<=[\s:])(0)(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)#si',
-            // Replace `:0 0 0 0` with `:0`
-            '#:(0\s+0|0\s+0\s+0\s+0)(?=[;\}]|\!important)#i',
-            // Replace `background-position:0` with `background-position:0 0`
-            '#(background-position):0(?=[;\}])#si',
-            // Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space
-            '#(?<=[\s:,\-])0+\.(\d+)#s',
-            // Minify string value
-            '#(\/\*(?>.*?\*\/))|(\burl\()([\'"])([^\s]+?)\3(\))#si',
+// Remove unused white-space(s)
+'#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/))|\s*+;\s*+(})\s*+|\s*+([*$~^|]?+=|[{};,>~]|\s(?![0-9\.])|!important\b)\s*+|([[(:])\s++|\s++([])])|\s++(:)\s*+(?!(?>[^{}"\']++|"(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')*+{)|^\s++|\s++\z|(\s)\s+#si',
+// Replace `0(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)` with `0`
+'#(?<=[\s:])(0)(cm|em|ex|in|mm|pc|pt|px|vh|vw|%)#si', // Replace `:0 0 0 0` with `:0` '#:(0\s+0|0\s+0\s+0\s+0)(?=[;\}]|\!important)#i' , // Replace `background-position:0` with `background-position:0 0` '#(background-position):0(?=[;\}])#si' , // Replace `0.6` with `.6`, but only when preceded by `:`, `,`, `-` or a white-space '#(?<=[\s:,\-])0+\.(\d+)#s' , // Minify string value '#(\/\*(?>.*?\*\/))|(\burl\()([\'"])([^\s]+?)\3(\))#si',
             // Minify HEX color code
             '#(?<=[\s:,\-]\#)([a-f0-6]+)\1([a-f0-6]+)\2([a-f0-6]+)\3#i',
             // Replace `(border|outline):none` with `(border|outline):0`
@@ -248,7 +240,8 @@ function jsMinify($str) {
     $js= preg_replace(
         array(
             // Remove comment(s)
-            '#\s*("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?<![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
+            '#\s*(" (?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?
+  <![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
             // Remove white-space(s) outside the string and regex
             '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/)|\/(?!\/)[^\n\r]*?\/(?=[\s.,;]|[gimuy]|$))|\s*([!%&*\(\)\-=+\[\]\{\}|;:,.<>?\/])\s*#s',
             // Remove the last semicolon
@@ -323,5 +316,3 @@ function getSettingSiteStatus($site_id,$setting)
         return false;
     }
 }
-
-?>

@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Controllers;
+
 class Dev extends BaseController
 {
 	public function __construct()
@@ -19,13 +21,12 @@ class Dev extends BaseController
 	}
 	public function console()
 	{
-		if($_GET['action']=='clientsCheckSecurityHash'){
+		if ($_GET['action'] == 'clientsCheckSecurityHash') {
 
 			$this->DevModel->clientsCheckSecurityHash();
-		}else{
+		} else {
 			return $this->console->cmd($this->request->getVar("cmd"));
 		}
-		
 	}
 	public function errorHandler($language)
 	{

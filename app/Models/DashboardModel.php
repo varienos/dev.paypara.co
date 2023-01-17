@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Models;
+
 use CodeIgniter\Model;
+
 class DashboardModel extends Model
 {
-	function __construct()
+    function __construct()
     {
-        $this->session 			= \Config\Services::session();
-        $this->db      			= \Config\Database::connect();
-        $this->setting 		    = new \App\Models\SettingModel();
+        $this->session             = \Config\Services::session();
+        $this->db                  = \Config\Database::connect();
+        $this->setting             = new \App\Models\SettingModel();
         $this->paypara          = new \App\Libraries\Paypara();
-        $this->error  			= new \App\Libraries\Error();
-	}
+        $this->error              = new \App\Libraries\Error();
+    }
 }

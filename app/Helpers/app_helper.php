@@ -19,7 +19,7 @@ function getVersion()
 
 function updateVersion()
 {
-    if(!file_exists("version.txt")):
+    if (!file_exists("version.txt")) :
         $version = fopen("version.txt", "w");
         $v       = "1.0.0";
         fwrite($version, $v);
@@ -28,14 +28,14 @@ function updateVersion()
     endif;
     $v          = getVer();
     $version    = fopen("version.txt", "w");
-    if($v!="") {
+    if ($v != "") {
         $v      = explode(".", $v);
-        $x      = intval($v[2])+1;
-        $y      = $x==100 ? (intval($v[1])+1) : (intval($v[1]));
-        $x      = $x==100 ? 0 : $x;
-        $z      = $y==100 ? (intval($v[0])+1) : (intval($v[0]));
-        $y      = $y==100 ? 0 : $y;
-        $newVersion = $z.".".$y.".".$x;
+        $x      = intval($v[2]) + 1;
+        $y      = $x == 100 ? (intval($v[1]) + 1) : (intval($v[1]));
+        $x      = $x == 100 ? 0 : $x;
+        $z      = $y == 100 ? (intval($v[0]) + 1) : (intval($v[0]));
+        $y      = $y == 100 ? 0 : $y;
+        $newVersion = $z . "." . $y . "." . $x;
         file_put_contents("version.txt", "");
         fwrite($version, $newVersion);
     } else {
@@ -46,14 +46,14 @@ function updateVersion()
     return $newVersion;
 }
 
-function baseUrl($url="")
+function baseUrl($url = "")
 {
     return base_url($url);
 }
 
 function appViewPath()
 {
-    return APPPATH.'Views/app/';
+    return APPPATH . 'Views/app/';
 }
 
 function assetsPath()
@@ -98,7 +98,7 @@ function getClientIpAddress()
         $ip = $_SERVER['REMOTE_ADDR'];
     }
 
-    if(strpos($ip, ",")) {
+    if (strpos($ip, ",")) {
         $exp = explode(',', $ip);
         $ip  = $exp[0];
     }
@@ -111,40 +111,40 @@ function bankName($key)
     return bankArray()[$key];
 }
 
-function bankArray($available=1)
+function bankArray($available = 1)
 {
     $x = [
-        "1"=>"Akbank",
-        "2"=>"Albaraka Türk",
-        "3"=>"Alternatif Bank",
-        "4"=>"Burgan Bank",
-        "5"=>"Denizbank",
-        "6"=>"Fibabanka",
-        "7"=>"Garanti BBVA",
-        "8"=>"Halkbank",
-        "9"=>"HSBC",
-        "10"=>"ING Bank",
-        "11"=>"İş Bankası",
-        "12"=>"Kuveyt Türk",
-        "13"=>"Şekerbank",
-        "14"=>"Odeabank",
-        "15"=>"TEB",
-        "16"=>"Türkiye Finans",
-        "17"=>"Vakıf Katılım",
-        "18"=>"Vakıfbank",
-        "19"=>"Yapı Kredi",
-        "20"=>"Ziraat Bankası",
-        "21"=>"Ziraat Katılım",
-        "22"=>"QNB Finansbank"
+        "1" => "Akbank",
+        "2" => "Albaraka Türk",
+        "3" => "Alternatif Bank",
+        "4" => "Burgan Bank",
+        "5" => "Denizbank",
+        "6" => "Fibabanka",
+        "7" => "Garanti BBVA",
+        "8" => "Halkbank",
+        "9" => "HSBC",
+        "10" => "ING Bank",
+        "11" => "İş Bankası",
+        "12" => "Kuveyt Türk",
+        "13" => "Şekerbank",
+        "14" => "Odeabank",
+        "15" => "TEB",
+        "16" => "Türkiye Finans",
+        "17" => "Vakıf Katılım",
+        "18" => "Vakıfbank",
+        "19" => "Yapı Kredi",
+        "20" => "Ziraat Bankası",
+        "21" => "Ziraat Katılım",
+        "22" => "QNB Finansbank"
     ];
 
-    if($available==1) {
-        if(strlen(availableBanks)<1) {
+    if ($available == 1) {
+        if (strlen(availableBanks) < 1) {
             return $x;
         } else {
-            $availableBanks=[];
-            foreach($x as $key=>$value) {
-                if(in_array($key, str_getcsv(availableBanks))==true) {
+            $availableBanks = [];
+            foreach ($x as $key => $value) {
+                if (in_array($key, str_getcsv(availableBanks)) == true) {
                     $availableBanks[$key] = $value;
                 }
             }
@@ -158,24 +158,26 @@ function bankArray($available=1)
 function htmlMinify($Html)
 {
     $Search = array(
-     '/(\n|^)(\x20+|\t)/',
-     '/(\n|^)\/\/(.*?)(\n|$)/',
-     '/\n/',
-     '/\<\!--.*?-->/',
-     '/(\x20+|\t)/', # Delete multispace (Without \n)
-     '/\>\s+\</', # strip whitespaces between tags
-     '/(\"|\')\s+\>/', # strip whitespaces between quotation ("') and end tags
-     '/=\s+(\"|\')/'); # strip whitespaces between = "'
+        '/(\n|^)(\x20+|\t)/',
+        '/(\n|^)\/\/(.*?)(\n|$)/',
+        '/\n/',
+        '/\<\!--.*?-->/',
+        '/(\x20+|\t)/', # Delete multispace (Without \n)
+        '/\>\s+\</', # strip whitespaces between tags
+        '/(\"|\')\s+\>/', # strip whitespaces between quotation ("') and end tags
+        '/=\s+(\"|\')/'
+    ); # strip whitespaces between = "'
 
     $Replace = array(
-     "\n",
-     "\n",
-     " ",
-     "",
-     " ",
-     "><",
-     "$1>",
-     "=$1");
+        "\n",
+        "\n",
+        " ",
+        "",
+        " ",
+        "><",
+        "$1>",
+        "=$1"
+    );
 
     $Html = preg_replace($Search, $Replace, $Html);
     return $Html;
@@ -183,7 +185,7 @@ function htmlMinify($Html)
 
 function cssMinify($str)
 {
-    $input=file_get_contents($str);
+    $input = file_get_contents($str);
 
     //if(trim($input) === "") return $input;
     $css = preg_replace(
@@ -230,11 +232,12 @@ function cssMinify($str)
 
 function jsMinify($str)
 {
-    $input=file_get_contents($str);
-    $js= preg_replace(
+    $input = file_get_contents($str);
+    $js = preg_replace(
         array(
             // Remove comment(s)
-            '#\s*("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?<![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
+            '#\s*(" (?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\')\s*|\s*\/\*(?!\!|@cc_on)(?>[\s\S]*?\*\/)\s*|\s*(?
+  <![\:\=])\/\/.*(?=[\n\r]|$)|^\s*|\s*$#',
             // Remove white-space(s) outside the string and regex
             '#("(?:[^"\\\]++|\\\.)*+"|\'(?:[^\'\\\\]++|\\\.)*+\'|\/\*(?>.*?\*\/)|\/(?!\/)[^\n\r]*?\/(?=[\s.,;]|[gimuy]|$))|\s*([!%&*\(\)\-=+\[\]\{\}|;:,.<>?\/])\s*#s',
             // Remove the last semicolon
@@ -254,24 +257,24 @@ function jsMinify($str)
         $input
     );
 
-    return str_replace("var ", " var ", $js).";";
+    return str_replace("var ", " var ", $js) . ";";
 }
 
 function phpError($file, $line, $message)
 {
     $db     = \Config\Database::connect();
     $db->query("insert into log_php_error set
-                file        ='".$file."',
-                line        ='".$line."',
-                message     =".$db->escape($message)."
+                file        ='" . $file . "',
+                line        ='" . $line . "',
+                message     =" . $db->escape($message) . "
                 timeStamo   =NOW()");
 }
 
 function getSettingSiteStatus($site_id, $setting)
 {
-    if(strlen($setting)==0) {
+    if (strlen($setting) == 0) {
         return true;
-    } elseif(in_array($site_id, str_getcsv($setting))) {
+    } elseif (in_array($site_id, str_getcsv($setting))) {
         return true;
     } else {
         return false;

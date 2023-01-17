@@ -14,6 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script data-token="8BA6K8H77930" async src="https://cdn.splitbee.io/sb.js"></script>
   </head>
+
   <body onload="preloader()">
     <config id="statusTxPending" value="<?= $pending ?>"></config>
     <config id="statusTransaction" value="<?= $transactionStatus ?>"></config>
@@ -360,4 +361,5 @@
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/qrcode.min.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/app.js?v=<?= md5(microtime()) ?>"></script>
   </body>
+
 </html>
