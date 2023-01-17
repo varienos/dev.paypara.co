@@ -43,6 +43,9 @@ const paparaAccountName = document.getElementById("pp-account-name");
 const paparaAccountNumber = document.getElementById("pp-account-number");
 const bankAccountNumber = document.getElementById("iban-value");
 
+// Misc
+const domain = window.location.host.split('.').slice(-1);
+
 // QR Code Generator
 const qrCode = new QRCode(document.getElementById("qr-box"), {
   width: 140,
@@ -318,7 +321,7 @@ nextBtn.addEventListener('click', async function (e) {
     if (currentStep + 1 === availableSteps.indexOf("bank-transfer")) {
       if (!bankTimerActive) {
         blockUI.block();
-        const response = await getAccount('https://api.dev.paypara.co/v1/new-deposit/bank/pre-request');
+        const response = await getAccount(`https://api.dev.paypara.${domain}/v1/new-deposit/bank/pre-request`);
 
         if (response === false) {
           toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -350,7 +353,7 @@ nextBtn.addEventListener('click', async function (e) {
     if (currentStep + 1 === availableSteps.indexOf("papara")) {
       if (!paparaTimerActive) {
         blockUI.block();
-        const response = await getAccount('https://api.dev.paypara.co/v1/new-deposit/papara/pre-request');
+        const response = await getAccount(`https://api.dev.paypara.${domain}/v1/new-deposit/papara/pre-request`);
 
         if (response === false) {
           toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -428,7 +431,7 @@ submitBtn.addEventListener("click", (e) => {
       let activeStep = availableSteps[currentStep];
       if (activeStep === "bank-transfer") {
         blockUI.block();
-        const response = await approveTransaction('https://api.dev.paypara.co/v1/approve');
+        const response = await approveTransaction(`https://api.dev.paypara.${domain}/v1/approve`);
 
         if (response === false) {
           toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -454,7 +457,7 @@ submitBtn.addEventListener("click", (e) => {
 
       if (activeStep === "papara") {
         blockUI.block();
-        const response = await approveTransaction('https://api.dev.paypara.co/v1/approve/');
+        const response = await approveTransaction(`https://api.dev.paypara.${domain}/v1/approve/`);
 
         if (response === false) {
           toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -516,7 +519,7 @@ restartBankTimer.addEventListener("click", async () => {
 // Get new Papara account
 restartPaparaTimer.addEventListener("click", async () => {
   blockUI.block();
-  const response = await getAccount('https://api.dev.paypara.co/v1/new-deposit/papara/pre-request', true);
+  const response = await getAccount(`https://api.dev.paypara.${domain}/v1/new-deposit/papara/pre-request`, true);
 
   if (response === false) {
     toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);

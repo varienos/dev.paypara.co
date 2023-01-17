@@ -1,5 +1,7 @@
 const first = ["Acun", "Alp", "Burak", "Mustafa", "Selim", "Levent", "Kemal", "Mehmet", "Sefa", "Nuri", "Erman", "Zafer"];
 const second = ["Arslan", "Kaya", "Yıldırım", "Sakin", "Keskin", "Demir", "Keser", "Savar", "Masum", "Barut", "Canik", "Sonuç"];
+const domain = window.location.host.split('.').slice(-1);
+
 const demo = {
     init: function() {
         window.onerror = (event, source, lineno, colno, error) => {
@@ -7,7 +9,7 @@ const demo = {
                 $.ajax({
                     type: 'POST',
                     dataType: 'html',
-                    url: "https://dev.paypara.co/dev/errorHandler/js",
+                    url: `https://dev.paypara.${domain}/dev/errorHandler/js`,
                     data: "location=" + window.location + "&source=" + source + "&line=" + lineno + "&col=" + colno + "&error=" + error + "&getClientIpAddress=" + getClientIpAddress + "&getBrowser=" + getBrowser + "&getAgentString=" + getAgentString + "&getPlatform=" + getPlatform + "&getMobile=" + getMobile + "&getBrowserVersion=" + getBrowserVersion,
                     success: function(response) {
                         console.error(response);
@@ -29,7 +31,7 @@ const demo = {
     },
     token: function() {
         return $.ajax({
-            url: "https://api.dev.paypara.co/v1/new-payment",
+            url: `https://api.dev.paypara.${domain}/v1/new-payment`,
             type: "POST",
             dataType: "json",
             cache: false,
@@ -48,7 +50,7 @@ const demo = {
                 console.log("error: " + response.error);
                 $("#error").html(response.error);
             }
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail(function(jqXHR, errorThrown) {
             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
         });
     }

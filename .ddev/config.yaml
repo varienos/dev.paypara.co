@@ -9,6 +9,7 @@ xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns:
 - dev.paypara.dev
+- pay.paypara.dev
 - demo.paypara.dev
 - api.dev.paypara.dev
 - pay.dev.paypara.dev

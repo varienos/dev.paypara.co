@@ -39,7 +39,7 @@ class ApiModel extends Model
         `platform`      ='".$this->agent->getPlatform()."',
         `isMobil`       ='".$this->agent->getMobile()."',
         `browserVersion`='".$this->agent->getVersion()."',
-        `timestamp`     =NOW() 
+        `timestamp`     =NOW()
         ");
     }
 
@@ -193,6 +193,7 @@ class ApiModel extends Model
 
                                                  $link = 'https://pay.paypara.co/papara/';
        if(HOSTNAME=='api.dev.paypara.co')        $link = 'https://pay.dev.paypara.co/papara/';
+       if(HOSTNAME=='api.dev.paypara.dev')       $link = 'https://pay.dev.paypara.dev/papara/';
        if(HOSTNAME=='api.dev.paypara.localhost') $link = 'https://pay.dev.paypara.localhost/papara/';
        if($_SERVER['HTTP_REFERER']=='https://demo.paypara.co/') $link = 'https://demo.paypara.co/papara/';
        $this->log($this->getSiteId($apiKey),["status"=>true,"link"=>$link.$token],__FUNCTION__);
@@ -241,7 +242,7 @@ class ApiModel extends Model
         }
 
         $siteData    = $this->db->query("select * from site where status='on' and api_key='".md5($_POST["apiKey"])."'")->getRow();
-       
+
 		$obj["papara"] = array
         (
             "deposit" => array

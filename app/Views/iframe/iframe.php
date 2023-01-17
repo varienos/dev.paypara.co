@@ -8,12 +8,11 @@
     <link rel="shortcut icon" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.css?v=<?=getVersion() ?>">
     <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/css/style.bundle.css?v=<?=getVersion() ?>">
-    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/css/custom.css?v=<?=md5(microtime()) ?>">
+    <link rel="stylesheet" href="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/css/app.css?v=<?=md5(microtime()) ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   </head>
-
   <body onload="preloader()">
     <config id="statusTxPending" value="<?= $pending ?>"></config>
     <config id="statusTransaction" value="<?= $transactionStatus ?>"></config>
@@ -357,7 +356,7 @@
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/imask.min.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/qrcode.min.js?v=<?=getVersion() ?>"></script>
-    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/script.js?v=<?= md5(microtime()) ?>"></script>
+    <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/app.js?v=<?= md5(microtime()) ?>"></script>
   </body>
 
 </html>

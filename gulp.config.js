@@ -190,9 +190,11 @@ const config = {
     media: {
       src: {
         media: ["{$config.path.src}/media/**/*.*"],
+        iframe: ["{$config.path.core_path}/iframe/images/**/*.*"],
       },
       dist: {
         media: "{$config.dist}/media/",
+        iframe: "{$config.dist}/iframe/images/",
       },
     },
   },
@@ -220,6 +222,8 @@ const config = {
         scripts: [
           "{$config.path.core_path}/iframe/js/app.js",
           "{$config.path.core_path}/iframe/js/demo.js",
+          "{$config.path.core_path}/iframe/js/imask.min.js",
+          "{$config.path.core_path}/iframe/js/qrcode.min.js",
         ],
       },
       dist: {
