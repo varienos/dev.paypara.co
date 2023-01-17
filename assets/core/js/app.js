@@ -1019,17 +1019,23 @@ $.varien = {
             sync: function() {
                 autoRefreshInterval = setInterval($.varien.transaction.datatable.reload, $.syncTime);
                 autoDateInterval = setInterval($.varien.transaction.datatable.autoDate, $.syncTime);
-                $('#sync').on("click", function() {
+                $("#sync").on("click", function(e) {
                     if ($(this).is(":checked") == true) {
                         if (typeof autoRefreshInterval === 'object') autoRefreshInterval = setInterval($.varien.transaction.datatable.reload, $.syncTime);
                         if (typeof autoDateInterval === 'object') autoDateInterval = setInterval($.varien.transaction.datatable.autoDate, $.syncTime);
-                        toastr.success("Auto refresh activated");
+
+                        if(e.originalEvent !== undefined) {
+                            toastr.success("Auto refresh enabled");
+                        }
                     } else {
                         clearInterval(autoRefreshInterval);
                         clearInterval(autoDateInterval);
                         autoRefreshInterval = null;
                         autoDateInterval = null;
-                        toastr.error("Auto refresh disabled");
+
+                        if(e.originalEvent !== undefined) {
+                            toastr.error("Auto refresh disabled");
+                        }
                     }
                 });
             },
