@@ -2,7 +2,6 @@ import fs from "fs";
 import _ from "lodash";
 import gulp from "gulp";
 import merge from "merge-stream";
-import { clean } from "./clean.js";
 import { build as buildMaster } from "./build.js";
 import { argv, objectWalkRecursive, outputFunc, bundler } from "./helpers.js";
 
@@ -41,11 +40,6 @@ let bundle = (cb) => {
   cb();
   return merge(streams);
 };
-
-// don't clean assets if compile only 1 type
-if (!args.sass && !args.js && !args.media) {
-  tasks.push(clean);
-}
 
 tasks.push(bundle);
 
