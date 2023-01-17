@@ -7,7 +7,7 @@
 ## Getting Started
 
 - Clone this repository
-- Run `composer update` to install php modules
+- Run `composer install` to install php modules
 - Run `yarn install` to install node modules
 - Run `yarn build` to build the frontend assets
 
