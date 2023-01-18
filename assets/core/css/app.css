@@ -72,20 +72,14 @@
 
 /* Transaction Modal Colors */
 
-[data-theme="light"] #approve-info {
-    background-color: #56e496;
+#txSubmit {
+    color: #fff;
+    background-color: #191c30;
 }
 
-[data-theme="dark"] #approve-info {
-    background-color: #41ae72;
-}
-
-[data-theme="light"] #reject-info {
-    background-color: #f96085;
-}
-
-[data-theme="dark"] #reject-info {
-    background-color: #b33c58;
+#txSubmit:hover,
+#txSubmit:active {
+    background-color: #293647;
 }
 
 [data-theme="light"] #inspect-info {

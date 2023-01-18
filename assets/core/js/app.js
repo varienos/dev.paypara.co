@@ -816,8 +816,8 @@ $.varien = {
                     }
                 }
             });
+            $.blockModalContent = new KTBlockUI(document.querySelector("#transaction"));
             $.blockDatatable = new KTBlockUI(document.querySelector("#datatable_content"));
-            $.blockModalContent = new KTBlockUI(document.querySelector("#ajaxModalContent"));
             KTCookie.set('recordsTotal', 0, {sameSite: 'None', secure: true});
             let created = false;
             $(document).on("click", () => {
@@ -1132,7 +1132,6 @@ $.varien = {
                                 $.varien.transaction.datatable.status($(this).attr("data-id"), 0);
                             }
                         });
-                        $.varien.transaction.datatable.modal();
                         $.varien.transaction.datatable.inspect();
                         $.varien.transaction.datatable.transaction();
                     }, 500);
@@ -1172,36 +1171,35 @@ $.varien = {
                         $('[data-set-time]').text(data[8].innerText);
                     }
 
-                    $.isVip = $('#inspect').attr('data-customer-vip');
-                    $.customerDeposit = $('#inspect').attr('data-customer-deposit');
-                    $.customerWithdraw = $('#inspect').attr('data-customer-withdraw');
-
                     $('[data-set-accountName]').text($('#inspect').attr('data-account-name'));
                     $('[data-set-customerNote]').text($('#inspect').attr('data-customer-note'));
-                    $('input[data-set="switch"]').attr('data-id', $('#inspect').attr('data-customer-id'));
 
-                    $('input[data-set="switch"]').attr('data-id', data[2].innerText);
-                    if (data.customerDeposit == 'on' && $("#deposit").is(":checked") == false) $('#deposit').prop('checked', true);
-                    if (data.customerDeposit != 'on' && $("#deposit").is(":checked") == true) $('#deposit').prop('checked', false);
-                    if (data.customerWithdraw == 'on' && $("#withdraw").is(":checked") == false) $('#withdraw').prop('checked', true);
-                    if (data.customerWithdraw != 'on' && $("#withdraw").is(":checked") == true) $('#withdraw').prop('checked', false);
+                    $.depositPerm = $('#inspect').attr('data-customer-deposit');
+                    $.withdrawPerm = $('#inspect').attr('data-customer-withdraw');
+                    if ($.depositPerm == 'on' && $("#deposit").is(":checked") == false) $('#deposit').prop('checked', true);
+                    if ($.depositPerm != 'on' && $("#deposit").is(":checked") == true) $('#deposit').prop('checked', false);
+                    if ($.withdrawPerm == 'on' && $("#withdraw").is(":checked") == false) $('#withdraw').prop('checked', true);
+                    if ($.withdrawPerm != 'on' && $("#withdraw").is(":checked") == true) $('#withdraw').prop('checked', false);
 
-                    $('input[data-set="switch"]').on("change", function(e) {
-                        $.varien.eventControl(e);
-                        if ($(this).is(":checked") == true) {
-                            $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
-                        } else {
-                            $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), 0);
-                        }
-                    });
-
-                    if (data.isVip == 'on' && $("#isVip").is(":checked") == false) $('#isVip').prop('checked', true);
-                    if (data.isVip != 'on' && $("#isVip").is(":checked") == true) $('#isVip').prop('checked', false);
+                    $.isVip = $('#inspect').attr('data-customer-vip');
+                    if ($.isVip == 'on' && $("#isVip").is(":checked") == false) $('#isVip').prop('checked', true);
+                    if ($.isVip != 'on' && $("#isVip").is(":checked") == true) $('#isVip').prop('checked', false);
                     if (!$.resource.edit_customer) {
                         $("#deposit").prop("disabled", true);
                         $("#withdraw").prop("disabled", true);
                         $("#isVip").prop("disabled", true);
                     }
+
+                    $('input[data-set="switch"]').on("change", function(e) {
+                        $.varien.eventControl(e);
+
+                        $.dataCustomerId =$('#inspect').attr('data-customer-id');
+                        if ($(this).is(":checked") == true) {
+                            $.varien.customer.datatable.switch($(this).attr("name"), $.dataCustomerId, "on");
+                        } else {
+                            $.varien.customer.datatable.switch($(this).attr("name"), $.dataCustomerId, 0);
+                        }
+                    });
 
                     $('#accountPage').on("click", function(e) {
                         $.varien.eventControl(e);
@@ -1249,32 +1247,44 @@ $.varien = {
                 });
             },
             transaction: function() {
-                $('#datatable_content tbody').on('click', '#approved', function () {
+                $('#datatable_content tbody').on('click', '#approve, #reject', function () {
+                    $('#txSubmit').text($(this)[0].id === "approve" ? "Approve" : "Reject");
+
                     let data = $(this).closest('tr').find('td');
 
                     $('[data-set-time]').text(data[0].innerText);
                     $('[data-set-txid]').text(data[1].innerText);
-                    $('[data-set-amount]').text(data[7].innerText);
-                    $('[data-set-customer]').text(data[6].innerText);
-                    $('#txnAmount').val(data[7].innerText.slice(0, -1));
 
                     if($.varien.segment(3) === "deposit") {
-                        switch (KTThemeMode.getMode()) {
-                            case "light":
-                                $('#approve-info').css({'backgroundColor': '#000'});
-                                break;
-                            case "dark":
-                                $('#approve-info').css({'backgroundColor': '#fff'});
-                                break;
-                        }
+                        $('[data-set-customer]').text(data[6].innerText);
+                        $('[data-set-amount]').text(data[7].innerText);
+                        $('#txnAmount').val(data[7].innerText.slice(0, -1));
                     }
+
+                    if($.varien.segment(3) === "withdraw") {
+                        $('[data-set-customer]').text(data[4].innerText);
+                        $('[data-set-amount]').text(data[6].innerText);
+                        $('#txnAmount').val(data[6].innerText.slice(0, -1));
+                    }
+
+                    let element = document.getElementById('txn-info');
+                    let theme = KTThemeMode.getMode() == "light" ? "light" : "dark";
+                    if($(this)[0].id === "approve" && theme == "dark")  element.style.backgroundColor = "#2b6f4a";
+                    if($(this)[0].id === "approve" && theme == "light") element.style.backgroundColor = "#56e496";
+                    if($(this)[0].id === "reject"  && theme == "dark")  element.style.backgroundColor = "#861f37";
+                    if($(this)[0].id === "reject"  && theme == "light") element.style.backgroundColor = "#f96085";
                 });
-            },
-            modal: function() {
-                $('[data-bs-target="#ajaxModal"]').on('click', function() {
-                    $.varien.modal.event.load($(this).attr('data-url'), function() {
-                        $.varien.transaction.datatable.submit();
-                    });
+
+                $('#txSubmit').on('click', function() {
+                    let data = $(`#${$(this).text().toLowerCase()}`).closest('tr').find('td');
+
+                    let formData = new FormData();
+                    formData.append("id", data[1].innerText);
+                    formData.append("response", $(this).text().toLowerCase());
+                    formData.append("status", $(this).text() === "Approve" ? "onaylandı" : "reddedildi");
+                    formData.append("request", $.varien.segment(3));
+
+                    $.varien.transaction.datatable.submit(formData);
                 });
             },
             process: function(options) {
@@ -1282,18 +1292,18 @@ $.varien = {
                     $.ajax(options).done(resolve).fail(reject);
                 });
             },
-            submit: function() {
-                $("form#modalForm").on('submit', (function(e) {
+            submit: function(formData) {
+                $("form#transactionForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
                     $.blockDatatable.block();
                     $.blockModalContent.block();
-                    $.formData = new FormData(this);
+
                     $.varien.transaction.datatable.process({
                         url: "transaction/update",
                         type: "POST",
                         dataType: "html",
                         crossDomain: true,
-                        data: $.formData,
+                        data: formData,
                         xhrFields: {
                             withCredentials: true
                         },
@@ -1599,7 +1609,6 @@ $.varien = {
                                 $.varien.user.detail.twoFA.authorization().then(response => {
                                     if (response == 200) {
                                         $.varien.user.detail.twoFA.set2fa().then(response => {
-                                            console.log(response);
                                             if (response == 200) {
                                                 $.varien.modal.event.toggle();
                                                 toastr.success("2-Step verification has been successfully activated");

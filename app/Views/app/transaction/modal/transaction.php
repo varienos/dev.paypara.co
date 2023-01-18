@@ -1,7 +1,7 @@
 <div class="modal fade" id="transaction" tabindex="-1" aria-hidden="true" style="--bs-modal-border-radius: 0 !important;">
   <div class="modal-dialog modal-dialog-centered w-325px">
     <div class="modal-content">
-      <form class="form" action="javascript:" id="modalForm" method="post" enctype="multipart/form-data">
+      <form class="form" action="javascript:" id="transactionForm" method="post" enctype="multipart/form-data">
         <input type="hidden" value="{txid}" name="id"></input>
         <input type="hidden" value="approve" name="response"></input>
         <input type="hidden" value="onaylandı" name="status"></input>
@@ -22,7 +22,7 @@
         </div>
         <div class="modal-body py-0 px-7">
           <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
-            <div id="approve-info" class="d-flex flex-column flex-center h-95px mb-5">
+            <div id="txn-info" class="d-flex flex-column flex-center h-95px mb-5">
               <div class="fs-3 fw-bolder mb-1" data-set-customer>{customer_name}</div>
               <div class="fs-4 fw-bold" data-set-amount>{amount}</div>
             </div>
@@ -59,7 +59,7 @@
                   <label class="fs-5 fw-semibold">Description</label>
                   <div class="d-flex align-items-center input-group input-group-solid input-group-sm">
                     <span class="me-2">&bull;</span>
-                    <input type="text" class="form-control bg-transparent fs-6 text-gray-600 border-0 h-25px p-0" name="notes" placeholder="Add a description" value="{notes}">
+                    <input type="text" class="form-control bg-transparent fs-6 text-gray-600 border-0 h-25px p-0" name="notes" placeholder="Add a description" value="">
                   </div>
                 </div>
               </div>
@@ -68,7 +68,7 @@
         </div>
         <div class="modal-footer border-top-0 d-flex flex-nowrap flex-center px-7 pb-7 pt-6">
           <button type="button" class="btn btn-sm btn-secondary rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0 me-3" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" class="btn btn-sm btn-dark btn-active-secondary rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0">Approve</button>
+          <button type="submit" id="txSubmit" class="btn btn-sm rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0">Approve</button>
         </div>
       </form>
     </div>

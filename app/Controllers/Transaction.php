@@ -64,7 +64,7 @@ class Transaction extends BaseController
         {
             if ($status == "beklemede") {
                 $css            = '';
-                $tagsApprove    = 'id="approved" data-bs-toggle="modal" data-bs-target="#transaction"';
+                $tagsApprove    = 'id="approve" data-bs-toggle="modal" data-bs-target="#transaction"';
                 $tagsReject     = 'id="reject" data-bs-toggle="modal" data-bs-target="#transaction"';
             } else {
                 $css            = 'style="opacity:0.2; cursor: not-allowed;"';
