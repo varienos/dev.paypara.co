@@ -816,8 +816,9 @@ $.varien = {
                     }
                 }
             });
-            $.blockModalContent = new KTBlockUI(document.querySelector("#transaction"));
-            $.blockDatatable = new KTBlockUI(document.querySelector("#datatable_content"));
+            const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span> Please wait...</div>';
+            $.blockModalContent = new KTBlockUI(document.querySelector('#transactionForm'), { message: blockMessage });
+
             KTCookie.set('recordsTotal', 0, {sameSite: 'None', secure: true});
             let created = false;
             $(document).on("click", () => {
@@ -1295,9 +1296,7 @@ $.varien = {
             submit: function(formData) {
                 $("form#transactionForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
-                    $.blockDatatable.block();
                     $.blockModalContent.block();
-
                     $.varien.transaction.datatable.process({
                         url: "transaction/update",
                         type: "POST",
@@ -1309,21 +1308,26 @@ $.varien = {
                         },
                         processData: false,
                         contentType: false
-                    }).then(function success(data) {
-                        $.table.ajax.reload();
-                        $("#ajaxModal").modal('toggle');
-                        $.blockDatatable.release();
+                    }).then(function success() {
                         $.blockModalContent.release();
-                    }, function error(jqXHR, textStatus, errorThrown) {
+                        $("#transaction").modal('toggle');
+                        $.table.ajax.reload();
+                    }, function error(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
-                        $.blockDatatable.release();
                         $.blockModalContent.release();
                     }).catch(function(error) {
-                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
-                        $.blockDatatable.release();
+                        toastr.error(`${error}`, `Error`);
                         $.blockModalContent.release();
                     });
                 }));
+
+                $('#transaction').on('hide.bs.modal', function (e) {
+                    if($.blockModalContent.isBlocked()) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                });
             },
             remove: function() {
                 $('[data-set="delete"]').on('click', function() {
