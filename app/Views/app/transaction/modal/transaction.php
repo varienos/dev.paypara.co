@@ -1,4 +1,4 @@
-<div class="modal fade" id="new-approve" tabindex="-1" aria-hidden="true" style="--bs-modal-border-radius: 0 !important;">
+<div class="modal fade" id="transaction" tabindex="-1" aria-hidden="true" style="--bs-modal-border-radius: 0 !important;">
   <div class="modal-dialog modal-dialog-centered w-325px">
     <div class="modal-content">
       <form class="form" action="javascript:" id="modalForm" method="post" enctype="multipart/form-data">
@@ -8,8 +8,8 @@
         <input type="hidden" value="deposit" name="request"></input>
         <div class="modal-header d-flex align-items-start border-bottom-0 p-7" id="kt_modal_add_customer_header">
           <div class="d-flex flex-column">
-            <h2 class="fs-4 fw-bold mb-2">Transaction #{txid}</h2>
-            <h2 class="fs-7 fw-semibold text-gray-600">{time}</h2>
+            <h2 class="fs-4 fw-bold mb-2">Transaction #<span data-set-txid>{txid}</span></h2>
+            <h2 class="fs-7 fw-semibold text-gray-600" data-set-time>{time}</h2>
           </div>
           <button type="button" class="btn btn-icon btn-sm btn-active-icon-primary align-items-start" data-bs-dismiss="modal">
             <span class="svg-icon svg-icon-2qx svg-icon-dark">
@@ -23,8 +23,8 @@
         <div class="modal-body py-0 px-7">
           <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
             <div id="approve-info" class="d-flex flex-column flex-center h-95px mb-5">
-              <div class="fs-3 fw-bolder mb-1">{customer_name}</div>
-              <div class="fs-4 fw-bold">{amount}</div>
+              <div class="fs-3 fw-bolder mb-1" data-set-customer>{customer_name}</div>
+              <div class="fs-4 fw-bold" data-set-amount>{amount}</div>
             </div>
 
             <div class="separator theme-light-show border-dark mt-6 mb-5"></div>
@@ -43,7 +43,7 @@
                   <label class="fs-5 fw-semibold">Amount</label>
                   <div class="input-group input-group-solid input-group-sm w-100">
                     <span class="mt-1 me-2">&bull;</span>
-                    <input type="text" class="form-control border-0 bg-transparent fs-6 text-gray-600 h-25px p-0" maxlength="9" name="price" value="{amount}">
+                    <input id="txnAmount" type="text" class="form-control border-0 bg-transparent fs-6 text-gray-600 h-25px p-0" maxlength="9" name="price" value="{amount}">
                   </div>
                 </div>
               </div>
@@ -70,8 +70,7 @@
           <button type="button" class="btn btn-sm btn-secondary rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0 me-3" data-bs-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-sm btn-dark btn-active-secondary rounded-0 fs-6 fw-bold w-100 h-40px p-0 m-0">Approve</button>
         </div>
+      </form>
     </div>
-    </form>
   </div>
-</div>
 </div>

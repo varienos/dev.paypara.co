@@ -64,8 +64,8 @@ class Transaction extends BaseController
         {
             if ($status == "beklemede") {
                 $css            = '';
-                $tagsApprove    = 'id="approved" data-bs-target="#ajaxModal" data-url="transaction/modal/' . $request . '/approve/' . $id . '"';
-                $tagsReject     = 'id="reject" data-bs-target="#ajaxModal" data-url="transaction/modal/' . $request . '/reject/' . $id . '"';
+                $tagsApprove    = 'id="approved" data-bs-toggle="modal" data-bs-target="#transaction"';
+                $tagsReject     = 'id="reject" data-bs-toggle="modal" data-bs-target="#transaction"';
             } else {
                 $css            = 'style="opacity:0.2; cursor: not-allowed;"';
                 $tagsApprove    = $css;
@@ -87,7 +87,7 @@ class Transaction extends BaseController
                   </svg>
                 </span>
             </button>
-            <button id="inspect" class="btn btn-icon rounded-circle w-30px h-30px" data-row-id="' . $row->id . "-" . $status_id . "-" . $row->transaction_id . '" data-process-note="' . $row->processNotes . '" data-customer-note="' . $row->customerNotes . '" data-user-name="' . $row->user_name . '" data-customer-deposit="' . $row->deposit . '" data-customer-withdraw="' . $row->withdraw . '" data-customer-vip="' . $row->isVip . '"  data-account-name="' . $row->account_name . '" data-customer-id="' . $row->customer_id . '"data-customer-link="customer/detail/' . $row->customer_id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" data-account-link="account/detail/' . $row->account_id . '/' . $row->account_type . '">
+            <button id="inspect" class="btn btn-icon rounded-circle w-30px h-30px" data-row-id="' . $row->id . "-" . $status_id . "-" . $row->transaction_id . '" data-process-note="' . $row->processNotes . '" data-customer-note="' . $row->customerNotes . '" data-staff="' . $row->user_name . '" data-customer-deposit="' . $row->deposit . '" data-customer-withdraw="' . $row->withdraw . '" data-customer-vip="' . $row->isVip . '"  data-account-name="' . $row->account_name . '" data-customer-id="' . $row->customer_id . '"data-customer-link="customer/detail/' . $row->customer_id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" data-account-link="account/detail/' . $row->account_id . '/' . $row->account_type . '">
                 <span class="svg-icon svg-icon-2hx svg-icon-primary">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"></rect><rect x="11" y="11" width="2" height="2" rx="1" fill="currentColor"></rect><rect x="15" y="11" width="2" height="2" rx="1" fill="currentColor"></rect><rect x="7" y="11" width="2" height="2" rx="1" fill="currentColor"></rect>
@@ -98,21 +98,22 @@ class Transaction extends BaseController
         }
         //************************************************************************************************************************************/
         //$this->db->query("insert into log_query set query=".$this->db->escape(json_encode($_POST["search"]["value"])));
-        $data['dataTable']            = $this->TransactionModel->datatable($this->request->getVar('start'), $this->request->getVar('length'), $_POST, $request);
-        $data['dataTableNum']        = count((array)$this->TransactionModel->datatable('', '', $_POST, $request)->getResult());
-        $data['length']                = intval($this->request->getVar('length'));
-        $data['start']                = intval($this->request->getVar('start'));
-        $data['draw']                = intval($this->request->getVar('draw'));
-        $iTotalRecords  = $data['dataTableNum'];
-        $iDisplayLength = $data['length'];
-        $iDisplayLength = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength;
-        $iDisplayStart  = $data['start'];
-        $sEcho          = $data['draw'];
-        $records        = array();
-        $records["data"] = array();
-        $end            = $iDisplayStart + $iDisplayLength;
-        $end            = $end > $iTotalRecords ? $iTotalRecords : $end;
+        $data['dataTable']    = $this->TransactionModel->datatable($this->request->getVar('start'), $this->request->getVar('length'), $_POST, $request);
+        $data['dataTableNum'] = count((array)$this->TransactionModel->datatable('', '', $_POST, $request)->getResult());
+        $data['length']       = intval($this->request->getVar('length'));
+        $data['start']        = intval($this->request->getVar('start'));
+        $data['draw']         = intval($this->request->getVar('draw'));
+        $iTotalRecords        = $data['dataTableNum'];
+        $iDisplayLength       = $data['length'];
+        $iDisplayLength       = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength;
+        $iDisplayStart        = $data['start'];
+        $sEcho                = $data['draw'];
+        $records              = array();
+        $records["data"]      = array();
+        $end                  = $iDisplayStart + $iDisplayLength;
+        $end                  = $end > $iTotalRecords ? $iTotalRecords : $end;
         $i = 0;
+
         foreach ($data['dataTable']->getResult() as $row) {
             if ($row->status == "beklemede") {
                 $status     = '<div class="text-center badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Pending </div>';
@@ -141,7 +142,7 @@ class Transaction extends BaseController
             if ($request == "deposit") {
                 $records["data"][$i] = array(
                     "DT_RowId"  => $row->id . "-" . $status_id . "-" . $row->transaction_id,
-                    '<div class="text-center">' . $row->request_time . ($status_id == 3 ? '<inspect class="d-none" data-user-name="' . $row->user_name . '" data-customer-note="' . $row->notes . '"></data>' : null) . '</div>',
+                    '<div class="text-center">' . $row->request_time . ($status_id == 3 ? '<inspect class="d-none" data-staff="' . $row->user_name . '" data-customer-note="' . $row->notes . '"></data>' : null) . '</div>',
                     '<div class="text-center">' . $row->transaction_id . '</div>',
                     '<div class="text-center">' . $row->gamer_site_id . '</div>',
                     '<div class="text-center">' . $row->account_id . '</div>',

@@ -39,7 +39,7 @@
               <div class="d-flex flex-column rounded-2 w-100 p-0 mt-5">
                 <img class="position-absolute align-self-center border rounded-4 w-50px h-50px" style="top: -27px;" src="<?=baseUrl() ?>/<?=assetsPath() ?>/media/avatar.png" />
                 <div class="d-flex flex-column flex-center">
-                  <a href="javascript:;" data-set-customerLink class="d-flex text-reset text-hover-primary">
+                  <a id="customerProfile" href="javascript:;" class="d-flex text-reset text-hover-primary">
                     <p class="fs-3 fw-bolder m-0 me-2 text-dark" data-set-customer>{customer}</p>
                     <span class="svg-icon svg-icon-muted svg-icon-3 align-self-center">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +55,7 @@
                 <? if(segment[2] === "deposit"): ?>
                 <div class="card-footer d-flex pe-0 ps-5 py-5">
                   <p class="fs-5 fw-semibold text-gray-700 p-0 m-0 me-2">Account:</p>
-                  <a href="javascript:;" data-set-accountLink class="d-flex align-items-center text-reset text-hover-primary p-0">
+                  <a id="accountPage" href="javascript:;" class="d-flex align-items-center text-reset text-hover-primary p-0">
                     <p class="fs-6 fw-semibold text-gray-900 h-100 m-0 me-1">
                       <span data-set-accountName></span>
                       <small> (<span data-set-accountId></span>)</small>
@@ -150,7 +150,9 @@
               <img class="align-self-center rounded-circle w-50px p-0 me-3" src="<?=baseUrl() ?>/<?=assetsPath() ?>/media/avatar.png" />
               <div class="d-flex flex-column justify-content-center">
                 <p class="fs-5 fw-bolder m-0" data-set-customer>{customer}</p>
-                <p class="fs-6 fw-semibold text-gray-700 m-0">Reserved At: Deposit</p>
+                <p class="fs-6 fw-semibold text-gray-700 m-0">Reserved At:
+                  <? echo(ucfirst(segment[2])) ?>
+                </p>
               </div>
             </div>
             <h5 class="mt-7 mb-4 p-0">Reserve Amount</h5>

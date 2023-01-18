@@ -1134,6 +1134,7 @@ $.varien = {
                         });
                         $.varien.transaction.datatable.modal();
                         $.varien.transaction.datatable.inspect();
+                        $.varien.transaction.datatable.transaction();
                     }, 500);
                 });
             },
@@ -1149,39 +1150,51 @@ $.varien = {
                 });
             },
             inspect: function() {
-                $('[id="inspect"]').on('click', function(e) {
-                    e.preventDefault(e);
+                $('#datatable_content tbody').on('click', '#inspect', function () {
+                    let data = $(this).closest('tr').find('td');
+                    $('[data-set-date]').text(data[0].innerText);
+                    $('[data-set-txid]').text(data[1].innerText);
+                    $('[data-set-userId]').text(data[2].innerText);
+                    if($.varien.segment(3) === "deposit") {
+                        $('[data-set-accountId]').text(data[3].innerText);
+                        $('[data-set-firm]').text(data[4].innerText);
+                        $('[data-set-method]').text(data[5].innerText);
+                        $('[data-set-customer]').text(data[6].innerText);
+                        $('[data-set-amount]').text(data[7].innerText);
+                        $('[data-set-status]').text(data[8].innerText);
+                        $('[data-set-time]').text(data[9].innerText);
+                    } else {
+                        $('[data-set-firm]').text(data[3].innerText);
+                        $('[data-set-customer]').text(data[4].innerText);
+                        $('[data-set-account-num]').text(data[5].innerText);
+                        $('[data-set-amount]').text(data[6].innerText);
+                        $('[data-set-status]').text(data[7].innerText);
+                        $('[data-set-time]').text(data[8].innerText);
+                    }
 
-                    let data = $(this).data();
-                    data.amount = $('#' + data.rowId).find("td").eq($.varien.segment(3) == "deposit" ? 7 : 6).text();
+                    $.isVip = $('#inspect').attr('data-customer-vip');
+                    $.customerDeposit = $('#inspect').attr('data-customer-deposit');
+                    $.customerWithdraw = $('#inspect').attr('data-customer-withdraw');
 
-                    $('input[data-set="switch"]').attr('data-id', data.customerId);
+                    $('[data-set-accountName]').text($('#inspect').attr('data-account-name'));
+                    $('[data-set-customerNote]').text($('#inspect').attr('data-customer-note'));
+                    $('input[data-set="switch"]').attr('data-id', $('#inspect').attr('data-customer-id'));
+
+                    $('input[data-set="switch"]').attr('data-id', data[2].innerText);
                     if (data.customerDeposit == 'on' && $("#deposit").is(":checked") == false) $('#deposit').prop('checked', true);
                     if (data.customerDeposit != 'on' && $("#deposit").is(":checked") == true) $('#deposit').prop('checked', false);
                     if (data.customerWithdraw == 'on' && $("#withdraw").is(":checked") == false) $('#withdraw').prop('checked', true);
                     if (data.customerWithdraw != 'on' && $("#withdraw").is(":checked") == true) $('#withdraw').prop('checked', false);
+
                     $('input[data-set="switch"]').on("change", function(e) {
                         $.varien.eventControl(e);
                         if ($(this).is(":checked") == true) {
                             $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
-                            if ($(this).attr("name") == "deposit") {
-                                toastr.success("Customer has been allowed to deposit");
-                            } else if ($(this).attr("name") == "withdraw") {
-                                toastr.success("Customer has been allowed to withdraw");
-                            } else if ($(this).attr("name") == "isVip") {
-                                toastr.success("Customer has been made VIP");
-                            }
                         } else {
                             $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), 0);
-                            if ($(this).attr("name") == "deposit") {
-                                toastr.error("Customer's deposit permission has been removed");
-                            } else if ($(this).attr("name") == "withdraw") {
-                                toastr.error("Customer's withdraw permission has been removed");
-                            } else if ($(this).attr("name") == "isVip") {
-                                toastr.error("Customer is no longer VIP");
-                            }
                         }
                     });
+
                     if (data.isVip == 'on' && $("#isVip").is(":checked") == false) $('#isVip').prop('checked', true);
                     if (data.isVip != 'on' && $("#isVip").is(":checked") == true) $('#isVip').prop('checked', false);
                     if (!$.resource.edit_customer) {
@@ -1189,75 +1202,72 @@ $.varien = {
                         $("#withdraw").prop("disabled", true);
                         $("#isVip").prop("disabled", true);
                     }
-                    $('[data-set-accountLink]').on("click", function(e) {
+
+                    $('#accountPage').on("click", function(e) {
                         $.varien.eventControl(e);
-                        window.open(data.accountLink, '_blank');
-                    });
-                    $('[data-set-customerLink]').on("click", function(e) {
-                        $.varien.eventControl(e);
-                        window.open(data.customerLink, '_blank');
+                        window.open($('#inspect').attr('data-account-link'), '_blank');
                     });
 
-                    $.requestTime = $('#' + data.rowId).find("td").eq(0).text();
-                    $.txid = $('#' + data.rowId).find("td").eq(1).text();
-                    $.customerSiteId = $('#' + data.rowId).find("td").eq(2).text();
-                    if($.varien.segment(3) === "deposit") {
-                        $.accountId = $('#' + data.rowId).find("td").eq(3).text();
-                        $.client = $('#' + data.rowId).find("td").eq(4).text();
-                        $.method = $('#' + data.rowId).find("td").eq(5).text();
-                        $.customer = $('#' + data.rowId).find("td").eq(6).text();
-                        $.amount = $('#' + data.rowId).find("td").eq(7).text();
-                        $.status = $('#' + data.rowId).find("td").eq(8).text();
-                        $.time = $('#' + data.rowId).find("td").eq(9).text();
-                    } else {
-                        $.client = $('#' + data.rowId).find("td").eq(3).text();
-                        $.customer = $('#' + data.rowId).find("td").eq(4).text();
-                        $.accountNo = $('#' + data.rowId).find("td").eq(5).text();
-                        $.amount = $('#' + data.rowId).find("td").eq(6).text();
-                        $.status = $('#' + data.rowId).find("td").eq(7).text();
-                        $.time = $('#' + data.rowId).find("td").eq(8).text();
-                    }
+                    $('#customerProfile').on("click", function(e) {
+                        $.varien.eventControl(e);
+                        window.open($('#inspect').attr('data-customer-link'), '_blank');
+                    });
 
-                    $('[data-set-date]').text($.requestTime);
-                    $('[data-set-time]').text($.time);
-                    $('[data-set-txid]').text($.txid);
-                    $('[data-set-accountName]').text(data.accountName);
-                    $('[data-set-accountId]').text($.accountId);
-                    $('[data-set-account-num]').text($.accountNo);
-                    $('[data-set-firm]').text($.client);
-                    $('[data-set-method]').text($.method).find('div').contents().unwrap();
-                    $('[data-set-customer]').text($.customer);
-                    $('[data-set-status]').text($.status).find('div').contents().unwrap();
                     if ($('[data-set-status]').text().trim() == 'Pending') {
                         $('[data-set-status]').addClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-success');
                         $('[data-set-status]').removeClass('badge-light-danger');
                     }
+
                     if ($('[data-set-status]').text().trim() == 'Approved') {
                         $('[data-set-status]').addClass('badge-light-success');
                         $('[data-set-status]').removeClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-danger');
                     }
+
                     if ($('[data-set-status]').text().trim() == 'Rejected') {
                         $('[data-set-status]').addClass('badge-light-danger');
                         $('[data-set-status]').removeClass('text-gray-800 badge-light-warning');
                         $('[data-set-status]').removeClass('badge-light-success');
                     }
-                    if (data.userName == "") {
+
+                    let staffName = $('#inspect').attr('data-staff');
+                    if (staffName == "") {
                         $('#staff').hide();
                     } else {
-                        $('[data-set-staff]').text(data.userName);
+                        $('[data-set-staff]').text(staffName);
                         $('#staff').show();
                     }
-                    if (data.processNote == "") {
+
+                    let processNote = $('#inspect').attr('data-process-note');
+                    if (processNote == "") {
                         $('#processNote').hide();
                     } else {
-                        $('[data-set-processNote]').text(data.processNote);
+                        $('[data-set-processNote]').text(processNote);
                         $('#processNote').show();
                     }
-                    $('[data-set-customerNote]').text(data.userNote);
-                    $('[data-set-amount]').text(data.amount);
-                    $('[data-set-userId]').text(data.customerId);
+                });
+            },
+            transaction: function() {
+                $('#datatable_content tbody').on('click', '#approved', function () {
+                    let data = $(this).closest('tr').find('td');
+
+                    $('[data-set-time]').text(data[0].innerText);
+                    $('[data-set-txid]').text(data[1].innerText);
+                    $('[data-set-amount]').text(data[7].innerText);
+                    $('[data-set-customer]').text(data[6].innerText);
+                    $('#txnAmount').val(data[7].innerText.slice(0, -1));
+
+                    if($.varien.segment(3) === "deposit") {
+                        switch (KTThemeMode.getMode()) {
+                            case "light":
+                                $('#approve-info').css({'backgroundColor': '#000'});
+                                break;
+                            case "dark":
+                                $('#approve-info').css({'backgroundColor': '#fff'});
+                                break;
+                        }
+                    }
                 });
             },
             modal: function() {
@@ -2058,10 +2068,8 @@ $.varien = {
                         $('input[data-set="switch"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
-                                toastr.success("Customer has been made VIP");
                             } else {
                                 $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), 0);
-                                toastr.error("Customer is no longer VIP");
                             }
                         });
                     }, 300);
@@ -2074,6 +2082,19 @@ $.varien = {
                     dataType: "html",
                     cache: false
                 });
+
+                if (name == "deposit" && status == "on")
+                    toastr.success("Customer has been allowed to deposit");
+                if (name == "deposit" && status == 0)
+                    toastr.error("Customer's deposit permission has been revoked");
+                if (name == "withdraw" && status == "on")
+                    toastr.success("Customer has been allowed to withdraw");
+                if (name == "withdraw" && status == 0)
+                    toastr.error("Customer's withdraw permission has been revoked");
+                if (name == "isVip" && status == "on")
+                    toastr.success("Customer has been made VIP");
+                if (name == "isVip" && status == 0)
+                    toastr.error("Customer is no longer VIP");
             },
             reload: function() {
                 $.table.ajax.reload();
@@ -2119,22 +2140,8 @@ $.varien = {
                 $('input[data-set="switch"]').on("change", function() {
                     if ($(this).is(":checked") == true) {
                         $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
-                        if ($(this).attr("name") == "deposit") {
-                            toastr.success("Customer has been allowed to deposit");
-                        } else if ($(this).attr("name") == "withdraw") {
-                            toastr.success("Customer has been allowed to withdraw");
-                        } else if ($(this).attr("name") == "isVip") {
-                            toastr.success("Customer has been made VIP");
-                        }
                     } else {
                         $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), 0);
-                        if ($(this).attr("name") == "deposit") {
-                            toastr.error("Customer's deposit permission has been removed");
-                        } else if ($(this).attr("name") == "withdraw") {
-                            toastr.error("Customer's withdraw permission has been removed");
-                        } else if ($(this).attr("name") == "isVip") {
-                            toastr.error("Customer is no longer VIP");
-                        }
                     }
                 });
             },

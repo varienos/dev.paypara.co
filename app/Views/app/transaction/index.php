@@ -207,7 +207,6 @@
         </div>
       </div>
     </div>
-    <button class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#new-approve">Approve</button>
-    <?php require appViewPath().'transaction/modal/approve.php' ?>
+    <?php require appViewPath().'transaction/modal/transaction.php' ?>
     <?php require appViewPath().'transaction/modal/inspect.php' ?>
     <?php require appViewPath().'layout/footer/footer.php' ?>
