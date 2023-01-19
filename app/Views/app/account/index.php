@@ -1,7 +1,9 @@
 <?php require appViewPath().'layout/header/header.php' ?>
 
-<body id="kt_body" class="sidebar-disabled"> <?php require appViewPath().'partials/theme-mode/_init.php' ?> <div class="d-flex flex-column flex-root">
-    <div class="page d-flex flex-row flex-column-fluid"> <?php require appViewPath().'layout/aside/_base.php' ?> <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+<body id="kt_body" class="sidebar-disabled">
+  <?php require appViewPath().'partials/theme-mode/_init.php' ?> <div class="d-flex flex-column flex-root">
+    <div class="page d-flex flex-row flex-column-fluid">
+      <?php require appViewPath().'layout/aside/_base.php' ?> <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
           <div id="kt_header" class="header">
             <div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
@@ -28,7 +30,8 @@
                   <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="theme-light-show h-30px" />
                   <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="theme-dark-show h-30px" />
                 </a>
-              </div> <?php require appViewPath().'layout/header/__topbar.php' ?>
+              </div>
+              <?php require appViewPath().'layout/header/__topbar.php' ?>
             </div>
           </div>
           <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -88,7 +91,16 @@
                   <div id="datatableContent_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                     <div class="table-responsive">
                       <table class="table table-responsive table-row-dashed align-middle dataTable fs-6 gy-5" id="datatable_content">
-                        <thead datatable-head></thead>
+                        <thead>
+                          <!-- 1 papara, 2 match, 3 banka -->
+                          <? if(segment[2] === "1"): ?>
+                          <?php require appViewPath() . 'account/include/tableHeadPapara.php' ?>
+                          <? elseif(segment[2] === "2"): ?>
+                          <?php require appViewPath() . 'account/include/tableHeadMatch.php' ?>
+                          <? else: ?>
+                          <?php require appViewPath() . 'account/include/tableHeadBank.php' ?>
+                          <? endif; ?>
+                        </thead>
                         <tbody class="fw-semibold text-gray-600 text-center"></tbody>
                       </table>
                     </div>
@@ -96,8 +108,10 @@
                 </div>
               </div>
             </div>
-          </div> <?php require appViewPath().'layout/_footer.php' ?>
+          </div>
+          <?php require appViewPath().'layout/_footer.php' ?>
         </div>
       </div>
     </div>
-  </div> <?php require appViewPath().'layout/footer/footer.php' ?>
+  </div>
+  <?php require appViewPath().'layout/footer/footer.php' ?>

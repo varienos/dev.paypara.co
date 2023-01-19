@@ -129,7 +129,9 @@
                   <div class="card-body py-4 px-0">
                     <div class="table-responsive">
                       <table class="table align-middle table-row-dashed fs-6 gy-4 dataTable no-footer" id="datatable_content">
-                        <thead datatable-head></thead>
+                        <thead>
+                          <?php require appViewPath() . 'user/include/datatableHead.php' ?>
+                        </thead>
                         <tbody class="fw-semibold text-gray-600"></tbody>
                       </table>
                     </div>

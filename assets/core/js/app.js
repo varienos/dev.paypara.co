@@ -61,28 +61,6 @@ $.varien = {
         xhttp.open("GET", 'user/activity', true);
         xhttp.send();
     },
-    include: function(file, attribute) {
-        return new Promise(function(resolve, reject) {
-            if ($("[" + attribute + "]")) {
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("POST", file, true);
-                xhttp.onload = function() {
-                    if (this.status == 200) {
-                        $("[datatable-head]").html(this.responseText).promise().done(function() {
-                            resolve($("#datatable_content thead tr th").length);
-                        });
-                    }
-                    if (this.status == 404) {
-                        reject({
-                            status: this.status,
-                            statusText: xhr.statusText
-                        });
-                    }
-                };
-                xhttp.send();
-            }
-        });
-    },
     segment: function(key) {
         $.segment = window.location.pathname.split('/');
         if (typeof $.segment[key] !== 'undefined') {
@@ -354,23 +332,17 @@ $.varien = {
                 if ($.varien.segment(3) == "1") {
                     $("[data-page-title]").html("Papara Accounts");
                     $.varien.account.setType(1);
-                    $.varien.include("account/include/datatableHeadPapara", "datatable-head").then(function(colNum) {
-                        $.varien.account.datatable.init(colNum);
-                    });
+                    $.varien.account.datatable.init(7);
                 }
                 if ($.varien.segment(3) == "2") {
                     $("[data-page-title]").html("Matching Accounts");
                     $.varien.account.setType(2);
-                    $.varien.include("account/include/datatableHeadMatch", "datatable-head").then(function(colNum) {
-                        $.varien.account.datatable.init(colNum);
-                    });
+                    $.varien.account.datatable.init(8);
                 }
                 if ($.varien.segment(3) == "3") {
                     $("[data-page-title]").html("Bank Accounts");
                     $.varien.account.setType(3);
-                    $.varien.include("account/include/datatableHeadBank", "datatable-head").then(function(colNum) {
-                        $.varien.account.datatable.init(colNum);
-                    });
+                    $.varien.account.datatable.init(8);
                 }
             }
             if ($.varien.segment(2) == "detail") {
@@ -822,19 +794,17 @@ $.varien = {
 
             if ($.varien.segment(3) == "deposit") {
                 $("[data-page-title]").html("Deposits");
-                $.varien.include("transaction/include/datatableHeadDeposit", "datatable-head").then(function(colNum) {
-                    $.varien.transaction.datatable.init(colNum);
-                });
+                $.varien.transaction.datatable.init(11);
             }
             if ($.varien.segment(3) == "withdraw") {
                 $("[data-page-title]").html("Withdrawals");
-                $.varien.include("transaction/include/datatableHeadWithdraw", "datatable-head").then(function(colNum) {
-                    $.varien.transaction.datatable.init(colNum);
-                });
+                $.varien.transaction.datatable.init(10);
             }
+
             $.varien.transaction.datatable.getNotifications().done(function(response) {
                 response.status === 1 ? $("#notifications")[0].checked = true : $("#notifications")[0].checked = false;
             });
+
             $.varien.transaction.datatable.rejectAll();
         },
         dateSelect: function() {
@@ -1349,9 +1319,7 @@ $.varien = {
         init: function() {
             $("[data-page-title]").html("Users");
             if ($.varien.segment(2) == "index") {
-                $.varien.include("user/include/datatableHead", "datatable-head").then(function(colNum) {
-                    $.varien.user.datatable.init(colNum);
-                });
+                $.varien.user.datatable.init(6);
             }
             if ($.varien.segment(2) == "detail") {
                 $.varien.user.detail.init();
@@ -1982,9 +1950,7 @@ $.varien = {
         init: function() {
             $("[data-page-title]").html("Customers");
             if ($.varien.segment(2) == "index") {
-                $.varien.include("customer/include/datatableHead", "datatable-head").then(function(colNum) {
-                    $.varien.customer.datatable.init(colNum)
-                });
+                $.varien.customer.datatable.init(8)
                 $.varien.customer.selectClient();
             }
             if ($.varien.segment(2) == "detail") {

@@ -195,7 +195,13 @@
                 <div class="card-body pt-0">
                   <div class="table-responsive">
                     <table class="table table-striped table-row-bordered align-middle dataTable fs-6 gy-3" id="datatable_content">
-                      <thead datatable-head></thead>
+                      <thead>
+                        <? if(segment[2] === "deposit"): ?>
+                        <?php require appViewPath() . 'transaction/include/tableHeadDeposit.php' ?>
+                        <? else: ?>
+                        <?php require appViewPath() . 'transaction/include/tableHeadWithdraw.php' ?>
+                        <? endif; ?>
+                      </thead>
                       <tbody class="fw-semibold text-gray-700"></tbody>
                     </table>
                   </div>

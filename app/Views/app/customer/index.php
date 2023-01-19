@@ -115,7 +115,9 @@
                       <table class="table align-middle table-row-dashed fs-6 gy-4 dataTable no-footer">
                         <div class="table-responsive">
                           <table class="table table-responsive table-row-dashed align-middle dataTable fs-6 gy-5" id="datatable_content">
-                            <thead datatable-head></thead>
+                            <thead>
+                              <?php require appViewPath() . 'customer/include/datatableHead.php' ?>
+                            </thead>
                             <tbody class="fw-semibold text-gray-600"></tbody>
                           </table>
                         </div>
