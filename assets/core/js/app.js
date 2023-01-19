@@ -680,14 +680,11 @@ $.varien = {
                         backdrop: true,
                         centerVertical: true,
                         title: "Update Account Status",
-                        message: "All accounts will be " + dataStatus + ". Are you sure?",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>All accounts will be " + dataStatus + ". Are you sure?</span>",
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         callback: (result) => {
                             if (result == true) {
@@ -763,19 +760,15 @@ $.varien = {
             remove: function() {
                 $('[data-set="delete"]').on('click', function() {
                     var urlAjax = $(this).attr('delete-url');
-                    var msg = $(this).attr('delete-msg');
                     bootbox.confirm({
                         backdrop: true,
                         centerVertical: true,
                         title: "Delete Account",
-                        message: "Do you approve to delete this account? This process is irreversible!",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>Do you approve to delete this account? This process is irreversible!</span>",
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         callback: (result) => {
                             if (result == true) {
@@ -1079,20 +1072,17 @@ $.varien = {
                         bootbox.confirm({
                             backdrop: true,
                             centerVertical: true,
-                            title: "Reject Pending Transactions",
                             buttons: {
-                                confirm: {
-                                    label: "Confirm"
-                                },
-                                cancel: {
-                                    label: "Cancel"
-                                }
+                                confirm: { label: "Confirm" },
+                                cancel: { label: "Cancel" }
                             },
-                            message: $.rowCount + " pending transactions will be rejected. Do you approve?",
+                            title: "Reject Pending Transactions",
+                            className: "animation animation-fade-in",
+                            message: "<span class='fs-6'>" + $.rowCount + " pending transactions will be rejected. Do you confirm?</span>",
                             callback: (result) => {
                                 if (result == true) {
-                                    $.each($.rowArray, function(index, value) {
-                                        $.reject("transaction/update", value.id).then(function(response) {
+                                    $.each($.rowArray, function(value) {
+                                        $.reject("transaction/update", value.id).then(function() {
                                             toastr.success("#" + value.transId + ": transaction rejected");
                                             $.varien.transaction.datatable.reload();
                                         });
@@ -1293,13 +1283,12 @@ $.varien = {
                 $("form#transactionForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
                     $.blockModalContent.block();
-                    $.formData = new FormData(this);
                     $.varien.transaction.datatable.process({
                         url: "transaction/update",
                         type: "POST",
                         dataType: "html",
                         crossDomain: true,
-                        data: $.formData,
+                        data: new FormData(this),
                         xhrFields: {
                             withCredentials: true
                         },
@@ -1335,14 +1324,11 @@ $.varien = {
                     var msg = $(this).attr('delete-msg');
                     bootbox.confirm({
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         message: msg,
+                        className: "animation animation-fade-in",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
@@ -1473,14 +1459,11 @@ $.varien = {
                             centerVertical: true,
                             title: "Delete Role",
                             buttons: {
-                                confirm: {
-                                    label: "Confirm"
-                                },
-                                cancel: {
-                                    label: "Cancel"
-                                }
+                                confirm: { label: "Confirm" },
+                                cancel: { label: "Cancel" }
                             },
-                            message: "Do you approve to delete user role?",
+                            className: "animation animation-fade-in",
+                            message: "<span class='fs-6'>Do you approve to delete user role?</span>",
                             callback: (result) => {
                                 if (result == true) {
                                     $.ajax({
@@ -1639,15 +1622,12 @@ $.varien = {
                                     backdrop: true,
                                     centerVertical: true,
                                     buttons: {
-                                        confirm: {
-                                            label: "Remove"
-                                        },
-                                        cancel: {
-                                            label: "Cancel"
-                                        }
+                                        confirm: { label: "Remove" },
+                                        cancel: { label: "Cancel" }
                                     },
                                     title: "Remove 2-Step Verification",
-                                    message: "Are you sure you want to remove 2-step verification?",
+                                    className: "animation animation-fade-in",
+                                    message: "<span class='fs-6'>Are you sure you want to remove 2-step verification?</span>",
                                     callback: (result) => {
                                         if (result == true) {
                                             $.varien.user.detail.twoFA.disable2fa().then(response => {
@@ -1685,15 +1665,12 @@ $.varien = {
                         backdrop: true,
                         centerVertical: true,
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         title: "Delete User",
-                        message: "Do you approve to delete the user?",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>Do you approve to delete the user?</span>",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
@@ -1972,14 +1949,11 @@ $.varien = {
                         centerVertical: true,
                         title: "Delete User",
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
-                        message: "Do you confirm to delete the user?",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>Do you confirm to delete the user?</span>",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
@@ -2502,14 +2476,11 @@ $.varien = {
                             backdrop: true,
                             centerVertical: true,
                             title: "Warning!",
-                            message: "Are you sure you want to activate maintenance mode?",
+                            className: "animation animation-fade-in",
+                            message: "<span class='fs-6'>Are you sure you want to activate maintenance mode?</span>",
                             buttons: {
-                                confirm: {
-                                    label: "Confirm"
-                                },
-                                cancel: {
-                                    label: "Cancel"
-                                }
+                                confirm: { label: "Confirm" },
+                                cancel: { label: "Cancel" }
                             },
                             callback: (result) => {
                                 if (result == true) {
@@ -2799,14 +2770,11 @@ $.varien = {
                         backdrop: true,
                         centerVertical: true,
                         title: "Delete Firm",
-                        message: "Are you sure to delete the firm?",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>Are you sure to delete the firm?</span>",
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         callback: (result) => {
                             if (result == true) {
