@@ -793,7 +793,6 @@ $.varien = {
             $('input#transactionDate').css("width", "210px");
             $(".modal-dialog").addClass("w-325px");
             $.varien.transaction.dateSelect();
-            $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#detailsTab li:first-child a"));
             $.drawer = KTDrawer.getInstance(document.querySelector("#drawer"));
             $.drawer.on("kt.drawer.show", function() {
                 if ($("#sync").is(":checked") == true) {
@@ -801,6 +800,7 @@ $.varien = {
                 }
             });
             $.drawer.on("kt.drawer.hide", function() {
+                $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#detailsTab li:first-child a"));
                 $.bsFirstTab.show();
                 $.varien.transaction.datatable.reload();
                 if ($.varien.transaction.datatable.isToday()) {
@@ -976,7 +976,9 @@ $.varien = {
             },
             sound: () => {
                 const currentTxns = $.table.page.info().recordsTotal;
-                const prevTxns = parseInt(KTCookie.get('recordsTotal'));
+                const totalDeposit = parseInt(KTCookie.get('totalDeposit'));
+                const totalWithdraw = parseInt(KTCookie.get('totalWithdraw'));
+                const prevTxns = $.varien.segment(3) === "deposit" ? totalDeposit : totalWithdraw;
 
                 if (prevTxns < currentTxns) {
                     if ($("#notifications").is(":checked") == true) {
@@ -986,7 +988,11 @@ $.varien = {
                     }
                 }
 
-                KTCookie.set('recordsTotal', currentTxns, {sameSite: 'None', secure: true});
+                if($.varien.segment(3) == "deposit") {
+                    KTCookie.set('totalDeposit', currentTxns, {sameSite: 'None', secure: true});
+                } else {
+                    KTCookie.set('totalWithdraw', currentTxns, {sameSite: 'None', secure: true});
+                }
             },
             setNotifications: function(status) {
                 $.ajax({
@@ -1153,17 +1159,17 @@ $.varien = {
                         $('[data-set-time]').text(data[8].innerText);
                     }
 
-                    $('[data-set-accountName]').text($('#inspect').attr('data-account-name'));
-                    $('[data-set-customerNote]').text($('#inspect').attr('data-customer-note'));
+                    $('[data-set-accountName]').text($(this).attr('data-account-name'));
+                    $('[data-set-customerNote]').text($(this).attr('data-customer-note'));
 
-                    $.depositPerm = $('#inspect').attr('data-customer-deposit');
-                    $.withdrawPerm = $('#inspect').attr('data-customer-withdraw');
+                    $.depositPerm = $(this).attr('data-customer-deposit');
+                    $.withdrawPerm = $(this).attr('data-customer-withdraw');
                     if ($.depositPerm == 'on' && $("#deposit").is(":checked") == false) $('#deposit').prop('checked', true);
                     if ($.depositPerm != 'on' && $("#deposit").is(":checked") == true) $('#deposit').prop('checked', false);
                     if ($.withdrawPerm == 'on' && $("#withdraw").is(":checked") == false) $('#withdraw').prop('checked', true);
                     if ($.withdrawPerm != 'on' && $("#withdraw").is(":checked") == true) $('#withdraw').prop('checked', false);
 
-                    $.isVip = $('#inspect').attr('data-customer-vip');
+                    $.isVip = $(this).attr('data-customer-vip');
                     if ($.isVip == 'on' && $("#isVip").is(":checked") == false) $('#isVip').prop('checked', true);
                     if ($.isVip != 'on' && $("#isVip").is(":checked") == true) $('#isVip').prop('checked', false);
                     if (!$.resource.edit_customer) {
@@ -1175,7 +1181,7 @@ $.varien = {
                     $('input[data-set="switch"]').on("change", function(e) {
                         $.varien.eventControl(e);
 
-                        $.dataCustomerId =$('#inspect').attr('data-customer-id');
+                        $.dataCustomerId =$(this).attr('data-customer-id');
                         if ($(this).is(":checked") == true) {
                             $.varien.customer.datatable.switch($(this).attr("name"), $.dataCustomerId, "on");
                         } else {
@@ -1183,14 +1189,16 @@ $.varien = {
                         }
                     });
 
+                    $.accountLink = $(this).attr('data-account-link');
                     $('#accountPage').on("click", function(e) {
                         $.varien.eventControl(e);
-                        window.open($('#inspect').attr('data-account-link'), '_blank');
+                        window.open($.accountLink, '_blank');
                     });
 
+                    $.customerLink = $(this).attr('data-customer-link');
                     $('#customerProfile').on("click", function(e) {
                         $.varien.eventControl(e);
-                        window.open($('#inspect').attr('data-customer-link'), '_blank');
+                        window.open($.customerLink, '_blank');
                     });
 
                     if ($('[data-set-status]').text().trim() == 'Pending') {
@@ -1211,7 +1219,7 @@ $.varien = {
                         $('[data-set-status]').removeClass('badge-light-success');
                     }
 
-                    let staffName = $('#inspect').attr('data-staff');
+                    let staffName = $(this).attr('data-staff');
                     if (staffName == "") {
                         $('#staff').hide();
                     } else {
@@ -1219,7 +1227,7 @@ $.varien = {
                         $('#staff').show();
                     }
 
-                    let processNote = $('#inspect').attr('data-process-note');
+                    let processNote = $(this).attr('data-process-note');
                     if (processNote == "") {
                         $('#processNote').hide();
                     } else {
