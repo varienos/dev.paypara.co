@@ -129,14 +129,12 @@ class User extends BaseController
 		foreach ($data['dataTable']->getResult() as $row) {
 			$records["data"][$i] = array(
 				"DT_RowId"  => $row->hash_id,
-				'<div class="symbol symbol-circle symbol-40px overflow-hidden me-3">
-                <a href="#">
-                  <div class="symbol-label fs-4 bg-light-danger text-danger">' . userNameShort($row->user_name) . '</div>
-                </a>
-              </div>
-              <div class="d-flex flex-column">
-                  <a href="javascript:;" class="text-gray-800 text-hover-primary mb-1">' . $row->user_name . '</a>
-                </div>',
+				'<div class="d-flex align-items-center">
+					<div class="symbol symbol-circle symbol-40px overflow-hidden me-3">
+							<span class="symbol-label fs-4 bg-light-danger text-danger">' . userNameShort($row->user_name) . '</span>
+					</div>
+					<span class="text-gray-800 text-hover-primary">' . $row->user_name . '</span>
+				</div>',
 				getRoleName($row->role_id),
 				'<div class="badge badge-light fw-bold">' . ($row->user_last_login == "" ? '<div class="badge badge-light fw-bold">Not Logged In</div>' : $row->user_last_login) . '</div>',
 				($row->is2fa == "on" ? '<div class="badge badge-light-success fw-bold">Active</div>' : '<div class="badge badge-light fw-bold">Disabled</div>'),

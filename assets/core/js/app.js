@@ -1839,13 +1839,9 @@ $.varien = {
             },
             onLoad: function() {
                 $.table.on('draw', function() {
-                    setTimeout(function() {
-                        $.varien.datatable.exportEvents();
-                        $("tbody td:nth-child(1)").addClass('d-flex align-items-center');
-                        $("tbody td:nth-child(6)").addClass('text-end');
-                        $.varien.user.datatable.modal();
-                        $.varien.user.datatable.remove();
-                    }, 300);
+                    $.varien.datatable.exportEvents();
+                    $.varien.user.datatable.modal();
+                    $.varien.user.datatable.remove();
                 });
             },
             modal: function() {
