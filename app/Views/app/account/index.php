@@ -8,13 +8,18 @@
           <div id="kt_header" class="header">
             <div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
               <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
-                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-page-title data-account-type></h1>
+                <? $pageTitle = segment[2] === "1" ? "Papara" : (segment[2] === "2" ? "Matching" : "Bank") ?>
+                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">
+                  <? echo($pageTitle) ?> Accounts
+                </h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
                     <a href="dashboard" class="text-muted">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item text-muted">Accounts</li>
-                  <li class="breadcrumb-item text-dark" data-page-title></li>
+                  <li class="breadcrumb-item text-dark">
+                    <? echo($pageTitle) ?> Accounts
+                  </li>
                 </ul>
               </div>
               <div class="d-flex d-lg-none align-items-center ms-n2 me-2">
@@ -68,7 +73,9 @@
                       </a>
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 w-250px fs-6" data-kt-menu="true">
                         <div class="menu-item px-5">
-                          <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase" data-page-title></div>
+                          <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
+                            <? echo($pageTitle) ?> Accounts
+                          </div>
                         </div>
                         <div class="menu-item px-5 my-1">
                           <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Activate all</a>

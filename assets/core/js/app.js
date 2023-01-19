@@ -330,18 +330,12 @@ $.varien = {
         init: () => {
             if ($.varien.segment(2) == "index") {
                 if ($.varien.segment(3) == "1") {
-                    $("[data-page-title]").html("Papara Accounts");
-                    $.varien.account.setType(1);
                     $.varien.account.datatable.init(7);
                 }
                 if ($.varien.segment(3) == "2") {
-                    $("[data-page-title]").html("Matching Accounts");
-                    $.varien.account.setType(2);
                     $.varien.account.datatable.init(8);
                 }
                 if ($.varien.segment(3) == "3") {
-                    $("[data-page-title]").html("Bank Accounts");
-                    $.varien.account.setType(3);
                     $.varien.account.datatable.init(8);
                 }
             }
@@ -369,7 +363,7 @@ $.varien = {
                         toastr.error("Account has been disabled");
                     }
                 });
-                $('#formReset').click(function() {
+                $('#formReset').on('click', function() {
                     $('input[name="account_name"]').val('');
                     $('input[name="account_number"]').val('');
                     $('input[name="limitProcess"]').val('');
@@ -600,12 +594,6 @@ $.varien = {
                 }));
             }
         },
-        getType: function() {
-            return $("[data-account-type]").attr("data-account-type");
-        },
-        setType: function(dataType) {
-            $("[data-account-type]").attr("data-account-type", dataType);
-        },
         datatable: {
             init: (colNum) => {
                 if ($.varien.segment(3) == "1") $.notOrderCols = [colNum - 1];
@@ -792,14 +780,8 @@ $.varien = {
                 document.body.appendChild(element);
             }
 
-            if ($.varien.segment(3) == "deposit") {
-                $("[data-page-title]").html("Deposits");
-                $.varien.transaction.datatable.init(11);
-            }
-            if ($.varien.segment(3) == "withdraw") {
-                $("[data-page-title]").html("Withdrawals");
-                $.varien.transaction.datatable.init(10);
-            }
+            if ($.varien.segment(3) == "deposit") $.varien.transaction.datatable.init(11);
+            if ($.varien.segment(3) == "withdraw") $.varien.transaction.datatable.init(10);
 
             $.varien.transaction.datatable.getNotifications().done(function(response) {
                 response.status === 1 ? $("#notifications")[0].checked = true : $("#notifications")[0].checked = false;
@@ -1317,16 +1299,9 @@ $.varien = {
     },
     user: {
         init: function() {
-            $("[data-page-title]").html("Users");
-            if ($.varien.segment(2) == "index") {
-                $.varien.user.datatable.init(6);
-            }
-            if ($.varien.segment(2) == "detail") {
-                $.varien.user.detail.init();
-            }
-            if ($.varien.segment(2) == "roles") {
-                $.varien.user.role.init();
-            }
+            if ($.varien.segment(2) == "index") $.varien.user.datatable.init(6);
+            if ($.varien.segment(2) == "detail") $.varien.user.detail.init();
+            if ($.varien.segment(2) == "roles") $.varien.user.role.init();
         },
         role: {
             init: function() {
@@ -1944,7 +1919,6 @@ $.varien = {
     },
     customer: {
         init: function() {
-            $("[data-page-title]").html("Customers");
             if ($.varien.segment(2) == "index") {
                 $.varien.customer.datatable.init(8)
                 $.varien.customer.selectClient();
