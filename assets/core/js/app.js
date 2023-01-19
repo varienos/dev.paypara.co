@@ -812,18 +812,14 @@ $.varien = {
             const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span> Please wait...</div>';
             $.blockModalContent = new KTBlockUI(document.querySelector('#transactionForm'), { message: blockMessage });
 
-            KTCookie.set('recordsTotal', 0, {sameSite: 'None', secure: true});
-            let created = false;
-            $(document).on("click", () => {
-                if (!created) {
-                    created = true;
-                    let v = document.createElement("audio");
-                    v.setAttribute("src", $.resource.assetsPath + "/media/notification.mp3");
-                    v.setAttribute("muted", "muted");
-                    v.setAttribute("id", "notification");
-                    document.body.appendChild(v);
-                }
-            });
+            if(document.getElementById('notification') === null) {
+                let element = document.createElement("audio");
+                element.setAttribute("src", $.resource.assetsPath + "/media/notification.mp3");
+                element.setAttribute("muted", "muted");
+                element.setAttribute("id", "notification");
+                document.body.appendChild(element);
+            }
+
             if ($.varien.segment(3) == "deposit") {
                 $("[data-page-title]").html("Deposits");
                 $.varien.include("transaction/include/datatableHeadDeposit", "datatable-head").then(function(colNum) {
@@ -837,16 +833,7 @@ $.varien = {
                 });
             }
             $.varien.transaction.datatable.getNotifications().done(function(response) {
-                if (response.status == 1) {
-                    if ($("#notifications").is(":checked") == false) {
-                        $("#notifications").trigger("click");
-                    }
-                }
-                if (response.status == 0) {
-                    if ($("#notifications").is(":checked") == true) {
-                        $("#notifications").trigger("click");
-                    }
-                }
+                response.status === 1 ? $("#notifications")[0].checked = true : $("#notifications")[0].checked = false;
             });
             $.varien.transaction.datatable.rejectAll();
         },
@@ -916,6 +903,9 @@ $.varien = {
                             d.method = $("#method").val();
                             d.status = $("#status").val();
                             d.accountId = $("#accountIdFilter").val();
+                        },
+                        complete: function() {
+                            $.varien.transaction.datatable.sound();
                         }
                     }
                 });
@@ -985,9 +975,18 @@ $.varien = {
                 }
             },
             sound: () => {
-                document.getElementById('notification').muted = false;
-                document.getElementById("notification").loop = false;
-                document.getElementById('notification').play();
+                const currentTxns = $.table.page.info().recordsTotal;
+                const prevTxns = parseInt(KTCookie.get('recordsTotal'));
+
+                if (prevTxns < currentTxns) {
+                    if ($("#notifications").is(":checked") == true) {
+                        document.getElementById('notification').muted = false;
+                        document.getElementById("notification").loop = false;
+                        document.getElementById('notification').play();
+                    }
+                }
+
+                KTCookie.set('recordsTotal', currentTxns, {sameSite: 'None', secure: true});
             },
             setNotifications: function(status) {
                 $.ajax({
@@ -1098,19 +1097,11 @@ $.varien = {
                     if ($(this).is(":checked") == true) {
                         toastr.success("Notifications enabled");
                         $.varien.transaction.datatable.setNotifications(1);
-                        $.varien.transaction.datatable.sound();
                     } else {
                         toastr.error("Notifications disabled");
                         $.varien.transaction.datatable.setNotifications(0);
                     }
                 });
-                var info = $.table.page.info();
-                if (KTCookie.get('recordsTotal') < info.recordsTotal) {
-                    if ($("#notifications").is(":checked") == true) {
-                        $.varien.transaction.datatable.sound();
-                    }
-                }
-                KTCookie.set('recordsTotal', info.recordsTotal, {sameSite: 'None', secure: true});
             },
             onLoad: function() {
                 $.table.on('draw', function() {
