@@ -2,6 +2,10 @@
   <div class="modal-dialog modal-dialog-centered w-325px">
     <div class="modal-content">
       <form class="form" action="javascript:" id="transactionForm" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="txId" value="{id}"></input>
+        <input type="hidden" name="response" id="txResponse" value="{approve/reject}"></input>
+        <input type="hidden" name="status" id="txStatus" value="{onaylandı/reddedildi}"></input>
+        <input type="hidden" name="request" id="txRequest" value="{deposit/withdraw}"></input>
         <div class="modal-header d-flex align-items-start border-bottom-0 p-7" id="modal_transactions">
           <div class="d-flex flex-column">
             <h2 class="fs-4 fw-bold mb-2">Transaction #<span data-set-txid>{txid}</span></h2>
@@ -55,7 +59,7 @@
                   <label class="fs-5 fw-semibold">Description</label>
                   <div class="d-flex align-items-center input-group input-group-solid input-group-sm">
                     <span class="me-2">&bull;</span>
-                    <input type="text" class="form-control bg-transparent fs-6 text-gray-600 border-0 h-25px p-0" name="notes" placeholder="Add a description" value="">
+                    <input id="description" type="text" class="form-control bg-transparent fs-6 text-gray-600 border-0 h-25px p-0" name="notes" placeholder="Add a description" value="">
                   </div>
                 </div>
               </div>

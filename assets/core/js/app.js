@@ -1249,6 +1249,10 @@ $.varien = {
             },
             transaction: function() {
                 $('#datatable_content tbody').on('click', '#approve, #reject', function () {
+                    $('#txId').val(this.dataset.rowId);
+                    $('#txResponse').val($(this)[0].id);
+                    $('#txStatus').val($(this)[0].id === "approve" ? "onaylandı" : "reddedildi");
+                    $('#txRequest').val($.varien.segment(3));
                     $('#txSubmit').text($(this)[0].id === "approve" ? "Approve" : "Reject");
 
                     let data = $(this).closest('tr').find('td');
@@ -1277,15 +1281,7 @@ $.varien = {
                 });
 
                 $('#txSubmit').on('click', function() {
-                    let data = $(`#${$(this).text().toLowerCase()}`).closest('tr').find('td');
-
-                    let formData = new FormData();
-                    formData.append("id", data[1].innerText);
-                    formData.append("response", $(this).text().toLowerCase());
-                    formData.append("status", $(this).text() === "Approve" ? "onaylandı" : "reddedildi");
-                    formData.append("request", $.varien.segment(3));
-
-                    $.varien.transaction.datatable.submit(formData);
+                    $.varien.transaction.datatable.submit();
                 });
             },
             process: function(options) {
@@ -1293,31 +1289,35 @@ $.varien = {
                     $.ajax(options).done(resolve).fail(reject);
                 });
             },
-            submit: function(formData) {
+            submit: function() {
                 $("form#transactionForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
                     $.blockModalContent.block();
+                    $.formData = new FormData(this);
                     $.varien.transaction.datatable.process({
                         url: "transaction/update",
                         type: "POST",
                         dataType: "html",
                         crossDomain: true,
-                        data: formData,
+                        data: $.formData,
                         xhrFields: {
                             withCredentials: true
                         },
                         processData: false,
                         contentType: false
                     }).then(function success() {
+                        $('#description').val('');
                         $.blockModalContent.release();
                         $("#transaction").modal('toggle');
                         $.table.ajax.reload();
                     }, function error(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         $.blockModalContent.release();
+                        $('#description').val('');
                     }).catch(function(error) {
                         toastr.error(`${error}`, `Error`);
                         $.blockModalContent.release();
+                        $('#description').val('');
                     });
                 }));
 
