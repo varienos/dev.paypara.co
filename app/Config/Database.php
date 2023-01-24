@@ -32,7 +32,7 @@ class Database extends Config
      */
     public $development = [
         'DSN'      => '',
-        'hostname' => '152.89.37.162',
+        'hostname' => '92.205.109.64',
         'username' => 'devpaypara_appdev',
         'password' => 'L6UDU?6pN@&M',
         'database' => 'devpaypara_appdev',

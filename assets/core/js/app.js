@@ -2509,7 +2509,7 @@ $.varien = {
                     buttons: ['copy', 'csv', 'excel', 'pdf'],
                     bStateSave: false,
                     stateSave: false,
-                    lengthMenu: [5, 10, 25, 50],
+                    lengthMenu: [10, 25, 50, 100],
                     order: [0, 'desc'],
                     columnDefs: [{
                         orderable: false,
@@ -2522,7 +2522,7 @@ $.varien = {
                     ordering: true,
                     processing: true,
                     serverSide: true,
-                    pageLength: 5,
+                    pageLength: 10,
                     ajax: {
                         url: 'client/datatable',
                         type: 'POST',

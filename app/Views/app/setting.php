@@ -546,11 +546,11 @@
                       <h2>Firms</h2>
                       <? if(add_firm === true): ?>
                       <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#clientModalForm" data-id="0">
-                        <i class="bi bi-plus-circle fs-5"></i> New Firm </button>
+                        <i class="bi bi-plus-circle fs-5"></i> New Firm</button>
                       <? endif ?>
                     </div>
                   </div>
-                  <div class="card-body p-9">
+                  <div class="card-body px-9 py-3">
                     <div class="table-responsive">
                       <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="datatableClient">
                         <thead>

@@ -1,19 +1,19 @@
 <div class="container-xxl" id="kt_content_container">
   <div class="row w-100">
-    <div class="col-xl-3 p-0 pe-xl-3">
-      <div class="card card-bordered bg-success bg-opacity-25 mb-5">
+    <div class="col-xl-3 d-flex flex-column justify-content-between gap-5 p-0 pe-xl-3">
+      <div class="card card-bordered bg-success bg-opacity-25">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Deposits</h5>
           <h3 class="fw-bolder m-0">₺<?= number_format(depositDaily(), 2) ?></h3>
         </div>
       </div>
-      <div class="card card-bordered bg-danger bg-opacity-20 mb-5">
+      <div class="card card-bordered bg-danger bg-opacity-20">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Withdrawals</h5>
           <h3 class="fw-bolder m-0">₺<?= number_format(withdrawDaily(), 2) ?></h3>
         </div>
       </div>
-      <div class="card card-bordered mb-5">
+      <div class="card card-bordered">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Pending Deposits</h5>
           <h3 class="fw-bolder m-0">₺<?= number_format(depositPendingDaily(), 2) ?>
@@ -23,7 +23,7 @@
           </h3>
         </div>
       </div>
-      <div class="card card-bordered mb-5">
+      <div class="card card-bordered">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Pending Withdrawals</h5>
           <h3 class="fw-bolder m-0">₺<?= number_format(withdrawPendingDaily(), 2) ?>
@@ -33,7 +33,7 @@
           </h3>
         </div>
       </div>
-      <div class="card card-bordered mb-5 mb-xl-0">
+      <div class="card card-bordered">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Number of Transactions</h5>
           <div class="d-flex">
