@@ -61,28 +61,6 @@ $.varien = {
         xhttp.open("GET", 'user/activity', true);
         xhttp.send();
     },
-    include: function(file, attribute) {
-        return new Promise(function(resolve, reject) {
-            if ($("[" + attribute + "]")) {
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("POST", file, true);
-                xhttp.onload = function() {
-                    if (this.status == 200) {
-                        $("[datatable-head]").html(this.responseText).promise().done(function() {
-                            resolve($("#datatable_content thead tr th").length);
-                        });
-                    }
-                    if (this.status == 404) {
-                        reject({
-                            status: this.status,
-                            statusText: xhr.statusText
-                        });
-                    }
-                };
-                xhttp.send();
-            }
-        });
-    },
     segment: function(key) {
         $.segment = window.location.pathname.split('/');
         if (typeof $.segment[key] !== 'undefined') {
@@ -352,25 +330,13 @@ $.varien = {
         init: () => {
             if ($.varien.segment(2) == "index") {
                 if ($.varien.segment(3) == "1") {
-                    $("[data-page-title]").html("Papara Accounts");
-                    $.varien.account.setType(1);
-                    $.varien.include("account/include/datatableHeadPapara", "datatable-head").then(function(colNum) {
-                        $.varien.account.datatable.init(colNum);
-                    });
+                    $.varien.account.datatable.init(7);
                 }
                 if ($.varien.segment(3) == "2") {
-                    $("[data-page-title]").html("Matching Accounts");
-                    $.varien.account.setType(2);
-                    $.varien.include("account/include/datatableHeadMatch", "datatable-head").then(function(colNum) {
-                        $.varien.account.datatable.init(colNum);
-                    });
+                    $.varien.account.datatable.init(8);
                 }
                 if ($.varien.segment(3) == "3") {
-                    $("[data-page-title]").html("Bank Accounts");
-                    $.varien.account.setType(3);
-                    $.varien.include("account/include/datatableHeadBank", "datatable-head").then(function(colNum) {
-                        $.varien.account.datatable.init(colNum);
-                    });
+                    $.varien.account.datatable.init(8);
                 }
             }
             if ($.varien.segment(2) == "detail") {
@@ -397,7 +363,7 @@ $.varien = {
                         toastr.error("Account has been disabled");
                     }
                 });
-                $('#formReset').click(function() {
+                $('#formReset').on('click', function() {
                     $('input[name="account_name"]').val('');
                     $('input[name="account_number"]').val('');
                     $('input[name="limitProcess"]').val('');
@@ -628,12 +594,6 @@ $.varien = {
                 }));
             }
         },
-        getType: function() {
-            return $("[data-account-type]").attr("data-account-type");
-        },
-        setType: function(dataType) {
-            $("[data-account-type]").attr("data-account-type", dataType);
-        },
         datatable: {
             init: (colNum) => {
                 if ($.varien.segment(3) == "1") $.notOrderCols = [colNum - 1];
@@ -680,14 +640,11 @@ $.varien = {
                         backdrop: true,
                         centerVertical: true,
                         title: "Update Account Status",
-                        message: "All accounts will be " + dataStatus + ". Are you sure?",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>All accounts will be " + dataStatus + ". Are you sure?</span>",
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         callback: (result) => {
                             if (result == true) {
@@ -763,19 +720,15 @@ $.varien = {
             remove: function() {
                 $('[data-set="delete"]').on('click', function() {
                     var urlAjax = $(this).attr('delete-url');
-                    var msg = $(this).attr('delete-msg');
                     bootbox.confirm({
                         backdrop: true,
                         centerVertical: true,
                         title: "Delete Account",
-                        message: "Do you approve to delete this account? This process is irreversible!",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>Do you approve to delete this account? This process is irreversible!</span>",
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         callback: (result) => {
                             if (result == true) {
@@ -800,7 +753,6 @@ $.varien = {
             $('input#transactionDate').css("width", "210px");
             $(".modal-dialog").addClass("w-325px");
             $.varien.transaction.dateSelect();
-            $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#detailsTab li:first-child a"));
             $.drawer = KTDrawer.getInstance(document.querySelector("#drawer"));
             $.drawer.on("kt.drawer.show", function() {
                 if ($("#sync").is(":checked") == true) {
@@ -808,6 +760,7 @@ $.varien = {
                 }
             });
             $.drawer.on("kt.drawer.hide", function() {
+                $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#detailsTab li:first-child a"));
                 $.bsFirstTab.show();
                 $.varien.transaction.datatable.reload();
                 if ($.varien.transaction.datatable.isToday()) {
@@ -816,44 +769,24 @@ $.varien = {
                     }
                 }
             });
-            $.blockModalContent = new KTBlockUI(document.querySelector("#transaction"));
-            $.blockDatatable = new KTBlockUI(document.querySelector("#datatable_content"));
-            KTCookie.set('recordsTotal', 0, {sameSite: 'None', secure: true});
-            let created = false;
-            $(document).on("click", () => {
-                if (!created) {
-                    created = true;
-                    let v = document.createElement("audio");
-                    v.setAttribute("src", $.resource.assetsPath + "/media/notification.mp3");
-                    v.setAttribute("muted", "muted");
-                    v.setAttribute("id", "notification");
-                    document.body.appendChild(v);
-                }
-            });
-            if ($.varien.segment(3) == "deposit") {
-                $("[data-page-title]").html("Deposits");
-                $.varien.include("transaction/include/datatableHeadDeposit", "datatable-head").then(function(colNum) {
-                    $.varien.transaction.datatable.init(colNum);
-                });
+            const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span> Please wait...</div>';
+            $.blockModalContent = new KTBlockUI(document.querySelector('#transactionForm'), { message: blockMessage });
+
+            if(document.getElementById('notification') === null) {
+                let element = document.createElement("audio");
+                element.setAttribute("src", $.resource.assetsPath + "/media/notification.mp3");
+                element.setAttribute("muted", "muted");
+                element.setAttribute("id", "notification");
+                document.body.appendChild(element);
             }
-            if ($.varien.segment(3) == "withdraw") {
-                $("[data-page-title]").html("Withdrawals");
-                $.varien.include("transaction/include/datatableHeadWithdraw", "datatable-head").then(function(colNum) {
-                    $.varien.transaction.datatable.init(colNum);
-                });
-            }
+
+            if ($.varien.segment(3) == "deposit") $.varien.transaction.datatable.init(11);
+            if ($.varien.segment(3) == "withdraw") $.varien.transaction.datatable.init(10);
+
             $.varien.transaction.datatable.getNotifications().done(function(response) {
-                if (response.status == 1) {
-                    if ($("#notifications").is(":checked") == false) {
-                        $("#notifications").trigger("click");
-                    }
-                }
-                if (response.status == 0) {
-                    if ($("#notifications").is(":checked") == true) {
-                        $("#notifications").trigger("click");
-                    }
-                }
+                response.status === 1 ? $("#notifications")[0].checked = true : $("#notifications")[0].checked = false;
             });
+
             $.varien.transaction.datatable.rejectAll();
         },
         dateSelect: function() {
@@ -922,6 +855,9 @@ $.varien = {
                             d.method = $("#method").val();
                             d.status = $("#status").val();
                             d.accountId = $("#accountIdFilter").val();
+                        },
+                        complete: function() {
+                            $.varien.transaction.datatable.sound();
                         }
                     }
                 });
@@ -991,9 +927,24 @@ $.varien = {
                 }
             },
             sound: () => {
-                document.getElementById('notification').muted = false;
-                document.getElementById("notification").loop = false;
-                document.getElementById('notification').play();
+                const currentTxns = $.table.page.info().recordsTotal;
+                const totalDeposit = parseInt(KTCookie.get('totalDeposit'));
+                const totalWithdraw = parseInt(KTCookie.get('totalWithdraw'));
+                const prevTxns = $.varien.segment(3) === "deposit" ? totalDeposit : totalWithdraw;
+
+                if (prevTxns < currentTxns) {
+                    if ($("#notifications").is(":checked") == true) {
+                        document.getElementById('notification').muted = false;
+                        document.getElementById("notification").loop = false;
+                        document.getElementById('notification').play();
+                    }
+                }
+
+                if($.varien.segment(3) == "deposit") {
+                    KTCookie.set('totalDeposit', currentTxns, {sameSite: 'None', secure: true});
+                } else {
+                    KTCookie.set('totalWithdraw', currentTxns, {sameSite: 'None', secure: true});
+                }
             },
             setNotifications: function(status) {
                 $.ajax({
@@ -1078,20 +1029,17 @@ $.varien = {
                         bootbox.confirm({
                             backdrop: true,
                             centerVertical: true,
-                            title: "Reject Pending Transactions",
                             buttons: {
-                                confirm: {
-                                    label: "Confirm"
-                                },
-                                cancel: {
-                                    label: "Cancel"
-                                }
+                                confirm: { label: "Confirm" },
+                                cancel: { label: "Cancel" }
                             },
-                            message: $.rowCount + " pending transactions will be rejected. Do you approve?",
+                            title: "Reject Pending Transactions",
+                            className: "animation animation-fade-in",
+                            message: "<span class='fs-6'>" + $.rowCount + " pending transactions will be rejected. Do you confirm?</span>",
                             callback: (result) => {
                                 if (result == true) {
-                                    $.each($.rowArray, function(index, value) {
-                                        $.reject("transaction/update", value.id).then(function(response) {
+                                    $.each($.rowArray, function(value) {
+                                        $.reject("transaction/update", value.id).then(function() {
                                             toastr.success("#" + value.transId + ": transaction rejected");
                                             $.varien.transaction.datatable.reload();
                                         });
@@ -1107,19 +1055,11 @@ $.varien = {
                     if ($(this).is(":checked") == true) {
                         toastr.success("Notifications enabled");
                         $.varien.transaction.datatable.setNotifications(1);
-                        $.varien.transaction.datatable.sound();
                     } else {
                         toastr.error("Notifications disabled");
                         $.varien.transaction.datatable.setNotifications(0);
                     }
                 });
-                var info = $.table.page.info();
-                if (KTCookie.get('recordsTotal') < info.recordsTotal) {
-                    if ($("#notifications").is(":checked") == true) {
-                        $.varien.transaction.datatable.sound();
-                    }
-                }
-                KTCookie.set('recordsTotal', info.recordsTotal, {sameSite: 'None', secure: true});
             },
             onLoad: function() {
                 $.table.on('draw', function() {
@@ -1171,17 +1111,17 @@ $.varien = {
                         $('[data-set-time]').text(data[8].innerText);
                     }
 
-                    $('[data-set-accountName]').text($('#inspect').attr('data-account-name'));
-                    $('[data-set-customerNote]').text($('#inspect').attr('data-customer-note'));
+                    $('[data-set-accountName]').text($(this).attr('data-account-name'));
+                    $('[data-set-customerNote]').text($(this).attr('data-customer-note'));
 
-                    $.depositPerm = $('#inspect').attr('data-customer-deposit');
-                    $.withdrawPerm = $('#inspect').attr('data-customer-withdraw');
+                    $.depositPerm = $(this).attr('data-customer-deposit');
+                    $.withdrawPerm = $(this).attr('data-customer-withdraw');
                     if ($.depositPerm == 'on' && $("#deposit").is(":checked") == false) $('#deposit').prop('checked', true);
                     if ($.depositPerm != 'on' && $("#deposit").is(":checked") == true) $('#deposit').prop('checked', false);
                     if ($.withdrawPerm == 'on' && $("#withdraw").is(":checked") == false) $('#withdraw').prop('checked', true);
                     if ($.withdrawPerm != 'on' && $("#withdraw").is(":checked") == true) $('#withdraw').prop('checked', false);
 
-                    $.isVip = $('#inspect').attr('data-customer-vip');
+                    $.isVip = $(this).attr('data-customer-vip');
                     if ($.isVip == 'on' && $("#isVip").is(":checked") == false) $('#isVip').prop('checked', true);
                     if ($.isVip != 'on' && $("#isVip").is(":checked") == true) $('#isVip').prop('checked', false);
                     if (!$.resource.edit_customer) {
@@ -1193,7 +1133,7 @@ $.varien = {
                     $('input[data-set="switch"]').on("change", function(e) {
                         $.varien.eventControl(e);
 
-                        $.dataCustomerId =$('#inspect').attr('data-customer-id');
+                        $.dataCustomerId =$(this).attr('data-customer-id');
                         if ($(this).is(":checked") == true) {
                             $.varien.customer.datatable.switch($(this).attr("name"), $.dataCustomerId, "on");
                         } else {
@@ -1201,14 +1141,16 @@ $.varien = {
                         }
                     });
 
+                    $.accountLink = $(this).attr('data-account-link');
                     $('#accountPage').on("click", function(e) {
                         $.varien.eventControl(e);
-                        window.open($('#inspect').attr('data-account-link'), '_blank');
+                        window.open($.accountLink, '_blank');
                     });
 
+                    $.customerLink = $(this).attr('data-customer-link');
                     $('#customerProfile').on("click", function(e) {
                         $.varien.eventControl(e);
-                        window.open($('#inspect').attr('data-customer-link'), '_blank');
+                        window.open($.customerLink, '_blank');
                     });
 
                     if ($('[data-set-status]').text().trim() == 'Pending') {
@@ -1229,7 +1171,7 @@ $.varien = {
                         $('[data-set-status]').removeClass('badge-light-success');
                     }
 
-                    let staffName = $('#inspect').attr('data-staff');
+                    let staffName = $(this).attr('data-staff');
                     if (staffName == "") {
                         $('#staff').hide();
                     } else {
@@ -1237,7 +1179,7 @@ $.varien = {
                         $('#staff').show();
                     }
 
-                    let processNote = $('#inspect').attr('data-process-note');
+                    let processNote = $(this).attr('data-process-note');
                     if (processNote == "") {
                         $('#processNote').hide();
                     } else {
@@ -1248,6 +1190,10 @@ $.varien = {
             },
             transaction: function() {
                 $('#datatable_content tbody').on('click', '#approve, #reject', function () {
+                    $('#txId').val(this.dataset.rowId);
+                    $('#txResponse').val($(this)[0].id);
+                    $('#txStatus').val($(this)[0].id === "approve" ? "onaylandı" : "reddedildi");
+                    $('#txRequest').val($.varien.segment(3));
                     $('#txSubmit').text($(this)[0].id === "approve" ? "Approve" : "Reject");
 
                     let data = $(this).closest('tr').find('td');
@@ -1276,15 +1222,7 @@ $.varien = {
                 });
 
                 $('#txSubmit').on('click', function() {
-                    let data = $(`#${$(this).text().toLowerCase()}`).closest('tr').find('td');
-
-                    let formData = new FormData();
-                    formData.append("id", data[1].innerText);
-                    formData.append("response", $(this).text().toLowerCase());
-                    formData.append("status", $(this).text() === "Approve" ? "onaylandı" : "reddedildi");
-                    formData.append("request", $.varien.segment(3));
-
-                    $.varien.transaction.datatable.submit(formData);
+                    $.varien.transaction.datatable.submit();
                 });
             },
             process: function(options) {
@@ -1292,38 +1230,44 @@ $.varien = {
                     $.ajax(options).done(resolve).fail(reject);
                 });
             },
-            submit: function(formData) {
+            submit: function() {
                 $("form#transactionForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
-                    $.blockDatatable.block();
                     $.blockModalContent.block();
-
                     $.varien.transaction.datatable.process({
                         url: "transaction/update",
                         type: "POST",
                         dataType: "html",
                         crossDomain: true,
-                        data: formData,
+                        data: new FormData(this),
                         xhrFields: {
                             withCredentials: true
                         },
                         processData: false,
                         contentType: false
-                    }).then(function success(data) {
+                    }).then(function success() {
+                        $('#description').val('');
+                        $.blockModalContent.release();
+                        $("#transaction").modal('toggle');
                         $.table.ajax.reload();
-                        $("#ajaxModal").modal('toggle');
-                        $.blockDatatable.release();
-                        $.blockModalContent.release();
-                    }, function error(jqXHR, textStatus, errorThrown) {
+                    }, function error(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
-                        $.blockDatatable.release();
                         $.blockModalContent.release();
+                        $('#description').val('');
                     }).catch(function(error) {
-                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
-                        $.blockDatatable.release();
+                        toastr.error(`${error}`, `Error`);
                         $.blockModalContent.release();
+                        $('#description').val('');
                     });
                 }));
+
+                $('#transaction').on('hide.bs.modal', function (e) {
+                    if($.blockModalContent.isBlocked()) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                });
             },
             remove: function() {
                 $('[data-set="delete"]').on('click', function() {
@@ -1331,14 +1275,11 @@ $.varien = {
                     var msg = $(this).attr('delete-msg');
                     bootbox.confirm({
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         message: msg,
+                        className: "animation animation-fade-in",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
@@ -1358,18 +1299,9 @@ $.varien = {
     },
     user: {
         init: function() {
-            $("[data-page-title]").html("Users");
-            if ($.varien.segment(2) == "index") {
-                $.varien.include("user/include/datatableHead", "datatable-head").then(function(colNum) {
-                    $.varien.user.datatable.init(colNum);
-                });
-            }
-            if ($.varien.segment(2) == "detail") {
-                $.varien.user.detail.init();
-            }
-            if ($.varien.segment(2) == "roles") {
-                $.varien.user.role.init();
-            }
+            if ($.varien.segment(2) == "index") $.varien.user.datatable.init(6);
+            if ($.varien.segment(2) == "detail") $.varien.user.detail.init();
+            if ($.varien.segment(2) == "roles") $.varien.user.role.init();
         },
         role: {
             init: function() {
@@ -1469,14 +1401,11 @@ $.varien = {
                             centerVertical: true,
                             title: "Delete Role",
                             buttons: {
-                                confirm: {
-                                    label: "Confirm"
-                                },
-                                cancel: {
-                                    label: "Cancel"
-                                }
+                                confirm: { label: "Confirm" },
+                                cancel: { label: "Cancel" }
                             },
-                            message: "Do you approve to delete user role?",
+                            className: "animation animation-fade-in",
+                            message: "<span class='fs-6'>Do you approve to delete user role?</span>",
                             callback: (result) => {
                                 if (result == true) {
                                     $.ajax({
@@ -1635,15 +1564,12 @@ $.varien = {
                                     backdrop: true,
                                     centerVertical: true,
                                     buttons: {
-                                        confirm: {
-                                            label: "Remove"
-                                        },
-                                        cancel: {
-                                            label: "Cancel"
-                                        }
+                                        confirm: { label: "Remove" },
+                                        cancel: { label: "Cancel" }
                                     },
                                     title: "Remove 2-Step Verification",
-                                    message: "Are you sure you want to remove 2-step verification?",
+                                    className: "animation animation-fade-in",
+                                    message: "<span class='fs-6'>Are you sure you want to remove 2-step verification?</span>",
                                     callback: (result) => {
                                         if (result == true) {
                                             $.varien.user.detail.twoFA.disable2fa().then(response => {
@@ -1681,15 +1607,12 @@ $.varien = {
                         backdrop: true,
                         centerVertical: true,
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         title: "Delete User",
-                        message: "Do you approve to delete the user?",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>Do you approve to delete the user?</span>",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
@@ -1891,13 +1814,9 @@ $.varien = {
             },
             onLoad: function() {
                 $.table.on('draw', function() {
-                    setTimeout(function() {
-                        $.varien.datatable.exportEvents();
-                        $("tbody td:nth-child(1)").addClass('d-flex align-items-center');
-                        $("tbody td:nth-child(6)").addClass('text-end');
-                        $.varien.user.datatable.modal();
-                        $.varien.user.datatable.remove();
-                    }, 300);
+                    $.varien.datatable.exportEvents();
+                    $.varien.user.datatable.modal();
+                    $.varien.user.datatable.remove();
                 });
             },
             modal: function() {
@@ -1968,14 +1887,11 @@ $.varien = {
                         centerVertical: true,
                         title: "Delete User",
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
-                        message: "Do you confirm to delete the user?",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>Do you confirm to delete the user?</span>",
                         callback: (result) => {
                             if (result == true) {
                                 $.ajax({
@@ -2003,11 +1919,8 @@ $.varien = {
     },
     customer: {
         init: function() {
-            $("[data-page-title]").html("Customers");
             if ($.varien.segment(2) == "index") {
-                $.varien.include("customer/include/datatableHead", "datatable-head").then(function(colNum) {
-                    $.varien.customer.datatable.init(colNum)
-                });
+                $.varien.customer.datatable.init(8)
                 $.varien.customer.selectClient();
             }
             if ($.varien.segment(2) == "detail") {
@@ -2498,14 +2411,11 @@ $.varien = {
                             backdrop: true,
                             centerVertical: true,
                             title: "Warning!",
-                            message: "Are you sure you want to activate maintenance mode?",
+                            className: "animation animation-fade-in",
+                            message: "<span class='fs-6'>Are you sure you want to activate maintenance mode?</span>",
                             buttons: {
-                                confirm: {
-                                    label: "Confirm"
-                                },
-                                cancel: {
-                                    label: "Cancel"
-                                }
+                                confirm: { label: "Confirm" },
+                                cancel: { label: "Cancel" }
                             },
                             callback: (result) => {
                                 if (result == true) {
@@ -2599,7 +2509,7 @@ $.varien = {
                     buttons: ['copy', 'csv', 'excel', 'pdf'],
                     bStateSave: false,
                     stateSave: false,
-                    lengthMenu: [5, 10, 25, 50],
+                    lengthMenu: [10, 25, 50, 100],
                     order: [0, 'desc'],
                     columnDefs: [{
                         orderable: false,
@@ -2612,7 +2522,7 @@ $.varien = {
                     ordering: true,
                     processing: true,
                     serverSide: true,
-                    pageLength: 5,
+                    pageLength: 10,
                     ajax: {
                         url: 'client/datatable',
                         type: 'POST',
@@ -2795,14 +2705,11 @@ $.varien = {
                         backdrop: true,
                         centerVertical: true,
                         title: "Delete Firm",
-                        message: "Are you sure to delete the firm?",
+                        className: "animation animation-fade-in",
+                        message: "<span class='fs-6'>Are you sure to delete the firm?</span>",
                         buttons: {
-                            confirm: {
-                                label: "Confirm"
-                            },
-                            cancel: {
-                                label: "Cancel"
-                            }
+                            confirm: { label: "Confirm" },
+                            cancel: { label: "Cancel" }
                         },
                         callback: (result) => {
                             if (result == true) {

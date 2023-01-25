@@ -43,6 +43,14 @@
     display: none !important;
 }
 
+@media all and (min-width: 1730px) {
+
+    .container,
+    .container-xxl {
+        padding: 0px !important;
+    }
+}
+
 /* Modals */
 
 .modal-backdrop.show {
@@ -92,7 +100,7 @@
     pointer-events: none !important;
 }
 
-.table-striped>tbody>tr:nth-of-type(2n + 1)>* {
+.table-striped>tbody>tr:nth-of-type(n + 1)>* {
     color: var(--kt-text-gray-800) !important;
 }
 
@@ -191,6 +199,7 @@
 }
 
 @keyframes dots {
+
     0%,
     20% {
         color: rgba(0, 0, 0, 0);

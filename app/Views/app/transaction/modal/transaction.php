@@ -1,12 +1,12 @@
-<div class="modal fade" id="transaction" tabindex="-1" aria-hidden="true" style="--bs-modal-border-radius: 0 !important;">
+<div class="modal animation animation-fade-in" id="transaction" tabindex="-1" aria-hidden="true" style="--bs-modal-border-radius: 0 !important;">
   <div class="modal-dialog modal-dialog-centered w-325px">
     <div class="modal-content">
       <form class="form" action="javascript:" id="transactionForm" method="post" enctype="multipart/form-data">
-        <input type="hidden" value="{txid}" name="id"></input>
-        <input type="hidden" value="approve" name="response"></input>
-        <input type="hidden" value="onaylandı" name="status"></input>
-        <input type="hidden" value="deposit" name="request"></input>
-        <div class="modal-header d-flex align-items-start border-bottom-0 p-7" id="kt_modal_add_customer_header">
+        <input type="hidden" name="id" id="txId" value="{id}"></input>
+        <input type="hidden" name="response" id="txResponse" value="{approve/reject}"></input>
+        <input type="hidden" name="status" id="txStatus" value="{onaylandı/reddedildi}"></input>
+        <input type="hidden" name="request" id="txRequest" value="{deposit/withdraw}"></input>
+        <div class="modal-header d-flex align-items-start border-bottom-0 p-7" id="modal_transactions">
           <div class="d-flex flex-column">
             <h2 class="fs-4 fw-bold mb-2">Transaction #<span data-set-txid>{txid}</span></h2>
             <h2 class="fs-7 fw-semibold text-gray-600" data-set-time>{time}</h2>
@@ -21,7 +21,7 @@
           </button>
         </div>
         <div class="modal-body py-0 px-7">
-          <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_customer_header" data-kt-scroll-wrappers="#kt_modal_add_customer_scroll" data-kt-scroll-offset="300px">
+          <div class="scroll-y me-n7 pe-7" id="modal_transactions_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#modal_transactions" data-kt-scroll-wrappers="#modal_transactions_scroll" data-kt-scroll-offset="300px">
             <div id="txn-info" class="d-flex flex-column flex-center h-95px mb-5">
               <div class="fs-3 fw-bolder mb-1" data-set-customer>{customer_name}</div>
               <div class="fs-4 fw-bold" data-set-amount>{amount}</div>
@@ -59,7 +59,7 @@
                   <label class="fs-5 fw-semibold">Description</label>
                   <div class="d-flex align-items-center input-group input-group-solid input-group-sm">
                     <span class="me-2">&bull;</span>
-                    <input type="text" class="form-control bg-transparent fs-6 text-gray-600 border-0 h-25px p-0" name="notes" placeholder="Add a description" value="">
+                    <input id="description" type="text" class="form-control bg-transparent fs-6 text-gray-600 border-0 h-25px p-0" name="notes" placeholder="Add a description" value="">
                   </div>
                 </div>
               </div>

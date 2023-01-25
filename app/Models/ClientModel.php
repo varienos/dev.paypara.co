@@ -10,8 +10,8 @@ class ClientModel extends Model
 	{
 		$this->session 			= \Config\Services::session();
 		$this->db      			= \Config\Database::connect();
-		$this->setting 		    = new \App\Models\SettingModel();
-		$this->paypara          = new \App\Libraries\Paypara();
+		$this->setting 		  = new \App\Models\SettingModel();
+		$this->paypara      = new \App\Libraries\Paypara();
 		$this->error  			= new \App\Libraries\Error();
 	}
 	public function dataRemove($id)

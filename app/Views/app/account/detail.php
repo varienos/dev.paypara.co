@@ -10,7 +10,7 @@
           <div id="kt_header" class="header">
             <div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
               <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
-                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-page-title data-account-type>Edit Account</h1>
+                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">Edit Account</h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
                     <a href="dashboard" class="text-muted">Dashboard</a>
@@ -23,9 +23,9 @@
                   <li class="breadcrumb-item text-muted"><a href="account/index/2" class="text-muted">Matching Accounts</a></li>
                   <? endif; ?>
                   <? if ($update->dataType == 3): ?>
-                  <li class="breadcrumb-item text-muted"><a href="account/index/2" class="text-muted">Bank Accounts</a></li>
+                  <li class="breadcrumb-item text-muted"><a href="account/index/3" class="text-muted">Bank Accounts</a></li>
                   <? endif; ?>
-                  <li class="breadcrumb-item text-dark" data-page-title><?=$update->account_name?></li>
+                  <li class="breadcrumb-item text-dark"><?=$update->account_name?></li>
                 </ul>
               </div>
               <div class="d-flex d-lg-none align-items-center ms-n2 me-2">

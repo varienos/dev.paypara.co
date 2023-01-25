@@ -1,18 +1,25 @@
 <?php require appViewPath().'layout/header/header.php' ?>
 
-<body id="kt_body" class="sidebar-disabled"> <?php require appViewPath().'partials/theme-mode/_init.php' ?> <div class="d-flex flex-column flex-root">
-    <div class="page d-flex flex-row flex-column-fluid"> <?php require appViewPath().'layout/aside/_base.php' ?> <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+<body id="kt_body" class="sidebar-disabled">
+  <?php require appViewPath().'partials/theme-mode/_init.php' ?> <div class="d-flex flex-column flex-root">
+    <div class="page d-flex flex-row flex-column-fluid">
+      <?php require appViewPath().'layout/aside/_base.php' ?> <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
         <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
           <div id="kt_header" class="header">
             <div class="container d-flex flex-stack flex-wrap gap-2" id="kt_header_container">
               <div class="page-title d-flex flex-column align-items-start justify-content-center flex-wrap me-lg-2 pb-5 pb-lg-0" data-kt-swapper="true" data-kt-swapper-mode="prepend" data-kt-swapper-parent="{default: '#kt_content_container', lg: '#kt_header_container'}">
-                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1" data-page-title data-account-type></h1>
+                <? $pageTitle = segment[2] === "1" ? "Papara" : (segment[2] === "2" ? "Matching" : "Bank") ?>
+                <h1 class="d-flex flex-column text-dark fw-bold my-0 fs-1">
+                  <? echo($pageTitle) ?> Accounts
+                </h1>
                 <ul class="breadcrumb breadcrumb-dot fw-semibold fs-base my-1">
                   <li class="breadcrumb-item text-muted">
                     <a href="dashboard" class="text-muted">Dashboard</a>
                   </li>
                   <li class="breadcrumb-item text-muted">Accounts</li>
-                  <li class="breadcrumb-item text-dark" data-page-title></li>
+                  <li class="breadcrumb-item text-dark">
+                    <? echo($pageTitle) ?> Accounts
+                  </li>
                 </ul>
               </div>
               <div class="d-flex d-lg-none align-items-center ms-n2 me-2">
@@ -28,7 +35,8 @@
                   <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="theme-light-show h-30px" />
                   <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="theme-dark-show h-30px" />
                 </a>
-              </div> <?php require appViewPath().'layout/header/__topbar.php' ?>
+              </div>
+              <?php require appViewPath().'layout/header/__topbar.php' ?>
             </div>
           </div>
           <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -65,7 +73,9 @@
                       </a>
                       <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold py-4 w-250px fs-6" data-kt-menu="true">
                         <div class="menu-item px-5">
-                          <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase" data-page-title></div>
+                          <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
+                            <? echo($pageTitle) ?> Accounts
+                          </div>
                         </div>
                         <div class="menu-item px-5 my-1">
                           <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Activate all</a>
@@ -88,7 +98,16 @@
                   <div id="datatableContent_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                     <div class="table-responsive">
                       <table class="table table-responsive table-row-dashed align-middle dataTable fs-6 gy-5" id="datatable_content">
-                        <thead datatable-head></thead>
+                        <thead>
+                          <!-- 1 papara, 2 match, 3 banka -->
+                          <? if(segment[2] === "1"): ?>
+                          <?php require appViewPath() . 'account/include/tableHeadPapara.php' ?>
+                          <? elseif(segment[2] === "2"): ?>
+                          <?php require appViewPath() . 'account/include/tableHeadMatch.php' ?>
+                          <? else: ?>
+                          <?php require appViewPath() . 'account/include/tableHeadBank.php' ?>
+                          <? endif; ?>
+                        </thead>
                         <tbody class="fw-semibold text-gray-600 text-center"></tbody>
                       </table>
                     </div>
@@ -96,8 +115,10 @@
                 </div>
               </div>
             </div>
-          </div> <?php require appViewPath().'layout/_footer.php' ?>
+          </div>
+          <?php require appViewPath().'layout/_footer.php' ?>
         </div>
       </div>
     </div>
-  </div> <?php require appViewPath().'layout/footer/footer.php' ?>
+  </div>
+  <?php require appViewPath().'layout/footer/footer.php' ?>
