@@ -18,25 +18,23 @@ class Console
     {
         $help = [];
         $help[] = ['desc' => 'Yazılımı dağıtım için paketler:', 'cmd' => 'package'];
-        $help[] = ['desc' => 'Yazılımı üretim ortamı sunucusuna yükler ve yayına alır:', 'cmd' => 'deploy veya deploy ~~CI4'];
+        $help[] = ['desc' => 'Yazılımı üretim ortamına yükler ve yayına alır:', 'cmd' => 'deploy veya deploy ~~CI4'];
         $help[] = ['desc' => 'CI4 ile versiyon yükseltilemiyorsa core php ile acil durum yüklemesi:', 'cmd' => 'deploy ~~core-php'];
         $help[] = ['desc' => 'Üretim ortamı sunucusunda ssh komutu çalıştırıp cevabı döndürür:', 'cmd' => 'remote.ssh ~~[cmd] veya remote ~~ssh ~~[cmd_1];[cmd_2]'];
         $help[] = ['desc' => 'Dev ve prod versiyonlarını döndürür:', 'cmd' => 'version'];
-        $help[] = ['desc' => 'Dev ortamı versiyonunu yükseltir. `Assets` için `cache` yeniler.', 'cmd' => 'version.update'];
+        $help[] = ['desc' => 'Dev ortamı versiyonunu yükseltir ve assets cache yeniler.', 'cmd' => 'version.update'];
         $help[] = ['desc' => 'Dev ve prod veritabanlarının tablolarını senkron eder, veriler işlenmez:', 'cmd' => 'db.sync'];
-        $help[] = ['desc' => 'Hedef ortamın veri tabanı yedeğini sql.gz formatında verir:', 'cmd' => 'db.backup ~~production veya db.backup ~~development'];
-
+        $help[] = ['desc' => 'Hedef ortamın veri tabanı yedeğini verir:', 'cmd' => 'db.backup ~~production veya db.backup ~~development'];
 
         for ($i = 0; $i < count($help); $i++) {
-            echo "<li style='color:magenta'>" . $help[$i]['desc'] . "</li>";
-            echo "<li style='color:orange'>" . $help[$i]['cmd'] . "</li>";
+            echo "<li id='response' class='fw-bold text-primary'>" . $help[$i]['desc'] . "<span class='text-light'> `" . $help[$i]['cmd'] . "`</span></li>";
         }
     }
 
     function cmd($cmd)
     {
         if ($this->isExec()) {
-            echo "<li style='color:red'>warning: " . SUBDOMAIN . ".paypara.co server 'exec' function disabled in php.ini</li>";
+            echo "<li class='text-danger'>warning: " . SUBDOMAIN . ".paypara.co server 'exec' function disabled in php.ini</li>";
             die();
         }
         $opt = "";
@@ -48,16 +46,16 @@ class Console
         }
 
         if ($cmd == "help") $this->manuel();
-        if ($cmd == "db.backup" && $opt == "production") $this->backup($optArray);
-        if ($cmd == "remote.ssh") $this->remotessh($optArray);
-        if ($cmd == "remote") $this->remote($optArray);
-        if ($cmd == "package") $this->package();
-        if ($cmd == "version") echo "<li>development:" . $this->getVer() . " production:" . $this->remoteGetVer() . "</li>";
-        if ($cmd == "version.update") echo "<li>" . $this->getVer() . " upgrade to " . updateVersion() . "</li>";
-        if ($cmd == "deploy")  $this->deploy($optArray);
-        if ($cmd == "db.sync")    $this->mysqlSync->init();
-        if ($cmd == "fileExists") $this->fileExists($opt);
-        //if($cmd!="") echo "<li>unknow cmd: '".$cmd."'</li>";
+        else if ($cmd == "db.backup" && $opt == "production") $this->backup($optArray);
+        else if ($cmd == "remote.ssh") $this->remotessh($optArray);
+        else if ($cmd == "remote") $this->remote($optArray);
+        else if ($cmd == "package") $this->package();
+        else if ($cmd == "version") echo "<li>Development: " . $this->getVer() . ", Production: " . $this->remoteGetVer() . "</li>";
+        else if ($cmd == "version.update") echo "<li>" . $this->getVer() . " upgraded to " . updateVersion() . "</li>";
+        else if ($cmd == "deploy")  $this->deploy($optArray);
+        else if ($cmd == "db.sync")    $this->mysqlSync->init();
+        else if ($cmd == "fileExists") $this->fileExists($opt);
+        else echo "<li>Unknown command: '".$cmd."'. Try again or type `help` to get help.</li>";
     }
 
     function isExec()
@@ -158,8 +156,6 @@ class Console
         die();
     }
 
-
-
     function deploy($opt)
     {
         $version = ($opt[2] != "" ? $opt[2] : $this->getVer());
@@ -187,8 +183,8 @@ class Console
             $this->setVer();
             die();
         } else {
-            echo "<li style='color:red'>error: version " . $version . " not found or broken !</li>";
-            echo "<li style='color:red'>please cmd first: 'package'</li>";
+            echo "<li class='text-danger'>Error: Version " . $version . " not found or broken!</li>";
+            echo "<li class='text-danger'>Wrong input. Please write 'package' first.</li>";
         }
     }
 
@@ -204,7 +200,7 @@ class Console
         curl_setopt($ch, CURLOPT_TIMEOUT, 0);
         $server_output = curl_exec($ch);
         if (!empty(curl_error($ch))) die("<li>CURL Error: " . curl_error($ch) . "</li>");
-        echo "<li>remote (app.paypara.co) server response: " . $server_output . "</li>";
+        echo "<li>Remote (prod) server response: " . $server_output . "</li>";
         curl_close($ch);
         die();
     }
@@ -222,7 +218,7 @@ class Console
             curl_setopt($ch, CURLOPT_TIMEOUT, 0);
             $server_output = curl_exec($ch);
             if (!empty(curl_error($ch))) die("<li>CURL Error: " . curl_error($ch) . "</li>");
-            echo "<li>remote (app.paypara.co) server response: " . $server_output . "</li>";
+            echo "<li>Remote (prod) server response: " . $server_output . "</li>";
             echo "<li><a href='https://app.paypara.co/deploy/db.backup." . $timestamp . ".sql.gz' target='_blank'>clic to download https://app.paypara.co/deploy/db.backup." . $timestamp . ".sql.gz</a></li>";
             curl_close($ch);
             die();
@@ -231,10 +227,20 @@ class Console
 
     function remoteGetVer()
     {
-        $string = file_get_contents("https://app.paypara.co/version.txt");
+        $options = array(
+            'http' => array(
+                'header'  => 'Connection: close\r\n',
+                'method'  => 'POST',
+                'content' => '',
+                'timeout' => .5
+            ),
+        );
+
+        $context = stream_context_create($options);
+        $string = file_get_contents("https://app.paypara.co/version.txt", false, $context);
 
         if ($string === FALSE) {
-            return "Could not read remote version file.";
+            return "Couldn't read remote file.";
         } else {
             return $string;
         }
@@ -242,12 +248,10 @@ class Console
 
     function remote($opt)
     {
-
         $cmd        = $opt[1];
         $opt1       = $opt[2];
         $opt2       = $opt[3];
         $token      = $_POST["token"];
-
 
         if ($cmd == 'update' && $token == md5($cmd . date("Y.m.d"))) {
             $productionPackage  = $_POST["f"];
@@ -260,7 +264,6 @@ class Console
             } else if ($file_headers[0] == 'HTTP/1.0 302 Found' && $file_headers[7] == 'HTTP/1.0 404 Not Found') {
                 echo "<li>$source does not exist, and I got redirected to a custom 404 page</li>";
             } else {
-
                 $exec  = "rm 'version.txt';";
                 $exec .= "rm -Rf 'app';";
                 $exec .= "rm -Rf 'vendor';";
@@ -283,12 +286,12 @@ class Console
                 print_r($_POST);
                 print_r($output);
                 echo "</li>";
-                echo "<li><b>remote exec:</b></li>";
+                echo "<li><b>Remote exec:</b></li>";
                 foreach (explode(';', $exec) as $str) {
                     echo "<li style='color:orange'>" . $str . "</li>";
                 }
-                echo "<li><b>download</b> " . $source . "</li>";
-                echo "<li><b>extract</b> https://app.paypara.co/deploy/" . $productionPackage . "</li>";
+                echo "<li><b>Download</b> " . $source . "</li>";
+                echo "<li><b>Extract</b> https://app.paypara.co/deploy/" . $productionPackage . "</li>";
                 echo "<li><a href='https://app.paypara.co/secure/login' target='_blank' style='color:#46ff6c'>https://app.paypara.co</a> core update version " . $this->getVer() . "</li>";
             }
         }

@@ -118,12 +118,18 @@ $.varien = {
                     $("#ajaxModalContent").html('');
                     if ($(".modal-dialog").length) {
                         $(".modal-dialog").addClass('mw-650px');
-                        $(".modal-dialog").removeClass('w-75');
+                        $(".modal-dialog").removeClass('mw-75');
+
+                        KTThemeMode.getMode() === "dark"
+                            ? $(".modal-content").removeClass('border border-2 shadow-lg')
+                            : $(".modal-content").removeClass('shadow-lg');
                     }
                 });
             },
             show: function() {
-                $("#ajaxModal").on('shown.bs.modal', function(e) {});
+                $("#ajaxModal").on('shown.bs.modal', function(e) {
+                    $('#cmd').focus();
+                });
             },
             toggle: function() {
                 $("#ajaxModal").modal('toggle');
@@ -189,19 +195,29 @@ $.varien = {
     dev: {
         init: function() {
             $.getScript(window.location.protocol + "//" + window.location.hostname + "/" + $.resource.assetsPath + "/plugins/custom/css-element-queries/css.element.queries.bundle.js");
+
             document.addEventListener('keydown', function(event) {
-                if (event.keyCode == 36) {
+                if (event.key === "Home") {
                     $.varien.modal.event.load("dev", function() {
-                        $(".modal-dialog").addClass('w-75');
+                        $(".modal-dialog").addClass('mw-75');
                         $(".modal-dialog").removeClass('mw-650px');
+                        KTThemeMode.getMode() === "dark"
+                            ? $(".modal-content").addClass('border border-2 shadow-lg')
+                            : $(".modal-content").addClass('shadow-lg');
+
                         new ResizeSensor(document.getElementById('console'), function() {
                             $("#devConsole").animate({
                                 scrollTop: $('#devConsole').prop("scrollHeight")
                             }, 100);
                         });
                         document.addEventListener('keydown', function(event) {
-                            if (event.keyCode == 13) {
-                                $('#console').append("<li class='cmdloading'>" + $("#cmd").val() + "</li>");
+                            if (event.key === "Enter") {
+                                let screen = document.getElementById('console');
+                                if(screen.children[screen.children.length - 2].id == 'waiting') {
+                                    $('#console').append("<li><br></li>")
+                                }
+
+                                $('#console').append("<li id='input' class='cmdloading'>" + $("#cmd").val() + "</li>");
                                 $.varien.dev.cmd($("#cmd").val());
                                 $("#cmd").val('');
                             }
@@ -213,7 +229,19 @@ $.varien = {
         cmd: function(cmd) {
             if (cmd == "string.manage") {
                 $.varien.modal.event.load('dev/string', function() {});
-            } else {
+            } else if(cmd == "clear") {
+                let screen = document.getElementById('console');
+                for (let i = screen.children.length; i > 7; i--) {
+                    screen.removeChild(screen.children[i - 1]);
+                }
+
+                $('#waiting').removeClass('d-none');
+                $('#waiting').addClass('cmdloading');
+            }
+            else {
+                $('#waiting').addClass('d-none');
+                $('#waiting').removeClass('cmdloading');
+
                 $.ajax({
                     url: window.location.protocol + "//" + window.location.hostname + "/dev/console",
                     type: "POST",

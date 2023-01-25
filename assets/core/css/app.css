@@ -179,13 +179,25 @@
 }
 
 #console li::before {
-    content: ">";
     padding-right: 8px;
     color: white;
 }
 
+#console li#input {
+    font-weight: bold;
+    color: var(--kt-text-success);
+}
+
+#console li#input::before {
+    content: " > ";
+}
+
+#console li#notice::before {
+    content: "\2022";
+}
+
 .devScrollTable {
-    font-family: "VT323", monospace;
+    font-family: "Courier New", monospace;
     padding: 30px;
     border-radius: 15px;
     -webkit-box-shadow: inset 0px 0px 20px 3px rgb(0 0 0 / 10%);
