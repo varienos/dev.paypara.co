@@ -55,7 +55,7 @@ class Console
         else if ($cmd == "deploy")  $this->deploy($optArray);
         else if ($cmd == "db.sync")    $this->mysqlSync->init();
         else if ($cmd == "fileExists") $this->fileExists($opt);
-        else echo "<li>Unknown command: '".$cmd."'. Try again or type `help` to get help.</li>";
+        else if ($cmd != "") echo "<li>Unknown command: '".$cmd."'. Try again or type `help` to get help.</li>";
     }
 
     function isExec()

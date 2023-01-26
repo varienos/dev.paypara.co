@@ -198,6 +198,8 @@ $.varien = {
 
             document.addEventListener('keydown', function(event) {
                 if (event.key === "Home") {
+                    if($('#kt_body').hasClass('modal-open')) return;
+
                     $.varien.modal.event.load("dev", function() {
                         $(".modal-dialog").addClass('mw-75');
                         $(".modal-dialog").removeClass('mw-650px');
