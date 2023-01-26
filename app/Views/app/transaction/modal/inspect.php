@@ -1,8 +1,3 @@
-<style>
-.drawer {
-  z-index: 99999999 !important;
-}
-</style>
 <div id="drawer" data-kt-drawer="true" data-kt-drawer-activate="true" data-kt-drawer-toggle="#inspect" data-kt-drawer-close="#close-inspect" data-kt-drawer-width="360px" style="border-top-left-radius: .75rem;">
   <div id="inspect-info" class="card w-100 rounded-0">
     <div class="card-header d-flex flex-nowrap bg-transparent border-0 min-h-55px p-0">

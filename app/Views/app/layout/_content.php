@@ -1,6 +1,6 @@
 <div class="container-xxl" id="kt_content_container">
   <div class="row w-100">
-    <div class="col-xl-3 d-flex flex-column justify-content-between gap-5 p-0 pe-xl-3">
+    <div class="col-xl-3 d-flex flex-column justify-content-between gap-5 p-0 pe-xl-3 mb-5 mb-xl-0">
       <div class="card card-bordered bg-success bg-opacity-25">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Deposits</h5>
@@ -36,7 +36,7 @@
       <div class="card card-bordered">
         <div class="card-body">
           <h5 class="card-title fw-semibold text-gray-700 pb-2">Number of Transactions</h5>
-          <div class="d-flex">
+          <div class="d-flex flex-wrap gap-3">
             <h3 class="fs-4 m-0 me-3">Deposit: <span class="text-gray-600 fs-4 fw-semibold"><?= depositProcessDaily() ?></span></h3>
             <h3 class="fs-4 m-0">Withdrawal: <span class="text-gray-600 fs-4 fw-semibold"><?= withdrawProcessDaily() ?></span></h3>
           </div>

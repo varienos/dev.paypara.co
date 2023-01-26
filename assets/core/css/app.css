@@ -20,6 +20,10 @@
 
 /* Misc */
 
+.drawer {
+    z-index: 99999999 !important;
+}
+
 .logo:hover {
     filter: drop-shadow(0 0 2rem #d95158);
 }
