@@ -121,7 +121,7 @@ function validateStatus() {
         stepPendingTX.classList.replace("d-none", "d-block");
         exitBtn.classList.replace("d-none", "d-inline-block");
         break;
-      case 11: case 409: case 410: case 419:
+      case 11: case 27: case 409: case 410: case 419:
         headerElement.innerHTML = "Hoşgeldin";
         descriptionElement.classList.add('d-none');
         stepApiStatus.classList.replace("d-none", "d-block");
