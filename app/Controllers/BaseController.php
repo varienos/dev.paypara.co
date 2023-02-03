@@ -32,7 +32,7 @@ abstract class BaseController extends Controller
     public $db;
     public $router;
     public $error;
-    public $setting;
+    public $settings;
     public $paypara;
     public $SecureModel;
     public $JsObfuscator;
@@ -53,7 +53,6 @@ abstract class BaseController extends Controller
      */
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
-
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
@@ -62,7 +61,7 @@ abstract class BaseController extends Controller
         $this->session             = $this->Init->session;
         $this->router           = $this->Init->router;
         $this->db                  = $this->Init->db;
-        $this->setting             = $this->Init->setting;
+        $this->settings             = $this->Init->settings;
         $this->paypara          = $this->Init->paypara;
         $this->error              = $this->Init->error;
         $this->JsObfuscator     = $this->Init->JsObfuscator;

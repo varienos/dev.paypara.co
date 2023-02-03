@@ -31,7 +31,7 @@ $.varien = {
         if ($.varien.segment(1) == "user") $.varien.user.init();
         if ($.varien.segment(1) == "transaction") $.varien.transaction.init();
         if ($.varien.segment(1) == "reports") $.varien.reports.init();
-        if ($.varien.segment(1) == "setting") $.varien.setting.init();
+        if ($.varien.segment(1) == "settings") $.varien.settings.init();
         if ($.varien.environment() == 'dev') $.varien.dev.init();
     },
     authorization: () => {
@@ -2420,20 +2420,20 @@ $.varien = {
             }
         }
     },
-    setting: {
+    settings: {
         init: function() {
             $('[id="updateSetting"]').on('click', function(e) {
                 $('[name="maintenanceStatus"]').closest("form").attr('id');
                 var formId = $(this).attr("data-form-id");
-                $.varien.setting.submit(formId);
+                $.varien.settings.submit(formId);
                 $("form#" + formId).submit();
             });
             $('input[data-set="statusSwitch"]').on('change', function() {
                 var elm = $(this);
                 var formId = $('input[name="' + $(this).attr('name') + '"]').closest("form").attr('id');
                 if ($(this).attr("name") != "maintenanceStatus") {
-                    $.varien.setting.switch($(this));
-                    $.varien.setting.submitStatus(formId, $(this).attr('name'));
+                    $.varien.settings.switch($(this));
+                    $.varien.settings.submitStatus(formId, $(this).attr('name'));
                     $("form#" + formId).submit();
                 } else {
                     if ($(this).is(":checked") == true) {
@@ -2450,8 +2450,8 @@ $.varien = {
                             callback: (result) => {
                                 if (result == true) {
                                     KTCookie.set('cancel', 0, {sameSite: 'None', secure: true});
-                                    $.varien.setting.switch(elm);
-                                    $.varien.setting.submitStatus(formId, elm.attr('name'));
+                                    $.varien.settings.switch(elm);
+                                    $.varien.settings.submitStatus(formId, elm.attr('name'));
                                     $("form#" + formId).submit();
                                 } else {
                                     KTCookie.set('cancel', 1, {sameSite: 'None', secure: true});
@@ -2461,8 +2461,8 @@ $.varien = {
                         });
                     } else {
                         if (KTCookie.get('cancel') != 1) {
-                            $.varien.setting.switch(elm);
-                            $.varien.setting.submitStatus(formId, elm.attr('name'));
+                            $.varien.settings.switch(elm);
+                            $.varien.settings.submitStatus(formId, elm.attr('name'));
                             $("form#" + formId).submit();
                         }
                         KTCookie.set('cancel', 0, {sameSite: 'None', secure: true});
@@ -2478,7 +2478,7 @@ $.varien = {
                     $(this).val('').trigger('change');
                 });
             });
-            $.varien.setting.client.init();
+            $.varien.settings.client.init();
         },
         switch: function(elm) {
             if (elm.is(":checked") == true) {
@@ -2492,7 +2492,7 @@ $.varien = {
                 $.varien.eventControl(e);
                 var formData = new FormData(this);
                 $.ajax({
-                    url: "setting/update",
+                    url: "settings/update",
                     type: "POST",
                     dataType: "html",
                     crossDomain: true,
@@ -2515,7 +2515,7 @@ $.varien = {
             $("form#" + formId).on('submit', (function(e) {
                 $.varien.eventControl(e);
                 $.ajax({
-                    url: "setting/update",
+                    url: "settings/update",
                     type: "POST",
                     dataType: "html",
                     crossDomain: true,
@@ -2559,30 +2559,30 @@ $.varien = {
                         data: function(d) {}
                     }
                 });
-                $.varien.setting.client.onLoad();
+                $.varien.settings.client.onLoad();
                 $('#search').on('keyup', function() {
                     $.table.search(this.value).draw();
                 });
                 $('#datatableReload').on('click', function() {
-                    $.varien.setting.client.reload();
+                    $.varien.settings.client.reload();
                 });
                 $('#datatableReset').on('click', function() {
-                    $.varien.setting.client.reset();
+                    $.varien.settings.client.reset();
                 });
             },
             onLoad: function() {
                 $.table.on('draw', function() {
                     setTimeout(function() {
                         $.varien.datatable.exportEvents();
-                        $.varien.setting.client.modal();
-                        $.varien.setting.client.remove();
+                        $.varien.settings.client.modal();
+                        $.varien.settings.client.remove();
                         $("tbody td:nth-child(6)").addClass('text-end');
                         $('input[data-set="switch"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
-                                $.varien.setting.client.switch($(this).attr("name"), $(this).attr("data-id"), "on");
+                                $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), "on");
                                 toastr.success("The firm has been authorized to perform transactions");
                             } else {
-                                $.varien.setting.client.switch($(this).attr("name"), $(this).attr("data-id"), 0);
+                                $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), 0);
                                 toastr.error("Firm's authorization has been revoked");
                             }
                         });
@@ -2595,7 +2595,7 @@ $.varien = {
                     if (id != "0") {
                         $('[data-title]').html("Edit Firm");
                         $('#generateKey').html("Generate");
-                        $.varien.setting.client.detail(id);
+                        $.varien.settings.client.detail(id);
                     } else {
                         $('[name="id"]').val(0);
                         $('[name="site_name"]').val("");
@@ -2620,9 +2620,9 @@ $.varien = {
                             $('[id="modalStatus"]').val("").change();
                         }, 300);
                     });
-                    $.varien.setting.client.save(id);
+                    $.varien.settings.client.save(id);
                     $('#generateKey').on('click', function() {
-                        $('[name="api_key"]').val($.varien.setting.client.generateKey());
+                        $('[name="api_key"]').val($.varien.settings.client.generateKey());
                     });
                 });
             },

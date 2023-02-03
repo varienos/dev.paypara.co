@@ -9,7 +9,7 @@ class Init
     public $db;
     public $router;
     public $error;
-    public $setting;
+    public $settings;
     public $paypara;
     public $SecureModel;
     public $JsObfuscator;
@@ -21,7 +21,7 @@ class Init
         $this->session = \Config\Services::session();
         $this->router = \Config\Services::router();
         $this->db = \Config\Database::connect();
-        $this->setting = new \App\Models\SettingModel();
+        $this->settings = new \App\Models\SettingsModel();
         $this->paypara = new \App\Libraries\Paypara();
         $this->error = new \App\Libraries\Error();
         $this->JsObfuscator = new \App\Libraries\JsObfuscator();
@@ -37,7 +37,7 @@ class Init
         $this->setClient();
         $this->setVersion();
         $this->setLocale();
-        $this->setSetting();
+        $this->setSettings();
         $this->setSegment();
         $this->initialize();
     }
@@ -68,9 +68,9 @@ class Init
         define('CI_INIT_FIRE', microtime(true));
     }
 
-    public function setSetting()
+    public function setSettings()
     {
-        $settings = $this->db->query('select * from setting')->getResult();
+        $settings = $this->db->query('select * from settings')->getResult();
 
         foreach ($settings as $row) {
             define($row->name, $row->value, false);

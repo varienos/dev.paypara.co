@@ -338,13 +338,13 @@
                 <div class="d-flex mt-1 mb-3">
                   <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">Settings: </label>
                   <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                    <input class="form-check-input" type="checkbox" value="1" <? if($role->view_setting==1): ?>checked="checked"
-                    <? endif; ?> name="view_setting">
+                    <input class="form-check-input" type="checkbox" value="1" <? if($role->view_settings==1): ?>checked="checked"
+                    <? endif; ?> name="view_settings">
                     <span class="form-check-label">View</span>
                   </label>
                   <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                    <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_setting==1): ?>checked="checked"
-                    <? endif; ?> name="edit_setting">
+                    <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_settings==1): ?>checked="checked"
+                    <? endif; ?> name="edit_settings">
                     <span class="form-check-label">Edit</span>
                   </label>
                 </div>

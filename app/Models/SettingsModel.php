@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SettingModel extends Model
+class SettingsModel extends Model
 {
     function __construct()
     {
@@ -19,12 +19,12 @@ class SettingModel extends Model
     }
     public function dataUpdate($data)
     {
-        $settings = $this->db->query("select * from setting")->getResult();
+        $settings = $this->db->query("select * from settings")->getResult();
         foreach ($settings as $row) {
             if (isset($data[$row->name])) $val[$row->name] = $row->value;
         }
         foreach ($data as $key => $value) {
-            $check = $this->db->query("select name from setting where name='" . $key . "'")->getRow();
+            $check = $this->db->query("select name from settings where name='" . $key . "'")->getRow();
             if ($check->name != "") {
                 if (is_array($value)) {
                     $newValue = "";
@@ -33,13 +33,13 @@ class SettingModel extends Model
                     }
                     $value = rtrim($newValue, ",");
                 }
-                $this->db->query("update setting set value='" . $value . "' where name='" . $key . "'");
+                $this->db->query("update settings set value='" . $value . "' where name='" . $key . "'");
                 unset($val[$key]);
             }
         }
         if (count($val) > 0) {
             foreach ($val as $key => $value) {
-                $this->db->query("update setting set value='' where name='" . $key . "'");
+                $this->db->query("update settings set value='' where name='" . $key . "'");
             }
         }
     }

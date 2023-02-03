@@ -25,7 +25,7 @@ class SecureModel extends Model
         $this->request          = \Config\Services::request();
         $this->agent            = $this->request->getUserAgent();
         $this->sql              = $this->db->table('root');
-        $this->setting             = new \App\Models\SettingModel();
+        $this->settings             = new \App\Models\SettingsModel();
         $this->error              = new \App\Libraries\Error();
         helper("app");
     }

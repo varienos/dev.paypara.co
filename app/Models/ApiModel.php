@@ -17,7 +17,7 @@ class ApiModel extends Model
     {
         $this->session             = \Config\Services::session();
         $this->db                  = \Config\Database::connect();
-        $this->setting             = new \App\Models\SettingModel();
+        $this->settings             = new \App\Models\SettingsModel();
         $this->paypara          = new \App\Libraries\Paypara();
         $this->error              = new \App\Libraries\Error();
         $this->request          = \Config\Services::request();
