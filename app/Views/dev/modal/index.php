@@ -1,4 +1,4 @@
-<div class="modal-header border-0 pt-4 pb-4" style="background-color: #151521 !important;">
+<div id="devmodal" class="modal-header border-0 pt-4 pb-4" style="background-color: #151521 !important;">
   <h2 class="fw-bold text-white mx-auto">Developer Console</h2>
   <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-roles-modal-action="close" data-bs-dismiss="modal">
     <span class="svg-icon svg-icon-1">
@@ -12,7 +12,7 @@
     <ul id="console">
       <li id="notice">👋 Hello <span class="fw-bold text-success"><?= getSession('user_name') ?>!</span> Type 'help' to get help.</li>
       <li id="notice">🧑‍💻 Running Paypara v<?= getVer() ?> with 🐘 PHP v<?= PHP_VERSION ?>
-        served with ⚙️ <?= $_SERVER['SERVER_SOFTWARE']; ?> and ⚙️ <?= PHP_SAPI ?> on 🐧 <?= PHP_OS ?>
+        served with ⚙️ <?= $_SERVER['SERVER_SOFTWARE']; ?> - <?= PHP_SAPI ?> on 🐧 <?= PHP_OS ?>
       </li>
       <li id="notice"><?= !isExec() ? '✅' : '❌' ?> Development server 'exec' function is
         <?= !isExec() ? '<span class="text-success fw-bold">enabled 😃</span>' : '<span class="text-danger fw-bold">disabled 😟</span>' ?>

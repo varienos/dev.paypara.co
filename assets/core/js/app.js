@@ -194,11 +194,9 @@ $.varien = {
     },
     dev: {
         init: function() {
-            $.getScript(window.location.protocol + "//" + window.location.hostname + "/" + $.resource.assetsPath + "/plugins/custom/css-element-queries/css.element.queries.bundle.js");
-
             document.addEventListener('keydown', function(event) {
                 if (event.key === "Home") {
-                    if($('#kt_body').hasClass('modal-open')) return;
+                    if($('#devmodal')[0] !== undefined) return;
 
                     $.varien.modal.event.load("dev", function() {
                         $(".modal-dialog").addClass('mw-75');
@@ -206,33 +204,27 @@ $.varien = {
                         KTThemeMode.getMode() === "dark"
                             ? $(".modal-content").addClass('border border-2 shadow-lg')
                             : $(".modal-content").addClass('shadow-lg');
-
-                        new ResizeSensor(document.getElementById('console'), function() {
-                            $("#devConsole").animate({
-                                scrollTop: $('#devConsole').prop("scrollHeight")
-                            }, 100);
-                        });
-                        document.addEventListener('keydown', function(event) {
-                            if (event.key === "Enter") {
-                                let screen = document.getElementById('console');
-                                if(screen.children[screen.children.length - 2].id == 'waiting') {
-                                    $('#console').append("<li><br></li>")
-                                }
-
-                                $('#console').append("<li id='input' class='cmdloading'>" + $("#cmd").val() + "</li>");
-                                $.varien.dev.cmd($("#cmd").val());
-                                $("#cmd").val('');
-                            }
-                        });
                     });
+                }
+
+                if (event.key === "Enter" && $('#devmodal')[0] !== undefined) {
+                    let console = document.getElementById('console');
+                    if(console.children[console.children.length - 1].id == 'waiting') {
+                        $('#console').append("<li><br></li>")
+                    }
+
+                    $('#console').append("<li id='input' class='cmdloading'>" + $("#cmd").val() + "</li>");
+                    $.varien.dev.cmd($("#cmd").val());
+                    $("#cmd").val('');
                 }
             });
         },
         cmd: function(cmd) {
             if(cmd == "clear") {
-                let screen = document.getElementById('console');
-                for (let i = screen.children.length; i > 7; i--) {
-                    screen.removeChild(screen.children[i - 1]);
+                let itemCount =  $('[id=notice]').length + 1;
+                let console = document.getElementById('console');
+                for (let i = console.children.length; i > itemCount; i--) {
+                    console.removeChild(console.children[i - 1]);
                 }
 
                 $('#waiting').removeClass('d-none');

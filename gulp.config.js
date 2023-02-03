@@ -161,20 +161,6 @@ const config = {
           fonts: "{$config.dist}/plugins/global/fonts",
         },
       },
-      custom: {
-        "css-element-queries": {
-          src: {
-            scripts: [
-              "{$config.path.node_modules}/css-element-queries/src/ResizeSensor.js",
-              "{$config.path.node_modules}/css-element-queries/src/ElementQueries.js",
-            ],
-          },
-          dist: {
-            scripts:
-              "{$config.dist}/plugins/custom/css-element-queries/css.element.queries.bundle.js",
-          },
-        },
-      },
     },
     media: {
       src: {
