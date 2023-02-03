@@ -10,7 +10,7 @@ class Settings extends BaseController
 
 		$data['clientSelect'] = $this->settings->clientSelect();
 		$data["settings"] = $this->db->query("select * from settings")->getResult();
-		return htmlMinify(view('app/settings', $data));
+		return htmlMinify(view('app/settings/settings', $data));
 	}
 	public function update()
 	{

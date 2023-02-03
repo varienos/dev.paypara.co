@@ -26,6 +26,7 @@
           <label class="col-form-label fw-bold p-0 pb-1 fs-5">Account Type</label>
         </div>
         <div class="col-12 col-md-9 d-flex align-items-center">
+          <style>.select2-search, .select2-search--dropdown { display: none !important; }</style>
           <select class="form-select form-select-solid border h-40px" id="accountType" data-control="select2" data-hide-search="true">
             <option>Paypara Account</option>
             <option value="1" <? if($role->partner==1): ?>selected
@@ -345,6 +346,22 @@
                   <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
                     <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_settings==1): ?>checked="checked"
                     <? endif; ?> name="edit_settings">
+                    <span class="form-check-label">Edit</span>
+                  </label>
+                </div>
+              </li>
+              <!--API-->
+              <li>
+                <div class="d-flex mt-1 mb-3">
+                  <label class="form-check form-check-sm form-check-custom form-check-solid fw-semibold min-w-150px me-0 me-md-5">API: </label>
+                  <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                    <input class="form-check-input" type="checkbox" value="1" <? if($role->view_api==1): ?>checked="checked"
+                    <? endif; ?> name="view_api">
+                    <span class="form-check-label">View</span>
+                  </label>
+                  <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
+                    <input class="form-check-input" type="checkbox" value="1" <? if($role->edit_api==1): ?>checked="checked"
+                    <? endif; ?> name="edit_api">
                     <span class="form-check-label">Edit</span>
                   </label>
                 </div>

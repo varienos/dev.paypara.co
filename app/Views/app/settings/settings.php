@@ -141,7 +141,7 @@
                     <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark <?= view_settings !== true && view_firm === true ? "active" : null; ?>" data-bs-toggle="tab" href="#settings-api">API</a>
                   </li>
                   <? endif; ?>
-                  <? if(view_logs === true): ?>
+                  <? if(root === true): ?>
                   <li class="nav-item">
                     <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark" data-bs-toggle="tab" href="#settings-logs">Logs</a>
                   </li>
@@ -150,7 +150,8 @@
               </div>
             </div>
             <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="settings-general" role="tabpanel" <?=view_settings!==true?"auth=\"false\"":null; ?>>
+              <? if(view_settings === true): ?>
+              <div class="tab-pane fade show active" id="settings-general" role="tabpanel">
                 <form id="genel-limits-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
                   <div class="card mb-5 mb-xxl-10 border">
                     <div class="card-header">
@@ -295,6 +296,7 @@
                   </form>
                 </div>
               </div>
+              <? endif; ?>
               <div class="tab-pane fade" id="settings-methods" role="tabpanel">
                 <form id="methods-matching-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
                   <div class="card mb-5 mb-xxl-10 border">
@@ -565,7 +567,7 @@
                             <th class="min-w-100px">Firm Name</td>
                             <th class="min-w-200px">API Key</td>
                             <th class="min-w-80px">Secret Key</td>
-                            <th class="min-w-60px">Authorized</td>
+                            <th class="min-w-60px text-center">Authorized</td>
                             <th class="min-w-125px text-end">Actions</td>
                           </tr>
                         </thead>
@@ -574,55 +576,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="card mb-5 mb-xxl-10 border" <?=edit_settings!==true?"auth=\"false\"":null; ?>>
-                  <form id="ip-whitelist-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
-                    <div class="card-header">
-                      <div class="card-title d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-center justify-content-md-between w-100 m-0">
-                        <h2 class="mb-1 mb-md-0">IP Whitelist</h2>
-                        <label class="fs-6 fw-semibold text-gray-600">Only IP addresses defined in this list can access the API</label>
-                      </div>
-                    </div>
-                    <div class="card-body p-9">
-                      <div class="row mb-6">
-                        <div class="col-xxl-4 d-flex flex-column justify-content-center mb-3 mb-xxl-0">
-                          <label class="col-form-label fw-semibold p-0 pb-1 fs-6">IP Addresses</label>
-                          <label class="fw-semibold text-gray-600 lh-sm">Addresses must be separated by commas</label>
-                        </div>
-                        <div class="col-xxl-8 d-flex flex-center">
-                          <div class="input-group d-flex">
-                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border rounded me-3" name="ipWhitelist" value="<?=$param["ipWhitelist"] ?>" placeholder="localhost" value="">
-                            <button type="button" <?= edit_settings !== true ? "disabled" : null; ?> id="updateSetting" data-form-id="ip-whitelist-form" class="btn btn-sm btn-light-primary rounded-1">Save</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
               </div>
               <? endif; ?>
               <? if(view_api === true): ?>
               <div class="tab-pane fade" id="settings-api" role="tabpanel">
-                <div class="card mb-5 mb-xxl-10 border">
-                  <div class="card-header">
-                    <div class="card-title justify-content-between w-100 m-0">
-                      <h2>Response Codes</h2>
-                    </div>
-                  </div>
-                  <div class="card-body scroll-y h-500px px-9 py-3">
-                    <div class="table-responsive">
-                      <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="dtApiResponse">
-                        <thead>
-                          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="min-w-250px">Flag</td>
-                            <th class="min-w-150px text-center">Custom ID</td>
-                            <th>Response</td>
-                          </tr>
-                        </thead>
-                        <tbody></tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
                 <div class="card mb-5 mb-xxl-10 border" <?=edit_settings!==true?"auth=\"false\"":null; ?>>
                   <form id="ip-whitelist-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
                     <div class="card-header">
@@ -639,17 +596,56 @@
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group d-flex">
-                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border rounded me-3" name="ipWhitelist" value="<?=$param["ipWhitelist"] ?>" placeholder="localhost" value="">
-                            <button type="button" <?= edit_settings !== true ? "disabled" : null; ?> id="updateSetting" data-form-id="ip-whitelist-form" class="btn btn-sm btn-light-primary rounded-1">Save</button>
+                            <input type="text" <?= edit_api !== true ? "disabled" : null; ?> class="form-control form-control-solid border rounded me-3" name="ipWhitelist" value="<?=$param["ipWhitelist"] ?>" placeholder="localhost" value="">
+                            <? if(edit_api === true): ?>
+                            <button type="button" id="updateSetting" data-form-id="ip-whitelist-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
+                            <? endif; ?>
                           </div>
                         </div>
                       </div>
                     </div>
                   </form>
                 </div>
+                <div class="card mb-5 mb-xxl-10 border">
+                  <div class="card-header">
+                    <div class="card-title justify-content-between w-100 m-0">
+                      <h2>Response Codes</h2>
+                      <button class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
+                    </div>
+                  </div>
+                  <div class="card-body scroll-y h-600px px-9 py-3">
+                    <div class="table-responsive">
+                      <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="dtApiResponse">
+                        <thead>
+                          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                            <th class="min-w-175px">Flag</td>
+                            <th class="min-w-150px text-center">Custom ID</td>
+                            <th class="w-100">Response</td>
+                          </tr>
+                        </thead>
+                        <tbody class="scroll-y">
+                        <? foreach (getStrings() as $row) { ?>
+                          <tr>
+                            <td>
+                              <div class="badge badge-lg badge-secondary w-100 flex-center"><?=$row->flag ?></div>
+                              <input type="hidden" value="<?=$row->id ?>" name="id[]">
+                            </td>
+                            <td>
+                              <input type="text" class="form-control form-control-solid text-center" value="<?=$row->custom_id ?>" name="custom_id[]">
+                            </td>
+                            <td>
+                              <input type="text" class="form-control form-control-solid" value="<?=$row->string ?>" name="string[]">
+                            </td>
+                          </tr>
+                        <? } ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
               <? endif; ?>
-              <? if(view_logs === true): ?>
+              <? if(root === true): ?>
               <div class="tab-pane fade" id="settings-logs" role="tabpanel">
                 <div class="card mb-5 mb-xxl-10 border" style="opacity: .5; cursor: not-allowed;">
                   <div class="card-header">
