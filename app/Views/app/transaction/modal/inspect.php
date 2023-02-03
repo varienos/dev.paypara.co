@@ -1,14 +1,17 @@
-<div id="inspect-drawer" data-kt-drawer="true" data-kt-drawer-activate="true" data-kt-drawer-toggle="#inspect" data-kt-drawer-close="#close-inspect" data-kt-drawer-width="360px" style="border-top-left-radius: .75rem;">
+<div id="inspect-drawer" data-kt-drawer="true" data-kt-drawer-activate="true" data-kt-drawer-toggle="#inspect" data-kt-drawer-close="#close-inspect" data-kt-drawer-width="{default:'280px', 'sm': '375px'}" style="border-top-left-radius: .75rem;">
   <div id="inspect-info" class="card w-100 rounded-0">
-    <div class="card-header d-flex flex-nowrap bg-transparent border-0 min-h-55px p-0">
+    <div class="card-header d-flex flex-nowrap border-0 min-h-55px p-0">
       <div class="card-title w-100 m-0">
         <ul id="detailsTab" class="nav nav-tabs nav-line-tabs nav-line-tabs-2x align-items-end fs-6 w-100 h-100 ps-5">
           <li class="nav-item">
             <a class="nav-link active fs-4 fw-semibold text-muted text-active-dark border-hover-dark border-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_details">Details</a>
           </li>
+          <!-- Rezerve sistemi aktif olmadığı için kapalı -->
+          <? if(false): ?>
           <li class="nav-item">
             <a class="nav-link fs-4 fw-semibold text-muted text-active-dark border-hover-dark border-active-dark me-1 p-0 px-2 pb-4" data-bs-toggle="tab" href="#tab_actions">Actions</a>
           </li>
+          <? endif; ?>
         </ul>
       </div>
       <div class="card-toolbar border-bottom border-2 m-0">
@@ -36,32 +39,20 @@
                 <div class="d-flex flex-column flex-center">
                   <a id="customerProfile" href="javascript:;" class="d-flex text-reset text-hover-primary">
                     <p class="fs-3 fw-bolder m-0 me-2 text-dark" data-set-customer>{customer}</p>
-                    <span class="svg-icon svg-icon-muted svg-icon-3 align-self-center">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path opacity="1" d="M4.7 17.3V7.7C4.7 6.59543 5.59543 5.7 6.7 5.7H9.8C10.2694 5.7 10.65 5.31944 10.65 4.85C10.65 4.38056 10.2694 4 9.8 4H5C3.89543 4 3 4.89543 3 6V19C3 20.1046 3.89543 21 5 21H18C19.1046 21 20 20.1046 20 19V14.2C20 13.7306 19.6194 13.35 19.15 13.35C18.6806 13.35 18.3 13.7306 18.3 14.2V17.3C18.3 18.4046 17.4046 19.3 16.3 19.3H6.7C5.59543 19.3 4.7 18.4046 4.7 17.3Z" fill="currentColor" />
-                        <rect x="21.9497" y="3.46448" width="13" height="2" rx="1" transform="rotate(135 21.9497 3.46448)" fill="currentColor" />
-                        <path d="M19.8284 4.97161L19.8284 9.93937C19.8284 10.5252 20.3033 11 20.8891 11C21.4749 11 21.9497 10.5252 21.9497 9.93937L21.9497 3.05029C21.9497 2.498 21.502 2.05028 20.9497 2.05028L14.0607 2.05027C13.4749 2.05027 13 2.52514 13 3.11094C13 3.69673 13.4749 4.17161 14.0607 4.17161L19.0284 4.17161C19.4702 4.17161 19.8284 4.52978 19.8284 4.97161Z" fill="currentColor" />
-                      </svg>
-                    </span>
+                    <i class="bi bi-box-arrow-up-right p-0 align-self-center"></i>
                   </a>
                   <p class="fs-3 fw-bold m-0 mt-1 mb-6" data-set-amount>{amount}</p>
                   <span class="badge badge-light-success fs-7 mb-6" data-set-status>{status}</span>
                 </div>
                 <? if(segment[2] === "deposit"): ?>
-                <div class="card-footer d-flex pe-0 ps-5 py-5">
+                <div class="card-footer d-flex align-items-center pe-0 ps-5 py-5">
                   <p class="fs-5 fw-semibold text-gray-700 p-0 m-0 me-2">Account:</p>
                   <a id="accountPage" href="javascript:;" class="d-flex align-items-center text-reset text-hover-primary p-0">
-                    <p class="fs-6 fw-semibold text-gray-900 h-100 m-0 me-1">
+                    <div class="fs-5 fw-semibold text-gray-900 h-100 m-0 me-2">
                       <span data-set-accountName></span>
-                      <small> (<span data-set-accountId></span>)</small>
-                    </p>
-                    <span class="svg-icon svg-icon-muted svg-icon-5 align-self-center">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path opacity="1" d="M4.7 17.3V7.7C4.7 6.59543 5.59543 5.7 6.7 5.7H9.8C10.2694 5.7 10.65 5.31944 10.65 4.85C10.65 4.38056 10.2694 4 9.8 4H5C3.89543 4 3 4.89543 3 6V19C3 20.1046 3.89543 21 5 21H18C19.1046 21 20 20.1046 20 19V14.2C20 13.7306 19.6194 13.35 19.15 13.35C18.6806 13.35 18.3 13.7306 18.3 14.2V17.3C18.3 18.4046 17.4046 19.3 16.3 19.3H6.7C5.59543 19.3 4.7 18.4046 4.7 17.3Z" fill="currentColor" />
-                        <rect x="21.9497" y="3.46448" width="13" height="2" rx="1" transform="rotate(135 21.9497 3.46448)" fill="currentColor" />
-                        <path d="M19.8284 4.97161L19.8284 9.93937C19.8284 10.5252 20.3033 11 20.8891 11C21.4749 11 21.9497 10.5252 21.9497 9.93937L21.9497 3.05029C21.9497 2.498 21.502 2.05028 20.9497 2.05028L14.0607 2.05027C13.4749 2.05027 13 2.52514 13 3.11094C13 3.69673 13.4749 4.17161 14.0607 4.17161L19.0284 4.17161C19.4702 4.17161 19.8284 4.52978 19.8284 4.97161Z" fill="currentColor" />
-                      </svg>
-                    </span>
+                      <span> (<span data-set-accountId></span>)</span>
+                    </div>
+                    <i class="bi bi-box-arrow-up-right p-0 align-self-center"></i>
                   </a>
                 </div>
                 <? else: ?>
