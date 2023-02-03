@@ -491,8 +491,6 @@ $.varien = {
             },
             datatable: {
                 init: function() {
-                    $('button#filtre').css("width", "130px");
-                    $('input#transactionDate').css("width", "210px");
                     $.table = new DataTable('#accountTransactions', {
                         bStateSave: false,
                         language: $.varien.datatable.locale(),
@@ -769,8 +767,6 @@ $.varien = {
     },
     transaction: {
         init: function() {
-            $('button#filtre').css("width", "180px");
-            $('input#transactionDate').css("width", "210px");
             $(".modal-dialog").addClass("w-325px");
             $.varien.transaction.dateSelect();
             $.drawer = KTDrawer.getInstance(document.querySelector("#drawer"));
