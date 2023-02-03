@@ -769,13 +769,13 @@ $.varien = {
         init: function() {
             $(".modal-dialog").addClass("w-325px");
             $.varien.transaction.dateSelect();
-            $.drawer = KTDrawer.getInstance(document.querySelector("#drawer"));
-            $.drawer.on("kt.drawer.show", function() {
+            $.inspect = KTDrawer.getInstance(document.querySelector("#inspect-drawer"));
+            $.inspect.on("kt.drawer.show", function() {
                 if ($("#sync").is(":checked") == true) {
                     $("#sync").trigger("click");
                 }
             });
-            $.drawer.on("kt.drawer.hide", function() {
+            $.inspect.on("kt.drawer.hide", function() {
                 $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#detailsTab li:first-child a"));
                 $.bsFirstTab.show();
                 $.varien.transaction.datatable.reload();
@@ -804,6 +804,14 @@ $.varien = {
             });
 
             $.varien.transaction.datatable.rejectAll();
+
+            $.accounts = KTDrawer.getInstance(document.querySelector("#accounts-drawer"));
+            $.accounts.on("kt.drawer.show", function() {
+                console.log('Accounts drawer showed');
+            });
+            $.accounts.on("kt.drawer.hide", function() {
+                console.log('Accounts drawer closed');
+            });
         },
         dateSelect: function() {
             $("#transactionDate").css("text-align", "center");
@@ -1311,6 +1319,9 @@ $.varien = {
                     });
                 });
             }
+        },
+        accounts: {
+
         }
     },
     user: {

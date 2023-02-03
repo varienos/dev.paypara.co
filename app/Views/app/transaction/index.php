@@ -40,6 +40,12 @@
                   <img alt="Logo" src="<?=baseUrl('assets/core/images/logo.png') ?>" class="theme-dark-show h-30px" />
                 </a>
               </div>
+              <div class="d-flex align-items-center ms-auto me-n2">
+                <div class="btn btn-icon btn-color-gray-700 btn-active-color-primary btn-outline w-40px w-sm-200px h-40px position-relative" id="accounts-toggle">
+                  <i class="fs-1 bi bi-person-gear p-0 me-0 me-sm-2"></i>
+                  <span class="d-none d-sm-block">Manage Accounts</span>
+                </div>
+              </div>
               <?php require appViewPath().'layout/header/__topbar.php' ?>
             </div>
           </div>
@@ -203,6 +209,7 @@
         </div>
       </div>
     </div>
-    <?php require appViewPath().'transaction/modal/transaction.php' ?>
     <?php require appViewPath().'transaction/modal/inspect.php' ?>
+    <?php require appViewPath().'transaction/modal/accounts.php' ?>
+    <?php require appViewPath().'transaction/modal/transaction.php' ?>
     <?php require appViewPath().'layout/footer/footer.php' ?>
