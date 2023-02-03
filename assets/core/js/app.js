@@ -962,7 +962,7 @@ $.varien = {
                 const totalWithdraw = parseInt(KTCookie.get('totalWithdraw'));
                 const prevTxns = $.varien.segment(3) === "deposit" ? totalDeposit : totalWithdraw;
 
-                if (prevTxns < currentTxns) {
+                if (prevTxns < currentTxns && $.varien.transaction.datatable.isToday()) {
                     if ($("#notifications").is(":checked") == true) {
                         document.getElementById('notification').muted = false;
                         document.getElementById("notification").loop = false;
