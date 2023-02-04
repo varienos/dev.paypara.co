@@ -580,7 +580,7 @@
               <? endif; ?>
               <? if(view_api === true): ?>
               <div class="tab-pane fade" id="settings-api" role="tabpanel">
-                <div class="card mb-5 mb-xxl-10 border" <?=edit_settings!==true?"auth=\"false\"":null; ?>>
+                <div class="card mb-5 mb-xxl-10 border">
                   <form id="ip-whitelist-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
                     <div class="card-header">
                       <div class="card-title d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-center justify-content-md-between w-100 m-0">
