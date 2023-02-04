@@ -94,9 +94,11 @@
                       <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4" data-bs-toggle="tab" href="#session-logs">Session Logs</a>
                     </li>
                     <? endif; ?>
-                    <li class="nav-item ms-auto" <?=(delete_user!==true?"auth=\"false\"":null) ?>>
+                    <? if (delete_user === true && $user->id !== userId): ?>
+                    <li class="nav-item ms-auto">
                       <button class="btn btn-sm btn-light-danger w-140px h-40px fs-6" data-set="remove" data-id="<?=$user->hash_id ?>">Delete User</button>
                     </li>
+                    <? endif; ?>
                   </ul>
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="kt_user_view_overview_tab" role="tabpanel">
