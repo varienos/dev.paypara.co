@@ -22,10 +22,9 @@ defined('APP_NAMESPACE') || define('APP_NAMESPACE', 'App');
  */
 define('HOSTNAME', $_SERVER['HTTP_HOST']);
 define('PATHURI', $_SERVER["REQUEST_URI"]);
-$EXP = explode(".",HOSTNAME);
-define("SUBDOMAIN",$EXP[0]);
-define('PROTOCOL', (strpos(HOSTNAME,"localhost")>0?'http://':'https://'));
-
+$EXP = explode(".", HOSTNAME);
+define("SUBDOMAIN", $EXP[0]);
+define('PROTOCOL', (strpos(HOSTNAME, "localhost") > 0 ? 'http://' : 'https://'));
 
 /*
  | --------------------------------------------------------------------------

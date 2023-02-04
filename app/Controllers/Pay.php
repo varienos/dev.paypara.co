@@ -8,6 +8,7 @@ class Pay extends BaseController
     {
         $this->api = new \App\Models\ApiModel();
     }
+
     public function papara($token)
     {
         return htmlMinify(view('pay/iframe', $this->api->newIframe($token)));

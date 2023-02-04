@@ -14,12 +14,7 @@
 
   <body id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
     <script>
-    let themeMode, defaultThemeMode = "light";
-    document.documentElement && ("system" === (themeMode = document.documentElement.hasAttribute(
-          "data-theme-mode") ? document.documentElement.getAttribute("data-theme-mode") : null !==
-        localStorage.getItem("data-theme") ? localStorage.getItem("data-theme") : defaultThemeMode) && (
-        themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"), document
-      .documentElement.setAttribute("data-theme", themeMode));
+    let themeMode, defaultThemeMode = "light"; document.documentElement && ("system" === (themeMode = document.documentElement.hasAttribute("data-theme-mode") ? document.documentElement.getAttribute("data-theme-mode") : null !== localStorage.getItem("data-theme") ? localStorage.getItem("data-theme") : defaultThemeMode) && (themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"), document.documentElement.setAttribute("data-theme", themeMode));
     </script>
     <style>
     body {

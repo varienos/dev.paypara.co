@@ -6,8 +6,8 @@ class mysqlSync
 {
     function __construct()
     {
-        $this->development     = \Config\Database::connect('development');
-        $this->production      = \Config\Database::connect('production');
+        $this->development = \Config\Database::connect('development');
+        $this->production = \Config\Database::connect('production');
         $this->listTables['development'] = $this->development->listTables();
         $this->listTables['production']  = $this->production->listTables();
     }
@@ -18,7 +18,6 @@ class mysqlSync
             if (!$this->production->tableExists($table)) {
                 $this->createTable($table);
             } else {
-
                 foreach ($this->development->getFieldNames($table) as $field) {
                     if (!$this->production->fieldExists($field->field, $table)) {
                         $this->createField($field->field, $table);

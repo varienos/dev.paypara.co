@@ -12,8 +12,8 @@ class TwoFA
 
     function __construct()
     {
-        $this->tfa      = new TwoFactorAuth();
-        $this->session  = \Config\Services::session();
+        $this->tfa = new TwoFactorAuth();
+        $this->session = \Config\Services::session();
     }
 
     public function createSecret()

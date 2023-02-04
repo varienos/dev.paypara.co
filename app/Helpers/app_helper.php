@@ -5,9 +5,10 @@ function getVer()
     if (defined('getVersion')) {
         return getVersion;
     } else {
-        $version    = fopen("version.txt", "r") or fopen("../deploy/version.txt", "r");
-        $v          = fgets($version);
+        $version = fopen("version.txt", "r") or fopen("../deploy/version.txt", "r");
+        $v = fgets($version);
         fclose($version);
+
         return $v;
     }
 }
@@ -19,28 +20,33 @@ function getVersion()
 
 function updateVersion()
 {
-    if (!file_exists("version.txt")) :
+    if (!file_exists("version.txt")) {
         $version = fopen("version.txt", "w");
-        $v       = "1.0.0";
+        $v = "1.0.0";
+
         fwrite($version, $v);
         fclose($version);
         chmod("version.txt", 0777);
-    endif;
-    $v          = getVer();
-    $version    = fopen("version.txt", "w");
+    }
+
+    $v = getVer();
+    $version = fopen("version.txt", "w");
+
     if ($v != "") {
-        $v      = explode(".", $v);
-        $x      = intval($v[2]) + 1;
-        $y      = $x == 100 ? (intval($v[1]) + 1) : (intval($v[1]));
-        $x      = $x == 100 ? 0 : $x;
-        $z      = $y == 100 ? (intval($v[0]) + 1) : (intval($v[0]));
-        $y      = $y == 100 ? 0 : $y;
+        $v = explode(".", $v);
+        $x = intval($v[2]) + 1;
+        $y = $x == 100 ? (intval($v[1]) + 1) : (intval($v[1]));
+        $x = $x == 100 ? 0 : $x;
+        $z = $y == 100 ? (intval($v[0]) + 1) : (intval($v[0]));
+        $y = $y == 100 ? 0 : $y;
         $newVersion = $z . "." . $y . "." . $x;
+
         file_put_contents("version.txt", "");
         fwrite($version, $newVersion);
     } else {
         fwrite($version, "1.0.0");
     }
+
     fclose($version);
 
     return $newVersion;
@@ -262,12 +268,13 @@ function jsMinify($str)
 
 function phpError($file, $line, $message)
 {
-    $db     = \Config\Database::connect();
+    $db = \Config\Database::connect();
     $db->query("insert into log_php_error set
-                file        ='" . $file . "',
-                line        ='" . $line . "',
-                message     =" . $db->escape($message) . "
-                timeStamo   =NOW()");
+        file ='" . $file . "',
+        line ='" . $line . "',
+        message =" . $db->escape($message) . "
+        timeStamo =NOW()
+    ");
 }
 
 function getSettingSiteStatus($site_id, $setting)

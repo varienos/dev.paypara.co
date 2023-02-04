@@ -24,7 +24,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = PROTOCOL.HOSTNAME.'/';
+    public $baseURL = PROTOCOL . HOSTNAME . '/';
 
     /**
      * --------------------------------------------------------------------------

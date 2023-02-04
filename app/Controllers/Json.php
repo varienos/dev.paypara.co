@@ -18,8 +18,9 @@ class Json extends BaseController
 		$obj['getMobile']           = getMobile;
 		$obj['getBrowserVersion']   = getBrowserVersion;
 		$obj['getRandom']           = md5(\microtime());
-		$obj['assetsPath'] 		    = assetsPath();
+		$obj['assetsPath'] 		    	= assetsPath();
 		$obj['requestMethod'] 	    = $_SERVER['REQUEST_METHOD'];
+
 		foreach (getRolesArray() as $key => $value) {
 			$obj[$key] = $value;
 		}

@@ -443,7 +443,7 @@ $.varien = {
                             dataType: "html",
                             data: "customer_id=" + customer_id,
                             success: function() {
-                                toastr.success("The customer is paired with the account");
+                                toastr.success("Customer is matched with the account");
                                 $.varien.account.detail.listMatch();
                                 $.varien.account.detail.datatable.listDisableMatch.reload();
                                 $.varien.account.detail.refreshMatchTotalBadge();

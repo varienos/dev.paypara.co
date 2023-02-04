@@ -56,17 +56,18 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
-        $this->Init             = new \App\Libraries\Init($this->request);
+        $this->Init = new \App\Libraries\Init($this->request);
         $this->Init->prepare();
-        $this->session             = $this->Init->session;
+
+        $this->session          = $this->Init->session;
         $this->router           = $this->Init->router;
-        $this->db                  = $this->Init->db;
-        $this->settings             = $this->Init->settings;
+        $this->db               = $this->Init->db;
+        $this->settings         = $this->Init->settings;
         $this->paypara          = $this->Init->paypara;
-        $this->error              = $this->Init->error;
+        $this->error            = $this->Init->error;
         $this->JsObfuscator     = $this->Init->JsObfuscator;
-        $this->SecureModel         = $this->Init->SecureModel;
-        $this->agent             = $this->Init->agent;
+        $this->SecureModel      = $this->Init->SecureModel;
+        $this->agent            = $this->Init->agent;
         $this->uri              = $this->Init->uri;
     }
 }

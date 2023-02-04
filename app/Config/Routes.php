@@ -40,7 +40,6 @@ if (SUBDOMAIN == "api") {
     });
     $routes->add('/', 'Api::index');
     $routes->add('/v1', 'Api::index');
-    //$routes->addRedirect('/v1', '/');
     $routes->add('/v1/newPayment', 'Api::newPayment');
     $routes->add('/v1/dataSend', 'Api::dataSend');
     $routes->add('/v1/dataRecive', 'Api::dataRecive');
@@ -160,8 +159,6 @@ if (SUBDOMAIN == "api") {
     $routes->add('/dev/twoFA', 'Dev::twoFA');
     $routes->add('/dev/twoFA/(:any)', 'Dev::twoFA/$1');
     $routes->add('/dev/errorHandler/(:any)', 'Dev::errorHandler/$1');
-    //$routes->add('/dev/usersCheckHash', 'Dev::usersCheckHash');
-    //$routes->add('/dev/clientsCheckHash', 'Dev::clientsCheckHash');
 }
 /*
  * --------------------------------------------------------------------

@@ -10,7 +10,7 @@ class DevModel extends Model
     {
         $this->session  = \Config\Services::session();
         $this->db       = \Config\Database::connect();
-        $this->settings  = new \App\Models\SettingsModel();
+        $this->settings = new \App\Models\SettingsModel();
         $this->paypara  = new \App\Libraries\Paypara();
         $this->error    = new \App\Libraries\Error();
     }
@@ -18,21 +18,20 @@ class DevModel extends Model
     public function errorHandler($language, $data)
     {
         if ($language == 'js') {
-
             $this->db->query("insert into log_js_error set
-            `location`      =" . $this->db->escape($data['location']) . ",
-            `source`        =" . $this->db->escape($data['source']) . ",
-            `line`          =" . $this->db->escape($data['line']) . ",
-            `col`           =" . $this->db->escape($data['col']) . ",
-            `ip`            =" . $this->db->escape($data['getClientIpAddress']) . ",
-            `error`         =" . $this->db->escape($data['error']) . ",
-            `browser`       =" . $this->db->escape($data['getBrowser']) . ",
-            `agentString`   =" . $this->db->escape($data['getAgentString']) . ",
-            `platform`      =" . $this->db->escape($data['getPlatform']) . ",
-            `isMobil`       =" . $this->db->escape($data['getMobile']) . ",
-            `browserVersion`=" . $this->db->escape($data['getBrowserVersion']) . ",
-            `errorTime`     =NOW()
-        ");
+                `location`      =" . $this->db->escape($data['location']) . ",
+                `source`        =" . $this->db->escape($data['source']) . ",
+                `line`          =" . $this->db->escape($data['line']) . ",
+                `col`           =" . $this->db->escape($data['col']) . ",
+                `ip`            =" . $this->db->escape($data['getClientIpAddress']) . ",
+                `error`         =" . $this->db->escape($data['error']) . ",
+                `browser`       =" . $this->db->escape($data['getBrowser']) . ",
+                `agentString`   =" . $this->db->escape($data['getAgentString']) . ",
+                `platform`      =" . $this->db->escape($data['getPlatform']) . ",
+                `isMobil`       =" . $this->db->escape($data['getMobile']) . ",
+                `browserVersion`=" . $this->db->escape($data['getBrowserVersion']) . ",
+                `errorTime`     =NOW()
+            ");
         }
     }
 
