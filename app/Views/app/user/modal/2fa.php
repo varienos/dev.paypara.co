@@ -53,11 +53,11 @@
       </div>
     </div>
     <div class="d-flex flex-center">
-      <div class="btn btn-light-primary" data-set-2fa-qr data-action-button-qr>Enter Manually</div>
-      <div class="btn btn-light-primary d-none" data-set-2fa-manual data-action-button-manual>Scan QR</div>
-      <div class="btn btn-success ms-2" data-set-2fa-next data-action-button-next>Activate</div>
-      <div class="btn btn-light-primary d-none" data-set-2fa-verify data-action-button-back>Go Back</div>
-      <div class="btn btn-success ms-2 d-none" data-set-2fa-verify data-action-button-verify>Activate</div>
+      <div class="btn btn-light" data-set-2fa-qr data-action-button-qr>Enter Manually</div>
+      <div class="btn btn-light d-none" data-set-2fa-manual data-action-button-manual>Scan QR</div>
+      <div class="btn btn-light-primary ms-2" data-set-2fa-next data-action-button-next>Next Step</div>
+      <div class="btn btn-light d-none" data-set-2fa-verify data-action-button-back>Go Back</div>
+      <div class="btn btn-light-primary ms-2 d-none" data-set-2fa-verify data-action-button-verify>Enable</div>
     </div>
   </div>
 </form>

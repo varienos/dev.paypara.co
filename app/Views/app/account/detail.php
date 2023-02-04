@@ -194,7 +194,7 @@
                                     <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
                                     <span class="input-group-text">transactions</span>
                                   </div>
-                                  <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions.</div>
+                                  <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated transaction limit.</div>
                                 </div>
                                 <div class="col mt-5 mt-xxl-0">
                                   <label class="form-label">Monthly Deposit Limit</label>
@@ -202,7 +202,7 @@
                                     <span class="input-group-text">₺</span>
                                     <input type="text" class="form-control" value="<?=$update->limitDeposit?>" name="limitDeposit" id="limitDeposit" placeholder="Amount" max="1000000" maxlength="7" />
                                   </div>
-                                  <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
+                                  <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated deposit limit.</div>
                                 </div>
                               </div>
                               <div class="flex-row-fluid">
@@ -237,7 +237,7 @@
                                       <span class="input-group-text">₺</span>
                                       <input type="text" class="form-control" value="<?=$update->limitDeposit?>" name="limitDeposit" id="limitDeposit" placeholder="Amount" max="1000000" maxlength="7" />
                                     </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
+                                    <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated deposit limit.</div>
                                   </div>
                                 </div>
                                 <div class="row d-flex flex-column flex-xxl-row">
@@ -247,7 +247,7 @@
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
                                       <span class="input-group-text">işlem</span>
                                     </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions</div>
+                                    <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated transaction limit.</div>
                                   </div>
                                   <div class="col mt-5 mt-xxl-0">
                                     <label class="form-label">Active Firms</label>
@@ -273,7 +273,7 @@
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
                                       <span class="input-group-text">transactions</span>
                                     </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions.</div>
+                                    <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated transaction limit.</div>
                                   </div>
                                   <div class="col mt-5 mt-xxl-0">
                                     <label class="form-label">Monthly Deposit Limit</label>
@@ -281,7 +281,7 @@
                                       <span class="input-group-text">₺</span>
                                       <input type="text" class="form-control" value="<?=$update->limitDeposit?>" name="limitDeposit" id="limitDeposit" placeholder="Amount" max="1000000" maxlength="7" />
                                     </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
+                                    <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated deposit limit.</div>
                                   </div>
                                 </div>
                                 <div class="d-flex flex-column flex-xxl-row gap-5">

@@ -78,7 +78,7 @@
                           </div>
                         </div>
                         <div class="menu-item px-5 my-1">
-                          <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Activate all</a>
+                          <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Enable all</a>
                         </div>
                         <div class="menu-item px-5">
                           <a href="javascript:" class="menu-link text-danger px-5" data-set="status-set-all" data-status="0">Disable all</a>

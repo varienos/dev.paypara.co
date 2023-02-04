@@ -376,7 +376,7 @@ $.varien = {
                     if ($(this).is(":checked") == true) {
                         $.varien.account.detail.switch("on");
                         $('input[name="status"]').val('on');
-                        toastr.success("Account has been activated");
+                        toastr.success("Account has been enabled");
                     } else {
                         $.varien.account.detail.switch(0);
                         $('input[name="status"]').val(0);
@@ -652,7 +652,7 @@ $.varien = {
                     $.table.search(this.value).draw();
                 });
                 $('[data-set="status-set-all"]').on('click', function() {
-                    var dataStatus = $(this).attr('data-status') == "on" ? "activated" : "disabled";
+                    var dataStatus = $(this).attr('data-status') == "on" ? "enabled" : "disabled";
                     var status = $(this).attr('data-status');
                     bootbox.confirm({
                         backdrop: true,
@@ -667,7 +667,6 @@ $.varien = {
                         callback: (result) => {
                             if (result == true) {
                                 $.varien.account.datatable.status(0, status, true);
-                                toastr.success("All accounts " + dataStatus + ".");
                                 setTimeout(() => {
                                     $.table.ajax.reload();
                                 }, 50);
@@ -701,7 +700,7 @@ $.varien = {
                     success: function() {
                         if (bulk) {
                             if(status == "on") {
-                                toastr.success("All accounts are activated");
+                                toastr.success("All accounts are enabled");
                             } else {
                                 toastr.error("All accounts are disabled");
                             }
@@ -710,7 +709,7 @@ $.varien = {
                         }
 
                         if(status == "on") {
-                            toastr.success("Account has been activated");
+                            toastr.success("Account has been enabled");
                         } else {
                             toastr.error("Account has been disabled");
                         }
@@ -1590,7 +1589,7 @@ $.varien = {
                                         $.varien.user.detail.twoFA.set2fa().then(response => {
                                             if (response == 200) {
                                                 $.varien.modal.event.toggle();
-                                                toastr.success("2-Step verification has been successfully activated");
+                                                toastr.success("2-Step verification has been successfully enabled");
                                                 $.wait(3000).then(() => {
                                                     location.reload();
                                                 });
