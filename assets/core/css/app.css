@@ -20,7 +20,7 @@
 
 /* Misc */
 
-.drawer {
+#inspect-drawer {
     z-index: 99999999 !important;
 }
 

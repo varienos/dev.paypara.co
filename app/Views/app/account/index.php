@@ -81,7 +81,7 @@
                           <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Activate all</a>
                         </div>
                         <div class="menu-item px-5">
-                          <a href="javascript:" class="menu-link text-danger px-5" data-set="status-set-all" data-status="0">Deactivate all</a>
+                          <a href="javascript:" class="menu-link text-danger px-5" data-set="status-set-all" data-status="0">Disable all</a>
                         </div>
                       </div>
                       <? endif ?>

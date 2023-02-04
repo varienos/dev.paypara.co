@@ -38,8 +38,10 @@
                 <img class="position-absolute align-self-center border rounded-4 w-50px h-50px" style="top: -27px;" src="<?=baseUrl() ?>/<?=assetsPath() ?>/media/avatar.png" />
                 <div class="d-flex flex-column flex-center">
                   <a id="customerProfile" href="javascript:;" class="d-flex text-reset text-hover-primary">
-                    <p class="fs-3 fw-bolder m-0 me-2 text-dark" data-set-customer>{customer}</p>
-                    <i class="bi bi-box-arrow-up-right p-0 align-self-center"></i>
+                    <div class="d-flex flex-center fs-3 fw-bolder m-0 text-dark">
+                      <span data-set-customer>{customer}</span>
+                      <i class="bi bi-box-arrow-up-right p-0 ms-2"></i>
+                    </div>
                   </a>
                   <p class="fs-3 fw-bold m-0 mt-1 mb-6" data-set-amount>{amount}</p>
                   <span class="badge badge-light-success fs-7 mb-6" data-set-status>{status}</span>
@@ -47,12 +49,10 @@
                 <? if(segment[2] === "deposit"): ?>
                 <div class="card-footer d-flex align-items-center pe-0 ps-5 py-5">
                   <p class="fs-5 fw-semibold text-gray-700 p-0 m-0 me-2">Account:</p>
-                  <a id="accountPage" href="javascript:;" class="d-flex align-items-center text-reset text-hover-primary p-0">
-                    <div class="fs-5 fw-semibold text-gray-900 h-100 m-0 me-2">
-                      <span data-set-accountName></span>
-                      <span> (<span data-set-accountId></span>)</span>
+                  <a id="accountPage" href="javascript:;" class="text-reset text-hover-primary p-0">
+                    <div class="d-flex flex-center fs-5 fw-semibold text-gray-900 h-100 m-0 me-2">
+                      <span data-set-accountName></span>&nbsp;(<span data-set-accountId></span>)<i class="bi bi-box-arrow-up-right p-0 ms-2"></i>
                     </div>
-                    <i class="bi bi-box-arrow-up-right p-0 align-self-center"></i>
                   </a>
                 </div>
                 <? else: ?>

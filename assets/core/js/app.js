@@ -666,11 +666,11 @@ $.varien = {
                         },
                         callback: (result) => {
                             if (result == true) {
-                                $.varien.account.datatable.status(0, status);
+                                $.varien.account.datatable.status(0, status, true);
                                 toastr.success("All accounts " + dataStatus + ".");
                                 setTimeout(() => {
                                     $.table.ajax.reload();
-                                }, 500);
+                                }, 50);
                             }
                         }
                     });
@@ -683,23 +683,41 @@ $.varien = {
                         $('input[data-set="index"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.account.datatable.status($(this).attr("data-id"), "on");
-                                toastr.success("Account has been activated");
                             } else {
                                 $.varien.account.datatable.status($(this).attr("data-id"), 0);
-                                toastr.error("Account has been disabled");
                             }
                         });
                         $.varien.account.datatable.modal();
                         $.varien.account.datatable.remove();
-                    }, 300);
+                    }, 50);
                 });
             },
-            status: function(id, status) {
+            status: function(id, status, bulk = false) {
                 $.ajax({
                     url: "account/status/" + id + "/" + status + "/" + $.varien.segment(3),
                     type: "POST",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: function() {
+                        if (bulk) {
+                            if(status == "on") {
+                                toastr.success("All accounts are activated");
+                            } else {
+                                toastr.error("All accounts are disabled");
+                            }
+
+                            return;
+                        }
+
+                        if(status == "on") {
+                            toastr.success("Account has been activated");
+                        } else {
+                            toastr.error("Account has been disabled");
+                        }
+                    },
+                    error: function(jqXHR, errorThrown) {
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                    }
                 });
             },
             modal: function() {
@@ -725,11 +743,11 @@ $.varien = {
                         },
                         processData: false,
                         contentType: false,
-                        success: function(response) {
+                        success: function() {
                             $.table.ajax.reload();
                             $("#ajaxModal").modal('toggle');
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -785,7 +803,7 @@ $.varien = {
                     }
                 }
             });
-            const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span> Please wait...</div>';
+            const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
             $.blockModalContent = new KTBlockUI(document.querySelector('#transactionForm'), { message: blockMessage });
 
             if(document.getElementById('notification') === null) {
@@ -804,14 +822,7 @@ $.varien = {
             });
 
             $.varien.transaction.datatable.rejectAll();
-
-            $.accounts = KTDrawer.getInstance(document.querySelector("#accounts-drawer"));
-            $.accounts.on("kt.drawer.show", function() {
-                console.log('Accounts drawer showed');
-            });
-            $.accounts.on("kt.drawer.hide", function() {
-                console.log('Accounts drawer closed');
-            });
+            $.varien.transaction.accounts.init();
         },
         dateSelect: function() {
             $("#transactionDate").css("text-align", "center");
@@ -1321,7 +1332,21 @@ $.varien = {
             }
         },
         accounts: {
+            init: function() {
+                const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
+                let blocker = new KTBlockUI(document.querySelector("#accounts-drawer-body"), { message: blockMessage });
 
+                $.accounts = KTDrawer.getInstance(document.querySelector("#accounts-drawer"));
+                $.accounts.on("kt.drawer.show", function() {
+                    blocker.block();
+                    setTimeout(() => {
+                        blocker.release();
+                    }, 500);
+                });
+                $.accounts.on("kt.drawer.hide", function() {
+                    blocker.release();
+                });
+            }
         }
     },
     user: {
