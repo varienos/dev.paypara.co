@@ -15,6 +15,10 @@ const config = {
       node_modules: "node_modules",
     },
     dist: ["assets/build/dist"],
+    obfuscate: [
+      'iframe/js/app.js',
+      'iframe/js/demo.js'
+    ]
   },
   build: {
     base: {
@@ -182,6 +186,7 @@ const config = {
         scripts: [
           "{$config.path.core_path}/js/2fa.js",
           "{$config.path.core_path}/js/app.js",
+          "{$config.path.core_path}/js/login.js"
         ],
       },
       dist: {

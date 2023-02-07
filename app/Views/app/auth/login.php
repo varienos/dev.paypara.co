@@ -25,8 +25,6 @@
     .logo:hover {
       filter: drop-shadow(0 0 2rem #d95158)
     }
-
-    ;
     </style>
     <div class="d-flex my-auto">
       <div class="d-flex flex-column flex-center mx-auto">
@@ -59,10 +57,10 @@
               <label class="form-label fs-5 fw-bold">E-Mail</label>
               <input type="email" placeholder="Your e-mail address" name="x" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50" required>
             </div>
-            <div class="row position-relative mb-8" data-kt-password-meter="true">
+            <div class="row position-relative mb-8">
               <label class="form-label fs-5 fw-bold">Password</label>
-              <input type="password" placeholder="••••••••" name="y" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50" required />
-              <span class="btn btn-sm btn-icon position-absolute top-50 end-0 me-2 pb-1" data-kt-password-meter-control="visibility">
+              <input id="password" type="password" placeholder="••••••••" name="y" autocomplete="off" class="form-control border-gray-300 bg-light bg-opacity-50" required />
+              <span id="toggle-pw" class="btn btn-sm btn-icon position-absolute top-50 end-0 me-2 pb-1">
                 <i class="bi bi-eye-slash fs-2"></i>
                 <i class="bi bi-eye fs-2 d-none"></i>
               </span>
@@ -74,8 +72,7 @@
         </div>
       </div>
     </div>
-    <script src="<?=baseUrl(assetsPath().'/plugins/global/plugins.bundle.js') ?>"></script>
-    <script src="<?=baseUrl(assetsPath().'/js/scripts.bundle.js') ?>"></script>
+    <script src="<?=baseUrl(assetsPath().'/js/login.js') ?>"></script>
   </body>
 
-</html
+</html>

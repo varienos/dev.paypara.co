@@ -67,6 +67,6 @@ class Secure extends BaseController
             return redirect()->to(base_url('dashboard'));
         }
 
-        echo view('app/auth/login');
+        echo htmlminify(view('app/auth/login'));
     }
 }
