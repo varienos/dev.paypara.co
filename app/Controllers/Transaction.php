@@ -274,6 +274,7 @@ class Transaction extends BaseController
         $html_end = '</ol>';
 
 		if (count((array)$accounts) > 0) {
+            $items = array();
             foreach ($accounts as $row) {
                 $accountNumber = $row->account_number;
                 if($methodId == 3) {
@@ -281,7 +282,7 @@ class Transaction extends BaseController
                 }
 
                 $checked = $row->status == "on" ? 'checked' : null;
-                $item = '
+                $items[] = '
                 <li class="d-flex flex-stack py-4 border-1 border-bottom border-gray-300 border-bottom-dashed">
                     <a href="account/detail/' . $row->id . '/' . $methodId . '" target="_blank" class="d-flex align-items-center pe-2">
                     <div class="symbol symbol-35px symbol-circle">
@@ -305,9 +306,9 @@ class Transaction extends BaseController
                 </li>';
             }
 
-            echo $html_start . $item . $html_end;
+            echo $html_start . implode($items) . $html_end;
 		} else {
-			echo $html_start . '<li class="fs-4 fw-semibold text-center w-100">No account found</li>' . $html_end;
+			echo $html_start . '<li class="fs-4 text-center w-100">No account found</li>' . $html_end;
 		}
     }
 }

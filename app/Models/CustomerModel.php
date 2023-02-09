@@ -101,10 +101,6 @@ class CustomerModel extends Model
         if ($postData["withdraw"] != "") $setFilter .= " and withdraw='" . $postData["withdraw"] . "'";
 
         $orderCol = $postData["order"][0]["column"];
-        $orderDir = $postData["order"][0]["dir"];
-
-        if ($orderDir == "") $orderDir = "desc";
-        else $orderDir = $orderDir;
 
         if ($orderCol == "") $orderCol = "id";
         if ($orderCol == 0) $orderCol = "id";
@@ -125,7 +121,7 @@ class CustomerModel extends Model
             @totalProcess   := (select COUNT(id) as totalProcess from finance where status='onaylandı' and gamer_site_id=@gamer_site_id) as totalProcess,
             @lastProcess    := (select DATE_FORMAT(update_time,'%d %b %y') from finance where gamer_site_id=@gamer_site_id order by update_time desc limit 1) as lastProcess
             from site_gamer
-            where isDelete='0' " . $setFilter . " " . $search . " order by " . $orderCol . " " . $orderDir . " " . $limit
+            where isDelete='0' " . $setFilter . " " . $search . " order by " . $orderCol . " DESC " . $limit
         );
 
         $this->db->query("insert into log_query set query=" . $this->db->escape($this->db->getLastQuery()));

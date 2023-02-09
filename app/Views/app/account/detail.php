@@ -121,7 +121,7 @@
                                   <i class="bi bi-person fs-2x me-2"></i>Clients
                                 </div>
                               </td>
-                              <td class="fw-bold text-end"> <?=$update->totalCustomer == 0 ? "No Transaction" : $update->totalCustomer . " client" ?> </td>
+                              <td class="fw-bold text-end"> <?=$update->totalCustomer == 0 ? "None" : $update->totalCustomer . " client" ?> </td>
                             </tr>
                             <tr>
                               <td class="text-muted">
@@ -129,7 +129,7 @@
                                   <i class="bi bi-arrow-repeat fs-2x me-2"></i>Transactions
                                 </div>
                               </td>
-                              <td class="fw-bold text-end"><?=$update->totalProcess == 0 ? "No Transaction" : $update->totalProcess . " total" ?></td>
+                              <td class="fw-bold text-end"><?=$update->totalProcess == 0 ? "None" : $update->totalProcess . " total" ?></td>
                             </tr>
                             <tr>
                               <td class="text-muted">
@@ -137,7 +137,7 @@
                                   <i class="bi bi-cash-stack fs-2x me-2"></i>Deposits
                                 </div>
                               </td>
-                              <td class="fw-bold text-end"> <?=$update->totalDeposit == "" ? "No Deposit" : "₺" . number_format($update->totalDeposit, 2) ?></td>
+                              <td class="fw-bold text-end"> <?=$update->totalDeposit == "" ? "None" : "₺" . number_format($update->totalDeposit, 2) ?></td>
                             </tr>
                           </tbody>
                         </table>
@@ -310,7 +310,7 @@
                           <div class="card-footer pt-0 pe-9 pb-5 pl-0">
                             <div class="d-flex justify-content-end">
                               <button type="button" id="formReset" onclick="this.form.reset();" class="btn btn-light min-w-125px me-5">Clear</button>
-                              <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-light-primary min-w-125px">Save</button>
+                              <button type="submit" class="btn btn-light-primary min-w-125px">Save</button>
                             </div>
                           </div>
                         </div>

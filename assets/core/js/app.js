@@ -1333,20 +1333,20 @@ $.varien = {
         accounts: {
             init: function() {
                 // Define constants
-                $.accounts = KTDrawer.getInstance(document.querySelector("#accounts-drawer"));
+                $.accountsDrawer = KTDrawer.getInstance(document.querySelector("#accounts-drawer"));
                 $.blockManageAccounts = new KTBlockUI(document.querySelector("#accounts-drawer-card"), { message: $.blockMessage });
 
                 // When drawer starts opening
-                $.accounts.on("kt.drawer.show", function() {
+                $.accountsDrawer.on("kt.drawer.show", function() {
                     // Disable main datatable sync
                     $("#sync").is(":checked") ? $("#sync").trigger("click") : null;
 
-                    // Fetch the data append it to the drawer DOM
+                    // Fetch the data and append it to the drawer DOM
                     $.varien.transaction.accounts.fetch();
                 });
 
                 // When drawer is completely hidden
-                $.accounts.on("kt.drawer.after.hidden", function() {
+                $.accountsDrawer.on("kt.drawer.after.hidden", function() {
                     // Clear DOM
                     $('#accounts-drawer-body').empty();
 

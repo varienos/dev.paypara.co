@@ -158,10 +158,6 @@ class AccountModel extends Model
         }
 
         $orderCol = $postData["order"][0]["column"];
-        $orderDir = $postData["order"][0]["dir"];
-
-        if ($orderDir == "") $orderDir = "desc";
-        else $orderDir = $orderDir;
 
         if ($orderCol == "") $orderCol = "id";
         if ($orderCol == 0) $orderCol = "id";
@@ -186,13 +182,12 @@ class AccountModel extends Model
         if (!empty($dataEnd)) $limit  = "limit " . $dataStart . ", " . $dataEnd . "";
 
         return $this->db->query("
-            select
-            *,
+            select *,
             @id :=  id,
             @totalProcess   := (select COUNT(id) as totalProcess from finance where request='deposit' and account_id=@id) as totalProcess,
             @totalMatch     := (select COUNT(id) as totalMatch from site_gamer_match where isDelete=0 and account_id=@id) as totalMatch,
             @lastProcess    := (select DATE_FORMAT(update_time,'%d %b %y') from finance where account_id=@id order by update_time desc limit 1 ) as lastProcess
             from account
-            where isDelete='0' and dataType='" . $type . "' " . $search . " order by " . $orderCol . " " . $orderDir . " " . $limit);
+            where isDelete='0' and dataType='" . $type . "' " . $search . " order by " . $orderCol . " DESC " . $limit);
     }
 }
