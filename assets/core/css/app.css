@@ -60,6 +60,16 @@
     }
 }
 
+/* Toastr */
+
+.toastr-message {
+    white-space: nowrap;
+}
+
+#toastr-container.toastr-top-center > div {
+    width: fit-content;
+}
+
 /* Modals */
 
 .modal-backdrop.show {

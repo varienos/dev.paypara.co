@@ -75,12 +75,12 @@ $.varien = {
             "debug": false,
             "newestOnTop": false,
             "progressBar": false,
-            "positionClass": "toastr-top-right",
+            "positionClass": "toastr-top-center",
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
             "hideDuration": "1000",
-            "timeOut": "3000",
+            "timeOut": "2500",
             "extendedTimeOut": "1000",
             "showEasing": "swing",
             "hideEasing": "linear",
@@ -1389,13 +1389,29 @@ $.varien = {
                     $.dataAccountId =$(this).attr('data-id');
 
                     if ($(this).is(":checked") == true) {
-                        // TODO: Call AJAX method to update the status on the server
+                        $.varien.transaction.accounts.switch($.dataAccountId, "on");
                     } else {
+                        $.varien.transaction.accounts.switch($.dataAccountId, 0);
                     }
                 });
             },
-            switch: () => {
-                // TODO: Define switch element AJAX calls here
+            switch: (id, status) => {
+                $.ajax({
+                    url: "account/status/" + id + "/" + status + "/" + $('#methods').val(),
+                    type: "POST",
+                    dataType: "html",
+                    cache: false,
+                    success: function() {
+                        if(status == "on") {
+                            toastr.success("Account has been enabled");
+                        } else {
+                            toastr.error("Account has been disabled");
+                        }
+                    },
+                    error: function(jqXHR, errorThrown) {
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                    }
+                });
             }
         }
     },
