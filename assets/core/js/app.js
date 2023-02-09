@@ -802,8 +802,8 @@ $.varien = {
                     }
                 }
             });
-            const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
-            $.blockModalContent = new KTBlockUI(document.querySelector('#transactionForm'), { message: blockMessage });
+            $.blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
+            $.blockModalContent = new KTBlockUI(document.querySelector('#transactionForm'), { message: $.blockMessage });
 
             if(document.getElementById('notification') === null) {
                 let element = document.createElement("audio");
@@ -1332,19 +1332,70 @@ $.varien = {
         },
         accounts: {
             init: function() {
-                const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
-                let blocker = new KTBlockUI(document.querySelector("#accounts-drawer-body"), { message: blockMessage });
-
+                // Define constants
                 $.accounts = KTDrawer.getInstance(document.querySelector("#accounts-drawer"));
+                $.blockManageAccounts = new KTBlockUI(document.querySelector("#accounts-drawer-card"), { message: $.blockMessage });
+
+                // When drawer starts opening
                 $.accounts.on("kt.drawer.show", function() {
-                    blocker.block();
-                    setTimeout(() => {
-                        blocker.release();
-                    }, 500);
+                    // Disable main datatable sync
+                    $("#sync").is(":checked") ? $("#sync").trigger("click") : null;
+
+                    // Fetch the data append it to the drawer DOM
+                    $.varien.transaction.accounts.fetch();
                 });
-                $.accounts.on("kt.drawer.hide", function() {
-                    blocker.release();
+
+                // When drawer is completely hidden
+                $.accounts.on("kt.drawer.after.hidden", function() {
+                    // Clear DOM
+                    $('#accounts-drawer-body').empty();
+
+                    // Set default method as Papara again
+                    $('#methods').val(1).trigger('change');
+
+                    // Release UI if it's still blocked
+                    if($.blockManageAccounts.isBlocked()) $.blockManageAccounts.release();
                 });
+
+                // When selected payment method changes
+                $("#methods").on("change", function() {
+                    // Update 'View All' link
+                    $('#view-all-link').attr("href", '/account/index/' + $(this).val());
+
+                    // Fetch data and append the result to the DOM
+                    $.varien.transaction.accounts.fetch();
+                });
+            },
+            fetch: () => {
+                $.blockManageAccounts.block();
+                $.ajax({
+                    url: "transaction/accounts",
+                    type: "POST",
+                    dataType: "html",
+                    data: "method=" + $('#methods').val(),
+                    success: function(data) {
+                        $.blockManageAccounts.release();
+                        $('#accounts-drawer-body').empty().append(data);
+                        $.varien.transaction.accounts.onLoad();
+                    },
+                    error: function(jqXHR, errorThrown) {
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                    }
+                });
+            },
+            onLoad: () => {
+                // When switch element changes
+                $('[name=account-switch]').on("change", function(e) {
+                    $.dataAccountId =$(this).attr('data-id');
+
+                    if ($(this).is(":checked") == true) {
+                        // TODO: Call AJAX method to update the status on the server
+                    } else {
+                    }
+                });
+            },
+            switch: () => {
+                // TODO: Define switch element AJAX calls here
             }
         }
     },

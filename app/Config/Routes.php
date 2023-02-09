@@ -148,6 +148,7 @@ if (SUBDOMAIN == "api") {
     $routes->add('/transaction/datatable/(:any)', 'Transaction::datatable/$1');
     $routes->add('/transaction/customerTransactionTable/(:any)', 'Transaction::customerTransactionTable/$1');
     $routes->add('/transaction/update', 'Transaction::update');
+    $routes->add('/transaction/accounts', 'Transaction::listAccounts');
     $routes->add('/settings', 'Settings::index');
     $routes->add('/settings/update', 'Settings::update');
     $routes->add('/json/resources', 'Json::resources');

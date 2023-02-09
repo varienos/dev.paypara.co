@@ -93,7 +93,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="export">
+                      <div class="export me-3">
                         <button type="button" class="btn btn-light" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                           <i class="fs-3 bi bi-box-arrow-down p-0"></i>
                         </button>

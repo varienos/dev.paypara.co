@@ -47,6 +47,11 @@
     display: none !important;
 }
 
+#select2-methods-container.select2-selection__rendered {
+    margin-top: .2rem !important;
+    color: var(--kt-headings-color) !important;
+}
+
 @media all and (min-width: 1730px) {
 
     .container,

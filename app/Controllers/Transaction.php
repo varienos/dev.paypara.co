@@ -259,4 +259,50 @@ class Transaction extends BaseController
 
         echo json_encode($records);
     }
+
+    public function listAccounts() {
+        $methodId = $_POST["method"];
+		$accounts = $this->db->query("
+            SELECT id, account_name, account_number, status
+            FROM account
+            WHERE dataType = '" . $methodId . "' AND isDelete = 0
+            ORDER BY createTime DESC
+            LIMIT 25
+        ")->getResult();
+
+        $html_start = '<ol class="list-unstyled m-0">';
+        $html_end = '</ol>';
+
+		if (count((array)$accounts) > 0) {
+            foreach ($accounts as $row) {
+                $status = $row->status == 'on' ? 'checked' : null;
+                $item = '
+                    <li class="d-flex flex-stack py-4 border-1 border-bottom border-gray-300 border-bottom-dashed">
+                        <a href="account/detail/' . $row->id . '/' . $methodId . '" target="_blank" class="d-flex align-items-center pe-2">
+                        <div class="symbol symbol-35px symbol-circle">
+                            <span class="symbol-label bg-light text-gray fw-semibold">' . strtoupper(mb_substr($row->account_name, 0, 1)) . '</span>
+                        </div>
+
+                        <div class="ms-3">
+                            <div class="d-flex align-items-center fs-5 fw-bold text-dark text-hover-primary">
+                            ' . $row->account_name . '
+                            </div>
+
+                            <div class="fw-semibold text-muted">
+                            #' . $row->id . ' - ' . $row->account_number . '
+                            </div>
+                        </div>
+                        </a>
+
+                        <div class="form-check form-switch form-check-success form-check-custom form-check-solid">
+                            <input class="form-check-input h-20px h-sm-25px w-40px w-sm-60px me-4" type="checkbox" role="switch" checked="' . $status . '" name="account-switch" data-id="' . $row->id . '">
+                        </div>
+                    </li>';
+            }
+
+            echo $html_start . $item . $html_end;
+		} else {
+			echo $html_start . '<li>No account found</li>' . $html_end;
+		}
+    }
 }
