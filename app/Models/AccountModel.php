@@ -154,7 +154,9 @@ class AccountModel extends Model
         if ($searchArray[1] != "" && $searchArray[1] != "all") {
             $search = " and " . $searchArray[0] . "='" . $searchArray[1] . "'";
         } elseif ($searchArray[1] == "") {
-            if (!empty($postData["search"]["value"]))  $search = " and (account_name LIKE '%" . $postData["search"]["value"] . "%' or account_number LIKE '%" . $postData["search"]["value"] . "%')";
+            if (!empty($postData["search"]["value"])) {
+                $search = " and (account_name LIKE '%" . $postData["search"]["value"] . "%' or account_number LIKE '%" . $postData["search"]["value"] . "%')";
+            }
         }
 
         $orderCol = $postData["order"][0]["column"];

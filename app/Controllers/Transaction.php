@@ -261,13 +261,20 @@ class Transaction extends BaseController
     }
 
     public function listAccounts() {
-        $methodId = $_POST["method"];
+        $search = $_POST["search"];
+        $method = $_POST["method"];
+
+        $searchQuery = "";
+        if($search != "null") {
+            $searchQuery = "AND (id LIKE '%" . $search . "%' OR account_name LIKE '%" . $search . "%' OR account_number LIKE '%" . $search . "%')";
+        }
+
 		$accounts = $this->db->query("
             SELECT id, account_name, account_number, status
             FROM account
-            WHERE dataType = '" . $methodId . "' AND isDelete = 0
-            ORDER BY createTime DESC
-            LIMIT 25
+            WHERE dataType = '" . $method . "' AND isDelete = 0 " . $searchQuery . "
+            ORDER BY status DESC, createTime DESC
+            LIMIT 30
         ")->getResult();
 
         $html_start = '<ol class="list-unstyled m-0">';
@@ -277,14 +284,14 @@ class Transaction extends BaseController
             $items = array();
             foreach ($accounts as $row) {
                 $accountNumber = $row->account_number;
-                if($methodId == 3) {
+                if($method == 3) {
                     $accountNumber = chunk_split(substr(str_replace(" ", "", $accountNumber), -10), 4, ' ');
                 }
 
                 $checked = $row->status == "on" ? 'checked' : null;
                 $items[] = '
                 <li class="d-flex flex-stack py-4 border-1 border-bottom border-gray-300 border-bottom-dashed">
-                    <a href="account/detail/' . $row->id . '/' . $methodId . '" target="_blank" class="d-flex align-items-center pe-2">
+                    <a href="account/detail/' . $row->id . '/' . $method . '" target="_blank" class="d-flex align-items-center pe-2">
                     <div class="symbol symbol-35px symbol-circle">
                         <span class="symbol-label bg-light text-gray fw-semibold">' . strtoupper(mb_substr($row->account_name, 0, 1)) . '</span>
                     </div>

@@ -1365,14 +1365,31 @@ $.varien = {
                     // Fetch data and append the result to the DOM
                     $.varien.transaction.accounts.fetch();
                 });
+
+                // Search accounts
+                let delayTimer;
+                $('#search-accounts').on('input', function() {
+                    let val = this.value;
+                    clearTimeout(delayTimer);
+                    delayTimer = setTimeout(function() {
+                        if(val.length == 0) {
+                            $.varien.transaction.accounts.fetch();
+                        } else {
+                            $.varien.transaction.accounts.fetch(val);
+                        }
+                    }, 250);
+                });
             },
-            fetch: () => {
+            fetch: (searchValue = null) => {
                 $.blockManageAccounts.block();
                 $.ajax({
                     url: "transaction/accounts",
                     type: "POST",
                     dataType: "html",
-                    data: "method=" + $('#methods').val(),
+                    data: {
+                        "search" : searchValue,
+                        "method" : $('#methods').val()
+                    },
                     success: function(data) {
                         $.blockManageAccounts.release();
                         $('#accounts-drawer-body').empty().append(data);

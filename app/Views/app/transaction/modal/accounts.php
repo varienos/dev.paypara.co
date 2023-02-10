@@ -27,7 +27,7 @@
             <i class="fs-5 bi bi-search"></i>
           </span>
 
-          <input type="text" class="form-control form-control-lg form-control-solid px-15" name="search" value="" autocomplete="off" placeholder="Search by id, name or account number">
+          <input id="search-accounts" type="text" class="form-control form-control-lg form-control-solid px-15" name="search" value="" autocomplete="off" placeholder="Search by id, name or account number">
 
           <span class="d-none position-absolute top-50 end-0 translate-middle-y lh-0 me-5">
             <span class="spinner-border h-15px w-15px align-middle text-muted"></span>
