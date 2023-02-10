@@ -552,10 +552,19 @@
                   <div class="card-header">
                     <div class="card-title justify-content-between w-100 m-0">
                       <h2>Firms</h2>
-                      <? if(add_firm === true): ?>
-                      <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#clientModalForm" data-id="0">
-                        <i class="bi bi-plus-circle fs-5"></i> New Firm</button>
-                      <? endif ?>
+                      <div class="d-flex">
+                        <div class="form-check form-check-custom form-check-solid form-check-sm me-5">
+                          <input class="form-check-input" type="checkbox" value="1" id="checkShowAll"/>
+                          <label class="fs-6 text-gray-600 form-check-label" for="checkShowAll">
+                            Show All
+                          </label>
+                        </div>
+
+                        <? if(add_firm === true): ?>
+                        <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#clientModalForm" data-id="0">
+                          <i class="bi bi-plus-circle fs-5"></i> New Firm</button>
+                        <? endif ?>
+                      </div>
                     </div>
                   </div>
                   <div class="card-body px-9 py-3">

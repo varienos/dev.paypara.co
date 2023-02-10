@@ -90,9 +90,12 @@ class ClientModel extends Model
 		if ($orderCol == 3) $orderCol = "status";
 		if (!empty($dataEnd)) $limit  = "limit " . $dataStart . ", " . $dataEnd . "";
 
-		$x = $this->db->query("select * from site where isDelete<>1 " . $search . " order by " . $orderCol . " " . $orderDir . " " . $limit);
+		$showAll = $postData["status"] == "false" ? "and status='on' " : null;
+
+		$query = $this->db->query("select * from site where isDelete<>1 " . $showAll . $search . " order by " . $orderCol . " " . $orderDir . " " . $limit);
+
 		$this->error->dbException($this->db->error()) != true ? die() : null;
 
-		return $x;
+		return $query;
 	}
 }

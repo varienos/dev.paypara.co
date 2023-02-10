@@ -1382,7 +1382,7 @@ $.varien = {
                         } else {
                             $.varien.transaction.accounts.fetch(val);
                         }
-                    }, 250);
+                    }, 500);
                 });
             },
             fetch: (searchValue = null) => {
@@ -2587,6 +2587,9 @@ $.varien = {
                     $(this).val('').trigger('change');
                 });
             });
+            $('input[id="checkShowAll"]').on('change', function() {
+                $.varien.settings.client.reload();
+            });
             $.varien.settings.client.init();
         },
         switch: function(elm) {
@@ -2642,6 +2645,7 @@ $.varien = {
         client: {
             init: function() {
                 if ($.resource.edit_firm != 1 && $.resource.delete_firm != 1) $.noVisibleCols = [$("thead tr th").length - 1];
+
                 $.table = new DataTable('#datatableClient', {
                     language: $.varien.datatable.locale(),
                     dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
@@ -2665,7 +2669,9 @@ $.varien = {
                     ajax: {
                         url: 'client/datatable',
                         type: 'POST',
-                        data: function(d) {}
+                        data: function (data) {
+                            return Object.assign(data, { 'status' : $('#checkShowAll')[0].checked });
+                        }
                     }
                 });
                 $.varien.settings.client.onLoad();
@@ -2681,21 +2687,19 @@ $.varien = {
             },
             onLoad: function() {
                 $.table.on('draw', function() {
-                    setTimeout(function() {
-                        $.varien.datatable.exportEvents();
-                        $.varien.settings.client.modal();
-                        $.varien.settings.client.remove();
-                        $("tbody td:nth-child(6)").addClass('text-end');
-                        $('input[data-set="switch"]').on("change", function() {
-                            if ($(this).is(":checked") == true) {
-                                $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), "on");
-                                toastr.success("The firm has been authorized to perform transactions");
-                            } else {
-                                $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), 0);
-                                toastr.error("Firm's authorization has been revoked");
-                            }
-                        });
-                    }, 300);
+                    $.varien.datatable.exportEvents();
+                    $.varien.settings.client.modal();
+                    $.varien.settings.client.remove();
+                    $("tbody td:nth-child(6)").addClass('text-end');
+                    $('input[data-set="switch"]').on("change", function() {
+                        if ($(this).is(":checked") == true) {
+                            $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), "on");
+                            toastr.success("The firm has been authorized to perform transactions");
+                        } else {
+                            $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), 0);
+                            toastr.error("Firm's authorization has been revoked");
+                        }
+                    });
                 });
             },
             modal: function() {
