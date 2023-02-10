@@ -168,7 +168,8 @@ class User extends BaseController
 				'<div class="badge badge-light fw-bold">' . ($row->user_last_login == "" ? '<div class="badge badge-light fw-bold">Not Logged In</div>' : $row->user_last_login) . '</div>',
 				($row->is2fa == "on" ? '<div class="badge badge-light-success fw-bold">Active</div>' : '<div class="badge badge-light fw-bold">Disabled</div>'),
 				$row->user_create_time,
-				'<button onclick="location.href=\'user/detail/' . $row->hash_id . '\'" class="btn btn-sm btn-light btn-active-light-primary">View</button> <button ' . (delete_user !== true ? "auth=\"false\"" : null) . ' data-set="remove" data-id="' . $row->hash_id . '" class="btn btn-sm btn-light-danger">Delete</button>'
+				'<a href="user/detail/' . $row->hash_id . '" class="btn btn-sm btn-light btn-active-light-primary">View</a>
+				<button ' . (delete_user !== true ? "auth=\"false\"" : null) . ' data-set="remove" data-id="' . $row->hash_id . '" class="btn btn-sm btn-light-danger">Delete</button>'
 			);
 
 			$i++;

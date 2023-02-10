@@ -204,7 +204,8 @@ class Account extends BaseController
 					($row->totalProcess == 0 ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->totalProcess . "</div>"),
 					($row->lastProcess == "" ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->lastProcess . "</div>"),
 					'<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" ' . (edit_papara_account !== true ? "disabled" : null) . ' id="flexSwitchCheckChecked" data-set="index" data-id="' . $row->id . '" name="status" class="form-check-input h-20px w-45px" ' . $status . '></div>',
-					'<button onclick="location.href= \'account/detail/' . $row->id . '/' . $row->dataType . '\'" ' . (edit_papara_account !== true ? "auth=\"false\"" : null) . ' class="btn btn-sm btn-light btn-active-light-primary">Details</button> <button delete-url="account/delete/' . $row->id . '" ' . (delete_papara_account !== true ? "auth=\"false\"" : null) . ' data-set="delete" class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
+					'<a href="account/detail/' . $row->id . '/' . $row->dataType . '" ' . (edit_papara_account !== true ? "auth=\"false\"" : null) . ' class="btn btn-sm btn-light btn-active-light-primary">Details</a>
+					<button delete-url="account/delete/' . $row->id . '" ' . (delete_papara_account !== true ? "auth=\"false\"" : null) . ' data-set="delete" class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
 				);
 			} elseif ($row->dataType == 1) {
 				$records["data"][$i] = array(
@@ -215,7 +216,8 @@ class Account extends BaseController
 					($row->totalProcess == 0 ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->totalProcess . "</div>"),
 					($row->lastProcess == "" ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->lastProcess . "</div>"),
 					'<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="flexSwitchCheckChecked" ' . (edit_papara_account !== true ? "disabled" : null) . ' data-set="index" data-id="' . $row->id . '" name="status" class="form-check-input h-20px w-45px" ' . $status . '></div>',
-					'<button onclick="location.href= \'account/detail/' . $row->id . '/' . $row->dataType . '\'" ' . (edit_papara_account !== true ? "auth=\"false\"" : null) . ' class="btn btn-sm btn-light btn-active-light-primary">Details</button> <button delete-url="account/delete/' . $row->id . '" data-set="delete" ' . (delete_papara_account !== true ? "auth=\"false\"" : null) . ' class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
+					'<a href="account/detail/' . $row->id . '/' . $row->dataType . '" ' . (edit_papara_account !== true ? "auth=\"false\"" : null) . ' class="btn btn-sm btn-light btn-active-light-primary">Details</a>
+					<button delete-url="account/delete/' . $row->id . '" data-set="delete" ' . (delete_papara_account !== true ? "auth=\"false\"" : null) . ' class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
 				);
 			} elseif ($row->dataType == 3) {
 				$records["data"][$i] = array(
@@ -227,7 +229,8 @@ class Account extends BaseController
 					($row->totalProcess == 0 ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->totalProcess . "</div>"),
 					($row->lastProcess == "" ? '<div class="text-center">none</div>' : '<div class="text-center">' . $row->lastProcess . "</div>"),
 					'<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="flexSwitchCheckChecked" ' . (edit_bank_account !== true ? "disabled" : null) . ' data-set="index" data-id="' . $row->id . '" name="status" class="form-check-input h-20px w-45px" ' . $status . '></div>',
-					'<button onclick="location.href= \'account/detail/' . $row->id . '/' . $row->dataType . '\'" ' . (edit_bank_account !== true ? "auth=\"false\"" : null) . ' class="btn btn-sm btn-light btn-active-light-primary">Details</button> <button delete-url="account/delete/' . $row->id . '" ' . (delete_bank_account !== true ? "auth=\"false\"" : null) . ' data-set="delete" class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
+					'<a href="account/detail/' . $row->id . '/' . $row->dataType . '" ' . (edit_bank_account !== true ? "auth=\"false\"" : null) . ' class="btn btn-sm btn-light btn-active-light-primary">Details</a>
+					<button delete-url="account/delete/' . $row->id . '" ' . (delete_bank_account !== true ? "auth=\"false\"" : null) . ' data-set="delete" class="btn btn-sm btn-light btn-active-light-danger text-danger">Delete</button>'
 				);
 			}
 			$i++;

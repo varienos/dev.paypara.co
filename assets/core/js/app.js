@@ -591,12 +591,17 @@ $.varien = {
             save: function() {
                 $("form#modalForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
+
+                    let saveData = new FormData(this);
+                    let accountNumber = saveData.get('account_number').replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+                    saveData.set('account_number', accountNumber)
+
                     $.ajax({
                         url: "account/save",
                         type: "POST",
                         dataType: "html",
                         crossDomain: true,
-                        data: new FormData(this),
+                        data: saveData,
                         xhrFields: {
                             withCredentials: true
                         },

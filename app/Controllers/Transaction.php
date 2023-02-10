@@ -157,7 +157,7 @@ class Transaction extends BaseController
                     '<div class="text-center">' . $row->request_time . ($status_id == 3 ? '<inspect class="d-none" data-staff="' . $row->user_name . '" data-customer-note="' . $row->notes . '"></data>' : null) . '</div>',
                     '<div class="text-center">' . $row->transaction_id . '</div>',
                     '<div class="text-center">' . $row->gamer_site_id . '</div>',
-                    '<div class="text-center">' . $row->account_id . '</div>',
+                    '<div class="text-center" title="' . $row->account_name . '">' . $row->account_id . '</div>',
                     '<div class="text-center">' . $row->site_name . '</div>',
                     '<div class="text-center badge ' . ($row->method != 'bank' ? 'badge-light-danger' : 'badge-light-dark') . ' py-2 fs-7 px-3">' . ucfirst(($row->method == 'bank' ? 'Bank' : $row->method)) . '</div>',
                     '<div class="text-center">' . $row->gamer_name . '</div>',

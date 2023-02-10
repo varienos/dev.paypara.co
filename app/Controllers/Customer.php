@@ -92,7 +92,7 @@ class Customer extends BaseController
                 '<div class="text-center">' . ($row->totalProcess == '' || $row->totalProcess == 0 ? 'none' : $row->totalProcess . ' txn') . '</div>',
                 '<div class="text-center">' . ($row->lastProcess == '' ? 'none' : $row->lastProcess) . '</div>',
                 '<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="isVip" data-set="switch" ' . (edit_customer !== true ? 'disabled' : null) . ' data-id="' . $row->id . '" name="isVip" class="form-check-input h-20px w-45px" ' . $isVip . '></div>',
-                '<button onclick="location.href=\'customer/detail/' . $row->id . '/' . $row->site_id . '/' . $row->gamer_site_id . '\'" class="btn btn-sm btn-light btn-active-light-primary">View</button>'
+                '<a href="customer/detail/' . $row->id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" class="btn btn-sm btn-light btn-active-light-primary">View</a>'
             ];
 
             $i++;

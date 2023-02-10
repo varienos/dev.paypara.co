@@ -34,6 +34,17 @@ var KTApp = (function () {
       options["dismiss"] = "click";
     }
 
+    // Initialize popover
+    var tp = new bootstrap.Tooltip(el, options);
+
+    // Handle dismiss
+    if (options['dismiss'] && options['dismiss'] === 'click') {
+        // Hide popover on element click
+        el.addEventListener("click", function (e) {
+            tp.hide();
+        });
+    }
+
     el.setAttribute("data-kt-initialized", "1");
 
     return tp;
