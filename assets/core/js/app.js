@@ -374,13 +374,15 @@ $.varien = {
                 $.varien.account.detail.save();
                 $('input[data-set="switch"]').on("change", function() {
                     if ($(this).is(":checked") == true) {
-                        $.varien.account.detail.switch("on");
-                        $('input[name="status"]').val('on');
-                        toastr.success("Account has been enabled");
+                        $.varien.account.detail.switch("on", () => {
+                            toastr.success("Account has been enabled");
+                            $('input[name="status"]').val('on');
+                        });
                     } else {
-                        $.varien.account.detail.switch(0);
-                        $('input[name="status"]').val(0);
-                        toastr.error("Account has been disabled");
+                        $.varien.account.detail.switch(0, () => {
+                            toastr.error("Account has been disabled");
+                            $('input[name="status"]').val(0);
+                        });
                     }
                 });
                 $('#formReset').on('click', function() {
@@ -481,12 +483,13 @@ $.varien = {
                     }
                 });
             },
-            switch: function(status) {
+            switch: function(status, callback) {
                 $.ajax({
                     url: "account/status/" + $.varien.segment(3) + "/" + status,
                     type: "POST",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: () => callback()
                 });
             },
             datatable: {
@@ -607,10 +610,8 @@ $.varien = {
                         },
                         processData: false,
                         contentType: false,
-                        success: function(response) {
-                            toastr.success("Account updated");
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        success: () => toastr.success("Account updated"),
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -932,8 +933,9 @@ $.varien = {
                 });
                 $("#refresh").on("click", function(e) {
                     $.varien.eventControl(e);
-                    $.varien.transaction.datatable.reload();
-                    toastr.success("Transactions refreshed");
+                    $.varien.transaction.datatable.reload(() => {
+                        toastr.success("Transactions refreshed");
+                    });
                 });
                 $("[app-onchange-datatable-reload]").on("change input", function(e) {
                     $.varien.eventControl(e);
@@ -985,12 +987,13 @@ $.varien = {
                     KTCookie.set('totalWithdraw', currentTxns, {sameSite: 'None', secure: true});
                 }
             },
-            setNotifications: function(status) {
+            setNotifications: function(status, callback) {
                 $.ajax({
                     url: "transaction/notificationSound/" + status,
                     type: "GET",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: () => callback()
                 });
             },
             getNotifications: function() {
@@ -1092,11 +1095,13 @@ $.varien = {
             notification: function() {
                 $("#notifications").on("click", function() {
                     if ($(this).is(":checked") == true) {
-                        toastr.success("Notifications enabled");
-                        $.varien.transaction.datatable.setNotifications(1);
+                        $.varien.transaction.datatable.setNotifications(1, () => {
+                            toastr.success("Notifications enabled");
+                        });
                     } else {
-                        toastr.error("Notifications disabled");
-                        $.varien.transaction.datatable.setNotifications(0);
+                        $.varien.transaction.datatable.setNotifications(0, () => {
+                            toastr.error("Notifications disabled");
+                        });
                     }
                 });
             },
@@ -1116,8 +1121,9 @@ $.varien = {
                     }, 500);
                 });
             },
-            reload: function() {
-                $.table.ajax.reload();
+            reload: function(cb) {
+                if(cb) $.table.ajax.reload(cb);
+                else $.table.ajax.reload();
             },
             status: function(id, status) {
                 $.ajax({
@@ -1325,8 +1331,9 @@ $.varien = {
                                     type: 'POST',
                                     url: urlAjax,
                                     success: function() {
-                                        $.table.ajax.reload();
-                                        toastr.error("Account deleted");
+                                        $.table.ajax.reload(() => {
+                                            toastr.error("Account deleted");
+                                        });
                                     }
                                 });
                             }
@@ -1525,7 +1532,7 @@ $.varien = {
                                 $("#ajaxModal").modal('toggle');
                                 toastr.success("Roles updated");
                             },
-                            error: function(jqXHR, textStatus, errorThrown) {
+                            error: function(jqXHR, errorThrown) {
                                 toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                             }
                         });
@@ -1550,8 +1557,8 @@ $.varien = {
                                         type: 'POST',
                                         url: "user/removeRole/" + id,
                                         success: function() {
-                                            $.table.ajax.reload();
                                             toastr.error("Role deleted");
+                                            $.table.ajax.reload();
                                         }
                                     });
                                 }
@@ -2010,7 +2017,7 @@ $.varien = {
                                     $("#ajaxModal").modal('toggle');
                                     toastr.success("User created");
                                 },
-                                error: function(jqXHR, textStatus, errorThrown) {
+                                error: function(jqXHR, errorThrown) {
                                     toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                                 }
                             });
@@ -2075,7 +2082,7 @@ $.varien = {
                         $("#selectClient").append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
                     });
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, errorThrown) {
                     toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                 }
             });
@@ -2141,21 +2148,22 @@ $.varien = {
                     url: "customer/switch/" + id + "/" + name + "/" + status,
                     type: "POST",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: () => {
+                        if (name == "deposit" && status == "on")
+                            toastr.success("Customer has been allowed to deposit");
+                        if (name == "deposit" && status == 0)
+                            toastr.error("Customer's deposit permission has been revoked");
+                        if (name == "withdraw" && status == "on")
+                            toastr.success("Customer has been allowed to withdraw");
+                        if (name == "withdraw" && status == 0)
+                            toastr.error("Customer's withdraw permission has been revoked");
+                        if (name == "isVip" && status == "on")
+                            toastr.success("Customer has been made VIP");
+                        if (name == "isVip" && status == 0)
+                            toastr.error("Customer is no longer VIP");
+                    }
                 });
-
-                if (name == "deposit" && status == "on")
-                    toastr.success("Customer has been allowed to deposit");
-                if (name == "deposit" && status == 0)
-                    toastr.error("Customer's deposit permission has been revoked");
-                if (name == "withdraw" && status == "on")
-                    toastr.success("Customer has been allowed to withdraw");
-                if (name == "withdraw" && status == 0)
-                    toastr.error("Customer's withdraw permission has been revoked");
-                if (name == "isVip" && status == "on")
-                    toastr.success("Customer has been made VIP");
-                if (name == "isVip" && status == 0)
-                    toastr.error("Customer is no longer VIP");
             },
             reload: function() {
                 $.table.ajax.reload();
@@ -2185,7 +2193,7 @@ $.varien = {
                             $.table.ajax.reload();
                             $("#ajaxModal").modal('toggle');
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -2216,7 +2224,7 @@ $.varien = {
                         success: function() {
                             toastr.success("Customer note updated");
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -2274,7 +2282,7 @@ $.varien = {
                 reload: function() {
                     $.table.ajax.reload();
                 },
-                onLoad: function(colNum) {
+                onLoad: function() {
                     $.table.on('draw', function() {
                         $.varien.datatable.exportEvents();
                         $("tbody td:nth-child(7)").addClass('text-end');
@@ -2617,7 +2625,7 @@ $.varien = {
                     success: function() {
                         toastr.success("Settings updated");
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
@@ -2636,7 +2644,7 @@ $.varien = {
                         toastr.success("Settings updated");
                         if (name == "maintenanceStatus") location.reload();
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
@@ -2693,11 +2701,13 @@ $.varien = {
                     $("tbody td:nth-child(6)").addClass('text-end');
                     $('input[data-set="switch"]').on("change", function() {
                         if ($(this).is(":checked") == true) {
-                            $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), "on");
-                            toastr.success("The firm has been authorized to perform transactions");
+                            $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), "on", () => {
+                                toastr.success("The firm has been authorized to perform transactions");
+                            });
                         } else {
-                            $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), 0);
-                            toastr.error("Firm's authorization has been revoked");
+                            $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), 0, () => {
+                                toastr.error("Firm's authorization has been revoked");
+                            });
                         }
                     });
                 });
@@ -2755,12 +2765,13 @@ $.varien = {
                     }
                 });
             },
-            switch: function(name, id, status) {
+            switch: function(name, id, status, callback) {
                 $.ajax({
                     url: "client/switch/" + id + "/" + name + "/" + status,
                     type: "POST",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: () => callback()
                 });
             },
             reload: function() {
@@ -2834,7 +2845,7 @@ $.varien = {
                             toastr.success("Firm's data has been updated");
                             return false;
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
