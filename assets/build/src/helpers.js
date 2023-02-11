@@ -508,7 +508,7 @@ const outputFunc = (bundle) => {
                 .src(file, { allowEmpty: true, since: gulp.lastRun(bundler) })
                 .pipe(plumber())
                 .pipe(jsChannel()())
-                .pipe(gulpif(args.prod && !file.endsWith(".min.js"), obfuscator({ compact: true })))
+                .pipe(gulpif(args.prod && config.obfuscate.some(char => file.endsWith(char)), obfuscator({ compact: true })))
               const output2 = outputChannel(bundle.dist[type], undefined, type)();
               if (output2) {
                 stream.pipe(output2);

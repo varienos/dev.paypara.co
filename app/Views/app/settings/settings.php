@@ -2,7 +2,7 @@
 
 <body id="kt_body" class="sidebar-disabled"></body>
 <?php require appViewPath().'partials/theme-mode/_init.php' ?>
-<?php foreach ($setting as $row) { $param["$row->name"] = $row->value; }?>
+<?php foreach ($settings as $row) { $param["$row->name"] = $row->value; }?>
 <div class="d-flex flex-column flex-root">
   <div class="page d-flex flex-row flex-column-fluid">
     <?php require appViewPath().'layout/aside/_base.php' ?>
@@ -123,7 +123,7 @@
             <div class="card card-flush mb-5 mb-xxl-10 border" style="padding-bottom: 1px;">
               <div class="card-body pt-3 pb-0">
                 <ul class="nav nav-line-tabs nav-line-tabs-2x border-transparent fs-4 fw-semibold flex-center flex-md-start">
-                  <? if(view_setting === true): ?>
+                  <? if(view_settings === true): ?>
                   <li class="nav-item">
                     <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark active" data-bs-toggle="tab" href="#settings-general">General</a>
                   </li>
@@ -133,10 +133,15 @@
                   <? endif; ?>
                   <? if(view_firm === true): ?>
                   <li class="nav-item">
-                    <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark <?= view_setting !== true && view_firm === true ? "active" : null; ?>" data-bs-toggle="tab" href="#settings-firms">Firms</a>
+                    <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark <?= view_settings !== true && view_firm === true ? "active" : null; ?>" data-bs-toggle="tab" href="#settings-firms">Firms</a>
                   </li>
                   <? endif; ?>
-                  <? if(view_setting === true): ?>
+                  <? if(view_api === true): ?>
+                  <li class="nav-item">
+                    <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark <?= view_settings !== true && view_firm === true ? "active" : null; ?>" data-bs-toggle="tab" href="#settings-api">API</a>
+                  </li>
+                  <? endif; ?>
+                  <? if(root === true): ?>
                   <li class="nav-item">
                     <a class="nav-link pt-5 pb-7 text-active-dark border-0 border-bottom border-hover border-active-dark" data-bs-toggle="tab" href="#settings-logs">Logs</a>
                   </li>
@@ -145,7 +150,8 @@
               </div>
             </div>
             <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="settings-general" role="tabpanel" <?=view_setting!==true?"auth=\"false\"":null; ?>>
+              <? if(view_settings === true): ?>
+              <div class="tab-pane fade show active" id="settings-general" role="tabpanel">
                 <form id="genel-limits-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
                   <div class="card mb-5 mb-xxl-10 border">
                     <div class="card-header">
@@ -162,7 +168,7 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">₺</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="minDeposit" data-default="250" value="<?=$param["minDeposit"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="minDeposit" data-default="250" value="<?=$param["minDeposit"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -174,7 +180,7 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">₺</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="maxDeposit" data-default="15000" value="<?=$param["maxDeposit"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="maxDeposit" data-default="15000" value="<?=$param["maxDeposit"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -186,7 +192,7 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">₺</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="minWithdraw" data-default="250" value="<?=$param["minWithdraw"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="minWithdraw" data-default="250" value="<?=$param["minWithdraw"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -198,12 +204,12 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">₺</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="maxWithdraw" data-default="15000" value="<?=$param["maxWithdraw"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="maxWithdraw" data-default="15000" value="<?=$param["maxWithdraw"] ?>" />
                           </div>
                         </div>
                       </div>
                     </div>
-                    <? if(edit_setting === true): ?>
+                    <? if(edit_settings === true): ?>
                     <div class="card-footer p-5">
                       <div class="d-flex flex-end">
                         <button type="button" id="resetSetting" data-form-id="genel-limits-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
@@ -229,7 +235,7 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">second</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="requestEditTime" data-default="30" value="<?=$param["requestEditTime"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="requestEditTime" data-default="30" value="<?=$param["requestEditTime"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -241,12 +247,12 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">second</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="tokenTimeout" data-default="120" value="<?=$param["tokenTimeout"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="tokenTimeout" data-default="120" value="<?=$param["tokenTimeout"] ?>" />
                           </div>
                         </div>
                       </div>
                     </div>
-                    <? if(edit_setting === true): ?>
+                    <? if(edit_settings === true): ?>
                     <div class="card-footer p-5">
                       <div class="d-flex flex-end">
                         <button type="button" id="resetSetting" data-form-id="genel-times-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
@@ -281,7 +287,7 @@
                         <div class="d-flex justify-content-center justify-content-md-end mt-5 mt-md-0">
                           <label class="form-check form-switch form-switch-md form-check-custom form-check-danger form-check-solid">
                             <label class="col-form-label fw-semibold p-0 fs-4 lh-sm me-3">Maintenance:</label>
-                            <input class="form-check-input w-70px h-30px border border-gray-500" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="maintenanceStatus" data-set="statusSwitch" <? if($param["maintenanceStatus"]=="on" ): ?>checked="checked"
+                            <input class="form-check-input w-70px h-30px border border-gray-500" type="checkbox" <?= edit_settings !== true ? "disabled" : null; ?> name="maintenanceStatus" data-set="statusSwitch" <? if($param["maintenanceStatus"]=="on" ): ?>checked="checked"
                             <? endif; ?> value="on">
                           </label>
                         </div>
@@ -290,6 +296,7 @@
                   </form>
                 </div>
               </div>
+              <? endif; ?>
               <div class="tab-pane fade" id="settings-methods" role="tabpanel">
                 <form id="methods-matching-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
                   <div class="card mb-5 mb-xxl-10 border">
@@ -300,7 +307,7 @@
                       <div class="card-toolbar">
                         <label class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid">
                           <span class="form-check-label me-2">System Status</span>
-                          <input class="form-check-input w-40px" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> value="on" name="matchStatus" data-set="statusSwitch" <? if($param["matchStatus"]=="on" ): ?>checked="checked"
+                          <input class="form-check-input w-40px" type="checkbox" <?= edit_settings !== true ? "disabled" : null; ?> value="on" name="matchStatus" data-set="statusSwitch" <? if($param["matchStatus"]=="on" ): ?>checked="checked"
                           <? endif; ?>>
                         </label>
                       </div>
@@ -314,7 +321,7 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">₺</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="matchAmountLimit" data-default="1000" value="<?=$param["matchAmountLimit"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="matchAmountLimit" data-default="1000" value="<?=$param["matchAmountLimit"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -325,7 +332,7 @@
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" max="10" maxlength="2" name="defaultMatchLimit" data-default="5" value="<?=$param["defaultMatchLimit"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" max="10" maxlength="2" name="defaultMatchLimit" data-default="5" value="<?=$param["defaultMatchLimit"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -335,7 +342,7 @@
                           <label class="fw-semibold text-gray-600 lh-sm">Firms where the matching system will be active</label>
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
-                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="matchStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
+                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_settings !== true ? "disabled" : null; ?> name="matchStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
                             <option></option>
                             <? $clientArray = explode(",", $param["matchStatusSite"]) ?>
                             <? foreach($clientSelect as $client){ ?>
@@ -345,7 +352,7 @@
                         </div>
                       </div>
                     </div>
-                    <? if(edit_setting === true): ?>
+                    <? if(edit_settings === true): ?>
                     <div class="card-footer p-5">
                       <div class="d-flex flex-end">
                         <button type="button" id="resetSetting" data-form-id="methods-matching-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
@@ -364,7 +371,7 @@
                       <div class="card-toolbar">
                         <label class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid">
                           <span class="form-check-label me-2">System Status</span>
-                          <input class="form-check-input w-40px" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="crossStatus" data-set="statusSwitch" <? if($param["crossStatus"]=="on" ): ?>checked="checked"
+                          <input class="form-check-input w-40px" type="checkbox" <?= edit_settings !== true ? "disabled" : null; ?> name="crossStatus" data-set="statusSwitch" <? if($param["crossStatus"]=="on" ): ?>checked="checked"
                           <? endif; ?> value="on">
                         </label>
                       </div>
@@ -376,7 +383,7 @@
                           <label class="fw-semibold text-gray-600 lh-sm">Firms where the cross system will be active</label>
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
-                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> data-placeholder="All firms" name="crossStatusSite[]" data-close-on-select="false" data-allow-clear="true" multiple="multiple">
+                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_settings !== true ? "disabled" : null; ?> data-placeholder="All firms" name="crossStatusSite[]" data-close-on-select="false" data-allow-clear="true" multiple="multiple">
                             <option></option>
                             <? $clientArray = explode(",", $param["crossStatusSite"]) ?>
                             <? foreach($clientSelect as $client){ ?>
@@ -386,7 +393,7 @@
                         </div>
                       </div>
                     </div>
-                    <? if(edit_setting === true): ?>
+                    <? if(edit_settings === true): ?>
                     <div class="card-footer p-5">
                       <div class="d-flex flex-end">
                         <button type="button" id="resetSetting" data-form-id="methods-cross-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
@@ -405,7 +412,7 @@
                       <div class="card-toolbar">
                         <label class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid">
                           <span class="form-check-label me-2">System Status</span>
-                          <input class="form-check-input w-40px" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="posStatus" data-set="statusSwitch" <? if($param["posStatus"]=="on" ): ?>checked="checked"
+                          <input class="form-check-input w-40px" type="checkbox" <?= edit_settings !== true ? "disabled" : null; ?> name="posStatus" data-set="statusSwitch" <? if($param["posStatus"]=="on" ): ?>checked="checked"
                           <? endif; ?> value="on">
                         </label>
                       </div>
@@ -418,7 +425,7 @@
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="posApi" data-default="" value="<?=$param["posApi"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="posApi" data-default="" value="<?=$param["posApi"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -429,7 +436,7 @@
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="posSecret" data-default="" value="<?=$param["posSecret"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="posSecret" data-default="" value="<?=$param["posSecret"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -439,7 +446,7 @@
                           <label class="fw-semibold text-gray-600 lh-sm">Firms where the POS system will be active</label>
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
-                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="posStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
+                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_settings !== true ? "disabled" : null; ?> name="posStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
                             <option></option>
                             <? $clientArray = explode(",", $param["posStatusSite"]) ?>
                             <? foreach($clientSelect as $client){ ?>
@@ -449,7 +456,7 @@
                         </div>
                       </div>
                     </div>
-                    <? if(edit_setting === true): ?>
+                    <? if(edit_settings === true): ?>
                     <div class="card-footer p-5">
                       <div class="d-flex flex-end">
                         <button type="button" id="resetSetting" data-form-id="methods-pos-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
@@ -468,7 +475,7 @@
                       <div class="card-toolbar">
                         <label class="form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid">
                           <span class="form-check-label me-2">System Status</span>
-                          <input class="form-check-input w-40px" type="checkbox" <?= edit_setting !== true ? "disabled" : null; ?> name="bankStatus" data-set="statusSwitch" <? if($param["bankStatus"]=="on" ): ?>checked="checked"
+                          <input class="form-check-input w-40px" type="checkbox" <?= edit_settings !== true ? "disabled" : null; ?> name="bankStatus" data-set="statusSwitch" <? if($param["bankStatus"]=="on" ): ?>checked="checked"
                           <? endif; ?> value="on">
                         </label>
                       </div>
@@ -482,7 +489,7 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">₺</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="bankMinDeposit" data-default="250" value="<?=$param["bankMinDeposit"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="bankMinDeposit" data-default="250" value="<?=$param["bankMinDeposit"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -494,7 +501,7 @@
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group">
                             <span class="input-group-text border">₺</span>
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="bankMaxDeposit" data-default="15000" value="<?=$param["bankMaxDeposit"] ?>" />
+                            <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> class="form-control form-control-solid border" name="bankMaxDeposit" data-default="15000" value="<?=$param["bankMaxDeposit"] ?>" />
                           </div>
                         </div>
                       </div>
@@ -504,7 +511,7 @@
                           <label class="fw-semibold text-gray-600 lh-sm">Bank options where accounts can be defined</label>
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
-                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="availableBanks[]" data-close-on-select="false" data-placeholder="All banks" data-allow-clear="true" multiple="multiple">
+                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_settings !== true ? "disabled" : null; ?> name="availableBanks[]" data-close-on-select="false" data-placeholder="All banks" data-allow-clear="true" multiple="multiple">
                             <option></option>
                             <? foreach(bankArray(0) as $key=>$value){ $ab=explode(",",availableBanks); ?>
                             <option value="<?=$key ?>" <?=(in_array($key,$ab ?? []) ? "selected" : "") ?>><?=$value ?></option>
@@ -518,7 +525,7 @@
                           <label class="fw-semibold text-gray-600 lh-sm">Firms where the bank system will be active</label>
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
-                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_setting !== true ? "disabled" : null; ?> name="bankStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
+                          <select class="form-select form-select-solid border" data-control="select2" <?= edit_settings !== true ? "disabled" : null; ?> name="bankStatusSite[]" data-close-on-select="false" data-placeholder="All firms" data-allow-clear="true" multiple="multiple">
                             <option></option>
                             <? $clientArray = explode(",",$param["bankStatusSite"]) ?>
                             <? foreach($clientSelect as $client){ ?>
@@ -528,7 +535,7 @@
                         </div>
                       </div>
                     </div>
-                    <? if(edit_setting === true): ?>
+                    <? if(edit_settings === true): ?>
                     <div class="card-footer p-5">
                       <div class="d-flex flex-end">
                         <button type="button" id="resetSetting" data-form-id="methods-bank-form" class="btn btn-sm btn-light rounded fs-7 w-100px me-3">Reset</button>
@@ -539,15 +546,25 @@
                   </div>
                 </form>
               </div>
-              <div class="tab-pane fade <?=view_setting!==true&&view_firm===true?"show active":null; ?>" id="settings-firms" role="tabpanel" <?=view_firm!==true?"auth=\"false\"":null; ?>>
+              <? if(view_firm === true): ?>
+              <div class="tab-pane fade" id="settings-firms" role="tabpanel">
                 <div class="card mb-5 mb-xxl-10 border">
                   <div class="card-header">
                     <div class="card-title justify-content-between w-100 m-0">
                       <h2>Firms</h2>
-                      <? if(add_firm === true): ?>
-                      <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#clientModalForm" data-id="0">
-                        <i class="bi bi-plus-circle fs-5"></i> New Firm</button>
-                      <? endif ?>
+                      <div class="d-flex">
+                        <div class="form-check form-check-custom form-check-solid form-check-sm me-5">
+                          <input class="form-check-input" type="checkbox" value="1" id="checkShowAll"/>
+                          <label class="fs-6 text-gray-600 form-check-label" for="checkShowAll">
+                            Show All
+                          </label>
+                        </div>
+
+                        <? if(add_firm === true): ?>
+                        <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#clientModalForm" data-id="0">
+                          <i class="bi bi-plus-circle fs-5"></i> New Firm</button>
+                        <? endif ?>
+                      </div>
                     </div>
                   </div>
                   <div class="card-body px-9 py-3">
@@ -559,7 +576,7 @@
                             <th class="min-w-100px">Firm Name</td>
                             <th class="min-w-200px">API Key</td>
                             <th class="min-w-80px">Secret Key</td>
-                            <th class="min-w-60px">Authorized</td>
+                            <th class="min-w-60px text-center">Authorized</td>
                             <th class="min-w-125px text-end">Actions</td>
                           </tr>
                         </thead>
@@ -568,7 +585,11 @@
                     </div>
                   </div>
                 </div>
-                <div class="card mb-5 mb-xxl-10 border" <?=edit_setting!==true?"auth=\"false\"":null; ?>>
+              </div>
+              <? endif; ?>
+              <? if(view_api === true): ?>
+              <div class="tab-pane fade" id="settings-api" role="tabpanel">
+                <div class="card mb-5 mb-xxl-10 border">
                   <form id="ip-whitelist-form" class="form" action="javascript:" data-set="setting" method="post" enctype="multipart/form-data">
                     <div class="card-header">
                       <div class="card-title d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-center justify-content-md-between w-100 m-0">
@@ -584,16 +605,57 @@
                         </div>
                         <div class="col-xxl-8 d-flex flex-center">
                           <div class="input-group d-flex">
-                            <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> class="form-control form-control-solid border rounded me-3" name="ipWhitelist" value="<?=$param["ipWhitelist"] ?>" placeholder="localhost" value="">
-                            <button type="button" <?= edit_setting !== true ? "disabled" : null; ?> id="updateSetting" data-form-id="ip-whitelist-form" class="btn btn-sm btn-light-primary rounded-1">Save</button>
+                            <input type="text" <?= edit_api !== true ? "disabled" : null; ?> class="form-control form-control-solid border rounded me-3" name="ipWhitelist" value="<?=$param["ipWhitelist"] ?>" placeholder="localhost" value="">
+                            <? if(edit_api === true): ?>
+                            <button type="button" id="updateSetting" data-form-id="ip-whitelist-form" class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
+                            <? endif; ?>
                           </div>
                         </div>
                       </div>
                     </div>
                   </form>
                 </div>
+                <div class="card mb-5 mb-xxl-10 border">
+                  <div class="card-header">
+                    <div class="card-title justify-content-between w-100 m-0">
+                      <h2>Response Codes</h2>
+                      <button class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
+                    </div>
+                  </div>
+                  <div class="card-body scroll-y h-600px px-9 py-3">
+                    <div class="table-responsive">
+                      <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="dtApiResponse">
+                        <thead>
+                          <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                            <th class="min-w-175px">Flag</td>
+                            <th class="min-w-150px text-center">Custom ID</td>
+                            <th class="w-100">Response</td>
+                          </tr>
+                        </thead>
+                        <tbody class="scroll-y">
+                        <? foreach (getStrings() as $row) { ?>
+                          <tr>
+                            <td>
+                              <div class="badge badge-lg badge-secondary w-100 flex-center"><?=$row->flag ?></div>
+                              <input type="hidden" value="<?=$row->id ?>" name="id[]">
+                            </td>
+                            <td>
+                              <input type="text" class="form-control form-control-solid text-center" value="<?=$row->custom_id ?>" name="custom_id[]">
+                            </td>
+                            <td>
+                              <input type="text" class="form-control form-control-solid" value="<?=$row->string ?>" name="string[]">
+                            </td>
+                          </tr>
+                        <? } ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="tab-pane fade" id="settings-logs" role="tabpanel" <?=view_setting!==true?"auth=\"false\"":null; ?>>
+              <? endif; ?>
+              <? if(root === true): ?>
+              <div class="tab-pane fade" id="settings-logs" role="tabpanel">
                 <div class="card mb-5 mb-xxl-10 border" style="opacity: .5; cursor: not-allowed;">
                   <div class="card-header">
                     <div class="card-title justify-content-between w-100 m-0">
@@ -609,7 +671,7 @@
                             <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
                           </svg>
                         </span>
-                        <input type="text" <?= edit_setting !== true ? "disabled" : null; ?> data-kt-customer-table-filter="search" class="form-control form-control-solid border w-250px ps-15" placeholder="Search in logs">
+                        <input type="text" <?= edit_settings !== true ? "disabled" : null; ?> data-kt-customer-table-filter="search" class="form-control form-control-solid border w-250px ps-15" placeholder="Search in logs">
                       </div>
                       <button type="button" class="btn btn-sm btn-light-primary mh-35px mw-175px">
                         <span class="svg-icon svg-icon-3">
@@ -724,6 +786,7 @@
                   </div>
                 </div>
               </div>
+              <? endif; ?>
             </div>
           </div>
           <div class="modal fade" id="clientModalForm" tabindex="-1" aria-hidden="true">

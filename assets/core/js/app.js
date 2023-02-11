@@ -7,6 +7,9 @@ $.varien = {
         });
     },
     init: function() {
+        // Don't show browser alerts when datatable catches an error
+        $.fn.dataTable.ext.errMode = 'none';
+
         $.varien.prepare();
         $.varien.stage();
     },
@@ -19,6 +22,7 @@ $.varien = {
     prepare: function() {
         $.varien.authorization();
         $.varien.toastr();
+        $.varien.latency();
         $.varien.activity();
         setInterval(function() {
             $.varien.activity();
@@ -31,7 +35,7 @@ $.varien = {
         if ($.varien.segment(1) == "user") $.varien.user.init();
         if ($.varien.segment(1) == "transaction") $.varien.transaction.init();
         if ($.varien.segment(1) == "reports") $.varien.reports.init();
-        if ($.varien.segment(1) == "setting") $.varien.setting.init();
+        if ($.varien.segment(1) == "settings") $.varien.settings.init();
         if ($.varien.environment() == 'dev') $.varien.dev.init();
     },
     authorization: () => {
@@ -61,6 +65,56 @@ $.varien = {
         xhttp.open("GET", 'user/activity', true);
         xhttp.send();
     },
+    latency: () => {
+        let start;
+        $(document).ajaxStart(() => {
+            start = new Date().getTime();
+        });
+
+        $(document).ajaxComplete(function (xhr, options) {
+            // Get server latency and update it on footer
+            let end = new Date().getTime();
+            if(options.status === 200) {
+                let latency = end - start;
+                if (latency > 90 && latency < 150) {
+                    $('.latency-badge').eq(0).addClass('badge-warning').removeClass('badge-success badge-danger');
+                } else if (latency > 150) {
+                    $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+                } else {
+                    $('.latency-badge').eq(0).addClass('badge-success').removeClass('badge-danger badge-warning');
+                }
+
+                $('.latency')[0].lastChild.textContent = ` ${latency}ms`;
+            } else {
+                $('.latency')[0].lastChild.textContent = ` offline`;
+                $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+            }
+
+            start, end = undefined;
+
+            // Replace and hide error message when connection is restored
+            if(options.status === 200 && $('.ajax-error').hasClass('d-none') === false) {
+                $('.ajax-error-icon').removeClass('bi-wifi-off').addClass('bi-check2');
+                $('.ajax-error-message').text('Your internet connection has been restored');
+                $('.ajax-error').removeClass('bg-danger').addClass('bg-success');
+
+                $.wait(5000).then(() => {
+                    $('.ajax-error').removeClass('animation-fade-in').addClass('animation-fade-out');
+                }).then(() => {
+                    $.wait(1000).then(() => {
+                        $('.ajax-error').addClass('d-none');
+                    })
+                });
+            }
+        });
+
+        // Check connection and if fails, notify user
+        $(document).ajaxError((event, xhr, options, thrownError) => {
+            $('.ajax-error-icon').removeClass('bi-check2').addClass('bi-wifi-off');
+            $('.ajax-error').removeClass('d-none bg-success').addClass('bg-danger');
+            $('.ajax-error-message').text('You seem to be offline. Please check your network connection and try again.');
+        });
+    },
     segment: function(key) {
         $.segment = window.location.pathname.split('/');
         if (typeof $.segment[key] !== 'undefined') {
@@ -75,12 +129,12 @@ $.varien = {
             "debug": false,
             "newestOnTop": false,
             "progressBar": false,
-            "positionClass": "toastr-top-right",
+            "positionClass": "toastr-top-center",
             "preventDuplicates": false,
             "onclick": null,
             "showDuration": "300",
             "hideDuration": "1000",
-            "timeOut": "3000",
+            "timeOut": "2500",
             "extendedTimeOut": "1000",
             "showEasing": "swing",
             "hideEasing": "linear",
@@ -118,12 +172,18 @@ $.varien = {
                     $("#ajaxModalContent").html('');
                     if ($(".modal-dialog").length) {
                         $(".modal-dialog").addClass('mw-650px');
-                        $(".modal-dialog").removeClass('w-75');
+                        $(".modal-dialog").removeClass('mw-75');
+
+                        KTThemeMode.getMode() === "dark"
+                            ? $(".modal-content").removeClass('border border-2 shadow-lg')
+                            : $(".modal-content").removeClass('shadow-lg');
                     }
                 });
             },
             show: function() {
-                $("#ajaxModal").on('shown.bs.modal', function(e) {});
+                $("#ajaxModal").on('shown.bs.modal', function(e) {
+                    $('#cmd').focus();
+                });
             },
             toggle: function() {
                 $("#ajaxModal").modal('toggle');
@@ -188,32 +248,46 @@ $.varien = {
     },
     dev: {
         init: function() {
-            $.getScript(window.location.protocol + "//" + window.location.hostname + "/" + $.resource.assetsPath + "/plugins/custom/css-element-queries/css.element.queries.bundle.js");
             document.addEventListener('keydown', function(event) {
-                if (event.keyCode == 36) {
+                if (event.key === "Home") {
+                    if($('#devmodal')[0] !== undefined) return;
+
                     $.varien.modal.event.load("dev", function() {
-                        $(".modal-dialog").addClass('w-75');
+                        $(".modal-dialog").addClass('mw-75');
                         $(".modal-dialog").removeClass('mw-650px');
-                        new ResizeSensor(document.getElementById('console'), function() {
-                            $("#devConsole").animate({
-                                scrollTop: $('#devConsole').prop("scrollHeight")
-                            }, 100);
-                        });
-                        document.addEventListener('keydown', function(event) {
-                            if (event.keyCode == 13) {
-                                $('#console').append("<li class='cmdloading'>" + $("#cmd").val() + "</li>");
-                                $.varien.dev.cmd($("#cmd").val());
-                                $("#cmd").val('');
-                            }
-                        });
+                        KTThemeMode.getMode() === "dark"
+                            ? $(".modal-content").addClass('border border-2 shadow-lg')
+                            : $(".modal-content").addClass('shadow-lg');
                     });
+                }
+
+                if (event.key === "Enter" && $('#devmodal')[0] !== undefined) {
+                    let console = document.getElementById('console');
+                    if(console.children[console.children.length - 1].id == 'waiting') {
+                        $('#console').append("<li><br></li>")
+                    }
+
+                    $('#console').append("<li id='input' class='cmdloading'>" + $("#cmd").val() + "</li>");
+                    $.varien.dev.cmd($("#cmd").val());
+                    $("#cmd").val('');
                 }
             });
         },
         cmd: function(cmd) {
-            if (cmd == "string.manage") {
-                $.varien.modal.event.load('dev/string', function() {});
-            } else {
+            if(cmd == "clear") {
+                let itemCount =  $('[id=notice]').length + 1;
+                let console = document.getElementById('console');
+                for (let i = console.children.length; i > itemCount; i--) {
+                    console.removeChild(console.children[i - 1]);
+                }
+
+                $('#waiting').removeClass('d-none');
+                $('#waiting').addClass('cmdloading');
+            }
+            else {
+                $('#waiting').addClass('d-none');
+                $('#waiting').removeClass('cmdloading');
+
                 $.ajax({
                     url: window.location.protocol + "//" + window.location.hostname + "/dev/console",
                     type: "POST",
@@ -354,13 +428,15 @@ $.varien = {
                 $.varien.account.detail.save();
                 $('input[data-set="switch"]').on("change", function() {
                     if ($(this).is(":checked") == true) {
-                        $.varien.account.detail.switch("on");
-                        $('input[name="status"]').val('on');
-                        toastr.success("Account has been activated");
+                        $.varien.account.detail.switch("on", () => {
+                            toastr.success("Account has been enabled");
+                            $('input[name="status"]').val('on');
+                        });
                     } else {
-                        $.varien.account.detail.switch(0);
-                        $('input[name="status"]').val(0);
-                        toastr.error("Account has been disabled");
+                        $.varien.account.detail.switch(0, () => {
+                            toastr.error("Account has been disabled");
+                            $('input[name="status"]').val(0);
+                        });
                     }
                 });
                 $('#formReset').on('click', function() {
@@ -423,7 +499,7 @@ $.varien = {
                             dataType: "html",
                             data: "customer_id=" + customer_id,
                             success: function() {
-                                toastr.success("The customer is paired with the account");
+                                toastr.success("Customer is matched with the account");
                                 $.varien.account.detail.listMatch();
                                 $.varien.account.detail.datatable.listDisableMatch.reload();
                                 $.varien.account.detail.refreshMatchTotalBadge();
@@ -461,18 +537,17 @@ $.varien = {
                     }
                 });
             },
-            switch: function(status) {
+            switch: function(status, callback) {
                 $.ajax({
                     url: "account/status/" + $.varien.segment(3) + "/" + status,
                     type: "POST",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: () => callback()
                 });
             },
             datatable: {
                 init: function() {
-                    $('button#filtre').css("width", "130px");
-                    $('input#transactionDate').css("width", "210px");
                     $.table = new DataTable('#accountTransactions', {
                         bStateSave: false,
                         language: $.varien.datatable.locale(),
@@ -573,21 +648,24 @@ $.varien = {
             save: function() {
                 $("form#modalForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
+
+                    let saveData = new FormData(this);
+                    let accountNumber = saveData.get('account_number').replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
+                    saveData.set('account_number', accountNumber)
+
                     $.ajax({
                         url: "account/save",
                         type: "POST",
                         dataType: "html",
                         crossDomain: true,
-                        data: new FormData(this),
+                        data: saveData,
                         xhrFields: {
                             withCredentials: true
                         },
                         processData: false,
                         contentType: false,
-                        success: function(response) {
-                            toastr.success("Account updated");
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        success: () => toastr.success("Account updated"),
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -634,7 +712,7 @@ $.varien = {
                     $.table.search(this.value).draw();
                 });
                 $('[data-set="status-set-all"]').on('click', function() {
-                    var dataStatus = $(this).attr('data-status') == "on" ? "activated" : "disabled";
+                    var dataStatus = $(this).attr('data-status') == "on" ? "enabled" : "disabled";
                     var status = $(this).attr('data-status');
                     bootbox.confirm({
                         backdrop: true,
@@ -648,11 +726,10 @@ $.varien = {
                         },
                         callback: (result) => {
                             if (result == true) {
-                                $.varien.account.datatable.status(0, status);
-                                toastr.success("All accounts " + dataStatus + ".");
+                                $.varien.account.datatable.status(0, status, true);
                                 setTimeout(() => {
                                     $.table.ajax.reload();
-                                }, 500);
+                                }, 50);
                             }
                         }
                     });
@@ -665,23 +742,41 @@ $.varien = {
                         $('input[data-set="index"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.account.datatable.status($(this).attr("data-id"), "on");
-                                toastr.success("Account has been activated");
                             } else {
                                 $.varien.account.datatable.status($(this).attr("data-id"), 0);
-                                toastr.error("Account has been disabled");
                             }
                         });
                         $.varien.account.datatable.modal();
                         $.varien.account.datatable.remove();
-                    }, 300);
+                    }, 50);
                 });
             },
-            status: function(id, status) {
+            status: function(id, status, bulk = false) {
                 $.ajax({
                     url: "account/status/" + id + "/" + status + "/" + $.varien.segment(3),
                     type: "POST",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: function() {
+                        if (bulk) {
+                            if(status == "on") {
+                                toastr.success("All accounts are enabled");
+                            } else {
+                                toastr.error("All accounts are disabled");
+                            }
+
+                            return;
+                        }
+
+                        if(status == "on") {
+                            toastr.success("Account has been enabled");
+                        } else {
+                            toastr.error("Account has been disabled");
+                        }
+                    },
+                    error: function(jqXHR, errorThrown) {
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                    }
                 });
             },
             modal: function() {
@@ -707,11 +802,11 @@ $.varien = {
                         },
                         processData: false,
                         contentType: false,
-                        success: function(response) {
+                        success: function() {
                             $.table.ajax.reload();
                             $("#ajaxModal").modal('toggle');
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -749,17 +844,15 @@ $.varien = {
     },
     transaction: {
         init: function() {
-            $('button#filtre').css("width", "180px");
-            $('input#transactionDate').css("width", "210px");
             $(".modal-dialog").addClass("w-325px");
             $.varien.transaction.dateSelect();
-            $.drawer = KTDrawer.getInstance(document.querySelector("#drawer"));
-            $.drawer.on("kt.drawer.show", function() {
+            $.inspect = KTDrawer.getInstance(document.querySelector("#inspect-drawer"));
+            $.inspect.on("kt.drawer.show", function() {
                 if ($("#sync").is(":checked") == true) {
                     $("#sync").trigger("click");
                 }
             });
-            $.drawer.on("kt.drawer.hide", function() {
+            $.inspect.on("kt.drawer.hide", function() {
                 $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#detailsTab li:first-child a"));
                 $.bsFirstTab.show();
                 $.varien.transaction.datatable.reload();
@@ -769,8 +862,8 @@ $.varien = {
                     }
                 }
             });
-            const blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span> Please wait...</div>';
-            $.blockModalContent = new KTBlockUI(document.querySelector('#transactionForm'), { message: blockMessage });
+            $.blockMessage = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
+            $.blockModalContent = new KTBlockUI(document.querySelector('#transactionForm'), { message: $.blockMessage });
 
             if(document.getElementById('notification') === null) {
                 let element = document.createElement("audio");
@@ -788,6 +881,7 @@ $.varien = {
             });
 
             $.varien.transaction.datatable.rejectAll();
+            $.varien.transaction.accounts.init();
         },
         dateSelect: function() {
             $("#transactionDate").css("text-align", "center");
@@ -893,8 +987,9 @@ $.varien = {
                 });
                 $("#refresh").on("click", function(e) {
                     $.varien.eventControl(e);
-                    $.varien.transaction.datatable.reload();
-                    toastr.success("Transactions refreshed");
+                    $.varien.transaction.datatable.reload(() => {
+                        toastr.success("Transactions refreshed");
+                    });
                 });
                 $("[app-onchange-datatable-reload]").on("change input", function(e) {
                     $.varien.eventControl(e);
@@ -932,7 +1027,7 @@ $.varien = {
                 const totalWithdraw = parseInt(KTCookie.get('totalWithdraw'));
                 const prevTxns = $.varien.segment(3) === "deposit" ? totalDeposit : totalWithdraw;
 
-                if (prevTxns < currentTxns) {
+                if (prevTxns < currentTxns && $.varien.transaction.datatable.isToday()) {
                     if ($("#notifications").is(":checked") == true) {
                         document.getElementById('notification').muted = false;
                         document.getElementById("notification").loop = false;
@@ -946,12 +1041,13 @@ $.varien = {
                     KTCookie.set('totalWithdraw', currentTxns, {sameSite: 'None', secure: true});
                 }
             },
-            setNotifications: function(status) {
+            setNotifications: function(status, callback) {
                 $.ajax({
                     url: "transaction/notificationSound/" + status,
                     type: "GET",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: () => callback()
                 });
             },
             getNotifications: function() {
@@ -1053,11 +1149,13 @@ $.varien = {
             notification: function() {
                 $("#notifications").on("click", function() {
                     if ($(this).is(":checked") == true) {
-                        toastr.success("Notifications enabled");
-                        $.varien.transaction.datatable.setNotifications(1);
+                        $.varien.transaction.datatable.setNotifications(1, () => {
+                            toastr.success("Notifications enabled");
+                        });
                     } else {
-                        toastr.error("Notifications disabled");
-                        $.varien.transaction.datatable.setNotifications(0);
+                        $.varien.transaction.datatable.setNotifications(0, () => {
+                            toastr.error("Notifications disabled");
+                        });
                     }
                 });
             },
@@ -1077,8 +1175,9 @@ $.varien = {
                     }, 500);
                 });
             },
-            reload: function() {
-                $.table.ajax.reload();
+            reload: function(cb) {
+                if(cb) $.table.ajax.reload(cb);
+                else $.table.ajax.reload();
             },
             status: function(id, status) {
                 $.ajax({
@@ -1286,13 +1385,115 @@ $.varien = {
                                     type: 'POST',
                                     url: urlAjax,
                                     success: function() {
-                                        $.table.ajax.reload();
-                                        toastr.error("Account deleted");
+                                        $.table.ajax.reload(() => {
+                                            toastr.error("Account deleted");
+                                        });
                                     }
                                 });
                             }
                         }
                     });
+                });
+            }
+        },
+        accounts: {
+            init: function() {
+                // Define constants
+                $.accountsDrawer = KTDrawer.getInstance(document.querySelector("#accounts-drawer"));
+                $.blockManageAccounts = new KTBlockUI(document.querySelector("#accounts-drawer-card"), { message: $.blockMessage });
+
+                // When drawer starts opening
+                $.accountsDrawer.on("kt.drawer.show", function() {
+                    // Disable main datatable sync
+                    $("#sync").is(":checked") ? $("#sync").trigger("click") : null;
+
+                    // Fetch the data and append it to the drawer DOM
+                    $.varien.transaction.accounts.fetch();
+                });
+
+                // When drawer is completely hidden
+                $.accountsDrawer.on("kt.drawer.after.hidden", function() {
+                    // Clear DOM
+                    $('#accounts-drawer-body').empty();
+
+                    // Set default method as Papara again
+                    $('#methods').val(1).trigger('change');
+
+                    // Release UI if it's still blocked
+                    if($.blockManageAccounts.isBlocked()) $.blockManageAccounts.release();
+                });
+
+                // When selected payment method changes
+                $("#methods").on("change", function() {
+                    // Update 'View All' link
+                    $('#view-all-link').attr("href", '/account/index/' + $(this).val());
+
+                    // Fetch data and append the result to the DOM
+                    $.varien.transaction.accounts.fetch();
+                });
+
+                // Search accounts
+                let delayTimer;
+                $('#search-accounts').on('input', function() {
+                    let val = this.value;
+                    clearTimeout(delayTimer);
+                    delayTimer = setTimeout(function() {
+                        if(val.length == 0) {
+                            $.varien.transaction.accounts.fetch();
+                        } else {
+                            $.varien.transaction.accounts.fetch(val);
+                        }
+                    }, 500);
+                });
+            },
+            fetch: (searchValue = null) => {
+                $.blockManageAccounts.block();
+                $.ajax({
+                    url: "transaction/accounts",
+                    type: "POST",
+                    dataType: "html",
+                    data: {
+                        "search" : searchValue,
+                        "method" : $('#methods').val()
+                    },
+                    success: function(data) {
+                        $.blockManageAccounts.release();
+                        $('#accounts-drawer-body').empty().append(data);
+                        $.varien.transaction.accounts.onLoad();
+                    },
+                    error: function(jqXHR, errorThrown) {
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                    }
+                });
+            },
+            onLoad: () => {
+                // When switch element changes
+                $('[name=account-switch]').on("change", function(e) {
+                    $.dataAccountId =$(this).attr('data-id');
+
+                    if ($(this).is(":checked") == true) {
+                        $.varien.transaction.accounts.switch($.dataAccountId, "on");
+                    } else {
+                        $.varien.transaction.accounts.switch($.dataAccountId, 0);
+                    }
+                });
+            },
+            switch: (id, status) => {
+                $.ajax({
+                    url: "account/status/" + id + "/" + status + "/" + $('#methods').val(),
+                    type: "POST",
+                    dataType: "html",
+                    cache: false,
+                    success: function() {
+                        if(status == "on") {
+                            toastr.success("Account has been enabled");
+                        } else {
+                            toastr.error("Account has been disabled");
+                        }
+                    },
+                    error: function(jqXHR, errorThrown) {
+                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                    }
                 });
             }
         }
@@ -1351,12 +1552,10 @@ $.varien = {
                 },
                 onLoad: function() {
                     $.table.on('draw', function() {
-                        setTimeout(function() {
-                            $.varien.datatable.exportEvents();
-                            $("tbody td:nth-child(3)").addClass('text-end');
-                            $.varien.user.role.datatable.modal();
-                            $.varien.user.role.datatable.remove();
-                        }, 300);
+                        $.varien.datatable.exportEvents();
+                        $("tbody td:nth-child(3)").addClass('text-end');
+                        $.varien.user.role.datatable.modal();
+                        $.varien.user.role.datatable.remove();
                     });
                 },
                 modal: function() {
@@ -1387,7 +1586,7 @@ $.varien = {
                                 $("#ajaxModal").modal('toggle');
                                 toastr.success("Roles updated");
                             },
-                            error: function(jqXHR, textStatus, errorThrown) {
+                            error: function(jqXHR, errorThrown) {
                                 toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                             }
                         });
@@ -1412,8 +1611,8 @@ $.varien = {
                                         type: 'POST',
                                         url: "user/removeRole/" + id,
                                         success: function() {
-                                            $.table.ajax.reload();
                                             toastr.error("Role deleted");
+                                            $.table.ajax.reload();
                                         }
                                     });
                                 }
@@ -1540,7 +1739,7 @@ $.varien = {
                                         $.varien.user.detail.twoFA.set2fa().then(response => {
                                             if (response == 200) {
                                                 $.varien.modal.event.toggle();
-                                                toastr.success("2-Step verification has been successfully activated");
+                                                toastr.success("2-Step verification has been successfully enabled");
                                                 $.wait(3000).then(() => {
                                                     location.reload();
                                                 });
@@ -1817,6 +2016,7 @@ $.varien = {
                     $.varien.datatable.exportEvents();
                     $.varien.user.datatable.modal();
                     $.varien.user.datatable.remove();
+                    $("tbody td:nth-child(6)").addClass('text-center');
                 });
             },
             modal: function() {
@@ -1871,7 +2071,7 @@ $.varien = {
                                     $("#ajaxModal").modal('toggle');
                                     toastr.success("User created");
                                 },
-                                error: function(jqXHR, textStatus, errorThrown) {
+                                error: function(jqXHR, errorThrown) {
                                     toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                                 }
                             });
@@ -1936,7 +2136,7 @@ $.varien = {
                         $("#selectClient").append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
                     });
                 },
-                error: function(jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, errorThrown) {
                     toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                 }
             });
@@ -2002,21 +2202,22 @@ $.varien = {
                     url: "customer/switch/" + id + "/" + name + "/" + status,
                     type: "POST",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: () => {
+                        if (name == "deposit" && status == "on")
+                            toastr.success("Customer has been allowed to deposit");
+                        if (name == "deposit" && status == 0)
+                            toastr.error("Customer's deposit permission has been revoked");
+                        if (name == "withdraw" && status == "on")
+                            toastr.success("Customer has been allowed to withdraw");
+                        if (name == "withdraw" && status == 0)
+                            toastr.error("Customer's withdraw permission has been revoked");
+                        if (name == "isVip" && status == "on")
+                            toastr.success("Customer has been made VIP");
+                        if (name == "isVip" && status == 0)
+                            toastr.error("Customer is no longer VIP");
+                    }
                 });
-
-                if (name == "deposit" && status == "on")
-                    toastr.success("Customer has been allowed to deposit");
-                if (name == "deposit" && status == 0)
-                    toastr.error("Customer's deposit permission has been revoked");
-                if (name == "withdraw" && status == "on")
-                    toastr.success("Customer has been allowed to withdraw");
-                if (name == "withdraw" && status == 0)
-                    toastr.error("Customer's withdraw permission has been revoked");
-                if (name == "isVip" && status == "on")
-                    toastr.success("Customer has been made VIP");
-                if (name == "isVip" && status == 0)
-                    toastr.error("Customer is no longer VIP");
             },
             reload: function() {
                 $.table.ajax.reload();
@@ -2046,7 +2247,7 @@ $.varien = {
                             $.table.ajax.reload();
                             $("#ajaxModal").modal('toggle');
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -2077,7 +2278,7 @@ $.varien = {
                         success: function() {
                             toastr.success("Customer note updated");
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -2135,7 +2336,7 @@ $.varien = {
                 reload: function() {
                     $.table.ajax.reload();
                 },
-                onLoad: function(colNum) {
+                onLoad: function() {
                     $.table.on('draw', function() {
                         $.varien.datatable.exportEvents();
                         $("tbody td:nth-child(7)").addClass('text-end');
@@ -2390,20 +2591,20 @@ $.varien = {
             }
         }
     },
-    setting: {
+    settings: {
         init: function() {
             $('[id="updateSetting"]').on('click', function(e) {
                 $('[name="maintenanceStatus"]').closest("form").attr('id');
                 var formId = $(this).attr("data-form-id");
-                $.varien.setting.submit(formId);
+                $.varien.settings.submit(formId);
                 $("form#" + formId).submit();
             });
             $('input[data-set="statusSwitch"]').on('change', function() {
                 var elm = $(this);
                 var formId = $('input[name="' + $(this).attr('name') + '"]').closest("form").attr('id');
                 if ($(this).attr("name") != "maintenanceStatus") {
-                    $.varien.setting.switch($(this));
-                    $.varien.setting.submitStatus(formId, $(this).attr('name'));
+                    $.varien.settings.switch($(this));
+                    $.varien.settings.submitStatus(formId, $(this).attr('name'));
                     $("form#" + formId).submit();
                 } else {
                     if ($(this).is(":checked") == true) {
@@ -2420,8 +2621,8 @@ $.varien = {
                             callback: (result) => {
                                 if (result == true) {
                                     KTCookie.set('cancel', 0, {sameSite: 'None', secure: true});
-                                    $.varien.setting.switch(elm);
-                                    $.varien.setting.submitStatus(formId, elm.attr('name'));
+                                    $.varien.settings.switch(elm);
+                                    $.varien.settings.submitStatus(formId, elm.attr('name'));
                                     $("form#" + formId).submit();
                                 } else {
                                     KTCookie.set('cancel', 1, {sameSite: 'None', secure: true});
@@ -2431,8 +2632,8 @@ $.varien = {
                         });
                     } else {
                         if (KTCookie.get('cancel') != 1) {
-                            $.varien.setting.switch(elm);
-                            $.varien.setting.submitStatus(formId, elm.attr('name'));
+                            $.varien.settings.switch(elm);
+                            $.varien.settings.submitStatus(formId, elm.attr('name'));
                             $("form#" + formId).submit();
                         }
                         KTCookie.set('cancel', 0, {sameSite: 'None', secure: true});
@@ -2448,7 +2649,10 @@ $.varien = {
                     $(this).val('').trigger('change');
                 });
             });
-            $.varien.setting.client.init();
+            $('input[id="checkShowAll"]').on('change', function() {
+                $.varien.settings.client.reload();
+            });
+            $.varien.settings.client.init();
         },
         switch: function(elm) {
             if (elm.is(":checked") == true) {
@@ -2462,7 +2666,7 @@ $.varien = {
                 $.varien.eventControl(e);
                 var formData = new FormData(this);
                 $.ajax({
-                    url: "setting/update",
+                    url: "settings/update",
                     type: "POST",
                     dataType: "html",
                     crossDomain: true,
@@ -2475,7 +2679,7 @@ $.varien = {
                     success: function() {
                         toastr.success("Settings updated");
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
@@ -2485,7 +2689,7 @@ $.varien = {
             $("form#" + formId).on('submit', (function(e) {
                 $.varien.eventControl(e);
                 $.ajax({
-                    url: "setting/update",
+                    url: "settings/update",
                     type: "POST",
                     dataType: "html",
                     crossDomain: true,
@@ -2494,7 +2698,7 @@ $.varien = {
                         toastr.success("Settings updated");
                         if (name == "maintenanceStatus") location.reload();
                     },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
@@ -2503,6 +2707,7 @@ $.varien = {
         client: {
             init: function() {
                 if ($.resource.edit_firm != 1 && $.resource.delete_firm != 1) $.noVisibleCols = [$("thead tr th").length - 1];
+
                 $.table = new DataTable('#datatableClient', {
                     language: $.varien.datatable.locale(),
                     dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
@@ -2526,37 +2731,39 @@ $.varien = {
                     ajax: {
                         url: 'client/datatable',
                         type: 'POST',
-                        data: function(d) {}
+                        data: function (data) {
+                            return Object.assign(data, { 'status' : $('#checkShowAll')[0].checked });
+                        }
                     }
                 });
-                $.varien.setting.client.onLoad();
+                $.varien.settings.client.onLoad();
                 $('#search').on('keyup', function() {
                     $.table.search(this.value).draw();
                 });
                 $('#datatableReload').on('click', function() {
-                    $.varien.setting.client.reload();
+                    $.varien.settings.client.reload();
                 });
                 $('#datatableReset').on('click', function() {
-                    $.varien.setting.client.reset();
+                    $.varien.settings.client.reset();
                 });
             },
             onLoad: function() {
                 $.table.on('draw', function() {
-                    setTimeout(function() {
-                        $.varien.datatable.exportEvents();
-                        $.varien.setting.client.modal();
-                        $.varien.setting.client.remove();
-                        $("tbody td:nth-child(6)").addClass('text-end');
-                        $('input[data-set="switch"]').on("change", function() {
-                            if ($(this).is(":checked") == true) {
-                                $.varien.setting.client.switch($(this).attr("name"), $(this).attr("data-id"), "on");
+                    $.varien.datatable.exportEvents();
+                    $.varien.settings.client.modal();
+                    $.varien.settings.client.remove();
+                    $("tbody td:nth-child(6)").addClass('text-end');
+                    $('input[data-set="switch"]').on("change", function() {
+                        if ($(this).is(":checked") == true) {
+                            $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), "on", () => {
                                 toastr.success("The firm has been authorized to perform transactions");
-                            } else {
-                                $.varien.setting.client.switch($(this).attr("name"), $(this).attr("data-id"), 0);
+                            });
+                        } else {
+                            $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), 0, () => {
                                 toastr.error("Firm's authorization has been revoked");
-                            }
-                        });
-                    }, 300);
+                            });
+                        }
+                    });
                 });
             },
             modal: function() {
@@ -2565,7 +2772,7 @@ $.varien = {
                     if (id != "0") {
                         $('[data-title]').html("Edit Firm");
                         $('#generateKey').html("Generate");
-                        $.varien.setting.client.detail(id);
+                        $.varien.settings.client.detail(id);
                     } else {
                         $('[name="id"]').val(0);
                         $('[name="site_name"]').val("");
@@ -2590,9 +2797,9 @@ $.varien = {
                             $('[id="modalStatus"]').val("").change();
                         }, 300);
                     });
-                    $.varien.setting.client.save(id);
+                    $.varien.settings.client.save(id);
                     $('#generateKey').on('click', function() {
-                        $('[name="api_key"]').val($.varien.setting.client.generateKey());
+                        $('[name="api_key"]').val($.varien.settings.client.generateKey());
                     });
                 });
             },
@@ -2612,12 +2819,13 @@ $.varien = {
                     }
                 });
             },
-            switch: function(name, id, status) {
+            switch: function(name, id, status, callback) {
                 $.ajax({
                     url: "client/switch/" + id + "/" + name + "/" + status,
                     type: "POST",
                     dataType: "html",
-                    cache: false
+                    cache: false,
+                    success: () => callback()
                 });
             },
             reload: function() {
@@ -2691,7 +2899,7 @@ $.varien = {
                             toastr.success("Firm's data has been updated");
                             return false;
                         },
-                        error: function(jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });

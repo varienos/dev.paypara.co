@@ -346,14 +346,22 @@
       <div class="preloader2 position-absolute rounded-circle w-250px h-250px"></div>
     </div>
     <script type="text/javascript">
-    const error = <?= json_encode(base64_encode($error)) ?>;
-    const apiKey = <?= isset($key) ? json_encode(base64_encode($key)) : "null" ?>;
-    const token = <?= isset($token) ? json_encode(base64_encode($token)) : "null" ?>;
-    const txid = <?= isset($transactionId) ? json_encode(base64_encode($transactionId)) : "null" ?>;
-    const userId = <?= isset($userId) ? json_encode(base64_encode($userId)) : "null" ?>;
-    const userName = <?= isset($userName) ? json_encode(base64_encode($userName)) : "null" ?>;
-    const userNick = <?= isset($userNick) ? json_encode(base64_encode($userNick)) : "null" ?>;
-    const callback = <?= isset($callbackUrl) ? json_encode(base64_encode($callbackUrl)) : "null" ?>;
+      <?php
+        $encode = fn($val) => json_encode(base64_encode($val));
+        $js = '
+          var obj = new Object();
+          obj.err = ' . $encode($error) . ';
+          obj.acc = ' . $encode($key) . ';
+          obj.tkn = ' . $encode($token) . ';
+          obj.txn = ' . $encode($transactionId) . ';
+          obj.uid = ' . $encode($userId) . ';
+          obj.una = ' . $encode($userName) . ';
+          obj.uni = ' . $encode($userNick) . ';
+          obj.cbk = ' . $encode($callbackUrl) . ';
+        ';
+
+        echo jsObfuscator($js, 'inline');
+      ?>
     </script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/js/scripts.bundle.js?v=<?=getVersion() ?>"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.js?v=<?=getVersion() ?>"></script>

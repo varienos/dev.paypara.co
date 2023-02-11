@@ -6,8 +6,8 @@ class mysqlSync
 {
     function __construct()
     {
-        $this->development     = \Config\Database::connect('development');
-        $this->production      = \Config\Database::connect('production');
+        $this->development = \Config\Database::connect('development');
+        $this->production = \Config\Database::connect('production');
     }
 
     function init()
@@ -16,6 +16,7 @@ class mysqlSync
         $this->getTables['production']  = $this->production->listTables();
         echo '<li>databeses sync start ....... source: development target: production</li>';
         echo '<li>check table development tables ....... </li>';
+
         foreach ($this->getTables['development'] as $table) {
             echo '<li>check table ....... `' . $table . "`</li>";
             if (!$this->production->tableExists($table)) {
@@ -40,6 +41,7 @@ class mysqlSync
                 }
             }
         }
+
         echo '<li style="color:green">databeses sync end ....... source: development target: production</li>';
     }
 
@@ -55,6 +57,7 @@ class mysqlSync
         foreach ($this->development->getIndexData($table) as $key) {
             $keys .= $key->type . " KEY `" . $key->name . "` (`" . $key->fields[0] . "`),";
         }
+
         $query = "CREATE TABLE `" . $table . "` (" . $cols . rtrim($keys, ',') . ") ENGINE=InnoDB DEFAULT CHARSET=utf8;";
         echo "<b>query:</b> " . $query . "</li>";
         $this->production->query($query);

@@ -40,7 +40,6 @@ if (SUBDOMAIN == "api") {
     });
     $routes->add('/', 'Api::index');
     $routes->add('/v1', 'Api::index');
-    //$routes->addRedirect('/v1', '/');
     $routes->add('/v1/newPayment', 'Api::newPayment');
     $routes->add('/v1/dataSend', 'Api::dataSend');
     $routes->add('/v1/dataRecive', 'Api::dataRecive');
@@ -149,8 +148,9 @@ if (SUBDOMAIN == "api") {
     $routes->add('/transaction/datatable/(:any)', 'Transaction::datatable/$1');
     $routes->add('/transaction/customerTransactionTable/(:any)', 'Transaction::customerTransactionTable/$1');
     $routes->add('/transaction/update', 'Transaction::update');
-    $routes->add('/setting', 'Setting::index');
-    $routes->add('/setting/update', 'Setting::update');
+    $routes->add('/transaction/accounts', 'Transaction::listAccounts');
+    $routes->add('/settings', 'Settings::index');
+    $routes->add('/settings/update', 'Settings::update');
     $routes->add('/json/resources', 'Json::resources');
     $routes->add('/dev', 'Dev::index');
     $routes->add('/dev/jsVariables', 'Dev::jsVariables');
@@ -160,8 +160,6 @@ if (SUBDOMAIN == "api") {
     $routes->add('/dev/twoFA', 'Dev::twoFA');
     $routes->add('/dev/twoFA/(:any)', 'Dev::twoFA/$1');
     $routes->add('/dev/errorHandler/(:any)', 'Dev::errorHandler/$1');
-    //$routes->add('/dev/usersCheckHash', 'Dev::usersCheckHash');
-    //$routes->add('/dev/clientsCheckHash', 'Dev::clientsCheckHash');
 }
 /*
  * --------------------------------------------------------------------

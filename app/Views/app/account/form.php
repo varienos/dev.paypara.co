@@ -42,7 +42,7 @@
       <div id="kt_modal_add_customer_billing_info" class="collapse">
         <div class="mb-7">
           <div class="d-flex flex-unset align-items-center">
-            <div class="me-5"><label class="fs-6 fw-semibold">Activate the account?</label></div>
+            <div class="me-5"><label class="fs-6 fw-semibold">Enable account now?</label></div>
             <label class="form-check form-switch form-check-custom form-check-solid">
               <input class="form-check-input" name="status" type="checkbox" value="on" <? if($update->status=='on') echo "checked"; ?> id="kt_modal_add_customer_billing">
               <span class="form-check-label fw-semibold" for="kt_modal_add_customer_billing">Yes</span>
@@ -51,7 +51,7 @@
         </div>
         <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Deposit Limit</label>
-          <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified deposit limit</div>
+          <div class="fs-7 fw-semibold text-muted mb-2">Account will be disabled at the stated deposit limit.</div>
           <div class="input-group input-group-solid border">
             <span class="input-group-text">₺</span>
             <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" aria-label="Miktar" />
@@ -59,7 +59,7 @@
         </div>
         <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
-          <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
+          <div class="fs-7 fw-semibold text-muted mb-2">Account will be disabled at the stated transaction limit.</div>
           <div class="input-group input-group-solid border">
             <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" max="1000" maxlength="5" aria-label="Miktar" />
             <span class="input-group-text">transactions</span>
@@ -108,7 +108,7 @@
         <div class="mb-7">
           <div class="d-flex flex-unset align-items-center">
             <div class="me-5">
-              <label class="fs-6 fw-semibold">Activate the account?</label>
+              <label class="fs-6 fw-semibold">Enable account now?</label>
             </div>
             <label class="form-check form-switch form-check-custom form-check-solid">
               <input class="form-check-input" name="status" type="checkbox" value="on" <? if($update->status=='on') echo "checked"; ?> id="kt_modal_add_customer_billing">
@@ -125,7 +125,7 @@
         </div>
         <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Deposit Limit</label>
-          <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified deposit limit</div>
+          <div class="fs-7 fw-semibold text-muted mb-2">Account will be disabled at the stated deposit limit.</div>
           <div class="input-group input-group-solid border">
             <span class="input-group-text">₺</span>
             <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" aria-label="Miktar" />
@@ -134,7 +134,7 @@
         </div>
         <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
-          <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
+          <div class="fs-7 fw-semibold text-muted mb-2">Account will be disabled at the stated transaction limit.</div>
           <div class="input-group input-group-solid border">
             <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" max="1000" maxlength="5" aria-label="Miktar" />
             <span class="input-group-text">transactions</span>
@@ -192,7 +192,7 @@
         <div class="mb-7">
           <div class="d-flex flex-unset align-items-center">
             <div class="me-5">
-              <label class="fs-6 fw-semibold">Activate the account?</label>
+              <label class="fs-6 fw-semibold">Enable account now?</label>
             </div>
             <label class="form-check form-switch form-check-custom form-check-solid">
               <input class="form-check-input" name="status" type="checkbox" value="on" <? if($update->status=='on') echo "checked"; ?> id="kt_modal_add_customer_billing">
@@ -202,7 +202,7 @@
         </div>
         <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Deposit Limit</label>
-          <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified deposit limit</div>
+          <div class="fs-7 fw-semibold text-muted mb-2">Account will be disabled at the stated deposit limit.</div>
           <div class="input-group input-group-solid border">
             <span class="input-group-text">₺</span>
             <input type="text" class="form-control" value="<?=$update->limitDeposit=="" ? 1000000 : $update->limitDeposit ?>" name="limitDeposit" aria-label="Miktar" />
@@ -210,7 +210,7 @@
         </div>
         <div class="d-flex flex-column mb-7">
           <label class="required fs-6 fw-semibold mb-2">Monthly Transaction Limit</label>
-          <div class="fs-7 fw-semibold text-muted mb-2">Account is deactivated at the specified transactions</div>
+          <div class="fs-7 fw-semibold text-muted mb-2">Account will be disabled at the stated transaction limit.</div>
           <div class="input-group input-group-solid border">
             <input type="text" class="form-control" value="<?=$update->limitProcess=="" ? 1000 : $update->limitProcess ?>" name="limitProcess" max="1000" maxlength="5" aria-label="Miktar" />
             <span class="input-group-text">transactions</span>

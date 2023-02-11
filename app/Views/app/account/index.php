@@ -51,13 +51,13 @@
                           <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
                         </svg>
                       </span>
-                      <input type="text" data-kt-customer-table-filter="search" id="search" class="form-control form-control-solid border border-1 w-100 w-md-250px ps-15" placeholder="Search accounts" />
+                      <input type="text" id="search" class="form-control form-control-solid border border-1 w-100 w-md-250px ps-15" placeholder="Search accounts" />
                     </div>
                   </div>
                   <div class="card-toolbar w-100 w-md-auto">
                     <div class="d-flex flex-center flex-md-end flex-wrap gap-3 w-100">
                       <form id="formFilter">
-                        <select class="form-select form-select-solid border border-1" id="accountStatus" data-control="select2" data-hide-search="true" data-placeholder="Status" data-kt-ecommerce-order-filter="status">
+                        <select class="form-select form-select-solid border border-1" id="accountStatus" data-control="select2" data-hide-search="true" data-placeholder="Status">
                           <option></option>
                           <option value="status::all">All</option>
                           <option value="status::on">Active</option>
@@ -78,10 +78,10 @@
                           </div>
                         </div>
                         <div class="menu-item px-5 my-1">
-                          <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Activate all</a>
+                          <a href="javascript:" class="menu-link text-success px-5" data-set="status-set-all" data-status="on">Enable all</a>
                         </div>
                         <div class="menu-item px-5">
-                          <a href="javascript:" class="menu-link text-danger px-5" data-set="status-set-all" data-status="0">Deactivate all</a>
+                          <a href="javascript:" class="menu-link text-danger px-5" data-set="status-set-all" data-status="0">Disable all</a>
                         </div>
                       </div>
                       <? endif ?>

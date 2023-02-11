@@ -6,29 +6,32 @@ use CodeIgniter\Model;
 
 class SecureModel extends Model
 {
-    protected $table            = 'root';
-    protected $primaryKey       = 'id';
-    protected $returnType       = 'object';
-    protected $useSoftDeletes   = true;
-    protected $allowedFields    = ['id', 'user_mail', 'user_pass', 'user_nick'];
-    protected $useTimestamps    = false;
-    protected $createdField     = 'created_at';
-    protected $updatedField     = 'updated_at';
-    protected $deletedField     = 'deleted_at';
+    protected $table              = 'root';
+    protected $primaryKey         = 'id';
+    protected $returnType         = 'object';
+    protected $useSoftDeletes     = true;
+    protected $allowedFields      = ['id', 'user_mail', 'user_pass', 'user_nick'];
+    protected $useTimestamps      = false;
+    protected $createdField       = 'created_at';
+    protected $updatedField       = 'updated_at';
+    protected $deletedField       = 'deleted_at';
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = true;
+
     function __construct()
     {
-        $this->session             = \Config\Services::session();
-        $this->db                  = \Config\Database::connect();
-        $this->request          = \Config\Services::request();
-        $this->agent            = $this->request->getUserAgent();
-        $this->sql              = $this->db->table('root');
-        $this->setting             = new \App\Models\SettingModel();
-        $this->error              = new \App\Libraries\Error();
+        $this->session  = \Config\Services::session();
+        $this->db       = \Config\Database::connect();
+        $this->request  = \Config\Services::request();
+        $this->agent    = $this->request->getUserAgent();
+        $this->sql      = $this->db->table('root');
+        $this->settings = new \App\Models\SettingsModel();
+        $this->error    = new \App\Libraries\Error();
+
         helper("app");
     }
+
     public function security($status = true)
     {
         if (!$status) {
@@ -79,10 +82,12 @@ class SecureModel extends Model
             return true;
         }
     }
+
     public function sessionTimeout()
     {
         return (60 * 60);
     }
+
     public function stateAuth($defined)
     {
         if ($defined !== true) {
@@ -90,34 +95,40 @@ class SecureModel extends Model
             die();
         }
     }
+
     public function getToken()
     {
         return md5($this->request->getHeaderLine('Cf-Ipcity') . $this->request->getHeaderLine('Cf-Ipcountry') . getClientIpAddress() . date("Y-m-d") . $this->session->get("userId") . $this->agent->getBrowser() . $this->agent->getAgentString() . $this->agent->getPlatform() . $this->agent->getVersion());
     }
+
     public function log($id)
     {
         helper("app");
-        $token = md5($this->request->getHeaderLine('Cf-Ipcity') . $this->request->getHeaderLine('Cf-Ipcountry') . getClientIpAddress() . date("Y-m-d") . $id . $this->agent->getBrowser() . $this->agent->getAgentString() . $this->agent->getPlatform() . $this->agent->getVersion());
+        $token = md5($this->request->getHeaderLine('Cf-Ipcity') . $this->request->getHeaderLine('Cf-Ipcountry') . getClientIpAddress() . date("Y-m-d") . $id .
+
+        $this->agent->getBrowser() . $this->agent->getAgentString() . $this->agent->getPlatform() . $this->agent->getVersion());
         $this->session->set('token', $token, $this->sessionTimeout());
+
         $this->db->query("insert into log_user_login set
-        user_id='" . $id . "',
-        city='" . $this->request->getHeaderLine('Cf-Ipcity') . "',
-        country='" . $this->request->getHeaderLine('Cf-Ipcountry') . "',
-        latitude='" . $this->request->getHeaderLine('Cf-Iplatitude') . "',
-        longitude='" . $this->request->getHeaderLine('Cf-Iplongitude') . "',
-        ip='" . getClientIpAddress() . "',
-        sessionId='" . $this->session->get('ci_session') . "',
-        token='" . $token . "',
-        `browser`='" . $this->agent->getBrowser() . "',
-        `agentString`='" . $this->agent->getAgentString() . "',
-        `platform`='" . $this->agent->getPlatform() . "',
-        `isMobil`='" . $this->agent->getMobile() . "',
-        `browserVersion`='" . $this->agent->getVersion() . "',
-        `loginTime`=NOW(),
-        `lastActivitiy`=NOW(),
-        dataHeader = " . $this->db->escape(json_encode(getallheaders(), JSON_UNESCAPED_UNICODE)) . "
+            user_id='" . $id . "',
+            city='" . $this->request->getHeaderLine('Cf-Ipcity') . "',
+            country='" . $this->request->getHeaderLine('Cf-Ipcountry') . "',
+            latitude='" . $this->request->getHeaderLine('Cf-Iplatitude') . "',
+            longitude='" . $this->request->getHeaderLine('Cf-Iplongitude') . "',
+            ip='" . getClientIpAddress() . "',
+            sessionId='" . $this->session->get('ci_session') . "',
+            token='" . $token . "',
+            `browser`='" . $this->agent->getBrowser() . "',
+            `agentString`='" . $this->agent->getAgentString() . "',
+            `platform`='" . $this->agent->getPlatform() . "',
+            `isMobil`='" . $this->agent->getMobile() . "',
+            `browserVersion`='" . $this->agent->getVersion() . "',
+            `loginTime`=NOW(),
+            `lastActivitiy`=NOW(),
+            dataHeader = " . $this->db->escape(json_encode(getallheaders(), JSON_UNESCAPED_UNICODE)) . "
         ");
     }
+
     public function auth()
     {
         $data = $this->sql->where('user_mail', $this->request->getVar('x'))->where('user_pass', md5(trim($this->request->getVar('y'))))->get()->getRow();
@@ -141,6 +152,7 @@ class SecureModel extends Model
             } catch (\CodeIgniter\UnknownFileException $e) {
                 throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
             }
+
             if ($this->sql->set(
                     array(
                         'user_last_login'   => date('Y-m-d H:i:s'),
@@ -155,13 +167,14 @@ class SecureModel extends Model
             }
         } else {
             $user  = $this->db->query("select * from user where email='" . $this->request->getVar('x') . "' and user_pass_hash='" . md5($this->request->getVar('y')) . "' and status='on' and isDelete='0'")->getRow();
-            //echo ("select * from user where email='".$this->request->getVar('x')."' and user_pass='".$this->request->getVar('y')."' and status='on' and isDelete='0'");
-            //exit;
+
             if ($user->id > 0) {
-                $this->db->query("update user set
-                user_last_login=NOW(),
-                user_ip='" . getClientIpAddress() . "'
-                where id='" . $user->id . "'");
+                $this->db->query("
+                    update user set
+                    user_last_login=NOW(),
+                    user_ip='" . getClientIpAddress() . "'
+                    where id='" . $user->id . "'"
+                );
 
                 $this->session->set(md5(getClientIpAddress() . $user->id), $user->id, $this->sessionTimeout());
                 $this->session->set('primeId', $user->id, $this->sessionTimeout());
@@ -177,6 +190,7 @@ class SecureModel extends Model
                 $this->session->set('notificationSound', ($user->notificationSound), $this->sessionTimeout());
                 $this->session->set('role', getRoleName($user->role_id), $this->sessionTimeout());
                 $this->log($user->id);
+
                 return json_encode(array('status' => true, 'url' => 'dashboard', 'is2fa' => $user->is2fa, 'secret2fa' => $user->secret2fa));
             }
 

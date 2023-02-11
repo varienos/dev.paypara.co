@@ -114,14 +114,14 @@ function validateStatus() {
     return;
   }
 
-  const errorResponse = atob(error) === "null" ? null : JSON.parse(atob(error));
+  const errorResponse = atob(obj.err) === '' ? null : JSON.parse(atob(obj.err));
   if (errorResponse != null) {
     switch (errorResponse.id) {
       case 12:
         stepPendingTX.classList.replace("d-none", "d-block");
         exitBtn.classList.replace("d-none", "d-inline-block");
         break;
-      case 11: case 409: case 410: case 419:
+      case 11: case 27: case 409: case 410: case 419:
         headerElement.innerHTML = "Hoşgeldin";
         descriptionElement.classList.add('d-none');
         stepApiStatus.classList.replace("d-none", "d-block");
@@ -168,7 +168,7 @@ function generateQR(accountNumber, amount, clear = false) {
   try {
     if (clear) qrCode.clear();
     qrCode.makeCode("https://www.papara.com/personal/qr?accountNumber=" + accountNumber + "&currency=0&amount=" + amount);
-  } catch {}
+  } catch { }
 }
 
 function startTimer(display, duration, activeStep) {
@@ -256,14 +256,14 @@ function goNextStep() {
 let requestId = null;
 async function getAccount(url, reload = false) {
   let data = new FormData();
-  data.append("apiKey", atob(apiKey));
-  data.append("token", atob(token));
+  data.append("apiKey", atob(obj.acc));
+  data.append("token", atob(obj.tkn));
   data.append("amount", currencyMask.unmaskedValue);
-  data.append("transactionId", atob(txid));
-  data.append("userId", atob(userId));
-  data.append("userName", atob(userName));
-  data.append("userNick", atob(userNick));
-  data.append("callback", atob(callback));
+  data.append("transactionId", atob(obj.txn));
+  data.append("userId", atob(obj.uid));
+  data.append("userName", atob(obj.una));
+  data.append("userNick", atob(obj.uni));
+  data.append("callback", atob(obj.cbk));
   if (reload) data.append("action", "reload");
 
   try {
@@ -280,7 +280,7 @@ async function getAccount(url, reload = false) {
 
 async function approveTransaction(url) {
   try {
-    url += "/" + atob(apiKey) + "/" + requestId;
+    url += "/" + atob(obj.acc) + "/" + requestId;
     const response = await fetch(url, { method: 'GET' });
     const result = await response.json();
 

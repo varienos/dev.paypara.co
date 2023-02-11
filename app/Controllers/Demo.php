@@ -8,10 +8,12 @@ class Demo extends BaseController
     {
         $this->api = new \App\Models\ApiModel();
     }
+
     public function index()
     {
         return view('demo/index');
     }
+
     public function papara($token)
     {
         return view('demo/iframe', $this->api->newIframe($token));

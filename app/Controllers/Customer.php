@@ -12,33 +12,37 @@ class Customer extends BaseController
     public function save($col, $id)
     {
         $this->db->query('update site_gamer set ' . $col . '=' . $this->db->escape($this->request->getVar('customerNote')) . " where id='" . $id . "'");
+
         $this->db->query("insert into logSys set
-		`method`	='customer/save',
-		`user_id`	='" . $this->session->get('primeId') . "',
-		`data_id`	='" . $id . "',
-		`dataNew`	=" . $this->db->escape($status . ' - ' . $col) . ",
-		`timestamp` =NOW(),
-		`ip` 		='" . getClientIpAddress() . "'
+            `method`	='customer/save',
+            `user_id`	='" . $this->session->get('primeId') . "',
+            `data_id`	='" . $id . "',
+            `dataNew`	=" . $this->db->escape($status . ' - ' . $col) . ",
+            `timestamp` =NOW(),
+            `ip` 		='" . getClientIpAddress() . "'
 		");
     }
 
     public function switch($id, $col, $status)
     {
         $this->SecureModel->stateAuth(edit_customer);
+
         $this->db->query('update site_gamer set ' . $col . "='" . $status . "' where id='" . $id . "'");
+
         $this->db->query("insert into logSys set
-		`method`	='customer/switch',
-		`user_id`	='" . $this->session->get('primeId') . "',
-		`data_id`	='" . $id . "',
-		`dataNew`	=" . $this->db->escape($status . ' - ' . $col) . ",
-		`timestamp` =NOW(),
-		`ip` 		='" . getClientIpAddress() . "'
+            `method`	='customer/switch',
+            `user_id`	='" . $this->session->get('primeId') . "',
+            `data_id`	='" . $id . "',
+            `dataNew`	=" . $this->db->escape($status . ' - ' . $col) . ",
+            `timestamp` =NOW(),
+            `ip` 		='" . getClientIpAddress() . "'
 		");
     }
 
     public function index()
     {
         $this->SecureModel->stateAuth(view_customer);
+
         echo htmlMinify(view('app/customer/index'));
     }
 
@@ -46,6 +50,7 @@ class Customer extends BaseController
     {
         $this->SecureModel->stateAuth(view_customer);
         $data['customer'] = $this->CustomerModel->detail($id)->getRow();
+
         echo htmlMinify(view('app/customer/detail', $data));
     }
 
@@ -57,20 +62,22 @@ class Customer extends BaseController
     public function datatable()
     {
         $this->SecureModel->stateAuth(view_customer);
-        $data['dataTable'] = $this->CustomerModel->datatable($this->request->getVar('start'), $this->request->getVar('length'), $_POST);
+
+        $data['dataTable']    = $this->CustomerModel->datatable($this->request->getVar('start'), $this->request->getVar('length'), $_POST);
         $data['dataTableNum'] = count((array)$this->CustomerModel->datatable('', '', $_POST)->getResult());
-        $data['length'] = intval($this->request->getVar('length'));
-        $data['start'] = intval($this->request->getVar('start'));
-        $data['draw'] = intval($this->request->getVar('draw'));
-        $iTotalRecords = $data['dataTableNum'];
-        $iDisplayLength = $data['length'];
-        $iDisplayLength = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength;
-        $iDisplayStart = $data['start'];
-        $sEcho = $data['draw'];
-        $records = [];
-        $records['data'] = [];
-        $end = $iDisplayStart + $iDisplayLength;
-        $end = $end > $iTotalRecords ? $iTotalRecords : $end;
+        $data['length']       = intval($this->request->getVar('length'));
+        $data['start']        = intval($this->request->getVar('start'));
+        $data['draw']         = intval($this->request->getVar('draw'));
+        $iTotalRecords        = $data['dataTableNum'];
+        $iDisplayLength       = $data['length'];
+        $iDisplayLength       = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength;
+        $iDisplayStart        = $data['start'];
+        $sEcho                = $data['draw'];
+        $records              = [];
+        $records['data']      = [];
+        $end                  = $iDisplayStart + $iDisplayLength;
+        $end                  = $end > $iTotalRecords ? $iTotalRecords : $end;
+
         $i = 0;
         foreach ($data['dataTable']->getResult() as $row) {
             $isVip = $row->isVip == 'on' ? 'checked' : null;
@@ -85,17 +92,21 @@ class Customer extends BaseController
                 '<div class="text-center">' . ($row->totalProcess == '' || $row->totalProcess == 0 ? 'none' : $row->totalProcess . ' txn') . '</div>',
                 '<div class="text-center">' . ($row->lastProcess == '' ? 'none' : $row->lastProcess) . '</div>',
                 '<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="isVip" data-set="switch" ' . (edit_customer !== true ? 'disabled' : null) . ' data-id="' . $row->id . '" name="isVip" class="form-check-input h-20px w-45px" ' . $isVip . '></div>',
-                '<button onclick="location.href=\'customer/detail/' . $row->id . '/' . $row->site_id . '/' . $row->gamer_site_id . '\'" class="btn btn-sm btn-light btn-active-light-primary">View</button>'
+                '<a href="customer/detail/' . $row->id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" class="btn btn-sm btn-light btn-active-light-primary">View</a>'
             ];
+
             $i++;
         }
+
         if (isset($_REQUEST['customActionType']) && $_REQUEST['customActionType'] == 'group_action') {
             $records['customActionStatus'] = 'OK'; // pass custom message(useful for getting status of group actions)
             $records['customActionMessage'] = 'Group action successfully has been completed. Well done!'; // pass custom message(useful for getting status of group actions)
         }
+
         $records['draw'] = $sEcho;
         $records['recordsTotal'] = $iTotalRecords;
         $records['recordsFiltered'] = $iTotalRecords;
+
         echo json_encode($records);
     }
 }

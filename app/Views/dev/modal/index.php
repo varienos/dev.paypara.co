@@ -1,48 +1,30 @@
-<div class="modal-header">
-  <h2 class="fw-bold" style="font-family: 'VT323', monospace;"> >_ DEV CONSOLE</h2>
+<div id="devmodal" class="modal-header border-0 pt-4 pb-4" style="background-color: #151521 !important;">
+  <h2 class="fw-bold text-white mx-auto">Developer Console</h2>
   <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-roles-modal-action="close" data-bs-dismiss="modal">
     <span class="svg-icon svg-icon-1">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
-        <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" /><rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
       </svg>
     </span>
   </div>
 </div>
-<div class="modal-body scroll-y mx-0 mx-md-5">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-  <div>
-    <div class="mb-5">
-      <div class="flex-column current" data-kt-stepper-element="content">
-        <div class="scroll-y h-500px mb-10" id="devConsole" style="background:#041526; font-family: 'VT323', monospace; font-size:15px; color:#a5c5e5; padding: 15px; border-radius:10px">
-          <ul id="console">
-            <li>Hello
-              <?= getSession('user_name') ?>
-              ! Need Help ? cmd 'help' first.
-            </li>
-            <li>Paypara v.<?= getVer() ?> ~ PHP
-              v.<?= PHP_VERSION ?>
-              <?= $_SERVER['SERVER_SOFTWARE']; ?>
-              ~ OS:<?= PHP_OS ?> ~
-              LSIP:<?= PHP_SAPI  ?>
-            </li>
-            <li>Development server 'exec' function
-              <?= !isExec() ? '<span style="color:green">enable</span>' : '<span style="color:red">disable</span>' ?>
-            </li>
-            <li>phpinfo::development <a href='<?= base_url('dev/phpInfo') ?>' target='_blank'><i class="bi bi-link-45deg"></i> dev.paypara.co/dev/phpInfo</a></li>
-            <li>phpinfo::production <a href='https://app.paypara.co/dev/phpInfo' target='_blank'><i class="bi bi-link-45deg"></i> app.paypara.co/dev/phpInfo</a></li>
-            <li>api.postman::development <a href='https://dev.paypara.co/deploy/documents/dev/postman/api.dev.paypara.co.postman.json' target='_blank'><i class="bi bi-paperclip"></i> api.dev.paypara.co.postman.json</a></li>
-            <li>api.postman::production <a href='https://dev.paypara.co/deploy/documents/dev/postman/api.paypara.co.postman.json' target='_blank'><i class="bi bi-paperclip"></i> api.paypara.co.postman.json</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="mb-5">
-      <div class="flex-column current" data-kt-stepper-element="content">
-        <input type="text" style="font-family: 'VT323', monospace;" class="form-control form-control-solid" placeholder="cmd" id="cmd">
-      </div>
-    </div>
+<div class="modal-body m-0 p-0">
+  <div class="fs-6 text-white scroll-y h-550px p-5 pb-10" id="devConsole" style="font-family: 'Courier New', monospace; background-color: #151521 !important;">
+    <ul id="console">
+      <li id="notice">👋 Hello <span class="fw-bold text-success"><?= getSession('user_name') ?>!</span> Type 'help' to get help.</li>
+      <li id="notice">🧑‍💻 Running Paypara v<?= getVer() ?> with 🐘 PHP v<?= PHP_VERSION ?>
+        served with ⚙️ <?= $_SERVER['SERVER_SOFTWARE']; ?> - <?= PHP_SAPI ?> on 🐧 <?= PHP_OS ?>
+      </li>
+      <li id="notice"><?= !isExec() ? '✅' : '❌' ?> Development server 'exec' function is
+        <?= !isExec() ? '<span class="text-success fw-bold">enabled 😃</span>' : '<span class="text-danger fw-bold">disabled 😟</span>' ?>
+      </li>
+      <li id="notice">🐘 PHPInfo: <a href="<?= base_url('dev/phpInfo') ?>" target='_blank'>Dev Env <i class="bi bi-link-45deg text-primary"></i></a> <a href="https://app.paypara.co/dev/phpInfo" target='_blank'>Prod Env <i class="bi bi-link-45deg text-primary"></i></a></li>
+
+      <li id="notice">🏭 API Postman: <a href="https://dev.paypara.co/deploy/documents/dev/postman/api.dev.paypara.co.postman.json" target='_blank'>Dev Env <i class="bi bi-link-45deg text-primary"></i></a> <a href="https://dev.paypara.co/deploy/documents/dev/postman/api.paypara.co.postman.json" target='_blank'>Prod Env <i class="bi bi-link-45deg text-primary"></i></a></li>
+
+      <li id="waiting" class="cmdloading"><br />⚡ Waiting your input ⚡</li>
+    </ul>
+    <div class="input-group h-50px">
+      <span class="input-group-text bg-transparent border-0 px-0 text-white"><? echo strtolower(getSession('user_name')) ?>@paypara.dev:</span>
+      <input id="cmd" type="text" class="form-control fs-4 text-white bg-transparent border-0" placeholder="$" />
   </div>
 </div>

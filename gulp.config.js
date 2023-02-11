@@ -15,6 +15,10 @@ const config = {
       node_modules: "node_modules",
     },
     dist: ["assets/build/dist"],
+    obfuscate: [
+      'iframe/js/app.js',
+      'iframe/js/demo.js'
+    ]
   },
   build: {
     base: {
@@ -161,20 +165,6 @@ const config = {
           fonts: "{$config.dist}/plugins/global/fonts",
         },
       },
-      custom: {
-        "css-element-queries": {
-          src: {
-            scripts: [
-              "{$config.path.node_modules}/css-element-queries/src/ResizeSensor.js",
-              "{$config.path.node_modules}/css-element-queries/src/ElementQueries.js",
-            ],
-          },
-          dist: {
-            scripts:
-              "{$config.dist}/plugins/custom/css-element-queries/css.element.queries.bundle.js",
-          },
-        },
-      },
     },
     media: {
       src: {
@@ -196,6 +186,7 @@ const config = {
         scripts: [
           "{$config.path.core_path}/js/2fa.js",
           "{$config.path.core_path}/js/app.js",
+          "{$config.path.core_path}/js/login.js"
         ],
       },
       dist: {

@@ -9,7 +9,10 @@
 - Clone this repository
 - Run `composer install` to install php modules
 - Run `yarn install` to install node modules
-- Run `yarn build` to build the frontend assets
+- Run `yarn build` to build all assets
+
+## Deployment
+All assets must be compiled with `yarn build --prod` before deploying to production. This can also be done by running `gulp compile --prod`, which only compiles the core assets.
 
 ## Setup Local Dev Environment
 - To setup your local development environment with ddev:
@@ -18,6 +21,11 @@
   - Run `ddev restart` to restart the project
   - Run `ddev status` to get the detailed information
   - Run `ddev ssh` and `ping db` to find out the db ip address
+
+- Manage frontend assets
+  - Build all assets with: `gulp`
+  - Watch assets for changes: `gulp watch`
+  - Build core assets only: `gulp compile`
 
 ## Server Requirements
 

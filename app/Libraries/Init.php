@@ -9,7 +9,7 @@ class Init
     public $db;
     public $router;
     public $error;
-    public $setting;
+    public $settings;
     public $paypara;
     public $SecureModel;
     public $JsObfuscator;
@@ -21,7 +21,7 @@ class Init
         $this->session = \Config\Services::session();
         $this->router = \Config\Services::router();
         $this->db = \Config\Database::connect();
-        $this->setting = new \App\Models\SettingModel();
+        $this->settings = new \App\Models\SettingsModel();
         $this->paypara = new \App\Libraries\Paypara();
         $this->error = new \App\Libraries\Error();
         $this->JsObfuscator = new \App\Libraries\JsObfuscator();
@@ -37,7 +37,7 @@ class Init
         $this->setClient();
         $this->setVersion();
         $this->setLocale();
-        $this->setSetting();
+        $this->setSettings();
         $this->setSegment();
         $this->initialize();
     }
@@ -55,22 +55,18 @@ class Init
 
     public function setHeader()
     {
-        if (isset($_SERVER['HTTP_ORIGIN'])) {
-            $http_origin = $_SERVER['HTTP_ORIGIN'];
-        }
+        isset($_SERVER['HTTP_ORIGIN']) || $http_origin = $_SERVER['HTTP_ORIGIN'];
+        isset($http_origin) || header("Access-Control-Allow-Origin: $http_origin");
 
-        if (isset($http_origin)) {
-            header("Access-Control-Allow-Origin: $http_origin");
-        }
         header('X-Robots-Tag: noindex');
         header('X-Robots-Tag: googlebot: noindex, nofollow');
         header('X-Robots-Tag: otherbot: noindex, nofollow');
         define('CI_INIT_FIRE', microtime(true));
     }
 
-    public function setSetting()
+    public function setSettings()
     {
-        $settings = $this->db->query('select * from setting')->getResult();
+        $settings = $this->db->query('select * from settings')->getResult();
 
         foreach ($settings as $row) {
             define($row->name, $row->value, false);
@@ -79,12 +75,13 @@ class Init
 
     public function setSegment()
     {
-        if (count($this->request->uri->getSegments()) > 0) :
+        if (count($this->request->uri->getSegments()) > 0) {
             foreach ($this->request->uri->getSegments() as $key => $value) {
                 $segment[$key] = $value;
             }
+
             define('segment', $segment);
-        endif;
+        }
     }
 
     public function setSession()
@@ -102,12 +99,15 @@ class Init
         if (!$this->SecureModel->security()) {
             return base_url('secure/login');
         }
+
         if (!$this->session->has('verify2fa')) {
             return base_url('dashboard');
         }
+
         if (!$this->session->get("verify2fa")) {
             return base_url('secure/2fa');
         }
+
         return true;
     }
 
@@ -147,7 +147,6 @@ class Init
 
     public function initialize()
     {
-
         if (SUBDOMAIN == 'api' || $this->request->getVar('core') != 'deploy' || $this->request->uri->getSegment(1) != 'json') {
             if (SUBDOMAIN == 'dev' || SUBDOMAIN == 'app' || SUBDOMAIN == 'deploy') {
                 if ($this->request->uri->getSegment(1) != 'secure') {
@@ -155,6 +154,7 @@ class Init
                         header('Location: ' . $this->auth());
                         die();
                     }
+
                     $this->setSession();
                     $this->setUserPermission();
                 }

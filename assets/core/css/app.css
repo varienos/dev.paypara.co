@@ -20,6 +20,10 @@
 
 /* Misc */
 
+#inspect-drawer {
+    z-index: 99999999 !important;
+}
+
 .logo:hover {
     filter: drop-shadow(0 0 2rem #d95158);
 }
@@ -43,12 +47,27 @@
     display: none !important;
 }
 
+#select2-methods-container.select2-selection__rendered {
+    margin-top: .2rem !important;
+    color: var(--kt-headings-color) !important;
+}
+
 @media all and (min-width: 1730px) {
 
     .container,
     .container-xxl {
         padding: 0px !important;
     }
+}
+
+/* Toastr */
+
+.toastr-message {
+    white-space: nowrap;
+}
+
+#toastr-container.toastr-top-center > div {
+    width: fit-content;
 }
 
 /* Modals */
@@ -179,13 +198,25 @@
 }
 
 #console li::before {
-    content: ">";
     padding-right: 8px;
     color: white;
 }
 
+#console li#input {
+    font-weight: bold;
+    color: var(--kt-text-success);
+}
+
+#console li#input::before {
+    content: " > ";
+}
+
+#console li#notice::before {
+    content: "\2022";
+}
+
 .devScrollTable {
-    font-family: "VT323", monospace;
+    font-family: "Courier New", monospace;
     padding: 30px;
     border-radius: 15px;
     -webkit-box-shadow: inset 0px 0px 20px 3px rgb(0 0 0 / 10%);

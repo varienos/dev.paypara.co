@@ -121,7 +121,7 @@
                                   <i class="bi bi-person fs-2x me-2"></i>Clients
                                 </div>
                               </td>
-                              <td class="fw-bold text-end"> <?=$update->totalCustomer == 0 ? "No Transaction" : $update->totalCustomer . " client" ?> </td>
+                              <td class="fw-bold text-end"> <?=$update->totalCustomer == 0 ? "None" : $update->totalCustomer . " client" ?> </td>
                             </tr>
                             <tr>
                               <td class="text-muted">
@@ -129,7 +129,7 @@
                                   <i class="bi bi-arrow-repeat fs-2x me-2"></i>Transactions
                                 </div>
                               </td>
-                              <td class="fw-bold text-end"><?=$update->totalProcess == 0 ? "No Transaction" : $update->totalProcess . " total" ?></td>
+                              <td class="fw-bold text-end"><?=$update->totalProcess == 0 ? "None" : $update->totalProcess . " total" ?></td>
                             </tr>
                             <tr>
                               <td class="text-muted">
@@ -137,7 +137,7 @@
                                   <i class="bi bi-cash-stack fs-2x me-2"></i>Deposits
                                 </div>
                               </td>
-                              <td class="fw-bold text-end"> <?=$update->totalDeposit == "" ? "No Deposit" : "₺" . number_format($update->totalDeposit, 2) ?></td>
+                              <td class="fw-bold text-end"> <?=$update->totalDeposit == "" ? "None" : "₺" . number_format($update->totalDeposit, 2) ?></td>
                             </tr>
                           </tbody>
                         </table>
@@ -194,7 +194,7 @@
                                     <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
                                     <span class="input-group-text">transactions</span>
                                   </div>
-                                  <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions.</div>
+                                  <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated transaction limit.</div>
                                 </div>
                                 <div class="col mt-5 mt-xxl-0">
                                   <label class="form-label">Monthly Deposit Limit</label>
@@ -202,7 +202,7 @@
                                     <span class="input-group-text">₺</span>
                                     <input type="text" class="form-control" value="<?=$update->limitDeposit?>" name="limitDeposit" id="limitDeposit" placeholder="Amount" max="1000000" maxlength="7" />
                                   </div>
-                                  <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
+                                  <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated deposit limit.</div>
                                 </div>
                               </div>
                               <div class="flex-row-fluid">
@@ -237,7 +237,7 @@
                                       <span class="input-group-text">₺</span>
                                       <input type="text" class="form-control" value="<?=$update->limitDeposit?>" name="limitDeposit" id="limitDeposit" placeholder="Amount" max="1000000" maxlength="7" />
                                     </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
+                                    <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated deposit limit.</div>
                                   </div>
                                 </div>
                                 <div class="row d-flex flex-column flex-xxl-row">
@@ -247,7 +247,7 @@
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
                                       <span class="input-group-text">işlem</span>
                                     </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions</div>
+                                    <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated transaction limit.</div>
                                   </div>
                                   <div class="col mt-5 mt-xxl-0">
                                     <label class="form-label">Active Firms</label>
@@ -273,7 +273,7 @@
                                       <input type="text" class="form-control" value="<?=$update->limitProcess?>" name="limitProcess" id="limitProcess" placeholder="Total" max="1000" maxlength="4" />
                                       <span class="input-group-text">transactions</span>
                                     </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified transactions.</div>
+                                    <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated transaction limit.</div>
                                   </div>
                                   <div class="col mt-5 mt-xxl-0">
                                     <label class="form-label">Monthly Deposit Limit</label>
@@ -281,7 +281,7 @@
                                       <span class="input-group-text">₺</span>
                                       <input type="text" class="form-control" value="<?=$update->limitDeposit?>" name="limitDeposit" id="limitDeposit" placeholder="Amount" max="1000000" maxlength="7" />
                                     </div>
-                                    <div class="text-gray-600 fs-7 mt-2">Account is deactivated at the specified deposit limit.</div>
+                                    <div class="text-gray-600 fs-7 mt-2">Account will be disabled at the stated deposit limit.</div>
                                   </div>
                                 </div>
                                 <div class="d-flex flex-column flex-xxl-row gap-5">
@@ -310,7 +310,7 @@
                           <div class="card-footer pt-0 pe-9 pb-5 pl-0">
                             <div class="d-flex justify-content-end">
                               <button type="button" id="formReset" onclick="this.form.reset();" class="btn btn-light min-w-125px me-5">Clear</button>
-                              <button type="submit" id="kt_ecommerce_edit_order_submit" class="btn btn-light-primary min-w-125px">Save</button>
+                              <button type="submit" class="btn btn-light-primary min-w-125px">Save</button>
                             </div>
                           </div>
                         </div>
@@ -321,7 +321,7 @@
                       <div class="card card-flush border py-4 mt-5">
                         <div class="card-header">
                           <div class="card-title">
-                            <h2>Active Matches</h2>
+                            <h2>Active Matchings</h2>
                             <span class="badge badge badge-circle badge-light-dark ms-2 mb-5"><?=count((array)$listMatch) ?></span>
                           </div>
                           <div class="card-toolbar">
@@ -365,7 +365,7 @@
                       <div class="card card-flush border py-4 mt-5">
                         <div class="card-header">
                           <div class="card-title">
-                            <h2 class="text-muted">Past Matches</h2>
+                            <h2 class="text-muted">Previous Matchings</h2>
                           </div>
                         </div>
                         <div class="card-body py-0">
@@ -408,14 +408,9 @@
                             <div class="d-flex gap-3">
                               <input class="form-control form-control-solid border border-1 mw-225px" placeholder="Select date range" value="<?=date("Y-m-d") ?>" name="transactionDate" id="transactionDate" />
                               <button type="button" class="btn btn-light" id="filtre" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                <span class="svg-icon svg-icon-2">
-                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M19.0759 3H4.72777C3.95892 3 3.47768 3.83148 3.86067 4.49814L8.56967 12.6949C9.17923 13.7559 9.5 14.9582 9.5 16.1819V19.5072C9.5 20.2189 10.2223 20.7028 10.8805 20.432L13.8805 19.1977C14.2553 19.0435 14.5 18.6783 14.5 18.273V13.8372C14.5 12.8089 14.8171 11.8056 15.408 10.964L19.8943 4.57465C20.3596 3.912 19.8856 3 19.0759 3Z" fill="currentColor" />
-                                  </svg>
-                                </span>
-                                Filter
+                                <i class="fs-3 bi bi-funnel-fill p-0"></i>
                               </button>
-                              <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                              <div class="menu menu-sub menu-sub-dropdown w-300px" data-kt-menu="true">
                                 <div class="px-7 py-5">
                                   <div class="fs-5 text-dark fw-bold">Filter Options</div>
                                 </div>
@@ -463,16 +458,12 @@
                                   </div>
                                 </div>
                               </div>
-                              <button type="button" class="btn btn-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                <span class="svg-icon svg-icon-2 m-0">
-                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect opacity="1" x="12.75" y="4.25" width="12" height="2" rx="1" transform="rotate(90 12.75 4.25)" fill="currentColor" />
-                                    <path d="M12.0573 6.11875L13.5203 7.87435C13.9121 8.34457 14.6232 8.37683 15.056 7.94401C15.4457 7.5543 15.4641 6.92836 15.0979 6.51643L12.4974 3.59084C12.0996 3.14332 11.4004 3.14332 11.0026 3.59084L8.40206 6.51643C8.0359 6.92836 8.0543 7.5543 8.44401 7.94401C8.87683 8.37683 9.58785 8.34458 9.9797 7.87435L11.4427 6.11875C11.6026 5.92684 11.8974 5.92684 12.0573 6.11875Z" fill="currentColor" />
-                                    <path opacity="1" d="M18.75 8.25H17.75C17.1977 8.25 16.75 8.69772 16.75 9.25C16.75 9.80228 17.1977 10.25 17.75 10.25C18.3023 10.25 18.75 10.6977 18.75 11.25V18.25C18.75 18.8023 18.3023 19.25 17.75 19.25H5.75C5.19772 19.25 4.75 18.8023 4.75 18.25V11.25C4.75 10.6977 5.19771 10.25 5.75 10.25C6.30229 10.25 6.75 9.80228 6.75 9.25C6.75 8.69772 6.30229 8.25 5.75 8.25H4.75C3.64543 8.25 2.75 9.14543 2.75 10.25V19.25C2.75 20.3546 3.64543 21.25 4.75 21.25H18.75C19.8546 21.25 20.75 20.3546 20.75 19.25V10.25C20.75 9.14543 19.8546 8.25 18.75 8.25Z" fill="currentColor" />
-                                  </svg>
-                                </span>
-                              </button>
-                              <div id="datatableExport" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true"></div>
+                              <div>
+                                <button type="button" class="btn btn-light" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                  <i class="fs-3 bi bi-box-arrow-down p-0"></i>
+                                </button>
+                                <div id="datatableExport" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true"></div>
+                              </div>
                             </div>
                           </div>
                         </div>
