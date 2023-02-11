@@ -24,3 +24,10 @@
     <h4 class="text-white fw-bold m-0">Maintenance mode is active, all payments are halted!</h4>
   </div>
   <? endif; ?>
+
+  <div class="ajax-error d-none d-flex flex-center animation animation-fade-in shadow-lg bg-danger position-fixed h-35px w-100" style="z-index: 999;">
+    <div class="d-flex flex-center fs-5 text-white fw-bold m-0">
+      <i class="ajax-error-icon text-white fs-1 bi bi-wifi-off me-2"></i>
+      <span class="ajax-error-message"></span>
+    </div>
+  </div>

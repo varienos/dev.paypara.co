@@ -7,6 +7,9 @@ $.varien = {
         });
     },
     init: function() {
+        // Don't show browser alerts when datatable catches an error
+        $.fn.dataTable.ext.errMode = 'none';
+
         $.varien.prepare();
         $.varien.stage();
     },
@@ -19,6 +22,7 @@ $.varien = {
     prepare: function() {
         $.varien.authorization();
         $.varien.toastr();
+        $.varien.latency();
         $.varien.activity();
         setInterval(function() {
             $.varien.activity();
@@ -60,6 +64,56 @@ $.varien = {
         };
         xhttp.open("GET", 'user/activity', true);
         xhttp.send();
+    },
+    latency: () => {
+        let start;
+        $(document).ajaxStart(() => {
+            start = new Date().getTime();
+        });
+
+        $(document).ajaxComplete(function (xhr, options) {
+            // Get server latency and update it on footer
+            let end = new Date().getTime();
+            if(options.status === 200) {
+                let latency = end - start;
+                if (latency > 90 && latency < 150) {
+                    $('.latency-badge').eq(0).addClass('badge-warning').removeClass('badge-success badge-danger');
+                } else if (latency > 150) {
+                    $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+                } else {
+                    $('.latency-badge').eq(0).addClass('badge-success').removeClass('badge-danger badge-warning');
+                }
+
+                $('.latency')[0].lastChild.textContent = ` ${latency}ms`;
+            } else {
+                $('.latency')[0].lastChild.textContent = ` offline`;
+                $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+            }
+
+            start, end = undefined;
+
+            // Replace and hide error message when connection is restored
+            if(options.status === 200 && $('.ajax-error').hasClass('d-none') === false) {
+                $('.ajax-error-icon').removeClass('bi-wifi-off').addClass('bi-check2');
+                $('.ajax-error-message').text('Your internet connection has been restored');
+                $('.ajax-error').removeClass('bg-danger').addClass('bg-success');
+
+                $.wait(5000).then(() => {
+                    $('.ajax-error').removeClass('animation-fade-in').addClass('animation-fade-out');
+                }).then(() => {
+                    $.wait(1000).then(() => {
+                        $('.ajax-error').addClass('d-none');
+                    })
+                });
+            }
+        });
+
+        // Check connection and if fails, notify user
+        $(document).ajaxError((event, xhr, options, thrownError) => {
+            $('.ajax-error-icon').removeClass('bi-check2').addClass('bi-wifi-off');
+            $('.ajax-error').removeClass('d-none bg-success').addClass('bg-danger');
+            $('.ajax-error-message').text('You seem to be offline. Please check your network connection and try again.');
+        });
     },
     segment: function(key) {
         $.segment = window.location.pathname.split('/');
