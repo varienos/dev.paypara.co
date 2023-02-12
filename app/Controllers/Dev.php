@@ -71,4 +71,9 @@ class Dev extends BaseController
 			}
 		}
 	}
+
+	public function ping()
+	{
+		return "OK";
+	}
 }

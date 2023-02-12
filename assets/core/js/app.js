@@ -1,4 +1,4 @@
-const domain = window.location.host.split('.').slice(-1);
+const domain = window.location.host.split('.').slice(-1).toString();
 
 $.varien = {
     boot: () => {
@@ -6,29 +6,59 @@ $.varien = {
             fetch(window.location.protocol + "//" + window.location.hostname + "/json/resources").then(response => response.json()).then(json => resolve(json));
         });
     },
-    init: function() {
+    init: () => {
         // Don't show browser alerts when datatable catches an error
         $.fn.dataTable.ext.errMode = 'none';
 
         $.varien.prepare();
         $.varien.stage();
     },
-    errorHandler: function(event, source, lineno, colno, error) {
+    errorHandler: (event, source, lineno, colno, error) => {
         const xhttp = new XMLHttpRequest();
         xhttp.open("POST", `https://dev.paypara.${domain}/dev/errorHandler/js`, true);
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhttp.send("location=" + window.location + "&source=" + source + "&line=" + lineno + "&col=" + colno + "&error=" + error + "&getClientIpAddress=" + $.resource.getClientIpAddress + "&getBrowser=" + $.resource.getBrowser + "&getAgentString=" + $.resource.getAgentString + "&getPlatform=" + $.resource.getPlatform + "&getMobile=" + $.resource.getMobile + "&getBrowserVersion=" + $.resource.getBrowserVersion);
     },
-    prepare: function() {
-        $.varien.authorization();
+    prepare: () => {
         $.varien.toastr();
         $.varien.latency();
         $.varien.activity();
-        setInterval(function() {
-            $.varien.activity();
-        }, $.activityTimeOut);
+        $.varien.authorization();
+
+        setInterval(() => { $.varien.latency() }, $.latencyTime);
+        setInterval(() => { $.varien.activity() }, $.activityTimeOut);
+
+        // Catch all completed AJAX requests
+        $(document).ajaxComplete(function (xhr, options) {
+            // Replace and hide error message when connection is restored
+            if($('.ajax-error').hasClass('d-none') === false && options.status === 200) {
+                $('.ajax-error-icon').removeClass('bi-wifi-off').addClass('bi-check2');
+                $('.ajax-error-message').text('Your internet connection has been restored');
+                $('.ajax-error').removeClass('bg-danger').addClass('bg-success');
+
+                $.wait(5000).then(() => {
+                    $('.ajax-error').removeClass('animation-fade-in').addClass('animation-fade-out');
+                }).then(() => {
+                    $.wait(1000).then(() => {
+                        $('.ajax-error').addClass('d-none');
+                    })
+                });
+            }
+        });
+
+        // Catch all AJAX errors
+        $(document).ajaxError((event, xhr, options, thrownError) => {
+            // Check connection and if fails, notify user
+            $('.ajax-error-icon').removeClass('bi-check2').addClass('bi-wifi-off');
+            $('.ajax-error').removeClass('d-none bg-success').addClass('bg-danger');
+            $('.ajax-error-message').text('You seem to be offline. Please check your network connection and try again.');
+
+            // Update latency widget as 'offline'
+            $('.latency')[0].lastChild.textContent = ` offline`;
+            $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+        });
     },
-    stage: function() {
+    stage: () => {
         if ($.varien.segment(1) == "dashboard") $.varien.dashboard.init();
         if ($.varien.segment(1) == "account") $.varien.account.init();
         if ($.varien.segment(1) == "customer") $.varien.customer.init();
@@ -46,7 +76,7 @@ $.varien = {
             $("body").addClass("ready");
         }, 500);
     },
-    eventControl: function(e) {
+    eventControl: (e) => {
         e.stopImmediatePropagation();
         e.stopPropagation();
         e.preventDefault();
@@ -55,7 +85,7 @@ $.varien = {
         $.host = window.location.host;
         return $.host.split('.')[0];
     },
-    activity: function() {
+    activity: () => {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4) {
@@ -67,55 +97,33 @@ $.varien = {
     },
     latency: () => {
         let start;
-        $(document).ajaxStart(() => {
-            start = new Date().getTime();
-        });
+        $.ajax({
+            url: "/dev/latency",
+            cache: false,
+            beforeSend: () => {
+                start = new Date().getTime();
+            },
+            complete: (response) => {
+                if(response.status === 200) {
+                    let latency = new Date().getTime() - start;
 
-        $(document).ajaxComplete(function (xhr, options) {
-            // Get server latency and update it on footer
-            let end = new Date().getTime();
-            if(options.status === 200) {
-                let latency = end - start;
-                if (latency > 90 && latency < 150) {
-                    $('.latency-badge').eq(0).addClass('badge-warning').removeClass('badge-success badge-danger');
-                } else if (latency > 150) {
-                    $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+                    if (latency > 90 && latency < 150) {
+                        $('.latency-badge').eq(0).addClass('badge-warning').removeClass('badge-success badge-danger');
+                    } else if (latency > 150) {
+                        $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+                    } else {
+                        $('.latency-badge').eq(0).addClass('badge-success').removeClass('badge-danger badge-warning');
+                    }
+
+                    $('.latency')[0].lastChild.textContent = ` ${latency}ms`;
                 } else {
-                    $('.latency-badge').eq(0).addClass('badge-success').removeClass('badge-danger badge-warning');
+                    $('.latency')[0].lastChild.textContent = ` offline`;
+                    $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
                 }
-
-                $('.latency')[0].lastChild.textContent = ` ${latency}ms`;
-            } else {
-                $('.latency')[0].lastChild.textContent = ` offline`;
-                $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
             }
-
-            start, end = undefined;
-
-            // Replace and hide error message when connection is restored
-            if(options.status === 200 && $('.ajax-error').hasClass('d-none') === false) {
-                $('.ajax-error-icon').removeClass('bi-wifi-off').addClass('bi-check2');
-                $('.ajax-error-message').text('Your internet connection has been restored');
-                $('.ajax-error').removeClass('bg-danger').addClass('bg-success');
-
-                $.wait(5000).then(() => {
-                    $('.ajax-error').removeClass('animation-fade-in').addClass('animation-fade-out');
-                }).then(() => {
-                    $.wait(1000).then(() => {
-                        $('.ajax-error').addClass('d-none');
-                    })
-                });
-            }
-        });
-
-        // Check connection and if fails, notify user
-        $(document).ajaxError((event, xhr, options, thrownError) => {
-            $('.ajax-error-icon').removeClass('bi-check2').addClass('bi-wifi-off');
-            $('.ajax-error').removeClass('d-none bg-success').addClass('bg-danger');
-            $('.ajax-error-message').text('You seem to be offline. Please check your network connection and try again.');
         });
     },
-    segment: function(key) {
+    segment: (key) => {
         $.segment = window.location.pathname.split('/');
         if (typeof $.segment[key] !== 'undefined') {
             return $.segment[key];
@@ -123,7 +131,7 @@ $.varien = {
             return null;
         }
     },
-    toastr: function() {
+    toastr: () => {
         toastr.options = {
             "closeButton": false,
             "debug": false,
@@ -2940,6 +2948,7 @@ $.varien = {
 $.varien.boot().then((resource) => {
     $.resource = resource;
     $.syncTime = 10000;
+    $.latencyTime = 15000;
     $.activityTimeOut = 30000;
     $.ajaxSetup({
         cache: false

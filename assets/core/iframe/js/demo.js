@@ -1,6 +1,6 @@
 const first = ["Acun", "Alp", "Burak", "Mustafa", "Selim", "Levent", "Kemal", "Mehmet", "Sefa", "Nuri", "Erman", "Zafer"];
 const second = ["Arslan", "Kaya", "Yıldırım", "Sakin", "Keskin", "Demir", "Keser", "Savar", "Masum", "Barut", "Canik", "Sonuç"];
-const domain = window.location.host.split('.').slice(-1);
+const domain = window.location.host.split('.').slice(-1).toString();
 
 const demo = {
     init: function() {
@@ -47,7 +47,6 @@ const demo = {
             if (response.status) {
                 window.open(response.link, '_self');
             } else {
-                console.log("error: " + response.error);
                 $("#error").html(response.error);
             }
         }).fail(function(jqXHR, errorThrown) {

@@ -87,11 +87,8 @@
     </div>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/js/scripts.bundle.js"></script>
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/plugins/global/plugins.bundle.js"></script>
-    <script>
-    <?=jsObfuscator(getJsClientData,'inline'); ?>
-    </script>
-    <!--<script src="https://dev.paypara.co/<?=assetsPath() ?>/js/app.core.error.handler.js?v=<?=md5(microtime()) ?>"></script>-->
     <script src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/js/demo.js?v=<?=md5(microtime()) ?>"></script>
+    <script><?=jsObfuscator(getJsClientData,'inline'); ?></script>
   </body>
 
 </html>

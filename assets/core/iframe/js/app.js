@@ -44,7 +44,7 @@ const paparaAccountNumber = document.getElementById("pp-account-number");
 const bankAccountNumber = document.getElementById("iban-value");
 
 // Misc
-const domain = window.location.host.split('.').slice(-1);
+const domain = window.location.host.split('.').slice(-1).toString();
 
 // QR Code Generator
 const qrCode = new QRCode(document.getElementById("qr-box"), {
