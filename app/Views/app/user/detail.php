@@ -81,8 +81,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex-lg-row-fluid ms-lg-15">
-                  <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
+                <div class="flex-lg-row-fluid ms-lg-5">
+                  <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8 ms-2">
                     <li class="nav-item">
                       <a class="nav-link text-active-dark border-hover-dark border-active-dark pb-4 active" data-bs-toggle="tab" href="#kt_user_view_overview_tab">User Details</a>
                     </li>
@@ -253,55 +253,116 @@
                             <h2>Transaction Logs</h2>
                           </div>
                           <div class="card-toolbar">
-                            <button type="button" class="btn btn-sm btn-light-primary">
-                              <span class="svg-icon svg-icon-3">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path opacity="0.3" d="M19 15C20.7 15 22 13.7 22 12C22 10.3 20.7 9 19 9C18.9 9 18.9 9 18.8 9C18.9 8.7 19 8.3 19 8C19 6.3 17.7 5 16 5C15.4 5 14.8 5.2 14.3 5.5C13.4 4 11.8 3 10 3C7.2 3 5 5.2 5 8C5 8.3 5 8.7 5.1 9H5C3.3 9 2 10.3 2 12C2 13.7 3.3 15 5 15H19Z" fill="currentColor" />
-                                  <path d="M13 17.4V12C13 11.4 12.6 11 12 11C11.4 11 11 11.4 11 12V17.4H13Z" fill="currentColor" />
-                                  <path opacity="0.3" d="M8 17.4H16L12.7 20.7C12.3 21.1 11.7 21.1 11.3 20.7L8 17.4Z" fill="currentColor" />
-                                </svg>
-                              </span>
-                              Download Report</button>
+                            <div class="filter me-3">
+                              <button type="button" class="btn btn-light ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="filtre">
+                                <i class="fs-3 bi bi-funnel-fill p-0"></i>
+                              </button>
+                              <div class="menu menu-sub menu-sub-dropdown w-300px" data-kt-menu="true" id="filterMenu">
+                                <div class="px-7 py-5">
+                                  <div class="fs-5 text-dark fw-bold">Filter</div>
+                                </div>
+                                <div class="separator border-gray-200"></div>
+                                <div class="px-7 py-5" data-kt-user-table-filter="form">
+                                  <div div class="row mb-3">
+                                    <div class="col-4 d-flex align-items-center">
+                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">TXID:</label>
+                                    </div>
+                                    <div class="col ps-0">
+                                      <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="txid" id="txid" placeholder="All">
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <div class="col-4 d-flex align-items-center">
+                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Account:</label>
+                                    </div>
+                                    <div class="col ps-0">
+                                      <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="accountId" id="accountId" placeholder="All">
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <div class="col-4 d-flex align-items-center">
+                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Type:</label>
+                                    </div>
+                                    <div class="col ps-0">
+                                      <select class="form-select form-select-solid border border-1 fw-bold" name="type" id="type" data-kt-select2="true" data-placeholder="All" data-hide-search="true">
+                                        <option></option>
+                                        <option value="deposit">Deposit</option>
+                                        <option value="withdraw">Withdraw</option>
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <div class="col-4 d-flex align-items-center">
+                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Name:</label>
+                                    </div>
+                                    <div class="col ps-0">
+                                      <input type="text" class="form-control form-control-solid border border-1 fw-bold" name="username" id="username" placeholder="All">
+                                    </div>
+                                  </div>
+
+                                  <div class="row mb-3">
+                                    <div class="col-4 d-flex align-items-center">
+                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Status:</label>
+                                    </div>
+                                    <div class="col ps-0">
+                                      <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="All" data-hide-search="true">
+                                        <option></option>
+                                        <option value="onaylandı">Approved</option>
+                                        <option value="reddedildi">Rejected</option>
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                  <div class="d-flex justify-content-end">
+                                    <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="export">
+                              <button type="button" class="btn btn-light" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" id="export">
+                                <i class="fs-3 bi bi-box-arrow-down p-0"></i>
+                              </button>
+                              <div id="datatableExport" class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true"></div>
+                            </div>
                           </div>
                         </div>
-                        <div class="card-body py-0">
+                        <div class="card-body py-0 px-7">
                           <div class="table-responsive">
                             <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="kt_table_users_logs">
+                              <thead>
+                                <tr class="text-center text-muted fw-bold fs-7 text-uppercase gs-0">
+                                  <th class="min-w-150px">Date</th>
+                                  <th class="min-w-100px">TXID</th>
+                                  <th class="min-w-80px">Account</th>
+                                  <th class="min-w-50px">Type</th>
+                                  <th class="min-w-175px">Name Surname</th>
+                                  <th class="min-w-125px">Amount</th>
+                                  <th class="min-w-75px">Status</th>
+                                </tr>
+                              </thead>
                               <tbody>
-                                <tr>
-                                  <td class="min-w-70px">
-                                    <div class="badge badge-light-danger">500 ERR </div>
-                                  </td>
-                                  <td>POST /v1/invoice/in_6812_9601/invalid</td>
-                                  <td class="pe-0 text-end min-w-200px">24 Jun 2022, 5:20 pm</td>
+                                <tr class="text-center">
+                                  <td>24.01.23 22:47:52</td>
+                                  <td>7075436754</td>
+                                  <td>37</td>
+                                  <td>Deposit</td>
+                                  <td>Mustafa Selim Kirazcı</td>
+                                  <td>7590,45₺</td>
+                                  <td><div class="badge badge-light-success">Approved</div></td>
                                 </tr>
-                                <tr>
-                                  <td class="min-w-70px">
-                                    <div class="badge badge-light-success">200 OK </div>
-                                  </td>
-                                  <td>POST /v1/invoices/in_8018_8323/payment</td>
-                                  <td class="pe-0 text-end min-w-200px">15 Apr 2022, 11:30 am</td>
-                                </tr>
-                                <tr>
-                                  <td class="min-w-70px">
-                                    <div class="badge badge-light-success">200 OK </div>
-                                  </td>
-                                  <td>POST /v1/invoices/in_8018_8323/payment</td>
-                                  <td class="pe-0 text-end min-w-200px">10 Nov 2022, 8:43 pm</td>
-                                </tr>
-                                <tr>
-                                  <td class="min-w-70px">
-                                    <div class="badge badge-light-danger">500 ERR </div>
-                                  </td>
-                                  <td>POST /v1/invoice/in_1912_1475/invalid</td>
-                                  <td class="pe-0 text-end min-w-200px">20 Dec 2022, 10:10 pm</td>
-                                </tr>
-                                <tr>
-                                  <td class="min-w-70px">
-                                    <div class="badge badge-light-success">200 OK </div>
-                                  </td>
-                                  <td>POST /v1/invoices/in_6915_6737/payment</td>
-                                  <td class="pe-0 text-end min-w-200px">24 Jun 2022, 10:10 pm</td>
+                                <tr class="text-center">
+                                  <td>24.01.23 22:47:52</td>
+                                  <td>7075436753</td>
+                                  <td>37</td>
+                                  <td>Withdraw</td>
+                                  <td>Mustafa Selim Kirazcı</td>
+                                  <td>7590,45₺</td>
+                                  <td><div class="badge badge-light-danger">Rejected</div></td>
                                 </tr>
                               </tbody>
                             </table>
