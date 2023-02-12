@@ -103,13 +103,13 @@ $.varien = {
             beforeSend: () => {
                 start = new Date().getTime();
             },
-            complete: (response) => {
-                if(response.status === 200) {
+            success: (response) => {
+                if(response === "OK") {
                     let latency = new Date().getTime() - start;
 
-                    if (latency > 90 && latency < 150) {
+                    if (latency > 150 && latency < 220) {
                         $('.latency-badge').eq(0).addClass('badge-warning').removeClass('badge-success badge-danger');
-                    } else if (latency > 150) {
+                    } else if (latency >= 220) {
                         $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
                     } else {
                         $('.latency-badge').eq(0).addClass('badge-success').removeClass('badge-danger badge-warning');
