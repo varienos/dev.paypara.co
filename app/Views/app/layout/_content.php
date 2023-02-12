@@ -1,5 +1,5 @@
 <div class="container-xxl" id="kt_content_container">
-  <div class="row w-100">
+  <div class="row w-100 m-0">
     <div class="col-xl-3 d-flex flex-column justify-content-between gap-5 p-0 pe-xl-3 mb-5 mb-xl-0">
       <div class="card card-bordered bg-success bg-opacity-25">
         <div class="card-body">
