@@ -17,7 +17,7 @@
             Accounts
           </h2>
 
-          <div class="btn btn-sm btn-icon btn-active-light-primary" id="accounts-drawer-close">
+          <div class="btn btn-sm btn-icon btn-active-light-primary h-100" id="accounts-drawer-close">
             <i class="fs-1 bi bi-x"></i>
           </div>
         </div>

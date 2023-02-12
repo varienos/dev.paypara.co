@@ -1424,6 +1424,9 @@ $.varien = {
                     // Clear DOM
                     $('#accounts-drawer-body').empty();
 
+                    // Clear search input
+                    $('#search-accounts').val('')
+
                     // Set default method as Papara again
                     $('#methods').val(1).trigger('change');
 
@@ -1451,7 +1454,7 @@ $.varien = {
                         } else {
                             $.varien.transaction.accounts.fetch(val);
                         }
-                    }, 500);
+                    }, 250);
                 });
             },
             fetch: (searchValue = null) => {
