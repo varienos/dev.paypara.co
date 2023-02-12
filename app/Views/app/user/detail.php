@@ -390,7 +390,7 @@
                         </div>
                         <div class="card-body pt-0 pb-5">
                           <div class="table-responsive">
-                            <table class="table align-middle table-row-dashed gy-5" id="sessionTable">
+                            <table class="table align-middle table-row-dashed gy-2" id="sessionTable">
                               <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                                 <tr class="text-start text-muted text-uppercase gs-0">
                                   <th class="min-w-100px">Location</th>

@@ -52,7 +52,7 @@
           <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
             <div class="container-xxl" id="kt_content_container">
               <div class="card border">
-                <div class="card-header border-0 pt-6">
+                <div class="card-header border-0 pt-6 px-7">
                   <div class="card-title w-100 w-xxl-auto">
                     <div class="d-flex align-items-center w-100 w-xxl-auto my-1">
                       <span class="svg-icon svg-icon-1 position-absolute ms-6">
@@ -188,7 +188,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body pt-0">
+                <div class="card-body pt-0 px-7">
                   <div class="table-responsive">
                     <table class="table table-striped table-row-bordered align-middle dataTable fs-6 gy-3" id="datatable_content">
                       <thead>
