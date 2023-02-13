@@ -7,7 +7,7 @@
     </div>
     <div class="order-2 order-sm-1">
       <div class="d-flex align-items-center">
-        <div class="text-gray-500 fw-bold fs-6 h-100">Paypara &copy; <?= date('Y') ?></div>
+        <div class="text-gray-500 fw-bold fs-7 h-100">Paypara &copy; <?= date('Y') ?></div>
         <div class="badge badge-light ms-3 p-2">v<?= getVer() ?></div>
       </div>
     </div>

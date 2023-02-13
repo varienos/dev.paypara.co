@@ -39,20 +39,14 @@
             <div class="container-xxl" id="kt_content_container">
               <div class="card border">
                 <div class="card-header border-0 pt-6">
-                  <div class="card-title w-100 w-sm-auto">
-                    <div class="d-flex align-items-center w-100 w-sm-auto my-1">
-                      <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
-                          <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
-                        </svg>
-                      </span>
-                      <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-100 w-sm-250px ps-15" placeholder="Search user" />
+                  <div class="card-title w-100 w-xl-auto">
+                    <div class="d-flex align-items-center my-1 w-100">
+                      <i class="fs-3 bi bi-search position-absolute ms-6"></i>
+                      <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-100 w-xl-250px ps-15" placeholder="Search user" />
                     </div>
                   </div>
-                  <div class="card-toolbar justify-content-center justify-content-sm-end w-100 w-sm-auto">
-                    <div class="d-flex">
-                      <button type="button" class="btn btn-light me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                  <div class="card-toolbar flex-center flex-wrap flex-xl-end w-100 w-xl-auto gap-2 gap-sm-3">
+                      <button type="button" class="btn btn-light" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                         <i class="fs-3 bi bi-funnel-fill p-0"></i>
                         Filter
                       </button>
@@ -93,28 +87,21 @@
                           </div>
                         </div>
                       </div>
-                      <div class="export me-3">
+                      <div class="export">
                         <button type="button" class="btn btn-light" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                           <i class="fs-3 bi bi-box-arrow-down p-0"></i>
                         </button>
                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-export data-kt-menu="true"></div>
                       </div>
                       <? if (view_role === true): ?>
-                      <a class="btn btn-light-primary me-3" href="/user/roles">Edit Roles</a>
+                      <a class="btn btn-light-primary w-125px w-sm-auto" href="/user/roles">Edit Roles</a>
                       <? endif; ?>
-
                       <? if (add_user === true): ?>
-                      <button type="button" class="btn btn-primary text-nowrap" data-url="user/modal" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-bs-delay="1000">
-                        <span class="svg-icon svg-icon-2">
-                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor"></rect>
-                            <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor"></rect>
-                          </svg>
-                        </span>
+                      <button type="button" class="btn btn-primary text-nowrap w-100 w-sm-auto" data-url="user/modal" id="formAjax" data-bs-toggle="modal" data-bs-target="#ajaxModal" data-bs-delay="1000">
+                        <i class="fs-3 bi bi-plus-lg pb-1"></i>
                         Add New User
                       </button>
                       <? endif; ?>
-                    </div>
                   </div>
                 </div>
                 <div class="card-body pt-0">
