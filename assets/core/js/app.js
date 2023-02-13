@@ -211,7 +211,7 @@ $.varien = {
             };
         },
         exportEvents: () => {
-            if ($('#datatableExport').length) {
+            if ($('[data-export]').length) {
                 var str = '<div class="menu-item px-3">';
                 str += '<a href="javascript:;" class="menu-link px-3" export-copy>Copy to Clipboard</a>';
                 str += '</div>';
@@ -224,7 +224,8 @@ $.varien = {
                 str += '<div class="menu-item px-3">';
                 str += '<a href="javascript:;" class="menu-link px-3" export-pdf>Export as PDF</a>';
                 str += '</div>';
-                $('#datatableExport').html(str).promise().done(function() {
+
+                $('[data-export]').html(str).promise().done(function() {
                     $('[export-csv]').on('click', function(e) {
                         e.preventDefault();
                         $(".buttons-csv ").trigger('click');
@@ -1937,7 +1938,7 @@ $.varien = {
                         buttons: ['copy', 'csv', 'excel', 'pdf'],
                         bStateSave: false,
                         stateSave: false,
-                        lengthMenu: [5, 10, 25, 50],
+                        lengthMenu: [5, 10, 25, 50, 100],
                         order: [0, 'desc'],
                         columnDefs: [{
                             orderable: false,
