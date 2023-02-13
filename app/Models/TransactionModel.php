@@ -110,13 +110,15 @@ class TransactionModel extends Model
             $changeAmount    =    "&requestAmount=" . str_replace(".00", "", $finance->price) . "&processedAmount=" . str_replace(".00", "", $data['price']);
         }
 
-        $this->db->query("update finance set
-			response_time			=NOW(),
-			notes				='" . $data['notes'] . "',
-			user_id				='" . $this->session->get('primeId') . "',
-			status				='" . $data['status'] . "',
-			setUpdate			='1'
-			where id='" . $data['id'] . "'");
+        $this->db->query("
+            update finance set
+			response_time   = NOW(),
+			notes			= '" . $data['notes'] . "',
+			user_id			= '" . $this->session->get('primeId') . "',
+			status			= '" . $data['status'] . "',
+			setUpdate		= '1'
+			where id='" . $data['id'] . "'"
+        );
 
         $finance = $this->db->query("select * from finance where id='" . $data['id'] . "'")->getRow();
         $match   = $this->db->query("select * from site_gamer_match where gamer_site_id='" . $finance->gamer_site_id . "' and account_id='" . $finance->account_id . "'")->getRow();

@@ -46,13 +46,25 @@
                         <h3 class="fw-bold w-100 d-flex flex-center flex-sm-start">Monthly Reports</h3>
                       </div>
                       <div class="card-toolbar d-flex flex-center flex-sm-nowrap w-100 w-sm-auto">
-                        <!-- Sadece aylari gostermeli (Bu Ay, Geçen Ay, Özel Aralık: Yil/Ay Listesi) -->
-                        <!-- Bunun icin CSS ile gun araligi gizlenebilir. Ornek: https://stackoverflow.com/a/30619736 -->
-                        <div id="reportsDate" data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" data-kt-daterangepicker-range="month" class="btn btn-sm btn-light d-flex flex-center border px-4 w-100 mw-sm-225px mb-3 mb-sm-0">
-                          <div class="text-gray-600 fw-bold">Loading date range...</div>
-                          <i class="fs-1 bi bi-calendar-date-fill ms-2 me-0"></i>
-                        </div>
-                        <div class="w-100 w-sm-150px ms-0 ms-sm-3">
+                        <div class="d-flex py-5 gap-3">
+                          <select id="month" class="form-select form-select-solid border" data-control="select2" data-hide-search="true">
+                            <?
+                              for ($i = 1; $i <= 12; $i++) {
+                                $month = date('F', mktime(0, 0, 0, $i, 1, date('Y')));
+                                $selected = date('m') == $i ? " selected" : null;
+                                echo '<option value="' . $i . '"' . $selected . '>' . $month . '</option>';
+                              }
+                            ?>
+                          </select>
+
+                          <select id="year" class="form-select form-select-solid border" data-control="select2" data-hide-search="true">
+                            <option>2023</option>
+                            <option>2024</option>
+                            <option>2025</option>
+                            <option>2026</option>
+                            <option>2027</option>
+                          </select>
+
                           <select class="form-select form-select-solid border" data-control="select2" data-hide-search="true">
                             <option value="1" selected>All Firms</option>
                             <option value="2">Firm 1</option>

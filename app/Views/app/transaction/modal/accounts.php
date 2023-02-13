@@ -8,9 +8,13 @@
 
             <div class="w-auto border-2 border-bottom border-gray-300">
               <select id="methods" class="fs-2 mx-2 mt-2 pb-2" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-125px">
+                <? if(edit_papara_account): ?>
                 <option value="1" selected>Papara</option>
                 <option value="2">Matching</option>
-                <option value="3">Bank</option>
+                <? endif; ?>
+                <? if(edit_bank_account): ?>
+                  <option value="3">Bank</option>
+                <? endif; ?>
               </select>
             </div>
 

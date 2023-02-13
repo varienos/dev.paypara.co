@@ -24,7 +24,7 @@ class ApiModel extends Model
         $this->agent    = $this->request->getUserAgent();
     }
 
-    public function  log($site_id, $response, $method)
+    public function log($site_id, $response, $method)
     {
         $this->db->query("insert into log_api_event set
             `method`        = '" . $method . "',

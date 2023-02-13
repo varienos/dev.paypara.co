@@ -14,7 +14,7 @@
         <span class="menu-title">Dashboard</span>
       </a>
     </div>
-    <? if(view_papara_account === true && view_bank_account === true): ?>
+    <? if(view_papara_account || view_bank_account): ?>
     <div data-kt-menu-trigger="click" class="menu-item menu-accordion <? if(segment[0]== 'account') { echo 'hover show'; } ?>">
       <span class="menu-link show">
         <span class="menu-icon">
@@ -29,7 +29,7 @@
         <span class="menu-arrow"></span>
       </span>
       <div class="menu-sub menu-sub-accordion">
-        <? if(view_papara_account === true): ?>
+        <? if(view_papara_account): ?>
         <div class="menu-item menu-accordion">
           <a class="menu-link <? if((segment[0] == 'account' && segment[1] == 'index' && segment[2] == '1')  || (segment[0] == 'account' && segment[1] == 'detail' && segment[3] == '1' ) ) { echo 'active'; } ?>" href="account/index/1">
             <span class="menu-bullet">
@@ -47,7 +47,7 @@
           </a>
         </div>
         <? endif ?>
-        <? if(view_bank_account === true): ?>
+        <? if(view_bank_account): ?>
         <div class="menu-item disable menu-accordion">
           <a class="menu-link <? if((segment[0] == 'account' && segment[1] == 'index' && segment[2] == '3') || (segment[0] == 'account' && segment[1] == 'detail' && segment[3] == '3' )) { echo 'active'; } ?>" href="account/index/3">
             <span class="menu-bullet">
@@ -60,7 +60,7 @@
       </div>
     </div>
     <? endif ?>
-    <? if(view_transaction_deposit === true && view_transaction_withdraw === true): ?>
+    <? if(view_transaction_deposit || view_transaction_withdraw || view_reserved): ?>
     <div data-kt-menu-trigger="click" class="menu-item menu-accordion <? if(segment[0]== 'transaction') { echo 'hover show'; } ?>">
       <span class="menu-link">
         <span class="menu-icon">
@@ -75,7 +75,7 @@
         <span class="menu-arrow"></span>
       </span>
       <div class="menu-sub menu-sub-accordion">
-        <? if(view_transaction_deposit === true): ?>
+        <? if(view_transaction_deposit): ?>
         <div class="menu-item">
           <a class="menu-link <? if(segment[0] == 'transaction' && segment[1] == 'index' && segment[2] == 'deposit' ) { echo 'active'; } ?>" href="transaction/index/deposit">
             <span class="menu-bullet">
@@ -85,7 +85,7 @@
           </a>
         </div>
         <? endif ?>
-        <? if(view_transaction_withdraw === true): ?>
+        <? if(view_transaction_withdraw): ?>
         <div class="menu-item">
           <a class="menu-link <? if(segment[0] == 'transaction' && segment[1] == 'index' && segment[2] == 'withdraw' ) { echo 'active'; } ?>" href="transaction/index/withdraw">
             <span class="menu-bullet">
@@ -95,7 +95,7 @@
           </a>
         </div>
         <? endif ?>
-        <? if(view_reserved === true): ?>
+        <? if(view_reserved): ?>
         <div class="menu-item">
           <a class="menu-link disabled disable " href="javascript:;">
             <span class="menu-bullet">
@@ -108,7 +108,7 @@
       </div>
     </div>
     <? endif ?>
-    <? if(view_customer === true): ?>
+    <? if(view_customer): ?>
     <div class="menu-item menu-accordion">
       <a class="menu-link <? if(segment[0] == 'customer' ) { echo 'active'; } ?>" href="customer/index">
         <span class="menu-icon">
@@ -123,7 +123,7 @@
       </a>
     </div>
     <? endif ?>
-    <? if(view_report === true): ?>
+    <? if(view_report): ?>
     <div class="menu-item menu-accordion">
       <a class="menu-link <? if(segment[0] == 'reports' ) { echo 'active'; } ?>" href="reports/index">
         <span class="menu-icon">
@@ -138,7 +138,7 @@
       </a>
     </div>
     <? endif ?>
-    <? if(view_user === true): ?>
+    <? if(view_user): ?>
     <div class="menu-item menu-accordion">
       <a class="menu-link <? if(segment[0] == 'user' ) { echo 'active'; } ?>" href="user/index">
         <span class="menu-icon">
@@ -153,7 +153,7 @@
       </a>
     </div>
     <? endif ?>
-    <? if(view_settings === true || view_firm === true): ?>
+    <? if(view_settings || view_firm): ?>
     <div class="menu-item menu-accordion">
       <a class="menu-link <? if(segment[0] == 'settings' ) { echo 'active'; } ?>" href="settings">
         <span class="menu-icon">
