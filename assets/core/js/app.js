@@ -1805,7 +1805,7 @@ $.varien = {
                 $("#firms").html("");
                 if ($("#perm_site").val() != "") {
                     $("#perm_site option:selected").each(function() {
-                        $("#firms").append("<li class='badge badge-secondary'>" + $(this).text() + "</li>");
+                        $("#firms").append("<li class='badge badge-secondary me-3'>" + $(this).text() + "</li>");
                     });
                 } else {
                     $("#firms").append("<li class='badge badge-secondary'>All Firms</li>");

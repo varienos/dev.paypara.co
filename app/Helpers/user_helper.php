@@ -7,7 +7,6 @@ function getUserFirms()
     return strpos($data->perm_site, ",") > 0 ? explode(",", $data->perm_site) : [$data->perm_site];
 }
 
-
 function decodeUserId($hash)
 {
     $db = \Config\Database::connect();

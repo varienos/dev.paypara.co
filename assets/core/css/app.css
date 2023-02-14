@@ -52,6 +52,10 @@
     color: var(--kt-headings-color) !important;
 }
 
+.select2-selection__clear {
+    margin-right: 10px;
+}
+
 @media all and (min-width: 1730px) {
 
     .container,

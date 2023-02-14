@@ -65,10 +65,14 @@
                             <option>2027</option>
                           </select>
 
-                          <select class="form-select form-select-solid border" data-control="select2" data-hide-search="true">
-                            <option value="1" selected>All Firms</option>
-                            <option value="2">Firm 1</option>
-                            <option value="3">Firm 2</option>
+                          <select class="form-select form-select-solid border" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-auto">
+                            <option value="0">All Firms</option>
+                            <?
+                              $selected = count($userFirms) === 1 ? " selected" : null;
+                              foreach ($userFirms as $firm) {
+                                echo "<option value='" . $firm['id'] . "'". $selected .">" . $firm['name'] . "</option>";
+                              }
+                            ?>
                           </select>
                         </div>
                       </div>
