@@ -151,6 +151,7 @@ if (SUBDOMAIN == "api") {
     $routes->add('/transaction/accounts', 'Transaction::listAccounts');
     $routes->add('/settings', 'Settings::index');
     $routes->add('/settings/update', 'Settings::update');
+    $routes->add('/reports/data', 'Reports::data');
     $routes->add('/json/resources', 'Json::resources');
     $routes->add('/dev', 'Dev::index');
     $routes->add('/dev/latency', 'Dev::ping');

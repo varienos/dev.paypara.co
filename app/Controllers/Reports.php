@@ -12,11 +12,21 @@ class Reports extends BaseController
 
 	public function index()
 	{
-		$data["userFirms"] = $this->ReportsModel->getUserFirms();
+		if($this->session->get('root')) {
+			$data["userFirms"] = $this->ReportsModel->getAllFirms();
+		} else {
+			$data["userFirms"] = $this->ReportsModel->getUserFirms();
+		}
+
 		$data["summaryData"] = $this->ReportsModel->getSummaryData();
 		$data["monthlyDeposit"] = $this->ReportsModel->getMonthlyTransactionSum();
 		$data["monthlyWithdraw"] = $this->ReportsModel->getMonthlyTransactionSum('withdraw');
 
 		echo htmlMinify(view('app/reports/index', $data));
+	}
+
+	public function data()
+	{
+		return "not implemented yet";
 	}
 }

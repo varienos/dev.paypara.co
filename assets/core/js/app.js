@@ -2398,21 +2398,33 @@ $.varien = {
     },
     reports: {
         init: () => {
+            // Check if data exists
+            if(typeof(depositMonthly) === "undefined" && typeof(withdrawMonthly) === "undefined") {
+                let chart = document.getElementById('chart-reports-main');
+                chart.innerHTML = "<div class='d-flex flex-center fs-1 fw-semibold w-100 h-100'>There are no transactions within this month</div>";
+
+                return;
+            }
+
             // Map transaction data
-            $.depositData = depositMonthly.map(item => item.total);
-            $.withdrawData = withdrawMonthly.map(item => item.total);
+            const depositData = depositMonthly.map(item => item.total);
+            const withdrawData = withdrawMonthly.map(item => item.total);
+
+            // Initiate main chart
+            $.varien.reports.charts.main.init(depositData, withdrawData);
 
             // Initiate pie chart
             $.varien.reports.charts.pie.init();
 
-            // Initiate main chart, only when there is available data
-            if($.depositData.length > 0 || $.withdrawData.length > 0) {
-                $.varien.reports.charts.main.init();
-            } else {
-                // Notify user when there is no data available
-                let el = document.getElementById('chart-reports-main');
-                el.innerHTML = "<div class='d-flex flex-center fs-1 fw-semibold w-100 h-100'>There is no transaction this month</div>";
-            }
+            // Catch when user changes month and year
+            $('#year, #month').on('change', () => {
+                const year = $('#year').val();
+                const month = $('#month').val();
+
+                // Fetch new data
+                $.varien.reports.fetch(month, year);
+              }
+            );
         },
         charts: {
             pie: {
@@ -2485,7 +2497,7 @@ $.varien = {
                 }
             },
             main: {
-                init: () => {
+                init: (depositData, withdrawData) => {
                     let chart = {
                         self: null,
                         rendered: false
@@ -2502,10 +2514,10 @@ $.varien = {
                         let options = {
                             series: [{
                                 name: 'Deposit',
-                                data: $.depositData,
+                                data: depositData,
                             }, {
                                 name: 'Withdrawal',
-                                data: $.withdrawData,
+                                data: withdrawData,
                             }],
                             chart: {
                                 type: 'area',
@@ -2612,6 +2624,30 @@ $.varien = {
                     })();
                 }
             }
+        },
+        fetch: (month, year) => {
+            let blocker = new KTBlockUI($('.card-body')[0]);
+
+            blocker.block();
+            $('#year, #month, #firms').prop('disabled', 'disabled');
+
+            $.ajax({
+                url: '/reports/data',
+                method: 'POST',
+                data: { month, year },
+                success: (response) => {
+                    // TODO: Handle response
+                  console.log(response);
+                },
+                error: function(jqXHR, errorThrown) {
+                    toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                },
+                complete: () => {
+                    blocker.release();
+                    $('#year, #month, #firms').prop('disabled', false);
+                }
+              }
+            );
         },
         daysInMonth: () => {
             let days = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();

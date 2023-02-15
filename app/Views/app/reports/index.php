@@ -65,14 +65,24 @@
                             <option>2027</option>
                           </select>
 
-                          <select class="form-select form-select-solid border" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px">
+                          <select id="firms" class="form-select form-select-solid border" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px">
                             <option value="0">All Firms</option>
-                            <?
-                              $selected = count($userFirms) === 1 ? " selected" : null;
-                              foreach ($userFirms as $firm) {
-                                echo "<option value='" . $firm['id'] . "'". $selected .">" . $firm['name'] . "</option>";
+                            <?php foreach ($userFirms as $firm) {
+                              if ($firm['status'] == 'on') {
+                                $selected = (count($userFirms) === 1 && $userFirms[0]['id'] == $firm['id']) ? " selected" : "";
+                                echo "<option value='" . $firm['id'] . "'" . $selected . ">" . $firm['name'] . "</option>";
                               }
-                            ?>
+                            } ?>
+                            <? if(root): ?>
+                            <optgroup label="Inactive">
+                              <?php foreach ($userFirms as $firm) {
+                                if ($firm['status'] == 0) {
+                                  $selected = (count($userFirms) === 1 && $userFirms[0]['id'] == $firm['id']) ? " selected" : "";
+                                  echo "<option value='" . $firm['id'] . "'" . $selected . ">" . $firm['name'] . "</option>";
+                                }
+                              } ?>
+                            </optgroup>
+                            <? endif; ?>
                           </select>
                         </div>
                       </div>
@@ -113,7 +123,7 @@
                 </div>
               </div>
 
-              <? if(partner === true): ?>
+              <? if(partner): ?>
               <?php require appViewPath().'reports/_partner.php' ?>
               <? else: ?>
               <?php require appViewPath().'reports/_admin.php' ?>
@@ -126,9 +136,11 @@
       </div>
     </div>
 
+    <? if(count($monthlyDeposit) > 0 || count($monthlyWithdraw) > 0): ?>
     <script>
       const depositMonthly = <?= json_encode($monthlyDeposit) ?>;
       const withdrawMonthly = <?= json_encode($monthlyWithdraw) ?>;
     </script>
+    <? endif; ?>
 
     <?php require appViewPath().'layout/footer/footer.php' ?>
