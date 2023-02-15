@@ -2398,6 +2398,16 @@ $.varien = {
     },
     reports: {
         init: () => {
+            // Initiate UI blockers
+            const _message = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
+
+            let targets = [$('#first-row'), $('#third-row')];
+            if ($('#second-row').length) targets.push($('#second-row'));
+
+            $.blockers = targets.filter(Boolean).map((target) => {
+                return target.length > 0 ? new KTBlockUI(target[0], { message: _message }) : null;
+            });
+
             // Check if data exists
             if(typeof(depositMonthly) === "undefined" && typeof(withdrawMonthly) === "undefined") {
                 let chart = document.getElementById('chart-reports-main');
@@ -2417,12 +2427,13 @@ $.varien = {
             $.varien.reports.charts.pie.init();
 
             // Catch when user changes month and year
-            $('#year, #month').on('change', () => {
+            $('#year, #month, #firms').on('change', (e) => {
                 const year = $('#year').val();
                 const month = $('#month').val();
+                const firm = $('#firms').val();
 
                 // Fetch new data
-                $.varien.reports.fetch(month, year);
+                $.varien.reports.fetch(month, year, firm);
               }
             );
         },
@@ -2625,29 +2636,34 @@ $.varien = {
                 }
             }
         },
-        fetch: (month, year) => {
-            let blocker = new KTBlockUI($('.card-body')[0]);
-
-            blocker.block();
-            $('#year, #month, #firms').prop('disabled', 'disabled');
+        fetch: (month, year, firm) => {
+            $.blockers.forEach((blocker) => blocker.block());
+            $('#year, #month, #firms').attr('disabled', 'disabled');
 
             $.ajax({
                 url: '/reports/data',
                 method: 'POST',
-                data: { month, year },
+                timeout: 10000,
+                dataType: 'json',
+                data: { month, year, firm },
                 success: (response) => {
-                    // TODO: Handle response
-                  console.log(response);
-                },
-                error: function(jqXHR, errorThrown) {
-                    toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                    console.log(response);
+                    $.varien.reports.updateData(response);
                 },
                 complete: () => {
-                    blocker.release();
-                    $('#year, #month, #firms').prop('disabled', false);
+                    $.blockers.forEach((blocker) => blocker.release());
+                    $('#year, #month, #firms').removeAttr('disabled', 'disabled');
                 }
               }
             );
+        },
+        updateData: (data) => {
+            if(!data) return;
+
+            // Update summary data
+            $('#dailyAverage').text(Number(data.summary.average).toFixed(2));
+            $('#totalDeposits').text(Number(data.summary.deposit).toFixed(2));
+            $('#totalWithdrawals').text(Number(data.summary.withdraw).toFixed(2));
         },
         daysInMonth: () => {
             let days = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();

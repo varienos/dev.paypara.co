@@ -24,7 +24,7 @@
       </div>
     </div>
   </div>
-  <div class="card-body pt-0">
+  <div id="third-row" class="card-body pt-0">
     <div class="table-responsive">
       <table class="table table-striped table-row-dashed gy-2 gs-7 fs-6">
         <thead>

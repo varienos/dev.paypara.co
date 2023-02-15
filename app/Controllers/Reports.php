@@ -18,8 +18,8 @@ class Reports extends BaseController
 			$data["userFirms"] = $this->ReportsModel->getUserFirms();
 		}
 
-		$data["summaryData"] = $this->ReportsModel->getSummaryData();
-		$data["monthlyDeposit"] = $this->ReportsModel->getMonthlyTransactionSum();
+		$data["summary"] = $this->ReportsModel->getSummaryData();
+		$data["monthlyDeposit"] = $this->ReportsModel->getMonthlyTransactionSum('deposit');
 		$data["monthlyWithdraw"] = $this->ReportsModel->getMonthlyTransactionSum('withdraw');
 
 		echo htmlMinify(view('app/reports/index', $data));
@@ -27,6 +27,12 @@ class Reports extends BaseController
 
 	public function data()
 	{
-		return "not implemented yet";
+		$firm = $_POST["firm"];
+		$year = $_POST["year"];
+		$month = $_POST["month"];
+
+		$data["summary"] = $this->ReportsModel->getSummaryData($month, $year, $firm);
+
+		return json_encode($data);
 	}
 }

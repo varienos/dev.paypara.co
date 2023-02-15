@@ -1,4 +1,4 @@
-<div class="row g-5 d-flex justify-content-between mb-5">
+<div id="second-row" class="row g-5 d-flex justify-content-between mb-5">
   <div class="col-12 col-xl-9">
     <div class="card card-bordered card-flush h-100">
       <div class="card-header d-flex flex-column flex-sm-row border-bottom-2 py-0">
@@ -269,7 +269,7 @@
       </div>
     </div>
   </div>
-  <div class="card-body pt-0">
+  <div id="third-row" class="card-body pt-0">
     <div class="table-responsive">
       <table class="table table-striped table-row-dashed fs-6 gy-2">
         <thead>

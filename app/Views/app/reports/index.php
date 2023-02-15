@@ -47,7 +47,7 @@
                       </div>
                       <div class="card-toolbar d-flex flex-center flex-sm-nowrap w-100 w-sm-auto">
                         <div class="d-flex py-5 gap-3">
-                          <select id="month" class="form-select form-select-solid border" data-control="select2" data-hide-search="true">
+                          <select id="month" class="form-select form-select-solid border" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-125px">
                             <?
                               for ($i = 1; $i <= 12; $i++) {
                                 $month = date('F', mktime(0, 0, 0, $i, 1, date('Y')));
@@ -88,28 +88,28 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card card-bordered card-flush mb-5">
+                  <div id="first-row" class="card card-bordered card-flush mb-5">
                     <div class="card-body d-flex justify-content-between flex-column pb-0 px-0 pt-1">
                       <div class="d-flex flex-wrap flex-center gap-5 w-100 px-9 py-5 my-5 mb-sm-0 mt-sm-5">
                         <div class="me-md-2">
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Total Deposits</div>
                           <div class="d-flex mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 me-1">₺</span>
-                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summaryData['deposit'], 2) ?></span>
+                            <span id="totalDeposits" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summary['deposit'], 2) ?></span>
                           </div>
                         </div>
                         <div class="ps-md-10 pe-md-7 me-md-5">
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Total Withdrawals</div>
                           <div class="d-flex mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 me-1">₺</span>
-                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summaryData['withdraw'], 2) ?></span>
+                            <span id="totalWithdrawals" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summary['withdraw'], 2) ?></span>
                           </div>
                         </div>
                         <div class="m-0">
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Average Daily Deposit</div>
                           <div class="d-flex align-items-center mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 align-self-start me-1">₺</span>
-                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summaryData['average'], 2) ?></span>
+                            <span id="dailyAverage" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summary['average'], 2) ?></span>
                           </div>
                         </div>
                       </div>

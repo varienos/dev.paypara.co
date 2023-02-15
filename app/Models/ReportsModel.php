@@ -37,27 +37,34 @@ class ReportsModel extends Model
       )->getResultArray();
     }
 
-    public function getSummaryData($year = null, $month = null)
+    public function getSummaryData($month = null, $year = null, $firm = null)
     {
       $year = is_null($year) ? idate('Y') : $year;
       $month = is_null($month) ? idate('m') : $month;
-      $firms = $this->session->get('root') ? null : filterSite();
+
+      if($firm == 0) {
+        $firmQuery = $this->session->get('root') ? null : filterSite();
+      } else {
+        $firmQuery = "AND finance.site_id = " . $firm;
+      }
 
       $db = \Config\Database::connect();
 
       return $db->query("
         SELECT
           (SELECT COALESCE(SUM(price), 0) FROM finance
-          WHERE status = 'onaylandı' AND request = 'deposit' $firms AND MONTH(request_time) = $month AND YEAR(request_time) = $year) as deposit,
+          WHERE status = 'onaylandı' AND request = 'deposit' $firmQuery AND MONTH(request_time) = $month AND YEAR(request_time) = $year) as deposit,
           (SELECT COALESCE(SUM(price), 0) FROM finance
-          WHERE status = 'onaylandı' AND request = 'withdraw' $firms AND MONTH(request_time) = $month AND YEAR(request_time) = $year) as withdraw,
+          WHERE status = 'onaylandı' AND request = 'withdraw' $firmQuery AND MONTH(request_time) = $month AND YEAR(request_time) = $year) as withdraw,
           (SELECT COALESCE(AVG(price), 0) FROM finance
-          WHERE status = 'onaylandı' AND request = 'deposit' $firms AND MONTH(request_time) = $month AND YEAR(request_time) = $year) as average;
+          WHERE status = 'onaylandı' AND request = 'deposit' $firmQuery AND MONTH(request_time) = $month AND YEAR(request_time) = $year) as average;
       ")->getResultArray()[0];
     }
 
-    public function getMonthlyTransactionSum($type = 'deposit')
+    public function getMonthlyTransactionSum($type = 'deposit', $month = null, $year = null)
     {
+      $year = is_null($year) ? idate('Y') : $year;
+      $month = is_null($month) ? idate('m') : $month;
       $firms = $this->session->get('root') ? null : filterSite();
 
       $db = \Config\Database::connect();
@@ -67,8 +74,8 @@ class ReportsModel extends Model
         WHERE request = '$type'
           AND status = 'onaylandı'
           $firms
-          AND MONTH(request_time) = MONTH(CURRENT_DATE())
-          AND YEAR(request_time) = YEAR(CURRENT_DATE())
+          AND MONTH(request_time) = $month
+          AND YEAR(request_time) = $year
         GROUP BY DAY(request_time)
       ")->getResultArray();
     }
