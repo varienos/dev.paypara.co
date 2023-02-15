@@ -67,7 +67,7 @@
                     </div>
                   </div>
                   <div class="card-toolbar w-100 w-xxl-auto">
-                    <div class="d-flex flex-wrap justify-content-center justify-content-xxl-end gap-3 w-100 w-xxl-auto">
+                    <div class="d-flex flex-wrap flex-lg-nowrap justify-content-center justify-content-xxl-end gap-3 w-100 w-xxl-auto">
                       <input class="form-control form-control-solid border border-1 mw-225px" placeholder="Select a date range" value="<?=date("Y-m-d") ?>" name="transactionDate" id="transactionDate" />
                       <div>
                         <button type="button" class="btn btn-light ps-7" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="filtre">

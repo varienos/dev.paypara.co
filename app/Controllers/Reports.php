@@ -12,8 +12,10 @@ class Reports extends BaseController
 
 	public function index()
 	{
-		$data["allFirms"] = $this->ReportsModel->allFirms();
-		$data["userFirms"] = $this->ReportsModel->userFirms();
+		$data["userFirms"] = $this->ReportsModel->getUserFirms();
+		$data["summaryData"] = $this->ReportsModel->getSummaryData();
+		$data["monthlyDeposit"] = $this->ReportsModel->getMonthlyTransactionSum();
+		$data["monthlyWithdraw"] = $this->ReportsModel->getMonthlyTransactionSum('withdraw');
 
 		echo htmlMinify(view('app/reports/index', $data));
 	}

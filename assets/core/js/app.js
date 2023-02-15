@@ -2398,8 +2398,21 @@ $.varien = {
     },
     reports: {
         init: () => {
+            // Map transaction data
+            $.depositData = depositMonthly.map(item => item.total);
+            $.withdrawData = withdrawMonthly.map(item => item.total);
+
+            // Initiate pie chart
             $.varien.reports.charts.pie.init();
-            $.varien.reports.charts.main.init();
+
+            // Initiate main chart, only when there is available data
+            if($.depositData.length > 0 || $.withdrawData.length > 0) {
+                $.varien.reports.charts.main.init();
+            } else {
+                // Notify user when there is no data available
+                let el = document.getElementById('chart-reports-main');
+                el.innerHTML = "<div class='d-flex flex-center fs-1 fw-semibold w-100 h-100'>There is no transaction this month</div>";
+            }
         },
         charts: {
             pie: {
@@ -2487,13 +2500,12 @@ $.varien = {
                         let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
                         let borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
                         let options = {
-                            // TODO: To be replaced with dynamic data
                             series: [{
                                 name: 'Deposit',
-                                data: [725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50, 725821.52, 1165700.50, 925822.75, 1090432.50, 759523.40, 1054352.40, 826915.50],
+                                data: $.depositData,
                             }, {
                                 name: 'Withdrawal',
-                                data: [458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00, 458127.50, 627180.00, 561320.15, 321572.90, 857251.65, 165281.75, 627582.00],
+                                data: $.withdrawData,
                             }],
                             chart: {
                                 type: 'area',
@@ -2534,9 +2546,8 @@ $.varien = {
                                 axisBorder: {
                                     show: false
                                 },
-                                // TODO: To be replaced with dynamic data
                                 // Shows entire month day by day
-                                categories: ["Apr 01", "Apr 02", "Apr 03", "Apr 04", "Apr 05", "Apr 06", "Apr 07", "Apr 08", "Apr 09", "Apr 10", "Apr 11", "Apr 12", "Apr 13", "Apr 14", "Apr 17", "Apr 18", "Apr 19", "Apr 21", "Apr 22", "Apr 23", "Apr 24", "Apr 25", "Apr 26", "Apr 27", "Apr 28", "Apr 29", "Apr 30", "Apr 31"],
+                                categories: $.varien.reports.daysInMonth(),
                                 labels: {
                                     rotate: -25,
                                     rotateAlways: true,
@@ -2601,6 +2612,13 @@ $.varien = {
                     })();
                 }
             }
+        },
+        daysInMonth: () => {
+            let days = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+            return Array.from({ length: days }, (_, i) => {
+                const day = i + 1;
+                return new Date(new Date().getFullYear(), new Date().getMonth(), day).toLocaleString('en-US', { month: 'short', day: '2-digit' });
+            });
         }
     },
     settings: {

@@ -65,7 +65,7 @@
                             <option>2027</option>
                           </select>
 
-                          <select class="form-select form-select-solid border" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-auto">
+                          <select class="form-select form-select-solid border" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px">
                             <option value="0">All Firms</option>
                             <?
                               $selected = count($userFirms) === 1 ? " selected" : null;
@@ -85,21 +85,21 @@
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Total Deposits</div>
                           <div class="d-flex mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 me-1">₺</span>
-                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">10.401.170,65</span>
+                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summaryData['deposit'], 2) ?></span>
                           </div>
                         </div>
                         <div class="ps-md-10 pe-md-7 me-md-5">
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Total Withdrawals</div>
                           <div class="d-flex mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 me-1">₺</span>
-                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">4.160.468,45</span>
+                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summaryData['withdraw'], 2) ?></span>
                           </div>
                         </div>
                         <div class="m-0">
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Average Daily Deposit</div>
                           <div class="d-flex align-items-center mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 align-self-start me-1">₺</span>
-                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">1.945.117,99</span>
+                            <span class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summaryData['average'], 2) ?></span>
                           </div>
                         </div>
                       </div>
@@ -125,4 +125,10 @@
         </div>
       </div>
     </div>
+
+    <script>
+      const depositMonthly = <?= json_encode($monthlyDeposit) ?>;
+      const withdrawMonthly = <?= json_encode($monthlyWithdraw) ?>;
+    </script>
+
     <?php require appViewPath().'layout/footer/footer.php' ?>

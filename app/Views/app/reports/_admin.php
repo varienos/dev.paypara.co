@@ -41,7 +41,7 @@
       </div>
       <div class="card-body p-0">
         <div class="table-responsive">
-          <table class="table table-striped table-row-dashed gy-3 gs-7 m-0">
+          <table class="table table-striped table-row-dashed gy-3 gs-7 fs-6 m-0">
             <thead>
               <tr class="fw-bold fs-6 border-bottom-2 border-gray-200 text-center">
                 <th class="min-w-80px">User ID</th>

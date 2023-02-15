@@ -55,29 +55,31 @@
             </div>
             <div class="card-body">
               <?php
-              $withdrawFetchWeekly  = withdrawFetchWeekly();
-              $depositFetchWeekly   = depositFetchWeekly();
-              foreach (json_decode($withdrawFetchWeekly) as $value) {
-                $withdrawFetchWeeklyCount += $value->dayTotal;
-              }
-              foreach (json_decode($depositFetchWeekly) as $value) {
-                $depositFetchWeeklyCount += $value->dayTotal;
-              } ?>
-              <script>
-              const withdrawFetchWeekly = <?= $withdrawFetchWeekly != "" ? $withdrawFetchWeekly : '{[]}'; ?>;
-              const depositFetchWeekly = <?= $depositFetchWeekly != "" ? $depositFetchWeekly : '{[]}'; ?>;
-              </script>
-              <? if ($withdrawFetchWeeklyCount > 0 or $depositFetchWeeklyCount > 0) : ?>
+                $withdrawFetchWeekly  = withdrawFetchWeekly();
+                $depositFetchWeekly   = depositFetchWeekly();
+                foreach (json_decode($withdrawFetchWeekly) as $value) {
+                  $withdrawFetchWeeklyCount += $value->dayTotal;
+                }
+                foreach (json_decode($depositFetchWeekly) as $value) {
+                  $depositFetchWeeklyCount += $value->dayTotal;
+                }
+              ?>
 
-              <div id="chart-dashboard" class="h-100"></div>
-              <?php else : ?>
-              <h3 class="d-flex flex-center text-center text-gray-700 h-100 m-0">No transactions this week</h3>
-              <?php endif ?>
+              <script>
+                const withdrawFetchWeekly = <?= $withdrawFetchWeekly != "" ? $withdrawFetchWeekly : '{[]}'; ?>;
+                const depositFetchWeekly = <?= $depositFetchWeekly != "" ? $depositFetchWeekly : '{[]}'; ?>;
+              </script>
+
+              <? if ($withdrawFetchWeeklyCount > 0 or $depositFetchWeeklyCount > 0): ?>
+                <div id="chart-dashboard" class="h-100"></div>
+              <? else: ?>
+                <h3 class="d-flex flex-center text-center text-gray-700 h-100 m-0">No transactions this week</h3>
+              <? endif; ?>
             </div>
           </div>
         </div>
       </div>
-      <? if (partner !== true) : ?>
+      <? if (partner) : ?>
       <div class="row">
         <div class="col-12 col-lg-4 mb-5 mb-lg-0">
           <div class="card card-bordered h-100">
@@ -87,11 +89,11 @@
             <div class="card-body d-flex px-3">
               <div class="col-6 text-center">
                 <h5 class="card-title fw-semibold text-gray-700 pb-2">Yatırım</h5>
-                <h3 class="fw-bolder text-gray-700 m-0">₺<?= number_format(depositMonthly() / date('t'), 2) ?></h3>
+                <h3 class="fw-bolder text-gray-700 m-0">₺<?= number_format(depositMonthly() / date('j'), 2) ?></h3>
               </div>
               <div class="col-6 text-center">
                 <h5 class="card-title fw-semibold text-gray-700 pb-2">Çekim</h5>
-                <h3 class="fw-bolder text-gray-700 m-0">₺<?= number_format(withdrawMonthly() / date('t'), 2) ?></h3>
+                <h3 class="fw-bolder text-gray-700 m-0">₺<?= number_format(withdrawMonthly() / date('j'), 2) ?></h3>
               </div>
             </div>
           </div>
