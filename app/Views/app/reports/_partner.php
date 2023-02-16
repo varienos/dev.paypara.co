@@ -8,7 +8,7 @@
       <button type="button" class="btn btn-light" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
         <i class="fs-3 bi bi-box-arrow-down p-0"></i>
       </button>
-      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
+      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-export data-kt-menu="true">
         <div class="menu-item px-3">
           <a class="menu-link px-3" data-export-type="copy">Copy to Clipboard</a>
         </div>

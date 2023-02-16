@@ -1,4 +1,4 @@
-<div id="second-row" class="row g-5 d-flex justify-content-between mb-5">
+<div class="row g-5 d-flex justify-content-between mb-5">
   <div class="col-12 col-xl-9">
     <div class="card card-bordered card-flush h-100">
       <div class="card-header d-flex flex-column flex-sm-row border-bottom-2 py-0">
@@ -8,7 +8,7 @@
         <div class="card-toolbar mb-3 mb-sm-0">
           <div class="d-flex w-100 w-sm-auto">
             <div class="fs-6 fw-semibold text-gray-800 align-self-center m-0 me-3">Filter: </div>
-            <select class="form-select form-select-solid form-select-sm w-100 w-sm-325px" data-control="select2" data-hide-search="true">
+            <select class="form-select form-select-solid form-select-sm w-100 w-sm-325px me-3" data-control="select2" data-hide-search="true">
               <optgroup label="Deposit">
                 <option value="1" selected>List by highest deposit amounts</option>
                 <option value="2">List by highest deposit counts</option>
@@ -22,7 +22,10 @@
                 <option value="6">List staff members by approved transactions</option>
               </optgroup>
             </select>
-            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
+            <button type="button" class="btn btn-sm btn-light" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+              <i class="fs-3 bi bi-box-arrow-down p-0"></i>
+            </button>
+            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-export data-kt-menu="true">
               <div class="menu-item px-3">
                 <a class="menu-link px-3" data-export-type="copy">Copy to Clipboard</a>
               </div>
@@ -137,7 +140,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12 col-xl-3">
+  <div id="second-row" class="col-12 col-xl-3">
     <div class="card card-bordered card-flush h-100">
       <div class="card-header position-relative py-0 border-bottom-2">
         <div class="card-title d-flex flex-column flex-center w-100">
@@ -253,7 +256,7 @@
       <button type="button" class="btn btn-light" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
         <i class="fs-3 bi bi-box-arrow-down p-0"></i>
       </button>
-      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-kt-menu="true">
+      <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-200px py-4" data-export data-kt-menu="true">
         <div class="menu-item px-3">
           <a class="menu-link px-3" data-export-type="copy">Copy to Clipboard</a>
         </div>
