@@ -66,7 +66,9 @@
                           </select>
 
                           <select id="firms" class="form-select form-select-solid border" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px">
+                            <? if(count($userFirms) == 0 || count($userFirms) > 1): ?>
                             <option value="0">All Firms</option>
+                            <? endif; ?>
                             <?php foreach ($userFirms as $firm) {
                               if ($firm['status'] == 'on') {
                                 $selected = (count($userFirms) === 1 && $userFirms[0]['id'] == $firm['id']) ? " selected" : "";
@@ -138,8 +140,8 @@
 
     <? if(count($monthlyDeposit) > 0 || count($monthlyWithdraw) > 0): ?>
     <script>
-      const depositMonthly = <?= json_encode($monthlyDeposit) ?>;
-      const withdrawMonthly = <?= json_encode($monthlyWithdraw) ?>;
+      const depositMonthlyFirst = <?= json_encode($monthlyDeposit) ?>;
+      const withdrawMonthlyFirst = <?= json_encode($monthlyWithdraw) ?>;
     </script>
     <? endif; ?>
 

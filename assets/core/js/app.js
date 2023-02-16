@@ -2397,11 +2397,6 @@ $.varien = {
         }
     },
     reports: {
-        /* // TODO: BUGS
-            1. Tekli firma sectikten sonra, veri yoksa charts gizlenmiyor
-            2. Chart uzerindeki tarih labeli yeni aya gore gunleri guncellemiyor
-            3. Ilk init aninda data yoksa, yeni data geldiginde chart gosterilmiyor
-        */
         init: () => {
             // Initiate UI blockers
             const _message = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
@@ -2413,27 +2408,6 @@ $.varien = {
                 return target.length > 0 ? new KTBlockUI(target[0], { message: _message }) : null;
             });
 
-            // Check if no data is available
-            if(typeof(depositMonthly) === "undefined" && typeof(withdrawMonthly) === "undefined") {
-                let chart = document.getElementById('chart-reports-main');
-                let message = "There are no transactions within this month";
-                let html = `<div class='d-flex flex-center fs-1 fw-semibold w-100 h-300px'>${message}</div>`;
-
-                chart.classList.add('d-none');
-                chart.insertAdjacentHTML('afterend', html);
-                return;
-            }
-
-            // Map transaction data
-            const depositData = depositMonthly.map(item => item.total);
-            const withdrawData = withdrawMonthly.map(item => item.total);
-
-            // Initiate main chart
-            $.mainChart = $.varien.reports.charts.main.init(depositData, withdrawData);
-
-            // Initiate pie chart
-            $.pieChart = $.varien.reports.charts.pie.init();
-
             // Catch when the user changes selected month, year or firm
             $('#year, #month, #firms').on('change', (e) => {
                 const year = $('#year').val();
@@ -2444,6 +2418,29 @@ $.varien = {
                 $.varien.reports.fetch(month, year, firm);
               }
             );
+
+            // Check if no data is available
+            if(typeof(depositMonthlyFirst) === "undefined" && typeof(withdrawMonthlyFirst) === "undefined") {
+                let chart = document.getElementById('chart-reports-main');
+                if(chart.classList.contains('d-none')) return;
+
+                let message = "There are no transactions within this month";
+                let html = `<div class='d-flex flex-center fs-1 fw-semibold w-100 h-300px'>${message}</div>`;
+
+                chart.classList.add('d-none');
+                chart.insertAdjacentHTML('afterend', html);
+                return;
+            }
+
+            // Map transaction data
+            const deposit = depositMonthlyFirst.map(item => item.total);
+            const withdraw = withdrawMonthlyFirst.map(item => item.total);
+
+            // Initiate main chart
+            $.mainChart = $.varien.reports.charts.main.init(deposit, withdraw);
+
+            // Initiate pie chart
+            $.pieChart = $.varien.reports.charts.pie.init();
         },
         charts: {
             pie: {
@@ -2637,10 +2634,6 @@ $.varien = {
                                 chart.self.render();
                                 chart.rendered = true;
                             }, 200);
-                        } else {
-                            // If no data is available, destroy the chart and mark it as not rendered
-                            chart.self.destroy();
-                            chart.rendered = false;
                         }
                     }
 
@@ -2653,7 +2646,6 @@ $.varien = {
                                     chart.self.el.nextSibling.remove();
                                     chart.self.el.classList.remove('d-none');
                                     chart.hidden = false;
-                                    chart.rendered = false;
                                 }
 
                                 // If data is available, update the chart series and categories
@@ -2663,14 +2655,15 @@ $.varien = {
                                 }, {
                                     name: 'Withdrawal',
                                     data: withdrawData,
-                                }]);
+                                }], true);
 
+                                const year = $('#year').val();
                                 const month = $('#month').val() - 1;
-                                chart.self.updateOptions([{
+                                chart.self.updateOptions({
                                     xaxis: {
-                                        categories: $.varien.reports.daysInMonth(month)
+                                        categories: $.varien.reports.daysInMonth(month, year)
                                     }
-                                }]);
+                                });
 
                                 // If the chart is not rendered, render it
                                 if (!chart.rendered) {
@@ -2746,7 +2739,6 @@ $.varien = {
             const depositMonthly = data.mainChart.deposit.map(item => item.total);
             const withdrawMonthly = data.mainChart.withdraw.map(item => item.total);
             $.mainChart.update(depositMonthly, withdrawMonthly);
-
         },
         daysInMonth: (month = (new Date()).getMonth(), year = (new Date().getFullYear())) => {
             let days;

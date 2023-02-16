@@ -61,11 +61,16 @@ class ReportsModel extends Model
       ")->getResultArray()[0];
     }
 
-    public function getMonthlyTransactionSum($type = 'deposit', $month = null, $year = null)
+    public function getMonthlyTransactionSum($type = 'deposit', $month = null, $year = null, $firm = null)
     {
       $year = is_null($year) ? idate('Y') : $year;
       $month = is_null($month) ? idate('m') : $month;
-      $firms = $this->session->get('root') ? null : filterSite();
+
+      if($firm == 0) {
+        $firmQuery = $this->session->get('root') ? null : filterSite();
+      } else {
+        $firmQuery = "AND finance.site_id = " . $firm;
+      }
 
       $db = \Config\Database::connect();
       return $db->query("
@@ -73,7 +78,7 @@ class ReportsModel extends Model
         FROM finance
         WHERE request = '$type'
           AND status = 'onaylandı'
-          $firms
+          $firmQuery
           AND MONTH(request_time) = $month
           AND YEAR(request_time) = $year
         GROUP BY DAY(request_time)

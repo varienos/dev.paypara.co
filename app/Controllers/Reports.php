@@ -33,8 +33,8 @@ class Reports extends BaseController
 
 		$data["summary"] = $this->ReportsModel->getSummaryData($month, $year, $firm);
 		$data["mainChart"] = array(
-			"deposit" => $this->ReportsModel->getMonthlyTransactionSum('deposit', $month, $year),
-			"withdraw" => $this->ReportsModel->getMonthlyTransactionSum('withdraw', $month, $year),
+			"deposit" => $this->ReportsModel->getMonthlyTransactionSum('deposit', $month, $year, $firm),
+			"withdraw" => $this->ReportsModel->getMonthlyTransactionSum('withdraw', $month, $year, $firm),
 		);
 
 		return json_encode($data);
