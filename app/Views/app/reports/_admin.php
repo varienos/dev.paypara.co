@@ -194,24 +194,34 @@
               <div class="fs-5 fw-bold text-center text-gray-900 w-100 m-0 mb-5">Clients</div>
               <div class="d-flex flex-stack">
                 <div class="text-gray-800 fw-semibold fs-6 me-2">Active Clients</div>
-                <span class="text-gray-900 fw-bolder fs-6">730</span>
+                <span class="text-gray-900 fw-bolder fs-6"><?= $highlights["activeClients"] ?></span>
               </div>
               <div class="separator separator-dashed my-2"></div>
               <div class="d-flex flex-stack">
-                <div class="text-gray-800 fw-semibold fs-6 me-2">Matching Clients</div>
+                <div class="text-gray-800 fw-semibold fs-6 me-2">Matched Clients</div>
                 <div class="d-flex align-items-senter">
-                  <span class="text-gray-900 fw-bolder fs-6">458</span>
+                  <span class="text-gray-900 fw-bolder fs-6"><?= $highlights["matchedClients"] ?></span>
                 </div>
               </div>
               <div class="separator separator-dashed my-2"></div>
               <div class="d-flex flex-stack">
                 <div class="text-gray-800 fw-semibold fs-6 me-2">VIP Clients</div>
-                <span class="text-gray-900 fw-bolder fs-6">142</span>
+                <span class="text-gray-900 fw-bolder fs-6"><?= $highlights["vipClients"] ?></span>
+              </div>
+              <div class="separator separator-dashed my-2"></div>
+              <div class="d-flex flex-stack">
+                <div class="text-gray-800 fw-semibold fs-6 me-2">Deposit Restricted</div>
+                <span class="text-gray-900 fw-bolder fs-6"><?= $highlights["depositRestricted"] ?></span>
+              </div>
+              <div class="separator separator-dashed my-2"></div>
+              <div class="d-flex flex-stack">
+                <div class="text-gray-800 fw-semibold fs-6 me-2">Withdraw Restricted</div>
+                <span class="text-gray-900 fw-bolder fs-6"><?= $highlights["withdrawRestricted"] ?></span>
               </div>
               <div class="separator separator-dashed my-2"></div>
               <div class="d-flex flex-stack">
                 <div class="text-gray-800 fw-semibold fs-6 me-2">Total Clients</div>
-                <span class="text-gray-900 fw-bolder fs-6">4589</span>
+                <span class="text-gray-900 fw-bolder fs-6"><?= $highlights["totalClients"] ?></span>
               </div>
             </div>
 

@@ -84,4 +84,17 @@ class ReportsModel extends Model
         GROUP BY DAY(request_time)
       ")->getResultArray();
     }
+
+    public function getHighlightsData($month = null, $year = null, $firm = null)
+    {
+      $db = \Config\Database::connect();
+      return $db->query("
+        SELECT
+          (SELECT MAX(id) FROM site_gamer) as totalClients,
+          (SELECT COUNT(id) FROM site_gamer WHERE isVip = 'on') as vipClients,
+          (SELECT COUNT(id) FROM site_gamer WHERE perm_deposit != 'on') as depositRestricted,
+          (SELECT COUNT(id) FROM site_gamer WHERE perm_withdraw != 'on') as withdrawRestricted,
+          (SELECT COUNT(DISTINCT gamer_site_id) FROM `finance` where request='deposit' AND status = 'onaylandı') as activeClients;
+      ")->getResultArray()[0];
+    }
 }

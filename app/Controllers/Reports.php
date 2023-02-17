@@ -19,8 +19,11 @@ class Reports extends BaseController
 		}
 
 		$data["summary"] = $this->ReportsModel->getSummaryData();
-		$data["monthlyDeposit"] = $this->ReportsModel->getMonthlyTransactionSum('deposit');
-		$data["monthlyWithdraw"] = $this->ReportsModel->getMonthlyTransactionSum('withdraw');
+		$data["mainChart"] = array(
+			"deposit" => $this->ReportsModel->getMonthlyTransactionSum('deposit'),
+			"withdraw" => $this->ReportsModel->getMonthlyTransactionSum('withdraw'),
+		);
+		$data["highlights"] = $this->ReportsModel->getHighlightsData();
 
 		echo htmlMinify(view('app/reports/index', $data));
 	}

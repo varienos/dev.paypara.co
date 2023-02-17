@@ -2560,6 +2560,81 @@ $.varien = {
                         this.chart.hidden = false;
                     }
                 }
+            },
+            pie: {
+                chart: null,
+                init: function(data) {
+                    let element = document.getElementById("chart-reports-pie");
+                    if (!element) return;
+
+                    let options = {
+                        series: [39, 30, 16, 9, 6], // TODO: To be replaced with dynamic data
+                        labels: ['Papara', 'Matching', 'Bank', 'Cross', 'Virtual POS'],
+                        colors: ['#ba435f', '#CA3660', '#21416f', '#698b55', '#ed8a3d'],
+                        chart: {
+                            type: 'pie'
+                        },
+                        legend: {
+                            show: false
+                        },
+                        stroke: {
+                            colors: undefined
+                        },
+                        tooltip: {
+                            y: {
+                                formatter: (value) => value + "%"
+                            }
+                        },
+                        dataLabels: {
+                            background: {
+                                padding: 4,
+                                opacity: 0.5,
+                                enabled: true,
+                                borderWidth: 1,
+                                borderRadius: 2,
+                                foreColor: '#000',
+                                borderColor: '#000'
+                            }
+                        },
+                        responsive: [{
+                            breakpoint: 1200,
+                            options: {
+                                chart: {
+                                    width: 250
+                                }
+                            }
+                        }]
+                    };
+
+                    this.chart = new ApexCharts(element, options);
+                    this.chart.render();
+                },
+                update: function(data) {
+                    this.chart.updateSeries([{
+                        name: 'Deposit',
+                        data: data.deposit,
+                    }, {
+                        name: 'Withdrawal',
+                        data: data.withdraw,
+                    }], true);
+
+                    this.chart.updateOptions({
+                        xaxis: {
+                            categories: data.categories
+                        }
+                    });
+                },
+                themeChange: function() {
+                    // Destroy and re-initiate chart with same data when theme mode changes
+                    const data = {
+                        categories: this.chart.opts.xaxis.categories,
+                        deposit: this.chart.opts.series[0].data.map(point => point),
+                        withdraw: this.chart.opts.series[1].data.map(point => point)
+                    };
+
+                    this.chart.destroy();
+                    this.init(data);
+                },
             }
         },
         init: function() {
@@ -2601,12 +2676,15 @@ $.varien = {
                 return;
             }
 
-            // Initialize chart
+            // Initialize main chart
             this.charts.main.init({
                 'deposit': depositData.map(item => item.total),
                 'withdraw': withdrawData.map(item => item.total),
                 'categories' : this.getDaysInMonth()
             });
+
+            // Initialize pie chart
+            this.charts.pie.init();
         },
         fetch: function(data) {
             blockers.forEach((blocker) => blocker.block());

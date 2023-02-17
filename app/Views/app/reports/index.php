@@ -138,10 +138,10 @@
       </div>
     </div>
 
-    <? if(count($monthlyDeposit) > 0 || count($monthlyWithdraw) > 0): ?>
+    <? if(count($mainChart["deposit"]) > 0 || count($mainChart["withdraw"]) > 0): ?>
     <script>
-      const depositData = <?= json_encode($monthlyDeposit) ?>;
-      const withdrawData = <?= json_encode($monthlyWithdraw) ?>;
+      const depositData = <?= json_encode($mainChart["deposit"]) ?>;
+      const withdrawData = <?= json_encode($mainChart["withdraw"]) ?>;
     </script>
     <? endif; ?>
 
