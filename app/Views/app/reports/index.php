@@ -140,8 +140,8 @@
 
     <? if(count($monthlyDeposit) > 0 || count($monthlyWithdraw) > 0): ?>
     <script>
-      const depositMonthlyFirst = <?= json_encode($monthlyDeposit) ?>;
-      const withdrawMonthlyFirst = <?= json_encode($monthlyWithdraw) ?>;
+      const depositData = <?= json_encode($monthlyDeposit) ?>;
+      const withdrawData = <?= json_encode($monthlyWithdraw) ?>;
     </script>
     <? endif; ?>
 

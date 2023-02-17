@@ -2397,30 +2397,199 @@ $.varien = {
         }
     },
     reports: {
-        init: () => {
-            // Initiate UI blockers
+        blockers: null,
+        charts: {
+            main: {
+                chart: {
+                    self: null,
+                    hidden: false
+                },
+                init: function(data) {
+                    let element = document.getElementById("chart-reports-main");
+                    if (!element) return;
+
+                    let height = parseInt(KTUtil.css(element, 'height'));
+                    let labelColor = KTUtil.getCssVariableValue('--kt-gray-700');
+                    let depositColor = KTUtil.getCssVariableValue('--kt-success');
+                    let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
+                    let borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
+
+                    let options = {
+                        series: [{
+                            name: 'Deposit',
+                            data: data.deposit,
+                        }, {
+                            name: 'Withdrawal',
+                            data: data.withdraw,
+                        }],
+                        chart: {
+                            type: 'area',
+                            height: height,
+                            fontFamily: 'inherit',
+                            toolbar: {
+                                show: false
+                            },
+                            zoom: {
+                                enabled: false
+                            }
+                        },
+                        legend: {
+                            show: false
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                opacityTo: 0,
+                                opacityFrom: .5,
+                                shadeIntensity: .5,
+                                stops: [0, 80, 100]
+                            }
+                        },
+                        stroke: {
+                            width: 3,
+                            colors: [depositColor, withdrawColor]
+                        },
+                        xaxis: {
+                            tickAmount: 5,
+                            tickPlacement: "between",
+                            axisTicks: {
+                                show: false
+                            },
+                            axisBorder: {
+                                show: false
+                            },
+                            // Shows entire month day by day
+                            categories: data.categories,
+                            labels: {
+                                rotate: -25,
+                                rotateAlways: true,
+                                style: {
+                                    fontSize: '12px',
+                                    colors: labelColor
+                                }
+                            },
+                        },
+                        yaxis: {
+                            tickAmount: 5,
+                            labels: {
+                                style: {
+                                    colors: labelColor,
+                                    fontSize: '12px'
+                                },
+                                formatter: (value) => {
+                                    let val = Math.abs(value);
+                                    if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
+                                    if (val > 1000000) val = (val / 1000000).toFixed(0) + 'm';
+                                    return "₺" + val;
+                                }
+                            }
+                        },
+                        tooltip: {
+                            style: {
+                                fontSize: '13px'
+                            },
+                            y: {
+                                formatter: (value) => {
+                                    let val = Math.abs(value);
+                                    if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
+                                    if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
+                                    return val == 0 ? 'none' : "₺" + val;
+                                }
+                            }
+                        },
+                        colors: [depositColor, withdrawColor],
+                        grid: {
+                            strokeDashArray: 4,
+                            borderColor: borderColor,
+                        }
+                    };
+
+                    this.chart.self = new ApexCharts(element, options);
+                    this.chart.self.render();
+                },
+                update: function(data) {
+                    this.chart.self.updateSeries([{
+                        name: 'Deposit',
+                        data: data.deposit,
+                    }, {
+                        name: 'Withdrawal',
+                        data: data.withdraw,
+                    }], true);
+
+                    this.chart.self.updateOptions({
+                        xaxis: {
+                            categories: data.categories
+                        }
+                    });
+                },
+                themeChange: function() {
+                    // Destroy and re-initiate chart with same data when theme mode changes
+                    const data = {
+                        categories: this.chart.self.opts.xaxis.categories,
+                        deposit: this.chart.self.opts.series[0].data.map(point => point),
+                        withdraw: this.chart.self.opts.series[1].data.map(point => point)
+                    };
+
+                    this.chart.self.destroy();
+                    this.init(data);
+                },
+                hide: function(status) {
+                    if(status) {
+                        let year = $('#year').val();
+                        let month = $('#month').select2('data')[0].text;
+                        let firm = $('#firms').val() == 0 ? '' : $('#firms').select2('data')[0].text;
+``
+                        let message = `There were no transactions involving ${firm} in ${month} ${year}`;
+                        let html = `<div class='d-flex flex-center text-center fs-1 fw-semibold w-100 h-300px px-5'>${message}</div>`;
+
+                        if(this.chart.hidden) {
+                            this.chart.self.el.nextSibling.innerText = message;
+                        } else {
+                            this.chart.self.el.classList.add('d-none');
+                            this.chart.self.el.insertAdjacentHTML('afterend', html);
+                            this.chart.hidden = true;
+                        }
+                    } else {
+                        if(!this.chart.hidden) return;
+
+                        this.chart.self.el.nextSibling.remove();
+                        this.chart.self.el.classList.remove('d-none');
+                        this.chart.hidden = false;
+                    }
+                }
+            }
+        },
+        init: function() {
+            // Initiate UI Blockers
             const _message = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
 
             let targets = [$('#first-row'), $('#third-row')];
             if ($('#second-row').length) targets.push($('#second-row'));
 
-            $.blockers = targets.filter(Boolean).map((target) => {
+            blockers = targets.filter(Boolean).map((target) => {
                 return target.length > 0 ? new KTBlockUI(target[0], { message: _message }) : null;
             });
 
-            // Catch when the user changes selected month, year or firm
-            $('#year, #month, #firms').on('change', (e) => {
-                const year = $('#year').val();
-                const month = $('#month').val();
-                const firm = $('#firms').val();
+            // Update data when user changes year, month, or firm inputs
+            $('#year, #month, #firms').on('change', () => {
+                const data = {
+                    'year': $('#year').val(),
+                    'firm': $('#firms').val(),
+                    'month': $('#month').val()
+                }
 
                 // Fetch new data
-                $.varien.reports.fetch(month, year, firm);
-              }
-            );
+                $.varien.reports.fetch(data);
+            });
+
+            // Destroy and re-initiate chart with same data when theme mode changes
+            KTThemeMode.on("kt.thememode.change", () => $.varien.reports.charts.main.themeChange());
 
             // Check if no data is available
-            if(typeof(depositMonthlyFirst) === "undefined" && typeof(withdrawMonthlyFirst) === "undefined") {
+            if(typeof(depositData) === "undefined" && typeof(withdrawData) === "undefined") {
                 let chart = document.getElementById('chart-reports-main');
                 if(chart.classList.contains('d-none')) return;
 
@@ -2432,282 +2601,15 @@ $.varien = {
                 return;
             }
 
-            // Map transaction data
-            const deposit = depositMonthlyFirst.map(item => item.total);
-            const withdraw = withdrawMonthlyFirst.map(item => item.total);
-
-            // Initiate main chart
-            $.mainChart = $.varien.reports.charts.main.init(deposit, withdraw);
-
-            // Initiate pie chart
-            $.pieChart = $.varien.reports.charts.pie.init();
+            // Initialize chart
+            this.charts.main.init({
+                'deposit': depositData.map(item => item.total),
+                'withdraw': withdrawData.map(item => item.total),
+                'categories' : this.getDaysInMonth()
+            });
         },
-        charts: {
-            pie: {
-                init: () => {
-                    let chart = {
-                        self: null,
-                        rendered: false
-                    };
-
-                    let initChart = (chart) => {
-                        let element = document.getElementById("chart-reports-pie");
-                        if (!element) return;
-                        let options = {
-                            series: [39, 30, 16, 9, 6], // TODO: To be replaced with dynamic data
-                            labels: ['Papara', 'Matching', 'Bank', 'Cross', 'Virtual POS'],
-                            colors: ['#ba435f', '#CA3660', '#21416f', '#698b55', '#ed8a3d'],
-                            chart: {
-                                type: 'pie'
-                            },
-                            legend: {
-                                show: false
-                            },
-                            stroke: {
-                                colors: undefined
-                            },
-                            tooltip: {
-                                y: {
-                                    formatter: (value) => value + "%"
-                                }
-                            },
-                            dataLabels: {
-                                background: {
-                                    padding: 4,
-                                    opacity: 0.5,
-                                    enabled: true,
-                                    borderWidth: 1,
-                                    borderRadius: 2,
-                                    foreColor: '#000',
-                                    borderColor: '#000'
-                                }
-                            },
-                            responsive: [{
-                                breakpoint: 1200,
-                                options: {
-                                    chart: {
-                                        width: 250
-                                    }
-                                }
-                            }]
-                        };
-                        chart.self = new ApexCharts(element, options);
-                        // Set timeout to properly get the parent elements width
-                        setTimeout(function() {
-                            chart.self.render();
-                            chart.rendered = true;
-                        }, 200);
-                    }
-
-                    // Public methods
-                    (function () {
-                        initChart(chart);
-                        // Update chart on theme mode change
-                        KTThemeMode.on("kt.thememode.change", function() {
-                            if (chart.rendered) {
-                                chart.self.destroy();
-                            }
-                            initChart(chart);
-                        });
-                    })();
-                }
-            },
-            main: {
-                init: (depositData, withdrawData) => {
-                    let chart = {
-                        self: null,
-                        hidden: false,
-                        rendered: false
-                    };
-
-                    // Initialize chart
-                    let init = (depositData, withdrawData) => {
-                        let element = document.getElementById("chart-reports-main");
-                        if (!element) return;
-
-                        let height = parseInt(KTUtil.css(element, 'height'));
-                        let labelColor = KTUtil.getCssVariableValue('--kt-gray-700');
-                        let depositColor = KTUtil.getCssVariableValue('--kt-success');
-                        let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
-                        let borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
-
-                        // Chart initialization options
-                        let options = {
-                            series: [{
-                                name: 'Deposit',
-                                data: depositData,
-                            }, {
-                                name: 'Withdrawal',
-                                data: withdrawData,
-                            }],
-                            chart: {
-                                type: 'area',
-                                height: height,
-                                fontFamily: 'inherit',
-                                toolbar: {
-                                    show: false
-                                },
-                                zoom: {
-                                    enabled: false
-                                }
-                            },
-                            legend: {
-                                show: false
-                            },
-                            dataLabels: {
-                                enabled: false
-                            },
-                            fill: {
-                                type: "gradient",
-                                gradient: {
-                                    opacityTo: 0,
-                                    opacityFrom: .5,
-                                    shadeIntensity: .5,
-                                    stops: [0, 80, 100]
-                                }
-                            },
-                            stroke: {
-                                width: 3,
-                                colors: [depositColor, withdrawColor]
-                            },
-                            xaxis: {
-                                tickAmount: 5,
-                                tickPlacement: "between",
-                                axisTicks: {
-                                    show: false
-                                },
-                                axisBorder: {
-                                    show: false
-                                },
-                                // Shows entire month day by day
-                                categories: $.varien.reports.daysInMonth(),
-                                labels: {
-                                    rotate: -25,
-                                    rotateAlways: true,
-                                    style: {
-                                        fontSize: '12px',
-                                        colors: labelColor
-                                    }
-                                },
-                            },
-                            yaxis: {
-                                tickAmount: 5,
-                                labels: {
-                                    style: {
-                                        colors: labelColor,
-                                        fontSize: '12px'
-                                    },
-                                    formatter: (value) => {
-                                        let val = Math.abs(value);
-                                        if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
-                                        if (val > 1000000) val = (val / 1000000).toFixed(0) + 'm';
-                                        return "₺" + val;
-                                    }
-                                }
-                            },
-                            tooltip: {
-                                style: {
-                                    fontSize: '13px'
-                                },
-                                y: {
-                                    formatter: (value) => {
-                                        let val = Math.abs(value);
-                                        if (val > 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
-                                        if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
-                                        return val == 0 ? 'none' : "₺" + val;
-                                    }
-                                }
-                            },
-                            colors: [depositColor, withdrawColor],
-                            grid: {
-                                strokeDashArray: 4,
-                                borderColor: borderColor,
-                            }
-                        };
-
-                        chart.self = new ApexCharts(element, options);
-
-                        // If data is available, render the chart
-                        if (depositData.length || withdrawData.length) {
-                            // Set timeout to properly get the parent elements width
-                            setTimeout(() => {
-                                chart.self.render();
-                                chart.rendered = true;
-                            }, 200);
-                        }
-                    }
-
-                    // Update chart data
-                    let update = (depositData, withdrawData) => {
-                        if (chart.self) {
-                            if(depositData.length > 0 && withdrawData.length > 0) {
-                                // Show the chart again if its hidden
-                                if(chart.hidden) {
-                                    chart.self.el.nextSibling.remove();
-                                    chart.self.el.classList.remove('d-none');
-                                    chart.hidden = false;
-                                }
-
-                                // If data is available, update the chart series and categories
-                                chart.self.updateSeries([{
-                                    name: 'Deposit',
-                                    data: depositData,
-                                }, {
-                                    name: 'Withdrawal',
-                                    data: withdrawData,
-                                }], true);
-
-                                const year = $('#year').val();
-                                const month = $('#month').val() - 1;
-                                chart.self.updateOptions({
-                                    xaxis: {
-                                        categories: $.varien.reports.daysInMonth(month, year)
-                                    }
-                                });
-
-                                // If the chart is not rendered, render it
-                                if (!chart.rendered) {
-                                    chart.self.render();
-                                    chart.rendered = true;
-                                }
-                            } else {
-                                // Hide the chart if no data is available
-                                if(chart.hidden) return;
-                                let message = "There are no transactions within this month";
-                                let html = `<div class='d-flex flex-center fs-1 fw-semibold w-100 h-300px'>${message}</div>`;
-
-                                chart.self.el.classList.add('d-none');
-                                chart.self.el.insertAdjacentHTML('afterend', html);
-                                chart.hidden = true;
-                            }
-                        } else {
-                            // If the chart is destroyed before, initiate it again
-                            if (!chart.rendered == false) {
-                                init(depositData, withdrawData);
-                            }
-                        }
-                    };
-
-                    // Initialize chart on start
-                    init(depositData, withdrawData);
-
-                    // Update chart on theme mode change
-                    KTThemeMode.on("kt.thememode.change", () => {
-                        if (chart.rendered) {
-                            chart.self.destroy();
-                        }
-
-                        init(depositData, withdrawData);
-                    });
-
-                    return {
-                        update: update
-                    };
-                },
-            }
-        },
-        fetch: (month, year, firm) => {
-            $.blockers.forEach((blocker) => blocker.block());
+        fetch: function(data) {
+            blockers.forEach((blocker) => blocker.block());
             $('#year, #month, #firms').attr('disabled', 'disabled');
 
             $.ajax({
@@ -2715,18 +2617,20 @@ $.varien = {
                 method: 'POST',
                 timeout: 10000,
                 dataType: 'json',
-                data: { month, year, firm },
+                data: { month: data.month, year: data.year, firm: data.firm },
                 success: (response) => {
-                    $.varien.reports.updateData(response);
+                    this.process(response, date = {
+                        "year" : $('#year').val(),
+                        "month" : $('#month').val() - 1
+                    });
                 },
                 complete: () => {
-                    $.blockers.forEach((blocker) => blocker.release());
+                    blockers.forEach((blocker) => blocker.release());
                     $('#year, #month, #firms').removeAttr('disabled', 'disabled');
                 }
-              }
-            );
+            });
         },
-        updateData: (data) => {
+        process: function(data, date = null) {
             if(!data) return;
 
             // Update summary data
@@ -2735,12 +2639,19 @@ $.varien = {
             $('#totalDeposits').text(formatter.format(data.summary.deposit));
             $('#totalWithdrawals').text(formatter.format(data.summary.withdraw));
 
-            // Update main chart
-            const depositMonthly = data.mainChart.deposit.map(item => item.total);
-            const withdrawMonthly = data.mainChart.withdraw.map(item => item.total);
-            $.mainChart.update(depositMonthly, withdrawMonthly);
+            // Validate data and update main chart
+            if(data.mainChart.deposit.length > 0 && data.mainChart.withdraw.length > 0) {
+                this.charts.main.hide(false);
+                this.charts.main.update({
+                    "deposit" : data.mainChart.deposit.map(item => item.total),
+                    "withdraw" : data.mainChart.withdraw.map(item => item.total),
+                    "categories" : this.getDaysInMonth(date.month, date.year)
+                });
+            } else {
+                this.charts.main.hide(true);
+            }
         },
-        daysInMonth: (month = (new Date()).getMonth(), year = (new Date().getFullYear())) => {
+        getDaysInMonth: (month = (new Date()).getMonth(), year = (new Date().getFullYear())) => {
             let days;
             if (month === 1 && (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0)) {
                 days = 29; // February in a leap year
@@ -2752,7 +2663,7 @@ $.varien = {
                 const day = i + 1;
                 return new Date(year, month, day).toLocaleString('en-US', { month: 'short', day: '2-digit' });
             });
-        },
+        }
     },
     settings: {
         init: function() {
