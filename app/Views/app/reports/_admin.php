@@ -284,7 +284,29 @@
   </div>
   <div id="third-row" class="card-body pt-0">
     <div class="table-responsive">
-      <table class="table table-striped table-row-dashed fs-6 gy-2">
+      <table class="table table-striped table-row-dashed fs-6 gy-2" id="datatableTransactions">
+        <thead>
+          <tr class="fw-bold fs-6 text-gray-800 px-7">
+            <th rowspan="2" class="text-center align-middle border-bottom border-end w-100px">Date</th>
+            <th colspan="5" class="text-center border-bottom border-end">Method</th>
+            <th colspan="2" class="text-center border-bottom">Total Volume</th>
+          </tr>
+          <tr class="text-center text-gray-800 fw-bold fs-6 gs-0">
+            <th class="min-w-75px text-center">Cross</th>
+            <th class="min-w-100px text-center">Bank</th>
+            <th class="min-w-75px text-center">Virtual POS</th>
+            <th class="min-w-75px text-center">Papara</th>
+            <th class="min-w-75px text-center border-end">Matching</th>
+            <th class="min-w-75px text-center">Deposit</th>
+            <th class="min-w-75px text-center">Withdraw</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <!--
+      <div class="table-responsive">
+      <table class="table table-striped table-row-dashed fs-6 gy-2" id="">
         <thead>
           <tr class="fw-bold fs-6 text-gray-800 px-7">
             <th rowspan="2" class="text-center align-middle border-bottom border-end w-100px">Date</th>
@@ -454,8 +476,6 @@
           </tr>
         </tbody>
         <tfoot>
-          <!-- footer toplam hesaplamasi client-side tarafta yapilir: -->
-          <!-- https://preview.keenthemes.com/html/metronic/docs/general/datatables/advanced#footer-callback -->
           <tr class="fw-bold text-gray-800 border-top">
             <th class="text-end">Sum:</th>
             <th class="text-center">₺359.191,00</th>
@@ -469,6 +489,7 @@
         </tfoot>
       </table>
     </div>
+
     <div class="row mt-3 mt-sm-0">
       <div class="col-5 d-flex align-items-center justify-content-start">
         <div class="dataTables_length" id="kt_reports_table_length">
@@ -499,5 +520,6 @@
         </div>
       </div>
     </div>
+    -->
   </div>
 </div>

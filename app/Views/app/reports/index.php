@@ -58,11 +58,11 @@
                           </select>
 
                           <select id="year" class="form-select form-select-solid border" data-control="select2" data-hide-search="true">
-                            <option>2023</option>
-                            <option>2024</option>
-                            <option>2025</option>
-                            <option>2026</option>
-                            <option>2027</option>
+                            <option value="2023">2023</option>
+                            <option value="2023">2024</option>
+                            <option value="2023">2025</option>
+                            <option value="2023">2026</option>
+                            <option value="2023">2027</option>
                           </select>
 
                           <select id="firms" class="form-select form-select-solid border" data-control="select2" data-hide-search="true" data-dropdown-css-class="w-150px">
