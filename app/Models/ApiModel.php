@@ -427,6 +427,13 @@ class ApiModel extends Model
         }
 
         $obj = $this->getAccountPrepare($_POST["apiKey"], $price, $userId, $transaction_id, $method);
+
+        switch ($obj["account_type"]) {
+            case 1: $method = "papara"; break;
+            case 2: $method = "match"; break;
+            case 3: $method = "bank"; break;
+        }
+
         $obj["method"] = $method;
         $obj["type"] = $status == "pre-request" ? "pre-request" : "request";
 

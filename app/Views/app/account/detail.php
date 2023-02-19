@@ -81,9 +81,9 @@
                                 <td class="text-gray-800">Type:</td>
                                 <td>
                                   <? if ($update->dataType == 1): ?>
-                                  <span class="badge badge-light-info">Papara Account</span>
+                                  <span class="badge badge-light-danger">Papara Account</span>
                                   <? elseif ($update->dataType == 2): ?>
-                                  <span class="badge badge-light-danger">Matching Account</span>
+                                  <span class="badge badge-light-info">Matching Account</span>
                                   <? elseif ($update->dataType == 3): ?>
                                   <span class="badge badge-light-dark">Bank Account</span>
                                   <? endif; ?>
