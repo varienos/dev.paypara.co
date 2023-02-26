@@ -1272,17 +1272,8 @@ $.varien = {
                         }
                     });
 
-                    $.accountLink = $(this).attr('data-account-link');
-                    $('#accountPage').on("click", function (e) {
-                        $.varien.eventControl(e);
-                        window.open($.accountLink, '_blank');
-                    });
-
-                    $.customerLink = $(this).attr('data-customer-link');
-                    $('#customerProfile').on("click", function (e) {
-                        $.varien.eventControl(e);
-                        window.open($.customerLink, '_blank');
-                    });
+                    $('#accountPage')[0].href = $(this).attr('data-account-link');
+                    $('#customerProfile')[0].href = $(this).attr('data-customer-link');
 
                     if ($('[data-set-status]').text().trim() == 'Pending') {
                         $('[data-set-status]').addClass('text-gray-800 badge-light-warning');
