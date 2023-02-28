@@ -649,8 +649,6 @@ $.varien = {
                             "applyLabel": "Apply",
                             "cancelLabel": "Cancel",
                             "customRangeLabel": "Custom Range",
-                            //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                            //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                             "firstDay": 1
                         },
                     }, cb);
@@ -929,8 +927,6 @@ $.varien = {
                     "applyLabel": "Apply",
                     "cancelLabel": "Cancel",
                     "customRangeLabel": "Custom Range",
-                    //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                    //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                     "firstDay": 1
                 },
             }, cb);
@@ -938,6 +934,7 @@ $.varien = {
         },
         datatable: {
             init: function (colNum) {
+                let searching = false;
                 if ($.varien.segment(3) == "deposit") $.notOrderCols = [1, 2, 3, (colNum - 2), (colNum - 1)];
                 if ($.varien.segment(3) == "withdraw") $.notOrderCols = [1, 2, 3, 4, 5, 6, 8, 9];
                 if ($.resource.edit_transaction_deposit != 1 && $.varien.segment(3) == "deposit") $.noVisibleCols = [colNum - 1];
@@ -971,9 +968,13 @@ $.varien = {
                             d.method = $("#method").val();
                             d.status = $("#status").val();
                             d.accountId = $("#accountIdFilter").val();
+
+                            searching = d.search.value !== '' ? true : false;
                         },
                         complete: function () {
-                            $.varien.transaction.datatable.sound();
+                            if(!searching) {
+                                $.varien.transaction.datatable.sound();
+                            }
                         }
                     }
                 });
@@ -2305,8 +2306,8 @@ $.varien = {
         detail: {
             init: function () {
                 $.varien.customer.detail.saveNote();
-                $.varien.customer.detail.datatable.init();
                 $.varien.customer.detail.datatable.dateSelect();
+                $.varien.customer.detail.datatable.init();
                 $(".modal-dialog").addClass("w-425px");
                 $('input[data-set="switch"]').on("change", function () {
                     if ($(this).is(":checked") == true) {
@@ -2417,8 +2418,6 @@ $.varien = {
                             "applyLabel": "Apply",
                             "cancelLabel": "Cancel",
                             "customRangeLabel": "Custom Range",
-                            //"daysOfWeek": ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"],
-                            //"monthNames": ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
                             "firstDay": 1
                         },
                     }, cb);

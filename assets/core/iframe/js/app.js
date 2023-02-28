@@ -44,7 +44,16 @@ const paparaAccountNumber = document.getElementById("pp-account-number");
 const bankAccountNumber = document.getElementById("iban-value");
 
 // Misc
-const domain = window.location.host.split('.').slice(-1).toString();
+const minDeposit = document.getElementById('limitMin').getAttribute("value");
+const maxDeposit = document.getElementById('limitMax').getAttribute("value");
+const apiDomains = {
+  'pay.paypara.co': 'https://api.paypara.co',
+  'pay.dev.paypara.co': 'https://api.dev.paypara.co',
+  'pay.dev.paypara.dev': 'https://api.dev.paypara.dev',
+  'pay.dev.paypara.localhost': 'https://api.dev.paypara.localhost',
+};
+
+const apiBaseUrl = `${apiDomains[window.location.hostname] || ''}`;
 
 // QR Code Generator
 const qrCode = new QRCode(document.getElementById("qr-box"), {
@@ -310,6 +319,7 @@ nextBtn.addEventListener('click', async function (e) {
         blockUI.release();
         goNextStep();
       });
+
       return;
     }
 
@@ -321,11 +331,31 @@ nextBtn.addEventListener('click', async function (e) {
     if (currentStep + 1 === availableSteps.indexOf("bank-transfer")) {
       if (!bankTimerActive) {
         blockUI.block();
-        const response = await getAccount(`https://api.dev.paypara.${domain}/v1/new-deposit/bank/pre-request`);
+        const response = await getAccount(`${apiBaseUrl}/v1/new-deposit/bank/pre-request`);
 
         if (response === false) {
           toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
           blockUI.release();
+          return;
+        }
+
+        if(!response.status && response.error.startsWith("0")) {
+          console.log('No bank account found, skipping bank step..');
+
+          statusBank = false;
+          setActiveSteps();
+          blockUI.release();
+          nextBtn.click();
+          return;
+        }
+
+        if(!response.status && response.error == "min_deposit_limit_bank_error") {
+          console.log('Bank limit is not met, skipping bank step..');
+
+          statusBank = false;
+          setActiveSteps();
+          blockUI.release();
+          nextBtn.click();
           return;
         }
 
@@ -353,7 +383,7 @@ nextBtn.addEventListener('click', async function (e) {
     if (currentStep + 1 === availableSteps.indexOf("papara")) {
       if (!paparaTimerActive) {
         blockUI.block();
-        const response = await getAccount(`https://api.dev.paypara.${domain}/v1/new-deposit/papara/pre-request`);
+        const response = await getAccount(`${apiBaseUrl}/v1/new-deposit/papara/pre-request`);
 
         if (response === false) {
           toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -431,7 +461,7 @@ submitBtn.addEventListener("click", (e) => {
       let activeStep = availableSteps[currentStep];
       if (activeStep === "bank-transfer") {
         blockUI.block();
-        const response = await approveTransaction(`https://api.dev.paypara.${domain}/v1/approve`);
+        const response = await approveTransaction(`${apiBaseUrl}/v1/approve`);
 
         if (response === false) {
           toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -457,7 +487,7 @@ submitBtn.addEventListener("click", (e) => {
 
       if (activeStep === "papara") {
         blockUI.block();
-        const response = await approveTransaction(`https://api.dev.paypara.${domain}/v1/approve/`);
+        const response = await approveTransaction(`${apiBaseUrl}/v1/approve/`);
 
         if (response === false) {
           toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -492,7 +522,7 @@ depositBtn.addEventListener("click", () => {
 // Get new bank account
 restartBankTimer.addEventListener("click", async () => {
   blockUI.block();
-  const response = await getAccount('/api/deposit/bank/pre-request', true);
+  const response = await getAccount(`${apiBaseUrl}/v1/new-deposit/bank/pre-request`);
 
   if (response === false) {
     toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -519,7 +549,7 @@ restartBankTimer.addEventListener("click", async () => {
 // Get new Papara account
 restartPaparaTimer.addEventListener("click", async () => {
   blockUI.block();
-  const response = await getAccount(`https://api.dev.paypara.${domain}/v1/new-deposit/papara/pre-request`, true);
+  const response = await getAccount(`${apiBaseUrl}/v1/new-deposit/papara/pre-request`, true);
 
   if (response === false) {
     toastr.error(`İşlem gerçekleştirilirken hata oluştu.<br>Lütfen daha sonra tekrar dene.`, `Hata (500)`);
@@ -571,8 +601,8 @@ var currencyMask = IMask(
     blocks: {
       num: {
         mask: Number,
-        min: 250,
-        max: 15000,
+        min: Number(minDeposit),
+        max: Number(maxDeposit),
         padFractionalZeros: false,
         thousandsSeparator: '.'
       }

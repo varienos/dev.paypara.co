@@ -24,7 +24,7 @@
               <div class="content p-8 px-lg-14 d-flex flex-column">
                 <div class="d-flex justify-content-center justify-content-sm-between align-items-center mb-5">
                   <div class="d-flex">
-                    <i class="bi-code-slash fs-2hx text-dark me-3"></i>
+                    <i class="bi bi-code-slash fs-2hx text-dark me-3"></i>
                     <h3 id="header" class="fs-2x fw-bolder d-flex align-items-center"></i>Payment Demo</h3>
                   </div>
                   <img src="<?=baseUrl() ?>/<?=assetsPath() ?>/iframe/images/logo.png" class="logo d-none d-sm-block m-0" width="110px" height="37px" alt="Paypara Logo">
@@ -69,7 +69,7 @@
                         <div class="d-flex justify-content-between align-items-center h-45px mt-10">
                           <div id="error" class="border border-danger" style="padding: 5px; font-size: 10px; border-radius: 15px;"></div>
                           <button id="refresh" class="btn btn-icon btn-sm btn-secondary rounded-circle w-40px h-40px p-0">
-                            <i class="fs-3 bi bi-arrow-clockwise"></i>
+                            <i class="bi bi-arrow-clockwise fs-3"></i>
                           </button>
                         </div>
                       </div>

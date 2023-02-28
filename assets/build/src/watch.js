@@ -19,7 +19,13 @@ const reload = (cb) => {
 
 const watch = () => {
   return gulp.watch(
-    [build.config.path.core_path + "/js/**/*.js", build.config.path.core_path + "/css/**/*.css"],
+    [
+      build.config.path.core_path + "/js/**/*.js",
+      build.config.path.core_path + "/css/**/*.css",
+      build.config.path.core_path + "/iframe/js/**/*.js",
+      build.config.path.core_path + "/iframe/css/**/*.css"
+    ],
+
     gulp.series(compile)
   );
 };

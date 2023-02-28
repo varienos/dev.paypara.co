@@ -49,9 +49,7 @@ class Database extends Config
         'failover' => [],
         'port'     => 3306,
     ];
-    //database.default.database   = payp_production
-    //database.default.username   = payp_db_user
-    //database.default.password   = cxKD0N1D@*zboIj5
+
     public $production = [
         'DSN'      => '',
         'hostname' => '45.32.152.124',

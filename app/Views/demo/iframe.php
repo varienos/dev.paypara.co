@@ -22,6 +22,8 @@
     <config id="statusCross" value="<?= $crossSystem ?>"></config>
     <config id="statusPOS" value="<?= $virtualPOS ?>"></config>
     <config id="statusBank" value="<?= $bankTransfer ?>"></config>
+    <config id="limitMin" value="<?= $minDeposit ?>"></config>
+    <config id="limitMax" value="<?= $maxDeposit ?>"></config>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-11">
@@ -357,7 +359,7 @@
           obj.uid = ' . $encode($userId) . ';
           obj.una = ' . $encode($userName) . ';
           obj.uni = ' . $encode($userNick) . ';
-          obj.cbk = ' . $encode($callbackUrl) . ';
+          obj.cbk = ' . $encode($callback) . ';
         ';
 
         echo jsObfuscator($js, 'inline');

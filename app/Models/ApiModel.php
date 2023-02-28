@@ -76,6 +76,8 @@ class ApiModel extends Model
         if ($tokenData->token == $token && $tokenData->status == 3) $error = $this->error->string("token_time_out", __CLASS__, __FUNCTION__);
         if ($tokenData->token != $token) $error = $this->error->string("token_invalid", __CLASS__, __FUNCTION__);
 
+        $limitData = $this->db->query("select limitDepositMin as minDeposit, limitDepositMax as maxDeposit from site where id='" . $tokenData->site_id . "'")->getRow();
+
         $data =
             [
                 "error"                 =>  json_encode($error, JSON_NUMERIC_CHECK),
@@ -97,7 +99,9 @@ class ApiModel extends Model
                 "userId"                =>  $userId,
                 "userName"              =>  $userName,
                 "userNick"              =>  $userNick,
-                "callback"              =>  $callbackUrl
+                "callback"              =>  $callbackUrl,
+                "minDeposit"            =>  $limitData->minDeposit,
+                "maxDeposit"            =>  $limitData->maxDeposit,
             ];
 
         $this->log($site_id, $data, __FUNCTION__);
@@ -290,7 +294,6 @@ class ApiModel extends Model
                 return $this->error->string("bank_method_disabled", __CLASS__, __FUNCTION__);
             }
             if ($this->paypara->setNumber($price) < $this->paypara->setNumber(bankMinDeposit)) {
-
                 return $this->error->string("min_deposit_limit_bank_error", __CLASS__, __FUNCTION__);
             }
             if ($this->paypara->setNumber($price) > $this->paypara->setNumber(bankMaxDeposit)) {

@@ -4,22 +4,10 @@ const domain = window.location.host.split('.').slice(-1).toString();
 
 const demo = {
     init: function() {
-        window.onerror = (event, source, lineno, colno, error) => {
-            if (typeof getClientIpAddress !== 'undefined') {
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'html',
-                    url: `https://dev.paypara.${domain}/dev/errorHandler/js`,
-                    data: "location=" + window.location + "&source=" + source + "&line=" + lineno + "&col=" + colno + "&error=" + error + "&getClientIpAddress=" + getClientIpAddress + "&getBrowser=" + getBrowser + "&getAgentString=" + getAgentString + "&getPlatform=" + getPlatform + "&getMobile=" + getMobile + "&getBrowserVersion=" + getBrowserVersion,
-                    success: function(response) {
-                        console.error(response);
-                    }
-                });
-            }
-        };
         $("#call").on("click", function() {
             demo.open();
         });
+
         $("#refresh").on("click", function() {
             $("#transactionId").val(Math.floor(Math.random() * (9999999999 - 1000000000)) + 1000000000);
             $("#amount").val(Math.floor((Math.random() * (15000 - 251) + 251) / 10) * 10);
@@ -54,5 +42,6 @@ const demo = {
         });
     }
 }
+
 window.onload = demo.init();
 $('#refresh').trigger('click');
