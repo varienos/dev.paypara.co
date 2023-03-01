@@ -11,7 +11,7 @@ class Api extends BaseController
     }
     public function ipCheckpoint()
     {
-        return array_search(getClientIpAddress(),explode(',',ipWhitelist()))===false?$this->error->string("ip_blocked", __CLASS__, __FUNCTION__):null;
+        return array_search(getClientIpAddress(),explode(',',ipWhitelist()))===false&&getClientIpAddress()!=$_SERVER['SERVER_ADDR']?$this->error->string("ip_blocked", __CLASS__, __FUNCTION__):null;
     }
     public function index()
     {
