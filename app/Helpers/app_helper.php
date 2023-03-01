@@ -1,5 +1,11 @@
 <?php
 
+function ipWhitelist()
+{
+    $db = \Config\Database::connect();
+    return $db->query("select * from settings where name='ipWhitelist'")->getRow()->value;
+}
+
 function getVer()
 {
     if (defined('getVersion')) {
