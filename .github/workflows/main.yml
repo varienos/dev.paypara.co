@@ -1,0 +1,51 @@
+name: 🚀 Deploy app on push
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    name: 👷‍♂️ Build Assets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Node.js 18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: Run yarn install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: Build assets
+        run: gulp --prod
+
+  web-deploy:
+    name: 🎉 Deploy to development
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v3
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        server: server.varien.cloud
+        username: dev.frontend@dev.paypara.co
+        password: ${{ secrets.ftp_password }}
+        state-name: .sync-state.json
+        dry-run: true
+        exclude: |
+          **/.git*
+          **/.git*/**
+          .ddev/**
+          .htaccess
+          README.md
+          tests*/**
+          public*/**
+          version.txt
+          writable*/**
+          **/node_modules/**
+          assets/build/src/**
