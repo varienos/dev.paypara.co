@@ -619,11 +619,12 @@
                   <div class="card-header">
                     <div class="card-title justify-content-between w-100 m-0">
                       <h2>Response Codes</h2>
-                      <button class="btn btn-sm btn-light-primary rounded fs-7 w-100px">Save</button>
+                      <button class="btn btn-sm btn-light-primary rounded fs-7 w-100px" id="apiErrorStringsSave">Save</button> 
                     </div>
                   </div>
                   <div class="card-body scroll-y h-600px px-9 py-3">
                     <div class="table-responsive">
+                      <form id="apiErrorStringsForm" class="form" action="javascript:" method="post" enctype="multipart/form-data">
                       <table class="table align-middle table-row-dashed fw-semibold text-gray-600 fs-6 gy-5" id="dtApiResponse">
                         <thead>
                           <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
@@ -633,22 +634,23 @@
                           </tr>
                         </thead>
                         <tbody class="scroll-y">
-                        <? foreach (getStrings() as $row) { ?>
+                        <? $i = 0; foreach (getStrings() as $row) { ?>
                           <tr>
                             <td>
                               <div class="badge badge-lg badge-secondary w-100 flex-center"><?=$row->flag ?></div>
-                              <input type="hidden" value="<?=$row->id ?>" name="id[]">
+                              <input type="hidden" value="<?=$row->id ?>" name="id[<?=$i ?>]">
                             </td>
                             <td>
-                              <input type="text" class="form-control form-control-solid text-center" value="<?=$row->custom_id ?>" name="custom_id[]">
+                              <input type="text" class="form-control form-control-solid text-center" value="<?=$row->custom_id ?>" name="custom_id[<?=$i ?>]">
                             </td>
                             <td>
-                              <input type="text" class="form-control form-control-solid" value="<?=$row->string ?>" name="string[]">
+                              <input type="text" class="form-control form-control-solid" value="<?=$row->string ?>" name="string[<?=$i ?>]">
                             </td>
                           </tr>
-                        <? } ?>
+                        <? $i++; } ?>
                         </tbody>
                       </table>
+                      </form>
                     </div>
                   </div>
                 </div>

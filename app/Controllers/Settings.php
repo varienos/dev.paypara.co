@@ -19,4 +19,10 @@ class Settings extends BaseController
 		$this->SecureModel->stateAuth(edit_settings);
 		return $this->settings->dataUpdate($this->request->getVar());
 	}
+
+	public function api($method)
+	{
+		$this->SecureModel->stateAuth(edit_settings);
+		return $this->settings->$method($this->request->getVar());
+	}
 }

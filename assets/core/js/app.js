@@ -972,7 +972,7 @@ $.varien = {
                             searching = d.search.value !== '' ? true : false;
                         },
                         complete: function () {
-                            if(!searching) {
+                            if (!searching) {
                                 $.varien.transaction.datatable.sound();
                             }
                         }
@@ -2840,6 +2840,12 @@ $.varien = {
                 $.varien.settings.submit(formId);
                 $("form#" + formId).submit();
             });
+            $('[id="apiErrorStringsSave"]').on('click', function (e) {
+                $.varien.eventControl(e);
+                $.varien.settings.api.errorStrings.submit();
+                $("form#apiErrorStringsForm").submit();
+            });
+
             $('input[data-set="statusSwitch"]').on('change', function () {
                 var elm = $(this);
                 var formId = $('input[name="' + $(this).attr('name') + '"]').closest("form").attr('id');
@@ -3194,6 +3200,34 @@ $.varien = {
                     });
                 });
             }
+        },
+        api: {
+            errorStrings: {
+                submit: function () {
+                    $("form#apiErrorStringsForm").on('submit', (function (e) {
+                        $.varien.eventControl(e);
+                        var formData = new FormData(this);
+                        $.ajax({
+                            url: "settings/api/updateErrorStrings",
+                            type: "POST",
+                            dataType: "html",
+                            crossDomain: true,
+                            data: formData,
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            processData: false,
+                            contentType: false,
+                            success: function () {
+                                toastr.success("Settings updated");
+                            },
+                            error: function (jqXHR, errorThrown) {
+                                toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
+                            }
+                        });
+                    }));
+                }
+            }
         }
     }
 };
@@ -3208,7 +3242,7 @@ $.varien.boot().then((resource) => {
     $.wait = (ms) => {
         $.defer = $.Deferred();
         setTimeout(() => {
-            $.defer.resolve()
+            $.defer.resolve();
         }, ms);
         return $.defer;
     };

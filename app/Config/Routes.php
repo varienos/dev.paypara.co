@@ -151,6 +151,7 @@ if (SUBDOMAIN == "api") {
     $routes->add('/transaction/accounts', 'Transaction::listAccounts');
     $routes->add('/settings', 'Settings::index');
     $routes->add('/settings/update', 'Settings::update');
+    $routes->add('/settings/api/(:any)', 'Settings::api/$1');
     $routes->add('/reports/data', 'Reports::data');
     $routes->add('/reports/datatableTransactions/(:any)/(:any)/(:any)', 'Reports::datatableTransactions/$1/$2/$3');
     

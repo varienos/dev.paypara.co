@@ -50,4 +50,23 @@ class SettingsModel extends Model
             }
         }
     }
+
+    public function updateErrorStrings($data)
+    {
+        $settings = $this->db->query("select * from settings")->getResult();
+        $dbErrors = null;
+        for($i=0;$i<count($data['id']);$i++)
+        {
+            try 
+            {
+                $this->db->query("update def_string set custom_id='".$data['custom_id'][$i]."', string=".$this->db->escape($data['string'][$i])." where id='".$data['id'][$i]."'");
+                $error     = $this->db->error();
+                $dbErrors  = !empty($error['message'])?$this->db->error():$dbErrors;
+                    
+            } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+                $dbErrors = $e;
+            }
+            
+        }
+    }
 }
