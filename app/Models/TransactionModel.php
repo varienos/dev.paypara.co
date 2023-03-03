@@ -106,9 +106,7 @@ class TransactionModel extends Model
         $finance    = $this->db->query("select * from finance where id='" . $data['id'] . "'")->getRow();
         $site       = $this->db->query("select private_key from site where id='" . $finance->site_id . "'")->getRow();
 
-        if ($data['price'] != str_replace(".00", "", $finance->price)) {
-            $changeAmount    =    "&requestAmount=" . str_replace(".00", "", $finance->price) . "&processedAmount=" . str_replace(".00", "", $data['price']);
-        }
+        $changeAmount = "&requestAmount=" . str_replace(".00", "", $finance->price) . "&processedAmount=" . str_replace(".00", "", $data['price']);
 
         $this->db->query("
             update finance set
