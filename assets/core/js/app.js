@@ -1127,24 +1127,20 @@ $.varien = {
                 };
                 $("#reject-all-button").on("click", function(e) {
                     $.varien.eventControl(e);
-                    $.rowCount = 0;
-                    $.rowArray = [];
-                    if ($('tbody > tr').length) {
-                        $('tbody > tr').each(function(index, row) {
-                            if ($(row).attr('id') !== undefined) {
-                                if ($(row).attr('id').indexOf("-1") > 0) {
-                                    $.rowCount += 1;
-                                    $.rowArray.push({
-                                        id: $(row).attr('id').split('-')[0],
-                                        transId: $(row).attr('id').split('-')[2]
-                                    });
-                                }
-                            }
-                        });
-                    }
-                    if ($.rowCount == 0) {
-                        toastr.error("No pending transactions");
-                    } else {
+
+                    const table = $('#datatable_content').DataTable();
+                    const pending_rows = table.rows(function(index, data, node) {
+                        return data[8].includes('Pending');
+                    }).nodes();
+
+                    let rows = [];
+                    Array.prototype.forEach.call(pending_rows, function(node) {
+                        let id = node.getAttribute('id').split("-")[0];
+                        let txid = node.querySelector('td:nth-child(2)').textContent.trim();
+                        rows.push({id: id, txid: txid});
+                    });
+
+                    if(pending_rows.length) {
                         bootbox.confirm({
                             backdrop: true,
                             centerVertical: true,
@@ -1158,18 +1154,21 @@ $.varien = {
                             },
                             title: "Reject Pending Transactions",
                             className: "animation animation-fade-in",
-                            message: "<span class='fs-6'>" + $.rowCount + " pending transactions will be rejected. Do you confirm?</span>",
+                            message: "<span class='fs-6'>" + pending_rows.length + " pending transactions will be rejected. Do you confirm?</span>",
                             callback: (result) => {
-                                if (result == true) {
-                                    $.each($.rowArray, function(value) {
-                                        $.reject("transaction/update", value.id).then(function() {
-                                            toastr.success("#" + value.transId + ": transaction rejected");
-                                            $.varien.transaction.datatable.reload();
+                                if (result) {
+                                    rows.forEach((row) => {
+                                        $.reject("transaction/update", row.id).then(function() {
+                                            toastr.success("#" + row.txid + ": transaction rejected");
                                         });
                                     });
+
+                                    $.varien.transaction.datatable.reload();
                                 }
                             }
                         });
+                    } else {
+                        toastr.error("There are no pending transactions");
                     }
                 });
             },
