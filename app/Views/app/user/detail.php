@@ -558,13 +558,20 @@
                       </div>
                     </div>
                     <div class="modal-body scroll-y mx-5 mx-xl-15 my-3">
-                      <div class="row mb-10" current-password-wrapper>
-                        <label class="required form-label fs-6 mb-2">Current Password</label>
-                        <input class="form-control form-control-lg form-control-solid" type="password" placeholder="" id="current_password" autocomplete="off" />
+                      <div class="row mb-10" data-kt-password-meter="true" current-password-wrapper>
+                        <label class="form-label required fw-semibold fs-6 mb-2">Current Password</label>
+                        <div class="position-relative mb-3">
+                          <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Enter your current password" id="current_password" autocomplete="off" />
+                          <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
+                            <i class="bi bi-eye-slash fs-2"></i>
+                            <i class="bi bi-eye fs-2 d-none"></i>
+                          </span>
+                        </div>
+                        <div class="d-none" data-kt-password-meter-control="highlight"></div>
                       </div>
                       <div class="row mb-10" data-kt-password-meter="true">
                         <div class="mb-1">
-                          <label class="form-label fw-semibold fs-6 mb-2">New Password</label>
+                          <label class="form-label required fw-semibold fs-6 mb-2">New Password</label>
                           <div class="position-relative mb-3">
                             <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Enter your new password" id="user_pass" autocomplete="off" />
                             <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
@@ -582,7 +589,7 @@
                         <div class="text-muted">Use at least 8 characters of letters and numbers.</div>
                       </div>
                       <div class="row mb-10" data-kt-password-meter="true">
-                        <label class="form-label fw-semibold fs-6 mb-2">Confirm Password</label>
+                        <label class="form-label required fw-semibold fs-6 mb-2">Confirm Password</label>
                         <div class="position-relative mb-3">
                           <input class="form-control form-control-lg form-control-solid" type="password" placeholder="Confirm your new password" id="confirm_password" autocomplete="off" />
                           <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2" data-kt-password-meter-control="visibility">
@@ -590,6 +597,7 @@
                             <i class="bi bi-eye fs-2 d-none"></i>
                           </span>
                         </div>
+                        <div class="d-none" data-kt-password-meter-control="highlight"></div>
                       </div>
                       <div class="text-center">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal" data-kt-users-modal-action="cancel">Cancel</button>
