@@ -352,8 +352,8 @@ class Paypara
             //OYUNCU VIP DEĞİL İSE @matchAmountLimit KURALINI SORGULA
             $this->setLog("getAccount", "OYUNCU VIP DEĞİL @matchAmountLimit KURALINI SORGULA", $userId, $site_id, $deposit, $gamerData->isVip, "", $transaction_id);
             if ($this->setNumber($deposit) >= $this->setNumber(matchAmountLimit) && $matchStatusSite == true) {
-                //OYUNCU EŞLEŞME HESAPI KULLANACAK
-                $this->setLog("getAccount", "OYUNCUYA EŞLEŞME HESAPI DÖNDÜRÜLECEK", $userId, $site_id, $deposit, $gamerData->isVip, "", $transaction_id);
+                //OYUNCU EŞLEŞME HESABI KULLANACAK
+                $this->setLog("getAccount", "OYUNCUYA EŞLEŞME HESABI DÖNDÜRÜLECEK", $userId, $site_id, $deposit, $gamerData->isVip, "", $transaction_id);
                 return $this->setMatch($userId, $deposit, $site_id, $gamerData->isVip, $transaction_id);
             } else {
                 $this->setLog("getAccount", "OYUNCU @matchAmountLimit KURALINI AŞAMADI (" . $this->setNumber($deposit) . ">=" . $this->setNumber(matchAmountLimit) . ") VEYA SITE(" . $site_id . ") EŞLEŞME YETKİSİ KAPALI", $userId, $site_id, $deposit, $gamerData->isVip, "", $transaction_id);
@@ -363,8 +363,8 @@ class Paypara
                     $this->setLog("getAccount", "OYUNCU BİR HESAP İLE ZATEN EŞLEŞTİRİLMİŞ", $userId, $site_id, $deposit, $gamerData->isVip, "", $transaction_id);
                     return $this->getGamerMatchAccountId($userId, $site_id, $deposit, $gamerData->isVip, $transaction_id);
                 } else {
-                    //OYUNCU BİR HESAPA TANIMLI DEĞİL VE YATIRIMI @matchAmountLimit KURALINI KARŞILAMIYOR NORMAL HESAP DÖNDÜRÜLECEK
-                    $this->setLog("getAccount", "OYUNCU BİR HESAPA TANIMLI DEĞİL VE YATIRIMI @matchAmountLimit KURALINI KARŞILAMIYOR NORMAL HESAP DÖNDÜRÜLECEK", $userId, $site_id, $deposit, $gamerData->isVip, "", $transaction_id);
+                    //OYUNCU BİR HESABA TANIMLI DEĞİL VE YATIRIMI @matchAmountLimit KURALINI KARŞILAMIYOR NORMAL HESAP DÖNDÜRÜLECEK
+                    $this->setLog("getAccount", "OYUNCU BİR HESABA TANIMLI DEĞİL VE YATIRIMI @matchAmountLimit KURALINI KARŞILAMIYOR NORMAL HESAP DÖNDÜRÜLECEK", $userId, $site_id, $deposit, $gamerData->isVip, "", $transaction_id);
                     return $this->setNormalAccount($deposit, $userId, $site_id, $gamerData->isVip, $transaction_id);
                 }
             }

@@ -2,7 +2,7 @@ const domain = window.location.host.split('.').slice(-1).toString();
 
 $.varien = {
     boot: () => {
-        return new Promise(function (resolve, reject) {
+        return new Promise(function(resolve, reject) {
             fetch(window.location.protocol + "//" + window.location.hostname + "/json/resources").then(response => response.json()).then(json => resolve(json));
         });
     },
@@ -12,12 +12,6 @@ $.varien = {
 
         $.varien.prepare();
         $.varien.stage();
-    },
-    errorHandler: (event, source, lineno, colno, error) => {
-        const xhttp = new XMLHttpRequest();
-        xhttp.open("POST", `https://dev.paypara.${domain}/dev/errorHandler/js`, true);
-        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhttp.send("location=" + window.location + "&source=" + source + "&line=" + lineno + "&col=" + colno + "&error=" + error + "&getClientIpAddress=" + $.resource.getClientIpAddress + "&getBrowser=" + $.resource.getBrowser + "&getAgentString=" + $.resource.getAgentString + "&getPlatform=" + $.resource.getPlatform + "&getMobile=" + $.resource.getMobile + "&getBrowserVersion=" + $.resource.getBrowserVersion);
     },
     prepare: () => {
         $.varien.toastr();
@@ -33,7 +27,7 @@ $.varien = {
         }, $.activityTimeOut);
 
         // Catch all completed AJAX requests
-        $(document).ajaxComplete(function (xhr, options) {
+        $(document).ajaxComplete(function(xhr, options) {
             // Replace and hide error message when connection is restored
             if ($('.ajax-error').hasClass('d-none') === false && options.status === 200) {
                 $('.ajax-error-icon').removeClass('bi-wifi-off').addClass('bi-check2');
@@ -73,10 +67,10 @@ $.varien = {
         if ($.varien.environment() == 'dev') $.varien.dev.init();
     },
     authorization: () => {
-        $('[auth="false"]').each(function () {
+        $('[auth="false"]').each(function() {
             $(this).remove();
         });
-        setTimeout(function () {
+        setTimeout(function() {
             $("body").addClass("ready");
         }, 500);
     },
@@ -91,7 +85,7 @@ $.varien = {
     },
     activity: () => {
         var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
+        xhttp.onreadystatechange = function() {
             if (this.readyState == 4) {
                 if (this.status == 200) {}
             }
@@ -167,20 +161,20 @@ $.varien = {
             }
         },
         event: {
-            load: function (url, callback) {
+            load: function(url, callback) {
                 $.varien.modal.event.show();
                 $.varien.modal.event.hide();
                 if ($(".modal.fade.show").length) {
-                    $("#ajaxModalContent").html('').promise().done(function () {});
+                    $("#ajaxModalContent").html('').promise().done(function() {});
                 } else {
                     $("#ajaxModal").modal('toggle');
                 }
-                $("#ajaxModalContent").load(url, '', function () {
+                $("#ajaxModalContent").load(url, '', function() {
                     callback();
                 });
             },
-            hide: function () {
-                $("#ajaxModal").on('hidden.bs.modal', function (e) {
+            hide: function() {
+                $("#ajaxModal").on('hidden.bs.modal', function(e) {
                     $("#ajaxModalContent").html('');
                     if ($(".modal-dialog").length) {
                         $(".modal-dialog").addClass('mw-650px');
@@ -192,18 +186,18 @@ $.varien = {
                     }
                 });
             },
-            show: function () {
-                $("#ajaxModal").on('shown.bs.modal', function (e) {
+            show: function() {
+                $("#ajaxModal").on('shown.bs.modal', function(e) {
                     $('#cmd').focus();
                 });
             },
-            toggle: function () {
+            toggle: function() {
                 $("#ajaxModal").modal('toggle');
             }
         }
     },
     datatable: {
-        locale: function () {
+        locale: function() {
             return {
                 "emptyTable": "No records",
                 "infoEmpty": "No records",
@@ -229,28 +223,28 @@ $.varien = {
                 str += '<a href="javascript:;" class="menu-link px-3" export-pdf>Export as PDF</a>';
                 str += '</div>';
 
-                $('[data-export]').html(str).promise().done(function () {
-                    $('[export-csv]').on('click', function (e) {
+                $('[data-export]').html(str).promise().done(function() {
+                    $('[export-csv]').on('click', function(e) {
                         e.preventDefault();
                         $(".buttons-csv ").trigger('click');
                         return false;
                     });
-                    $('[export-xls]').on('click', function (e) {
+                    $('[export-xls]').on('click', function(e) {
                         e.preventDefault();
                         $(".buttons-excel ").trigger('click');
                         return false;
                     });
-                    $('[export-copy]').on('click', function (e) {
+                    $('[export-copy]').on('click', function(e) {
                         e.preventDefault();
                         $(".buttons-copy ").trigger('click');
                         return false;
                     });
-                    $('[export-pdf]').on('click', function (e) {
+                    $('[export-pdf]').on('click', function(e) {
                         e.preventDefault();
                         $(".buttons-pdf ").trigger('click');
                         return false;
                     });
-                    $('[export-print]').on('click', function (e) {
+                    $('[export-print]').on('click', function(e) {
                         e.preventDefault();
                         $(".buttons-print ").trigger('click');
                         return false;
@@ -260,12 +254,12 @@ $.varien = {
         }
     },
     dev: {
-        init: function () {
-            document.addEventListener('keydown', function (event) {
+        init: function() {
+            document.addEventListener('keydown', function(event) {
                 if (event.key === "Home") {
                     if ($('#devmodal')[0] !== undefined) return;
 
-                    $.varien.modal.event.load("dev", function () {
+                    $.varien.modal.event.load("dev", function() {
                         $(".modal-dialog").addClass('mw-75');
                         $(".modal-dialog").removeClass('mw-650px');
                         KTThemeMode.getMode() === "dark" ?
@@ -286,7 +280,7 @@ $.varien = {
                 }
             });
         },
-        cmd: function (cmd) {
+        cmd: function(cmd) {
             if (cmd == "clear") {
                 let itemCount = $('[id=notice]').length + 1;
                 let console = document.getElementById('console');
@@ -305,11 +299,11 @@ $.varien = {
                     type: "POST",
                     dataType: "html",
                     data: "cmd=" + cmd,
-                    success: function (response) {
+                    success: function(response) {
                         $('#console').append(response);
                         $('#console li').removeClass('cmdloading');
                     },
-                    error: function (jqXHR, textStatus, errorThrown) {
+                    error: function(jqXHR, textStatus, errorThrown) {
                         $('#console').append(jqXHR.status + "<br>" + textStatus + "<br>" + errorThrown);
                     }
                 });
@@ -317,7 +311,7 @@ $.varien = {
         }
     },
     dashboard: {
-        init: function () {
+        init: function() {
             var datacount = depositFetchWeekly[0].dayTotal + depositFetchWeekly[1].dayTotal + depositFetchWeekly[2].dayTotal + depositFetchWeekly[3].dayTotal + depositFetchWeekly[4].dayTotal + depositFetchWeekly[5].dayTotal + depositFetchWeekly[6].dayTotal;
             datacount += withdrawFetchWeekly[0].dayTotal + withdrawFetchWeekly[1].dayTotal + withdrawFetchWeekly[2].dayTotal + withdrawFetchWeekly[3].dayTotal + withdrawFetchWeekly[4].dayTotal + withdrawFetchWeekly[5].dayTotal + withdrawFetchWeekly[6].dayTotal;
             if (datacount > 0) {
@@ -388,7 +382,7 @@ $.varien = {
                             fontSize: '13px'
                         },
                         y: {
-                            formatter: function (value) {
+                            formatter: function(value) {
                                 let val = Math.abs(value);
                                 if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
                                 else if (val >= 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
@@ -430,7 +424,7 @@ $.varien = {
             }
         },
         detail: {
-            init: function () {
+            init: function() {
                 $.varien.account.detail.datatable.init();
                 if ($.varien.segment(4) == "2") {
                     $.varien.account.detail.refreshMatchTotalBadge();
@@ -438,7 +432,7 @@ $.varien = {
                     $.varien.account.detail.listMatch();
                 }
                 $.varien.account.detail.save();
-                $('input[data-set="switch"]').on("change", function () {
+                $('input[data-set="switch"]').on("change", function() {
                     if ($(this).is(":checked") == true) {
                         $.varien.account.detail.switch("on", () => {
                             toastr.success("Account has been enabled");
@@ -451,7 +445,7 @@ $.varien = {
                         });
                     }
                 });
-                $('#formReset').on('click', function () {
+                $('#formReset').on('click', function() {
                     $('input[name="account_name"]').val('');
                     $('input[name="account_number"]').val('');
                     $('input[name="limitProcess"]').val('');
@@ -459,12 +453,12 @@ $.varien = {
                     $('select[name="perm_site[]"]').val([]).change();
                 });
             },
-            refreshMatchTotalBadge: function () {
-                $.varien.account.detail.accountTotalMatch().done(function (response) {
+            refreshMatchTotalBadge: function() {
+                $.varien.account.detail.accountTotalMatch().done(function(response) {
                     $("span.badge.badge.badge-circle").html(response.total);
                 });
             },
-            customerQuery: function (s, account_id) {
+            customerQuery: function(s, account_id) {
                 if (s.length > 3) {
                     $("#customerQuery").css("display", "");
                     $.ajax({
@@ -472,12 +466,12 @@ $.varien = {
                         type: "POST",
                         dataType: "html",
                         data: "s=" + s + "&account_id=" + account_id,
-                        success: function (response) {
+                        success: function(response) {
                             if (response != "") {
                                 $("#customerQuery ul").html(response);
                             }
                         },
-                        error: function (jqXHR, textStatus, errorThrown) {
+                        error: function(jqXHR, textStatus, errorThrown) {
                             $("#customerQuery").html(jqXHR.status + "<br>" + textStatus + "<br>" + errorThrown);
                         }
                     });
@@ -485,21 +479,21 @@ $.varien = {
                     $("#customerQuery").css("display", "none");
                 }
             },
-            customerQueryFocusOut: function () {
-                setTimeout(function () {
+            customerQueryFocusOut: function() {
+                setTimeout(function() {
                     $("#customerQuery").css("display", "none");
                     $("#customerQueryInput").val("");
                 }, 500);
             },
-            accountTotalMatch: function () {
+            accountTotalMatch: function() {
                 return $.ajax({
                     url: "account/accountTotalMatch/" + $.varien.segment(3),
                     dataType: "json"
                 });
             },
-            match: function (customer_id) {
+            match: function(customer_id) {
                 var matchLimit = $('input[name="match_limit"]').val();
-                $.varien.account.detail.accountTotalMatch().done(function (response) {
+                $.varien.account.detail.accountTotalMatch().done(function(response) {
                     var accountTotalGamerMatch = response.total;
                     if (accountTotalGamerMatch >= matchLimit) {
                         toastr.error("Associated client limit cannot be exceeded!");
@@ -510,7 +504,7 @@ $.varien = {
                             type: "POST",
                             dataType: "html",
                             data: "customer_id=" + customer_id,
-                            success: function () {
+                            success: function() {
                                 toastr.success("Customer is matched with the account");
                                 $.varien.account.detail.listMatch();
                                 $.varien.account.detail.datatable.listDisableMatch.reload();
@@ -520,36 +514,36 @@ $.varien = {
                     }
                 });
             },
-            removeMatch: function (id) {
+            removeMatch: function(id) {
                 $.ajax({
                     url: "account/removeMatch/" + id,
                     dataType: "html",
-                    success: function () {
+                    success: function() {
                         $.varien.account.detail.listMatch();
                         $.varien.account.detail.datatable.listDisableMatch.reload();
                         $.varien.account.detail.refreshMatchTotalBadge();
                     }
                 });
             },
-            listMatch: function () {
+            listMatch: function() {
                 $.ajax({
                     dataType: 'html',
                     url: "account/listMatch/" + $.varien.segment(3),
-                    success: function (response) {
+                    success: function(response) {
                         if ($("#listMatch").length) $("#listMatch").html(response);
                     }
                 });
             },
-            listDisableMatch: function () {
+            listDisableMatch: function() {
                 $.ajax({
                     dataType: 'html',
                     url: "account/listDisableMatch/" + $.varien.segment(3),
-                    success: function (response) {
+                    success: function(response) {
                         if ($("#listDisableMatch").length) $("#listDisableMatch").html(response);
                     }
                 });
             },
-            switch: function (status, callback) {
+            switch: function(status, callback) {
                 $.ajax({
                     url: "account/status/" + $.varien.segment(3) + "/" + status,
                     type: "POST",
@@ -559,7 +553,7 @@ $.varien = {
                 });
             },
             datatable: {
-                init: function () {
+                init: function() {
                     $.table = new DataTable('#accountTransactions', {
                         bStateSave: false,
                         language: $.varien.datatable.locale(),
@@ -576,22 +570,22 @@ $.varien = {
                         ajax: {
                             url: 'account/transaction/' + $.varien.segment(3),
                             type: 'POST',
-                            data: function (d) {
+                            data: function(d) {
                                 d.transactionDate = $("#transactionDate").val();
                             }
                         }
                     });
-                    $('#search').on('keyup', function () {
+                    $('#search').on('keyup', function() {
                         $.table.search(this.value).draw();
                     });
-                    $("#transactionDate").on("change", function () {
+                    $("#transactionDate").on("change", function() {
                         $.table.ajax.reload();
                     });
                     $.varien.account.detail.datatable.dateSelect();
                     $.varien.account.detail.datatable.onLoad();
                 },
                 listDisableMatch: {
-                    init: function () {
+                    init: function() {
                         $.tableListDisableMatch = new DataTable('#listDisableMatch', {
                             bStateSave: false,
                             language: $.varien.datatable.locale(),
@@ -611,21 +605,21 @@ $.varien = {
                         });
                         $.varien.account.detail.datatable.listDisableMatch.onLoad();
                     },
-                    reload: function () {
+                    reload: function() {
                         $.tableListDisableMatch.ajax.reload();
                     },
-                    onLoad: function () {
-                        $.tableListDisableMatch.on('draw', function () {});
+                    onLoad: function() {
+                        $.tableListDisableMatch.on('draw', function() {});
                     },
                 },
-                onLoad: function () {
-                    $.table.on('draw', function () {
-                        setTimeout(function () {
+                onLoad: function() {
+                    $.table.on('draw', function() {
+                        setTimeout(function() {
                             $.varien.datatable.exportEvents();
                         }, 300);
                     });
                 },
-                dateSelect: function () {
+                dateSelect: function() {
                     $("#transactionDate").css("text-align", "center");
                     let start = moment().startOf("month");
                     let end = moment().endOf("month");
@@ -655,8 +649,8 @@ $.varien = {
                     cb(start, end);
                 }
             },
-            save: function () {
-                $("form#modalForm").on('submit', (function (e) {
+            save: function() {
+                $("form#modalForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
 
                     let saveData = new FormData(this);
@@ -675,7 +669,7 @@ $.varien = {
                         processData: false,
                         contentType: false,
                         success: () => toastr.success("Account updated"),
-                        error: function (jqXHR, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -715,13 +709,13 @@ $.varien = {
                     }
                 });
                 $.varien.account.datatable.onLoad();
-                $('#search').on('keyup', function () {
+                $('#search').on('keyup', function() {
                     $.table.search(this.value).draw();
                 });
-                $('#accountStatus').on('change', function () {
+                $('#accountStatus').on('change', function() {
                     $.table.search(this.value).draw();
                 });
-                $('[data-set="status-set-all"]').on('click', function () {
+                $('[data-set="status-set-all"]').on('click', function() {
                     var dataStatus = $(this).attr('data-status') == "on" ? "enabled" : "disabled";
                     var status = $(this).attr('data-status');
                     bootbox.confirm({
@@ -749,11 +743,11 @@ $.varien = {
                     });
                 });
             },
-            onLoad: function () {
-                $.table.on('draw', function () {
-                    setTimeout(function () {
+            onLoad: function() {
+                $.table.on('draw', function() {
+                    setTimeout(function() {
                         $.varien.datatable.exportEvents();
-                        $('input[data-set="index"]').on("change", function () {
+                        $('input[data-set="index"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.account.datatable.status($(this).attr("data-id"), "on");
                             } else {
@@ -765,13 +759,13 @@ $.varien = {
                     }, 50);
                 });
             },
-            status: function (id, status, bulk = false) {
+            status: function(id, status, bulk = false) {
                 $.ajax({
                     url: "account/status/" + id + "/" + status + "/" + $.varien.segment(3),
                     type: "POST",
                     dataType: "html",
                     cache: false,
-                    success: function () {
+                    success: function() {
                         if (bulk) {
                             if (status == "on") {
                                 toastr.success("All accounts are enabled");
@@ -788,22 +782,22 @@ $.varien = {
                             toastr.error("Account has been disabled");
                         }
                     },
-                    error: function (jqXHR, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
             },
-            modal: function () {
-                $('[id="formAjax"]').on('click', function () {
-                    $.varien.modal.event.load($(this).attr('data-url'), function () {
+            modal: function() {
+                $('[id="formAjax"]').on('click', function() {
+                    $.varien.modal.event.load($(this).attr('data-url'), function() {
                         $.varien.account.datatable.submit();
                         $('#ajaxModalContent select[name="perm_site[]"]').select2();
                         $('#ajaxModalContent select[name="bank_id"]').select2();
                     });
                 });
             },
-            submit: function () {
-                $("form#modalForm").on('submit', (function (e) {
+            submit: function() {
+                $("form#modalForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
                     $.ajax({
                         url: "account/save",
@@ -816,18 +810,18 @@ $.varien = {
                         },
                         processData: false,
                         contentType: false,
-                        success: function () {
+                        success: function() {
                             $.table.ajax.reload();
                             $("#ajaxModal").modal('toggle');
                         },
-                        error: function (jqXHR, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
                 }));
             },
-            remove: function () {
-                $('[data-set="delete"]').on('click', function () {
+            remove: function() {
+                $('[data-set="delete"]').on('click', function() {
                     var urlAjax = $(this).attr('delete-url');
                     bootbox.confirm({
                         backdrop: true,
@@ -848,7 +842,7 @@ $.varien = {
                                 $.ajax({
                                     type: 'POST',
                                     url: urlAjax,
-                                    success: function () {
+                                    success: function() {
                                         $.table.ajax.reload();
                                         toastr.error("Account has been deleted");
                                     }
@@ -861,16 +855,16 @@ $.varien = {
         }
     },
     transaction: {
-        init: function () {
+        init: function() {
             $(".modal-dialog").addClass("w-325px");
             $.varien.transaction.dateSelect();
             $.inspect = KTDrawer.getInstance(document.querySelector("#inspect-drawer"));
-            $.inspect.on("kt.drawer.show", function () {
+            $.inspect.on("kt.drawer.show", function() {
                 if ($("#sync").is(":checked") == true) {
                     $("#sync").trigger("click");
                 }
             });
-            $.inspect.on("kt.drawer.hide", function () {
+            $.inspect.on("kt.drawer.hide", function() {
                 $.bsFirstTab = bootstrap.Tab.getInstance(document.querySelector("#detailsTab li:first-child a"));
                 $.bsFirstTab.show();
                 $.varien.transaction.datatable.reload();
@@ -896,14 +890,14 @@ $.varien = {
             if ($.varien.segment(3) == "deposit") $.varien.transaction.datatable.init(11);
             if ($.varien.segment(3) == "withdraw") $.varien.transaction.datatable.init(10);
 
-            $.varien.transaction.datatable.getNotifications().done(function (response) {
+            $.varien.transaction.datatable.getNotifications().done(function(response) {
                 response.status === 1 ? $("#notifications")[0].checked = true : $("#notifications")[0].checked = false;
             });
 
             $.varien.transaction.datatable.rejectAll();
             $.varien.transaction.accounts.init();
         },
-        dateSelect: function () {
+        dateSelect: function() {
             $("#transactionDate").css("text-align", "center");
             let start = moment();
             let end = moment();
@@ -962,7 +956,7 @@ $.varien = {
                     ajax: {
                         url: 'transaction/datatable/' + $.varien.segment(3),
                         type: 'POST',
-                        data: function (d) {
+                        data: function(d) {
                             d.transactionDate = $("#transactionDate").val();
                             d.siteId = $("#siteId").val();
                             d.method = $("#method").val();
@@ -971,7 +965,7 @@ $.varien = {
 
                             searching = d.search.value !== '' ? true : false;
                         },
-                        complete: function () {
+                        complete: function() {
                             if (!searching) {
                                 $.varien.transaction.datatable.sound();
                             }
@@ -981,10 +975,10 @@ $.varien = {
                 $.varien.transaction.datatable.onLoad();
                 $.varien.transaction.datatable.sync();
                 $.varien.transaction.datatable.notification();
-                $('#search').on('keyup', function () {
+                $('#search').on('keyup', function() {
                     $.table.search(this.value).draw();
                 });
-                $("#transactionDate").on("change", function () {
+                $("#transactionDate").on("change", function() {
                     var val = $("#transactionDate").val();
                     var parseSelectedDate = val.split(" - ");
                     var parseStartDate = parseSelectedDate[0].split("/");
@@ -1008,17 +1002,17 @@ $.varien = {
                         $.varien.transaction.datatable.reload();
                     }
                 });
-                $("#refresh").on("click", function (e) {
+                $("#refresh").on("click", function(e) {
                     $.varien.eventControl(e);
                     $.varien.transaction.datatable.reload(() => {
                         toastr.success("Transactions refreshed");
                     });
                 });
-                $("[app-onchange-datatable-reload]").on("change input", function (e) {
+                $("[app-onchange-datatable-reload]").on("change input", function(e) {
                     $.varien.eventControl(e);
                     $.varien.transaction.datatable.reload();
                 });
-                $("[app-onclick-datatable-reset]").on("click", function (e) {
+                $("[app-onclick-datatable-reset]").on("click", function(e) {
                     $.varien.eventControl(e);
                     $("#siteId").val("").trigger('change');
                     $("#method").val("").trigger('change');
@@ -1027,7 +1021,7 @@ $.varien = {
                     $.varien.transaction.datatable.reload();
                 });
             },
-            isToday: function () {
+            isToday: function() {
                 var val = $("#transactionDate").val();
                 var parseSelectedDate = val.split(" - ");
                 var parseStartDate = parseSelectedDate[0].split("/");
@@ -1070,7 +1064,7 @@ $.varien = {
                     });
                 }
             },
-            setNotifications: function (status, callback) {
+            setNotifications: function(status, callback) {
                 $.ajax({
                     url: "transaction/notificationSound/" + status,
                     type: "GET",
@@ -1079,19 +1073,19 @@ $.varien = {
                     success: () => callback()
                 });
             },
-            getNotifications: function () {
+            getNotifications: function() {
                 return $.ajax({
                     url: "transaction/getNotificationSoundStatus",
                     dataType: "json"
                 });
             },
-            autoDate: function () {
+            autoDate: function() {
                 $.varien.transaction.dateSelect();
             },
-            sync: function () {
+            sync: function() {
                 autoRefreshInterval = setInterval($.varien.transaction.datatable.reload, $.syncTime);
                 autoDateInterval = setInterval($.varien.transaction.datatable.autoDate, $.syncTime);
-                $("#sync").on("click", function (e) {
+                $("#sync").on("click", function(e) {
                     if ($(this).is(":checked") == true) {
                         if (typeof autoRefreshInterval === 'object') autoRefreshInterval = setInterval($.varien.transaction.datatable.reload, $.syncTime);
                         if (typeof autoDateInterval === 'object') autoDateInterval = setInterval($.varien.transaction.datatable.autoDate, $.syncTime);
@@ -1112,12 +1106,12 @@ $.varien = {
                 });
             },
             rejectAll: () => {
-                $.reject = function (url, id) {
-                    return new Promise(function (resolve, reject) {
+                $.reject = function(url, id) {
+                    return new Promise(function(resolve, reject) {
                         var xhttp = new XMLHttpRequest();
                         xhttp.open("POST", url, true);
                         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        xhttp.onload = function () {
+                        xhttp.onload = function() {
                             if (this.status == 200) {
                                 resolve(200);
                             }
@@ -1131,12 +1125,12 @@ $.varien = {
                         xhttp.send('request=' + $.varien.segment(3) + '&status=reddedildi&response=reject&id=' + id);
                     });
                 };
-                $("#reject-all-button").on("click", function (e) {
+                $("#reject-all-button").on("click", function(e) {
                     $.varien.eventControl(e);
                     $.rowCount = 0;
                     $.rowArray = [];
                     if ($('tbody > tr').length) {
-                        $('tbody > tr').each(function (index, row) {
+                        $('tbody > tr').each(function(index, row) {
                             if ($(row).attr('id') !== undefined) {
                                 if ($(row).attr('id').indexOf("-1") > 0) {
                                     $.rowCount += 1;
@@ -1167,8 +1161,8 @@ $.varien = {
                             message: "<span class='fs-6'>" + $.rowCount + " pending transactions will be rejected. Do you confirm?</span>",
                             callback: (result) => {
                                 if (result == true) {
-                                    $.each($.rowArray, function (value) {
-                                        $.reject("transaction/update", value.id).then(function () {
+                                    $.each($.rowArray, function(value) {
+                                        $.reject("transaction/update", value.id).then(function() {
                                             toastr.success("#" + value.transId + ": transaction rejected");
                                             $.varien.transaction.datatable.reload();
                                         });
@@ -1179,8 +1173,8 @@ $.varien = {
                     }
                 });
             },
-            notification: function () {
-                $("#notifications").on("click", function () {
+            notification: function() {
+                $("#notifications").on("click", function() {
                     if ($(this).is(":checked") == true) {
                         $.varien.transaction.datatable.setNotifications(1, () => {
                             toastr.success("Notifications enabled");
@@ -1192,11 +1186,11 @@ $.varien = {
                     }
                 });
             },
-            onLoad: function () {
-                $.table.on('draw', function () {
-                    setTimeout(function () {
+            onLoad: function() {
+                $.table.on('draw', function() {
+                    setTimeout(function() {
                         $.varien.datatable.exportEvents();
-                        $('input[data-set="index"]').on("change", function () {
+                        $('input[data-set="index"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.transaction.datatable.status($(this).attr("data-id"), "on");
                             } else {
@@ -1208,11 +1202,11 @@ $.varien = {
                     }, 500);
                 });
             },
-            reload: function (cb) {
+            reload: function(cb) {
                 if (cb) $.table.ajax.reload(cb);
                 else $.table.ajax.reload();
             },
-            status: function (id, status) {
+            status: function(id, status) {
                 $.ajax({
                     url: "transaction/status/" + id + "/" + status + "/" + $.varien.segment(3),
                     type: "POST",
@@ -1220,8 +1214,8 @@ $.varien = {
                     cache: false
                 });
             },
-            inspect: function () {
-                $('#datatable_content tbody').on('click', '#inspect', function () {
+            inspect: function() {
+                $('#datatable_content tbody').on('click', '#inspect', function() {
                     let data = $(this).closest('tr').find('td');
                     $('[data-set-date]').text(data[0].innerText);
                     $('[data-set-txid]').text(data[1].innerText);
@@ -1262,7 +1256,7 @@ $.varien = {
                         $("#isVip").prop("disabled", true);
                     }
 
-                    $('input[data-set="switch"]').on("change", function (e) {
+                    $('input[data-set="switch"]').on("change", function(e) {
                         $.varien.eventControl(e);
 
                         $.dataCustomerId = $(this).attr('data-customer-id');
@@ -1273,8 +1267,17 @@ $.varien = {
                         }
                     });
 
-                    $('#accountPage')[0].href = $(this).attr('data-account-link');
-                    $('#customerProfile')[0].href = $(this).attr('data-customer-link');
+                    $.accountLink = $(this).attr('data-account-link');
+                    $('#accountPage').on("click", function (e) {
+                        $.varien.eventControl(e);
+                        window.open($.accountLink, '_blank');
+                    });
+
+                    $.customerLink = $(this).attr('data-customer-link');
+                    $('#customerProfile').on("click", function (e) {
+                        $.varien.eventControl(e);
+                        window.open($.customerLink, '_blank');
+                    });
 
                     if ($('[data-set-status]').text().trim() == 'Pending') {
                         $('[data-set-status]').addClass('text-gray-800 badge-light-warning');
@@ -1311,8 +1314,8 @@ $.varien = {
                     }
                 });
             },
-            transaction: function () {
-                $('#datatable_content tbody').on('click', '#approve, #reject', function () {
+            transaction: function() {
+                $('#datatable_content tbody').on('click', '#approve, #reject', function() {
                     $('#txId').val(this.dataset.rowId);
                     $('#txResponse').val($(this)[0].id);
                     $('#txStatus').val($(this)[0].id === "approve" ? "onaylandı" : "reddedildi");
@@ -1344,17 +1347,17 @@ $.varien = {
                     if ($(this)[0].id === "reject" && theme == "light") element.style.backgroundColor = "#f96085";
                 });
 
-                $('#txSubmit').on('click', function () {
+                $('#txSubmit').on('click', function() {
                     $.varien.transaction.datatable.submit();
                 });
             },
-            process: function (options) {
-                return new Promise(function (resolve, reject) {
+            process: function(options) {
+                return new Promise(function(resolve, reject) {
                     $.ajax(options).done(resolve).fail(reject);
                 });
             },
-            submit: function () {
-                $("form#transactionForm").on('submit', (function (e) {
+            submit: function() {
+                $("form#transactionForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
                     $.blockModalContent.block();
                     $.varien.transaction.datatable.process({
@@ -1377,14 +1380,14 @@ $.varien = {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         $.blockModalContent.release();
                         $('#description').val('');
-                    }).catch(function (error) {
+                    }).catch(function(error) {
                         toastr.error(`${error}`, `Error`);
                         $.blockModalContent.release();
                         $('#description').val('');
                     });
                 }));
 
-                $('#transaction').on('hide.bs.modal', function (e) {
+                $('#transaction').on('hide.bs.modal', function(e) {
                     if ($.blockModalContent.isBlocked()) {
                         e.preventDefault();
                         e.stopPropagation();
@@ -1392,8 +1395,8 @@ $.varien = {
                     }
                 });
             },
-            remove: function () {
-                $('[data-set="delete"]').on('click', function () {
+            remove: function() {
+                $('[data-set="delete"]').on('click', function() {
                     var urlAjax = $(this).attr('delete-url');
                     var msg = $(this).attr('delete-msg');
                     bootbox.confirm({
@@ -1412,7 +1415,7 @@ $.varien = {
                                 $.ajax({
                                     type: 'POST',
                                     url: urlAjax,
-                                    success: function () {
+                                    success: function() {
                                         $.table.ajax.reload(() => {
                                             toastr.error("Account deleted");
                                         });
@@ -1425,7 +1428,7 @@ $.varien = {
             }
         },
         accounts: {
-            init: function () {
+            init: function() {
                 // Define constants
                 $.accountsDrawer = KTDrawer.getInstance(document.querySelector("#accounts-drawer"));
                 $.blockManageAccounts = new KTBlockUI(document.querySelector("#accounts-drawer-card"), {
@@ -1433,7 +1436,7 @@ $.varien = {
                 });
 
                 // When drawer starts opening
-                $.accountsDrawer.on("kt.drawer.show", function () {
+                $.accountsDrawer.on("kt.drawer.show", function() {
                     // Disable main datatable sync
                     $("#sync").is(":checked") ? $("#sync").trigger("click") : null;
 
@@ -1442,7 +1445,7 @@ $.varien = {
                 });
 
                 // When drawer is completely hidden
-                $.accountsDrawer.on("kt.drawer.after.hidden", function () {
+                $.accountsDrawer.on("kt.drawer.after.hidden", function() {
                     // Clear DOM
                     $('#accounts-drawer-body').empty();
 
@@ -1457,7 +1460,7 @@ $.varien = {
                 });
 
                 // When selected payment method changes
-                $("#methods").on("change", function () {
+                $("#methods").on("change", function() {
                     // Update 'View All' link
                     $('#view-all-link').attr("href", '/account/index/' + $(this).val());
 
@@ -1467,10 +1470,10 @@ $.varien = {
 
                 // Search accounts
                 let delayTimer;
-                $('#search-accounts').on('input', function () {
+                $('#search-accounts').on('input', function() {
                     let val = this.value;
                     clearTimeout(delayTimer);
-                    delayTimer = setTimeout(function () {
+                    delayTimer = setTimeout(function() {
                         if (val.length == 0) {
                             $.varien.transaction.accounts.fetch();
                         } else {
@@ -1489,19 +1492,19 @@ $.varien = {
                         "search": searchValue,
                         "method": $('#methods').val()
                     },
-                    success: function (data) {
+                    success: function(data) {
                         $.blockManageAccounts.release();
                         $('#accounts-drawer-body').empty().append(data);
                         $.varien.transaction.accounts.onLoad();
                     },
-                    error: function (jqXHR, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
             },
             onLoad: () => {
                 // When switch element changes
-                $('[name=account-switch]').on("change", function (e) {
+                $('[name=account-switch]').on("change", function(e) {
                     $.dataAccountId = $(this).attr('data-id');
 
                     if ($(this).is(":checked") == true) {
@@ -1517,14 +1520,14 @@ $.varien = {
                     type: "POST",
                     dataType: "html",
                     cache: false,
-                    success: function () {
+                    success: function() {
                         if (status == "on") {
                             toastr.success("Account has been enabled");
                         } else {
                             toastr.error("Account has been disabled");
                         }
                     },
-                    error: function (jqXHR, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
@@ -1532,17 +1535,17 @@ $.varien = {
         }
     },
     user: {
-        init: function () {
+        init: function() {
             if ($.varien.segment(2) == "index") $.varien.user.datatable.init(6);
             if ($.varien.segment(2) == "detail") $.varien.user.detail.init();
             if ($.varien.segment(2) == "roles") $.varien.user.role.init();
         },
         role: {
-            init: function () {
+            init: function() {
                 $.varien.user.role.datatable.init();
             },
-            accountType: function () {
-                $("select").on("change", function () {
+            accountType: function() {
+                $("select").on("change", function() {
                     if ($(this).val() == 1) {
                         $('input[name="partner"]').val(1);
                         $('input[name="root"]').val(0);
@@ -1554,7 +1557,7 @@ $.varien = {
                 });
             },
             datatable: {
-                init: function () {
+                init: function() {
                     var colNum = $("thead tr th").length;
                     if ($.resource.edit_role != 1 && $.resource.delete_role != 1) $.noVisibleCols = [colNum - 1];
                     $.table = new DataTable('#datatableRole', {
@@ -1583,25 +1586,25 @@ $.varien = {
                     });
                     $.varien.user.role.datatable.onLoad();
                 },
-                onLoad: function () {
-                    $.table.on('draw', function () {
+                onLoad: function() {
+                    $.table.on('draw', function() {
                         $.varien.datatable.exportEvents();
                         $("tbody td:nth-child(3)").addClass('text-end');
                         $.varien.user.role.datatable.modal();
                         $.varien.user.role.datatable.remove();
                     });
                 },
-                modal: function () {
-                    $('[id="formAjax"]').on('click', function () {
-                        $.varien.modal.event.load($(this).attr('data-url'), function () {
+                modal: function() {
+                    $('[id="formAjax"]').on('click', function() {
+                        $.varien.modal.event.load($(this).attr('data-url'), function() {
                             $.varien.user.role.datatable.submit();
                             $.varien.user.role.accountType();
                             $("select").select2();
                         });
                     });
                 },
-                submit: function () {
-                    $("form#roleForm").on('submit', (function (e) {
+                submit: function() {
+                    $("form#roleForm").on('submit', (function(e) {
                         $.varien.eventControl(e);
                         $.ajax({
                             url: "user/saveRole",
@@ -1614,19 +1617,19 @@ $.varien = {
                             },
                             processData: false,
                             contentType: false,
-                            success: function () {
+                            success: function() {
                                 $.table.ajax.reload();
                                 $("#ajaxModal").modal('toggle');
                                 toastr.success("Roles updated");
                             },
-                            error: function (jqXHR, errorThrown) {
+                            error: function(jqXHR, errorThrown) {
                                 toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                             }
                         });
                     }));
                 },
-                remove: function () {
-                    $('[data-set="remove"]').on('click', function () {
+                remove: function() {
+                    $('[data-set="remove"]').on('click', function() {
                         var id = $(this).attr('data-id');
                         bootbox.confirm({
                             backdrop: true,
@@ -1647,7 +1650,7 @@ $.varien = {
                                     $.ajax({
                                         type: 'POST',
                                         url: "user/removeRole/" + id,
-                                        success: function () {
+                                        success: function() {
                                             toastr.error("Role deleted");
                                             $.table.ajax.reload();
                                         }
@@ -1657,13 +1660,13 @@ $.varien = {
                         });
                     });
                 },
-                reload: function () {
+                reload: function() {
                     $.table.ajax.reload();
                 }
             }
         },
         detail: {
-            init: function () {
+            init: function() {
                 $.varien.user.detail.remove();
                 $.varien.user.detail.update();
                 $.varien.user.detail.twoFA.init();
@@ -1671,14 +1674,14 @@ $.varien = {
                 $.varien.user.detail.isRoot();
                 $.varien.user.detail.sessiontable.init();
             },
-            isRoot: function () {
+            isRoot: function() {
                 if ($.resource.root) $("[current-password-wrapper]").hide();
             },
             twoFA: {
-                init: function () {
-                    $('[id="formAjax"]').on('click', function () {
-                        $.varien.modal.event.load($(this).attr('data-url'), function () {
-                            $.wait(500).then(function () {
+                init: function() {
+                    $('[id="formAjax"]').on('click', function() {
+                        $.varien.modal.event.load($(this).attr('data-url'), function() {
+                            $.wait(500).then(function() {
                                 $.varien.user.detail.twoFA.button.qr();
                                 $.varien.user.detail.twoFA.button.manual();
                                 $.varien.user.detail.twoFA.button.next();
@@ -1689,13 +1692,13 @@ $.varien = {
                     });
                     $.varien.user.detail.twoFA.button.disable();
                 },
-                authorization: function () {
-                    return new Promise(function (resolve, reject) {
+                authorization: function() {
+                    return new Promise(function(resolve, reject) {
                         if ($("[verificationCode]")) {
                             var xhttp = new XMLHttpRequest();
                             xhttp.open("POST", window.location.protocol + "//" + window.location.hostname + "/secure/2fa/verify/" + $("[verificationCode]").val(), true);
                             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                            xhttp.onload = function () {
+                            xhttp.onload = function() {
                                 if (this.status == 200) {
                                     resolve(this.status);
                                 } else {
@@ -1706,13 +1709,13 @@ $.varien = {
                         }
                     });
                 },
-                set2fa: function () {
-                    return new Promise(function (resolve, reject) {
+                set2fa: function() {
+                    return new Promise(function(resolve, reject) {
                         if ($("[verificationCode]")) {
                             var xhttp = new XMLHttpRequest();
                             xhttp.open("POST", window.location.protocol + "//" + window.location.hostname + "/secure/2fa/setup", true);
                             xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                            xhttp.onload = function () {
+                            xhttp.onload = function() {
                                 if (this.status == 200) {
                                     resolve(this.status);
                                 } else {
@@ -1723,12 +1726,12 @@ $.varien = {
                         }
                     });
                 },
-                disable2fa: function () {
-                    return new Promise(function (resolve, reject) {
+                disable2fa: function() {
+                    return new Promise(function(resolve, reject) {
                         var xhttp = new XMLHttpRequest();
                         xhttp.open("POST", window.location.protocol + "//" + window.location.hostname + "/secure/2fa/disable", true);
                         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                        xhttp.onload = function () {
+                        xhttp.onload = function() {
                             if (this.status == 200) {
                                 resolve(this.status);
                             } else {
@@ -1740,19 +1743,19 @@ $.varien = {
                 },
                 button: {
                     qr: () => {
-                        $('[data-action-button-qr]').on('click', function () {
+                        $('[data-action-button-qr]').on('click', function() {
                             $("[data-set-2fa-qr]").addClass("d-none");
                             $("[data-set-2fa-manual]").removeClass("d-none");
                         });
                     },
                     manual: () => {
-                        $('[data-action-button-manual]').on('click', function () {
+                        $('[data-action-button-manual]').on('click', function() {
                             $("[data-set-2fa-manual]").addClass("d-none");
                             $("[data-set-2fa-qr]").removeClass("d-none");
                         });
                     },
                     next: () => {
-                        $('[data-action-button-next]').on('click', function () {
+                        $('[data-action-button-next]').on('click', function() {
                             $("[data-set-2fa-qr]").addClass("d-none");
                             $("[data-set-2fa-manual]").addClass("d-none");
                             $("[data-action-button-next]").addClass("d-none");
@@ -1760,7 +1763,7 @@ $.varien = {
                         });
                     },
                     back: () => {
-                        $('[data-action-button-back]').on('click', function () {
+                        $('[data-action-button-back]').on('click', function() {
                             $("[data-set-2fa-qr]").removeClass("d-none");
                             $("[data-action-button-next]").removeClass("d-none");
                             $("[data-set-2fa-manual]").addClass("d-none");
@@ -1795,7 +1798,7 @@ $.varien = {
                     },
                     disable: () => {
                         if ($('[data-disable-2fa]').length) {
-                            $('[data-disable-2fa]').on('click', function (e) {
+                            $('[data-disable-2fa]').on('click', function(e) {
                                 bootbox.confirm({
                                     backdrop: true,
                                     centerVertical: true,
@@ -1815,7 +1818,7 @@ $.varien = {
                                             $.varien.user.detail.twoFA.disable2fa().then(response => {
                                                 if (response == 200) {
                                                     toastr.success("2-step verification has been successfully removed");
-                                                    $.wait(1000).then(function () {
+                                                    $.wait(1000).then(function() {
                                                         location.reload();
                                                     });
                                                 }
@@ -1833,15 +1836,15 @@ $.varien = {
             selectedFirms: () => {
                 $("#firms").html("");
                 if ($("#perm_site").val() != "") {
-                    $("#perm_site option:selected").each(function () {
+                    $("#perm_site option:selected").each(function() {
                         $("#firms").append("<li class='badge badge-secondary me-3'>" + $(this).text() + "</li>");
                     });
                 } else {
                     $("#firms").append("<li class='badge badge-secondary'>All Firms</li>");
                 }
             },
-            remove: function () {
-                $('[data-set="remove"]').on('click', function () {
+            remove: function() {
+                $('[data-set="remove"]').on('click', function() {
                     var id = $(this).attr("data-id");
                     bootbox.confirm({
                         backdrop: true,
@@ -1862,7 +1865,7 @@ $.varien = {
                                 $.ajax({
                                     type: 'POST',
                                     url: "user/remove/" + id,
-                                    success: function () {
+                                    success: function() {
                                         toastr.error("User deleted");
                                         window.location.href = "user/index";
                                     }
@@ -1872,7 +1875,7 @@ $.varien = {
                     });
                 });
             },
-            password: function () {
+            password: function() {
                 var d = $("a[data-pass]").attr("data-pass");
                 var c = $("#current_password").val();
                 var n = $("#user_pass").val();
@@ -1909,8 +1912,8 @@ $.varien = {
                 }
                 return true;
             },
-            update: function () {
-                $('[data-set="update"]').on('click', function (e) {
+            update: function() {
+                $('[data-set="update"]').on('click', function(e) {
                     $.varien.eventControl(e);
                     var id = $(this).attr("data-id");
                     var modal = $(this).attr("data-modal");
@@ -1936,7 +1939,7 @@ $.varien = {
                                     type: 'POST',
                                     url: "user/update/" + id,
                                     data: "dataName=" + dataName + "&dataValue=" + dataValue,
-                                    success: function () {
+                                    success: function() {
                                         $('[name=' + dataName + ']').html(dataValue);
                                         toastr.success("User updated");
                                         $("#" + modal).modal('toggle');
@@ -1949,7 +1952,7 @@ $.varien = {
                             type: 'POST',
                             url: "user/update/" + id,
                             data: "dataName=" + dataName + "&dataValue=" + dataValue,
-                            success: function () {
+                            success: function() {
                                 if (dataName == "perm_site") {
                                     $.varien.user.detail.selectedFirms();
                                 } else {
@@ -1964,7 +1967,7 @@ $.varien = {
                 });
             },
             sessiontable: {
-                init: function () {
+                init: function() {
                     $.table = new DataTable('#sessionTable', {
                         language: $.varien.datatable.locale(),
                         dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
@@ -1988,23 +1991,23 @@ $.varien = {
                     });
                     $.varien.user.detail.sessiontable.onLoad();
                 },
-                onLoad: function () {
-                    $.table.on('draw', function () {
+                onLoad: function() {
+                    $.table.on('draw', function() {
                         $.varien.datatable.exportEvents();
                         $("#sessionTable_info").css("display", "none");
                     });
                 },
-                reload: function () {
+                reload: function() {
                     $.table.ajax.reload();
                 }
             }
         },
-        check: function (param, value, current = "") {
-            return new Promise(function (resolve, reject) {
+        check: function(param, value, current = "") {
+            return new Promise(function(resolve, reject) {
                 var xhttp = new XMLHttpRequest();
                 xhttp.open("POST", 'user/check', true);
                 xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhttp.onload = function () {
+                xhttp.onload = function() {
                     if (this.status == 200) resolve(parseInt(this.responseText));
                     if (this.status != 200) reject({
                         status: this.status,
@@ -2015,7 +2018,7 @@ $.varien = {
             });
         },
         datatable: {
-            init: function (colNum) {
+            init: function(colNum) {
                 if ($.resource.edit_user != 1 && $.resource.delete_user != 1) $.noVisibleCols = [colNum - 1];
                 if ($.resource.edit_user == 1 || $.resource.delete_user == 1) $.notOrderCols = [colNum - 1];
                 else $.notOrderCols = [];
@@ -2042,38 +2045,38 @@ $.varien = {
                     ajax: {
                         url: 'user/datatable',
                         type: 'POST',
-                        data: function (d) {
+                        data: function(d) {
                             d.is2fa = $("#is2fa").val();
                             d.role_id = $("#role_id").val();
                         }
                     }
                 });
                 $.varien.user.datatable.onLoad();
-                $('#search').on('keyup', function () {
+                $('#search').on('keyup', function() {
                     $.table.search(this.value).draw();
                 });
-                $('#accountStatus').on('change', function () {
+                $('#accountStatus').on('change', function() {
                     $.table.search(this.value).draw();
                 });
             },
-            onLoad: function () {
-                $.table.on('draw', function () {
+            onLoad: function() {
+                $.table.on('draw', function() {
                     $.varien.datatable.exportEvents();
                     $.varien.user.datatable.modal();
                     $.varien.user.datatable.remove();
                     $("tbody td:nth-child(6)").addClass('text-center');
                 });
             },
-            modal: function () {
-                $('[id="formAjax"]').on('click', function () {
-                    $.varien.modal.event.load($(this).attr('data-url'), function () {
+            modal: function() {
+                $('[id="formAjax"]').on('click', function() {
+                    $.varien.modal.event.load($(this).attr('data-url'), function() {
                         $('select').select2();
                         $.varien.user.datatable.submit();
                     });
                 });
             },
-            submit: function () {
-                $("[app-submit-email-check]").focusout(function () {
+            submit: function() {
+                $("[app-submit-email-check]").focusout(function() {
                     if ($("[app-submit-email-check]").val() !== "") {
                         $.varien.user.check("email", $("[app-submit-email-check]").val()).then((response) => {
                             if (response > 0) {
@@ -2090,7 +2093,7 @@ $.varien = {
                         });
                     }
                 });
-                $("form#modalForm").on('submit', (function (e) {
+                $("form#modalForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
                     $.varien.user.check("email", $("[app-submit-email-check]").val()).then((response) => {
                         if (response > 0) {
@@ -2111,12 +2114,12 @@ $.varien = {
                                 },
                                 processData: false,
                                 contentType: false,
-                                success: function () {
+                                success: function() {
                                     $.table.ajax.reload();
                                     $("#ajaxModal").modal('toggle');
                                     toastr.success("User created");
                                 },
-                                error: function (jqXHR, errorThrown) {
+                                error: function(jqXHR, errorThrown) {
                                     toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                                 }
                             });
@@ -2124,8 +2127,8 @@ $.varien = {
                     });
                 }));
             },
-            remove: function () {
-                $('[data-set="remove"]').on('click', function () {
+            remove: function() {
+                $('[data-set="remove"]').on('click', function() {
                     var id = $(this).attr('data-id');
                     bootbox.confirm({
                         backdrop: true,
@@ -2146,7 +2149,7 @@ $.varien = {
                                 $.ajax({
                                     type: 'POST',
                                     url: "user/remove/" + id,
-                                    success: function () {
+                                    success: function() {
                                         $.table.ajax.reload();
                                         toastr.error("User deleted");
                                     }
@@ -2156,10 +2159,10 @@ $.varien = {
                     });
                 });
             },
-            reload: function () {
+            reload: function() {
                 $.table.ajax.reload();
             },
-            reset: function () {
+            reset: function() {
                 $("select#is2fa").val("");
                 $("select#role").val("");
                 $.table.ajax.reload();
@@ -2167,7 +2170,7 @@ $.varien = {
         }
     },
     customer: {
-        init: function () {
+        init: function() {
             if ($.varien.segment(2) == "index") {
                 $.varien.customer.datatable.init(8)
                 $.varien.customer.selectClient();
@@ -2176,22 +2179,22 @@ $.varien = {
                 $.varien.customer.detail.init();
             }
         },
-        selectClient: function () {
+        selectClient: function() {
             $.ajax({
                 url: "client/json",
                 dataType: "json",
-                success: function (response) {
-                    $.each(response, function (i) {
+                success: function(response) {
+                    $.each(response, function(i) {
                         $("#selectClient").append('<option value="' + response[i].id + '">' + response[i].name + '</option>');
                     });
                 },
-                error: function (jqXHR, errorThrown) {
+                error: function(jqXHR, errorThrown) {
                     toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                 }
             });
         },
         datatable: {
-            init: function (colNum) {
+            init: function(colNum) {
                 $.table = new DataTable('#datatable_content', {
                     language: $.varien.datatable.locale(),
                     dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
@@ -2212,17 +2215,17 @@ $.varien = {
                     ajax: {
                         url: 'customer/datatable',
                         type: 'POST',
-                        data: function (d) {
+                        data: function(d) {
                             d.selectClient = $("#selectClient").val();
                             d.isVip = $("#isVip").val();
                         }
                     }
                 });
                 $.varien.customer.datatable.onLoad();
-                $('#search').on('keyup', function () {
+                $('#search').on('keyup', function() {
                     $.table.search(this.value).draw();
                 });
-                $('#datatableReload').on('click', function () {
+                $('#datatableReload').on('click', function() {
                     $.varien.customer.datatable.reload();
                 });
                 $('#datatableReset').on('click', (e) => {
@@ -2232,11 +2235,11 @@ $.varien = {
                     $.varien.customer.datatable.reset();
                 });
             },
-            onLoad: function () {
-                $.table.on('draw', function () {
-                    setTimeout(function () {
+            onLoad: function() {
+                $.table.on('draw', function() {
+                    setTimeout(function() {
                         $.varien.datatable.exportEvents();
-                        $('input[data-set="switch"]').on("change", function () {
+                        $('input[data-set="switch"]').on("change", function() {
                             if ($(this).is(":checked") == true) {
                                 $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
                             } else {
@@ -2246,7 +2249,7 @@ $.varien = {
                     }, 300);
                 });
             },
-            switch: function (name, id, status) {
+            switch: function(name, id, status) {
                 $.ajax({
                     url: "customer/switch/" + id + "/" + name + "/" + status,
                     type: "POST",
@@ -2268,18 +2271,18 @@ $.varien = {
                     }
                 });
             },
-            reload: function () {
+            reload: function() {
                 $.table.ajax.reload();
             },
-            reset: function () {
+            reset: function() {
                 $("#selectClient").val("");
                 $("#isVip").val("");
                 $("#deposit").val("");
                 $("#withdraw").val("");
                 $.table.ajax.reload();
             },
-            submit: function () {
-                $("form#modalForm").on('submit', (function (e) {
+            submit: function() {
+                $("form#modalForm").on('submit', (function(e) {
                     $.varien.eventControl(e);
                     $.ajax({
                         url: "customer/save",
@@ -2292,11 +2295,11 @@ $.varien = {
                         },
                         processData: false,
                         contentType: false,
-                        success: function (response) {
+                        success: function(response) {
                             $.table.ajax.reload();
                             $("#ajaxModal").modal('toggle');
                         },
-                        error: function (jqXHR, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
@@ -2304,12 +2307,12 @@ $.varien = {
             },
         },
         detail: {
-            init: function () {
+            init: function() {
                 $.varien.customer.detail.saveNote();
                 $.varien.customer.detail.datatable.dateSelect();
                 $.varien.customer.detail.datatable.init();
                 $(".modal-dialog").addClass("w-425px");
-                $('input[data-set="switch"]').on("change", function () {
+                $('input[data-set="switch"]').on("change", function() {
                     if ($(this).is(":checked") == true) {
                         $.varien.customer.datatable.switch($(this).attr("name"), $(this).attr("data-id"), "on");
                     } else {
@@ -2317,24 +2320,24 @@ $.varien = {
                     }
                 });
             },
-            saveNote: function () {
-                $('button#customerNoteSave').on('click', function () {
+            saveNote: function() {
+                $('button#customerNoteSave').on('click', function() {
                     $.ajax({
                         url: "customer/save/note/" + $.varien.segment(3),
                         dataType: "html",
                         type: "POST",
                         data: "customerNote=" + $("#customerNote").val(),
-                        success: function () {
+                        success: function() {
                             toastr.success("Customer note updated");
                         },
-                        error: function (jqXHR, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
                 });
             },
             datatable: {
-                init: function () {
+                init: function() {
                     $.table = new DataTable('#customerTransactionTable', {
                         language: $.varien.datatable.locale(),
                         dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
@@ -2355,7 +2358,7 @@ $.varien = {
                         ajax: {
                             url: 'transaction/customerTransactionTable/' + $.varien.segment(4) + '/' + $.varien.segment(5),
                             type: 'POST',
-                            data: function (d) {
+                            data: function(d) {
                                 d.transactionDate = $("#transactionDate").val();
                                 d.method = $("#method").val();
                                 d.status = $("#status").val();
@@ -2364,17 +2367,17 @@ $.varien = {
                         }
                     });
                     $.varien.customer.detail.datatable.onLoad();
-                    $('#search').on('keyup', function () {
+                    $('#search').on('keyup', function() {
                         $.table.search(this.value).draw();
                     });
-                    $("#transactionDate").on("change", function () {
+                    $("#transactionDate").on("change", function() {
                         $.varien.customer.detail.datatable.reload();
                     });
-                    $("[app-onclick-datatable-reload]").on("click", function (e) {
+                    $("[app-onclick-datatable-reload]").on("click", function(e) {
                         $.varien.eventControl(e);
                         $.varien.customer.detail.datatable.reload();
                     });
-                    $("[app-onclick-datatable-reset]").on("click", function (e) {
+                    $("[app-onclick-datatable-reset]").on("click", function(e) {
                         $.varien.eventControl(e);
                         $("#method").val("").trigger('change');
                         $("#status").val("").trigger('change');
@@ -2382,19 +2385,19 @@ $.varien = {
                         $.varien.customer.detail.datatable.reload();
                     });
                 },
-                reload: function () {
+                reload: function() {
                     $.table.ajax.reload();
                 },
-                onLoad: function () {
-                    $.table.on('draw', function () {
+                onLoad: function() {
+                    $.table.on('draw', function() {
                         $.varien.datatable.exportEvents();
                         $("tbody td:nth-child(7)").addClass('text-end');
-                        setTimeout(function () {
+                        setTimeout(function() {
                             $.varien.customer.detail.datatable.modal();
                         }, 500);
                     });
                 },
-                dateSelect: function () {
+                dateSelect: function() {
                     $("#transactionDate").css("text-align", "center");
                     let start = moment().startOf("month");
                     let end = moment().endOf("month");
@@ -2423,9 +2426,9 @@ $.varien = {
                     }, cb);
                     cb(start, end);
                 },
-                modal: function () {
-                    $('[data-bs-target="#ajaxModal"]').on('click', function () {
-                        $.varien.modal.event.load($(this).attr('data-url'), function () {});
+                modal: function() {
+                    $('[data-bs-target="#ajaxModal"]').on('click', function() {
+                        $.varien.modal.event.load($(this).attr('data-url'), function() {});
                     });
                 },
             },
@@ -2439,7 +2442,7 @@ $.varien = {
                     self: null,
                     hidden: false
                 },
-                init: function (data) {
+                init: function(data) {
                     let element = document.getElementById("chart-reports-main");
                     if (!element) return;
 
@@ -2545,7 +2548,7 @@ $.varien = {
                     this.chart.self = new ApexCharts(element, options);
                     this.chart.self.render();
                 },
-                update: function (data) {
+                update: function(data) {
                     this.chart.self.updateSeries([{
                         name: 'Deposit',
                         data: data.deposit,
@@ -2560,7 +2563,7 @@ $.varien = {
                         }
                     });
                 },
-                themeChange: function () {
+                themeChange: function() {
                     // Destroy and re-initiate chart with same data when theme mode changes
                     const data = {
                         categories: this.chart.self.opts.xaxis.categories,
@@ -2571,7 +2574,7 @@ $.varien = {
                     this.chart.self.destroy();
                     this.init(data);
                 },
-                hide: function (status) {
+                hide: function(status) {
                     if (status) {
                         let year = $('#year').val();
                         let month = $('#month').select2('data')[0].text;
@@ -2598,7 +2601,7 @@ $.varien = {
             },
             pie: {
                 chart: null,
-                init: function (data) {
+                init: function(data) {
                     let element = document.getElementById("chart-reports-pie");
                     if (!element) return;
 
@@ -2644,7 +2647,7 @@ $.varien = {
                     this.chart = new ApexCharts(element, options);
                     this.chart.render();
                 },
-                update: function (data) {
+                update: function(data) {
                     this.chart.updateSeries([{
                         name: 'Deposit',
                         data: data.deposit,
@@ -2659,7 +2662,7 @@ $.varien = {
                         }
                     });
                 },
-                themeChange: function () {
+                themeChange: function() {
                     // Destroy and re-initiate chart with same data when theme mode changes
                     const data = {
                         categories: this.chart.opts.xaxis.categories,
@@ -2672,7 +2675,7 @@ $.varien = {
                 },
             }
         },
-        init: function () {
+        init: function() {
             // Initiate UI Blockers
             const _message = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
 
@@ -2695,7 +2698,10 @@ $.varien = {
 
                 // Fetch new data
                 $.varien.reports.fetch(data);
-                $.varien.reports.datatable.init(data);
+
+                // Update transactions datatable
+                this.transactions.data = data;
+                this.transactions.reload();
             });
 
             // Destroy and re-initiate chart with same data when theme mode changes
@@ -2723,8 +2729,14 @@ $.varien = {
 
             // Initialize pie chart
             this.charts.pie.init();
+
+            // Initialize transactions datatable
+            this.tables.transactions.init();
+
+            // Initialize root datatable
+            this.tables.statistics.init();
         },
-        fetch: function (data) {
+        fetch: function(data) {
             blockers.forEach((blocker) => blocker.block());
             $('#year, #month, #firms').attr('disabled', 'disabled');
 
@@ -2750,14 +2762,11 @@ $.varien = {
                 }
             });
         },
-        process: function (data, date = null) {
+        process: function(data, date = null) {
             if (!data) return;
 
             // Update summary data
-            const formatter = new Intl.NumberFormat('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
+            const formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             $('#dailyAverage').text(formatter.format(data.summary.average));
             $('#totalDeposits').text(formatter.format(data.summary.deposit));
             $('#totalWithdrawals').text(formatter.format(data.summary.withdraw));
@@ -2774,6 +2783,114 @@ $.varien = {
                 this.charts.main.hide(true);
             }
         },
+        tables: {
+            root: null,
+            transactions: null,
+            transactions: {
+                data: () => ({
+                    'year': $('#year').val(),
+                    'firm': $('#firms').val(),
+                    'month': $('#month').val()
+                }),
+                init() {
+                  const dataTableConfig = {
+                    language: $.varien.datatable.locale(),
+                    dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
+                    buttons: ['copy', 'csv', 'excel', 'pdf'],
+                    lengthMenu: [15, this.getMonthLength()],
+                    pageLength: 15,
+                    ajax: {
+                      url: '/reports/transactions',
+                      method: 'POST',
+                      timeout: 10000,
+                      data: () => this.data
+                    },
+                    drawCallback() {
+                        $('#transactionReports').next().addClass('mt-3');
+                        $('#transactionReports_info').addClass('d-none');
+                        $('#transactionReports_length').addClass('py-0');
+                        $('#transactionReports_paginate').addClass('py-0 pagination pagination-circle mx-1');
+                    },
+                    footerCallback() {
+                      const api = this.api();
+                      let totals = { cross: 0, bank: 0, 'virtual pos': 0, papara: 0, matching: 0, deposit: 0, withdraw: 0 };
+
+                      // Calculate totals on all pages
+                      api.columns().every(function () {
+                        const data = this.data();
+                        let columnTotal = 0;
+
+                        data.each(function (value) {
+                          const matches = value.match(/₺([\d,]+\.\d{2})/);
+                          if (matches && matches.length > 0) {
+                            columnTotal += parseFloat(matches[1].replace(',', ''));
+                          }
+                        });
+
+                        const columnHeader = this.header().textContent.toLowerCase();
+                        if (totals.hasOwnProperty(columnHeader)) {
+                          totals[columnHeader] += columnTotal;
+                        }
+                      });
+
+                      $(api.column(0).footer()).html('Total Sum:');
+
+                      let iterate = 1;
+                      const formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                      for (const key in totals) {
+                        if (totals.hasOwnProperty(key)) {
+                          $(api.column(iterate++).footer()).html('₺' + formatter.format(totals[key]));
+                        }
+                      }
+                    },
+                  };
+
+                  transactions = new DataTable('#transactionReports', dataTableConfig);
+
+                  transactions.on('draw', function() {
+                    $.varien.datatable.exportEvents();
+                  });
+                },
+                reload() {
+                    transactions.ajax.reload();
+                },
+                getMonthLength(month = (new Date()).getMonth(), year = new Date().getFullYear()) {
+                  return new Date(year, month + 1, 0).getDate();
+                },
+            },
+            statistics: {
+                init() {
+                    const dataTableConfig = {
+                      language: $.varien.datatable.locale(),
+                      dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
+                      buttons: ['copy', 'csv', 'excel', 'pdf'],
+                      lengthMenu: [10],
+                      pageLength: 10,
+                      scrollY: "415px",
+                      ajax: {
+                        url: '/reports/statistics',
+                        method: 'POST',
+                        timeout: 10000
+                      },
+                      drawCallback() {
+                        $('.dataTables_scroll').next().addClass('px-13');
+                        $('#statistics_info').addClass('d-none');
+                        $('#statistics_paginate').addClass('pagination pagination-circle mx-1');
+                      },
+                    };
+
+                    root = new DataTable('#statistics', dataTableConfig);
+
+                    root.on('draw', function() {
+                      $.varien.datatable.exportEvents();
+                    });
+                },
+                reload() {
+                root.ajax.reload();
+                },
+            },
+        },
         getDaysInMonth: (month = (new Date()).getMonth(), year = (new Date().getFullYear())) => {
             let days;
             if (month === 1 && (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0)) {
@@ -2782,9 +2899,7 @@ $.varien = {
                 days = new Date(year, month + 1, 0).getDate();
             }
 
-            return Array.from({
-                length: days
-            }, (_, i) => {
+            return Array.from({ length: days }, (_, i) => {
                 const day = i + 1;
                 return new Date(year, month, day).toLocaleString('en-US', {
                     month: 'short',
@@ -2792,49 +2907,10 @@ $.varien = {
                 });
             });
         },
-        datatable: {
-            lastDay: function (data) {
-                return new Date(data.year, data.month + 1, 0).getDate();
-            },
-            init: function (data) {
-                $.table = new DataTable('#datatableTransactions', {
-                    language: $.varien.datatable.locale(),
-                    dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
-                    buttons: ['copy', 'csv', 'excel', 'pdf'],
-                    bStateSave: false,
-                    stateSave: false,
-                    lengthMenu: [parseInt($.varien.reports.datatable.lastDay(data))],
-                    order: [0, 'desc'],
-                    searching: false,
-                    ordering: false,
-                    processing: false,
-                    serverSide: false,
-                    pageLength: parseInt($.varien.reports.datatable.lastDay(data)),
-                    ajax: {
-                        url: 'reports/datatableTransactions/' + data.year + '/' + data.month + '/' + data.firm,
-                        type: 'POST',
-                        data: function (d) {
-                            d.year = data.year;
-                            d.month = data.month;
-                            d.firms = data.firm;
-                        }
-                    }
-                });
-                $.varien.reports.datatable.onLoad();
-            },
-            reload: function () {
-                $.table.ajax.reload();
-            },
-            onLoad: function () {
-                $.table.on('draw', function () {
-                    $.varien.datatable.exportEvents();
-                });
-            },
-        }
     },
     settings: {
-        init: function () {
-            $('[id="updateSetting"]').on('click', function (e) {
+        init: function() {
+            $('[id="updateSetting"]').on('click', function(e) {
                 $('[name="maintenanceStatus"]').closest("form").attr('id');
                 var formId = $(this).attr("data-form-id");
                 $.varien.settings.submit(formId);
@@ -2900,29 +2976,32 @@ $.varien = {
                     }
                 }
             });
-            $('button[id="resetSetting"]').on('click', function () {
+
+            $('button[id="resetSetting"]').on('click', function() {
                 var formId = $(this).closest("form").attr('id');
-                $("form#" + formId + " input").each(function (index) {
+                $("form#" + formId + " input").each(function(index) {
                     $(this).val($(this).attr("data-default"));
                 });
-                $("form#" + formId + " select").each(function (index) {
+                $("form#" + formId + " select").each(function(index) {
                     $(this).val('').trigger('change');
                 });
             });
-            $('input[id="checkShowAll"]').on('change', function () {
+
+            $('input[id="checkShowAll"]').on('change', function() {
                 $.varien.settings.client.reload();
             });
+
             $.varien.settings.client.init();
         },
-        switch: function (elm) {
+        switch: function(elm) {
             if (elm.is(":checked") == true) {
                 elm.val('on');
             } else {
                 elm.val('0');
             }
         },
-        submit: function (formId) {
-            $("form#" + formId).on('submit', (function (e) {
+        submit: function(formId) {
+            $("form#" + formId).on('submit', (function(e) {
                 $.varien.eventControl(e);
                 var formData = new FormData(this);
                 $.ajax({
@@ -2936,17 +3015,17 @@ $.varien = {
                     },
                     processData: false,
                     contentType: false,
-                    success: function () {
+                    success: function() {
                         toastr.success("Settings updated");
                     },
-                    error: function (jqXHR, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
             }));
         },
-        submitStatus: function (formId, name) {
-            $("form#" + formId).on('submit', (function (e) {
+        submitStatus: function(formId, name) {
+            $("form#" + formId).on('submit', (function(e) {
                 $.varien.eventControl(e);
                 $.ajax({
                     url: "settings/update",
@@ -2954,18 +3033,18 @@ $.varien = {
                     dataType: "html",
                     crossDomain: true,
                     data: name + "=" + $('[name="' + name + '"]').val(),
-                    success: function () {
+                    success: function() {
                         toastr.success("Settings updated");
                         if (name == "maintenanceStatus") location.reload();
                     },
-                    error: function (jqXHR, errorThrown) {
+                    error: function(jqXHR, errorThrown) {
                         toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                     }
                 });
             }));
         },
         client: {
-            init: function () {
+            init: function() {
                 if ($.resource.edit_firm != 1 && $.resource.delete_firm != 1) $.noVisibleCols = [$("thead tr th").length - 1];
 
                 $.table = new DataTable('#datatableClient', {
@@ -2991,7 +3070,7 @@ $.varien = {
                     ajax: {
                         url: 'client/datatable',
                         type: 'POST',
-                        data: function (data) {
+                        data: function(data) {
                             return Object.assign(data, {
                                 'status': $('#checkShowAll')[0].checked
                             });
@@ -2999,23 +3078,23 @@ $.varien = {
                     }
                 });
                 $.varien.settings.client.onLoad();
-                $('#search').on('keyup', function () {
+                $('#search').on('keyup', function() {
                     $.table.search(this.value).draw();
                 });
-                $('#datatableReload').on('click', function () {
+                $('#datatableReload').on('click', function() {
                     $.varien.settings.client.reload();
                 });
-                $('#datatableReset').on('click', function () {
+                $('#datatableReset').on('click', function() {
                     $.varien.settings.client.reset();
                 });
             },
-            onLoad: function () {
-                $.table.on('draw', function () {
+            onLoad: function() {
+                $.table.on('draw', function() {
                     $.varien.datatable.exportEvents();
                     $.varien.settings.client.modal();
                     $.varien.settings.client.remove();
                     $("tbody td:nth-child(6)").addClass('text-end');
-                    $('input[data-set="switch"]').on("change", function () {
+                    $('input[data-set="switch"]').on("change", function() {
                         if ($(this).is(":checked") == true) {
                             $.varien.settings.client.switch($(this).attr("name"), $(this).attr("data-id"), "on", () => {
                                 toastr.success("The firm has been authorized to perform transactions");
@@ -3028,8 +3107,8 @@ $.varien = {
                     });
                 });
             },
-            modal: function () {
-                $('[data-bs-target="#clientModalForm"]').on("click", function () {
+            modal: function() {
+                $('[data-bs-target="#clientModalForm"]').on("click", function() {
                     var id = $(this).attr("data-id");
                     if (id != "0") {
                         $('[data-title]').html("Edit Firm");
@@ -3047,8 +3126,8 @@ $.varien = {
                         $('[data-title]').html("Add New Firm");
                         $('#generateKey').html("Generate");
                     }
-                    $('[data-bs-dismiss="modal"]').on("click", function () {
-                        setTimeout(function () {
+                    $('[data-bs-dismiss="modal"]').on("click", function() {
+                        setTimeout(function() {
                             $('[name="id"]').val("");
                             $('[name="site_name"]').val("");
                             $('[name="limitDepositMin"]').val($('[name="limitDepositMin"]').attr('data-default'));
@@ -3060,16 +3139,16 @@ $.varien = {
                         }, 300);
                     });
                     $.varien.settings.client.save(id);
-                    $('#generateKey').on('click', function () {
+                    $('#generateKey').on('click', function() {
                         $('[name="api_key"]').val($.varien.settings.client.generateKey());
                     });
                 });
             },
-            detail: function (id) {
+            detail: function(id) {
                 $.ajax({
                     url: "client/detail/" + id,
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         $('[name="id"]').val(response.id);
                         $('[name="site_name"]').val(response.site_name);
                         $('[name="limitDepositMin"]').val(response.limitDepositMin);
@@ -3081,7 +3160,7 @@ $.varien = {
                     }
                 });
             },
-            switch: function (name, id, status, callback) {
+            switch: function(name, id, status, callback) {
                 $.ajax({
                     url: "client/switch/" + id + "/" + name + "/" + status,
                     type: "POST",
@@ -3090,26 +3169,26 @@ $.varien = {
                     success: () => callback()
                 });
             },
-            reload: function () {
+            reload: function() {
                 $.table.ajax.reload();
             },
-            reset: function () {
+            reset: function() {
                 $.table.ajax.reload();
             },
-            generateKey: function () {
+            generateKey: function() {
                 var d = new Date().getTime();
                 if (window.performance && typeof window.performance.now === "function") {
                     d += performance.now();
                 }
-                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
                     var r = (d + Math.random() * 16) % 16 | 0;
                     d = Math.floor(d / 16);
                     return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
                 });
                 return uuid;
             },
-            save: function () {
-                $("button#saveClient").on('click', (function (e) {
+            save: function() {
+                $("button#saveClient").on('click', (function(e) {
                     $.varien.eventControl(e);
                     var id = $('[name="id"]').val();
                     var site_name = $('[name="site_name"]').val();
@@ -3155,21 +3234,21 @@ $.varien = {
                         xhrFields: {
                             withCredentials: true
                         },
-                        success: function () {
+                        success: function() {
                             $.table.ajax.reload();
                             $("#clientModalForm").modal('toggle');
                             toastr.success("Firm's data has been updated");
                             return false;
                         },
-                        error: function (jqXHR, errorThrown) {
+                        error: function(jqXHR, errorThrown) {
                             toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
                         }
                     });
                     return false;
                 }));
             },
-            remove: function () {
-                $('[data-set="remove"]').on('click', function () {
+            remove: function() {
+                $('[data-set="remove"]').on('click', function() {
                     var id = $(this).attr("data-id");
                     bootbox.confirm({
                         backdrop: true,
@@ -3190,7 +3269,7 @@ $.varien = {
                                 $.ajax({
                                     type: 'POST',
                                     url: "client/remove/" + id,
-                                    success: function () {
+                                    success: function() {
                                         $.table.ajax.reload();
                                         toastr.error("The firm has been deleted");
                                     }
@@ -3246,13 +3325,6 @@ $.varien.boot().then((resource) => {
         }, ms);
         return $.defer;
     };
-    window.addEventListener("error", (event) => {
-        $.varien.errorHandler(event, event.error.fileName, event.error.lineNumber, event.error.columnNumber, event.error.message);
-    });
 }).then(() => {
     $.varien.init();
-}).catch((error) => {
-    if (domain !== "co") return;
-
-    $.varien.errorHandler(error, error.fileName, error.lineNumber, error.columnNumber, error.message);
 });

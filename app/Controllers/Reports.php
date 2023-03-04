@@ -6,6 +6,7 @@ class Reports extends BaseController
 {
 	public $session;
 	public $ReportsModel;
+
 	public function __construct()
 	{
 		$this->session = \Config\Services::session();
@@ -21,13 +22,18 @@ class Reports extends BaseController
 		}
 
 		$data["summary"] = $this->ReportsModel->getSummaryData();
+		$data["highlights"] = $this->ReportsModel->getHighlightsData();
 		$data["mainChart"] = array(
 			"deposit" => $this->ReportsModel->getMonthlyTransactionSum('deposit'),
 			"withdraw" => $this->ReportsModel->getMonthlyTransactionSum('withdraw'),
 		);
-		$data["highlights"] = $this->ReportsModel->getHighlightsData();
 
 		echo htmlMinify(view('app/reports/index', $data));
+	}
+
+	public function formatNumber($number)
+	{
+		return $number == 0 ? "-" : "₺" . number_format($number, 2);
 	}
 
 	public function data()
@@ -45,72 +51,92 @@ class Reports extends BaseController
 		return json_encode($data);
 	}
 
-	public function datatableTransactions($year = null, $month = null, $firm = null)
+	public function getTransactions($year = null, $month = null, $firm = null)
 	{
+		$firm = $_POST["firm"];
+		$year = $_POST["year"];
+		$month = $_POST["month"];
 
-		$data['draw'] 		= intval($this->request->getVar('draw'));
-		$data['start'] 		= intval($this->request->getVar('start'));
-		$data['length'] 	= intval($this->request->getVar('length'));
-		$data['dataTableNum'] = count((array)$this->ReportsModel->datatableTransactions('', '', $_POST, $year, $month, $firm)->getResult());
-		$data['dataTable'] 	= $this->ReportsModel->datatableTransactions($this->request->getVar('start'), $this->request->getVar('length'), $_POST, $year, $month, $firm);
-		$iTotalRecords 	 	= $data['dataTableNum'];
-		$iDisplayLength  	= $data['length'];
-		$iDisplayLength  	= $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength;
-		$iDisplayStart 	 	= $data['start'];
-		$sEcho 				= $data['draw'];
-		$records 			= array();
-		$records["data"] 	= array();
-		$end 				= $iDisplayStart + $iDisplayLength;
-		$end 				= $end > $iTotalRecords ? $iTotalRecords : $end;
-		$i 				= 0;
-		$crossTotal 	= 0;
-		$bankTotal 		= 0;
-		$posTotal 		= 0;
-		$paparaTotal 	= 0;
-		$matchingTotal 	= 0;
-		$depositTotal 	= 0;
-		$withdrawTotal 	= 0;
-		foreach ($data['dataTable']->getResult() as $row) 
-		{
+		$data['draw'] = intval($this->request->getVar('draw'));
+		$data['start'] = intval($this->request->getVar('start'));
+		$data['length'] = intval($this->request->getVar('length'));
+		$data['dataTableNum'] = count((array)$this->ReportsModel->getTransactions($year, $month, $firm)->getResult());
+		$data['dataTable'] = $this->ReportsModel->getTransactions($year, $month, $firm);
+		$iTotalRecords = $data['dataTableNum'];
+		$iDisplayLength = $data['length'];
+		$iDisplayLength = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength;
+		$iDisplayStart = $data['start'];
+		$sEcho = $data['draw'];
+		$records = array();
+		$records["data"] = array();
+		$end = $iDisplayStart + $iDisplayLength;
+		$end = $end > $iTotalRecords ? $iTotalRecords : $end;
 
-				$crossTotal 	+= $row->crossTotal;
-				$bankTotal 		+= $row->bankTotal;
-				$posTotal 		+= $row->posTotal;
-				$paparaTotal 	+= $row->paparaTotal;
-				$matchingTotal 	+= $row->matchingTotal;
-				$depositTotal 	+= $row->depositTotal;
-				$withdrawTotal 	+= $row->withdrawTotal;
-
-	
-
-				$records["data"][$i] = array
-				(
+		$i = 0;
+		foreach ($data['dataTable']->getResult() as $row) {
+				$records["data"][$i] = array(
 					'DT_RowId'  => $row->id,
-					'<div class="fw-semibold text-gray-700">' . $row->request_time . '</div>',
-					'<div class="fw-semibold text-gray-700">₺' . number_format($row->crossTotal,2) . '</div>',
-					'<div class="fw-semibold text-gray-700">₺' . number_format($row->bankTotal,2) . '</div>',
-					'<div class="fw-semibold text-gray-700">₺' . number_format($row->posTotal,2) . '</div>',
-					'<div class="fw-semibold text-gray-700">₺' . number_format($row->paparaTotal,2) . '</div>',
-					'<div class="fw-semibold text-gray-700">₺' . number_format($row->matchingTotal,2) . '</div>',
-					'<div class="fw-bold text-gray-800">₺' . number_format($row->depositTotal,2) . '</div>',
-					'<div class="fw-bold text-gray-800">₺' . number_format($row->withdrawTotal,2) . '</div>'
+					'<div class="text-center fw-semibold text-gray-700">' . $row->request_time . '</div>',
+					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->crossTotal) . '</div>',
+					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->bankTotal) . '</div>',
+					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->posTotal) . '</div>',
+					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->paparaTotal) . '</div>',
+					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->matchingTotal) . '</div>',
+					'<div class="text-center fw-bold text-gray-800">' . $this->formatNumber($row->depositTotal) . '</div>',
+					'<div class="text-center fw-bold text-gray-800">' . $this->formatNumber($row->withdrawTotal) . '</div>'
 				);
-			
+
 			$i++;
 		}
-		$records["data"][$i] = array
-		(
-			'DT_RowId' => 999999999999999,
-			'<div class="text-end">Sum:</th>',
-			'<div class="text-center">₺' . number_format($crossTotal,2) . '</div>',
-			'<div class="text-center">₺' . number_format($crossTotal,2) . '</div>',
-			'<div class="text-center">₺' . number_format($posTotal,2) . '</div>',
-			'<div class="text-center">₺' . number_format($paparaTotal,2) . '</div>',
-			'<div class="text-center">₺' . number_format($matchingTotal,2) . '</div>',
-			'<div class="text-center">₺' . number_format($depositTotal,2) . '</div>',
-			'<div class="text-center">₺' . number_format($withdrawTotal,2) . '</div>'
-		);
 
+		if (isset($_REQUEST["customActionType"]) && $_REQUEST["customActionType"] == "group_action") {
+			$records["customActionStatus"] = "OK";
+			$records["customActionMessage"] = "Group action successfully has been completed. Well done!";
+		}
+
+		$records["draw"] = $sEcho;
+		$records["recordsTotal"] = $iTotalRecords;
+		$records["recordsFiltered"] = $iTotalRecords;
+
+		echo json_encode($records);
+	}
+
+	public function getStatistics($year = null, $month = null, $firm = null)
+	{
+		$firm = $_POST["firm"];
+		$year = $_POST["year"];
+		$month = $_POST["month"];
+
+		$data['draw'] = intval($this->request->getVar('draw'));
+		$data['start'] = intval($this->request->getVar('start'));
+		$data['length'] = intval($this->request->getVar('length'));
+
+		$data['dataTableNum'] = count((array)$this->ReportsModel->getStatistics($year, $month, $firm)->getResult());
+		$data['dataTable'] = $this->ReportsModel->getStatistics($year, $month, $firm);
+
+		$iTotalRecords = $data['dataTableNum'];
+		$iDisplayLength = $data['length'];
+		$iDisplayLength = $iDisplayLength < 0 ? $iTotalRecords : $iDisplayLength;
+		$iDisplayStart = $data['start'];
+		$sEcho = $data['draw'];
+		$records = array();
+		$records["data"] = array();
+		$end = $iDisplayStart + $iDisplayLength;
+		$end = $end > $iTotalRecords ? $iTotalRecords : $end;
+
+		$i = 0;
+		foreach ($data['dataTable']->getResult() as $row) {
+				$records["data"][$i] = array(
+					'DT_RowId'  => $row->id,
+					'<div class="text-center text-gray-800">' . $row->userId . '</div>',
+					'<div class="text-center text-gray-800">' . $row->userNick . '</div>',
+					'<div class="text-center text-gray-800">' . $row->userName . '</div>',
+					'<div class="text-center text-gray-800">' . $row->count . '</div>',
+					'<div class="text-center text-gray-800">' . $row->total . '</div>',
+				);
+
+			$i++;
+		}
 
 		if (isset($_REQUEST["customActionType"]) && $_REQUEST["customActionType"] == "group_action") {
 			$records["customActionStatus"] = "OK";

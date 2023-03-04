@@ -153,8 +153,9 @@ if (SUBDOMAIN == "api") {
     $routes->add('/settings/update', 'Settings::update');
     $routes->add('/settings/api/(:any)', 'Settings::api/$1');
     $routes->add('/reports/data', 'Reports::data');
-    $routes->add('/reports/datatableTransactions/(:any)/(:any)/(:any)', 'Reports::datatableTransactions/$1/$2/$3');
-    
+    $routes->add('/reports/transactions', 'Reports::getTransactions');
+    $routes->add('/reports/statistics', 'Reports::getStatistics');
+
     $routes->add('/json/resources', 'Json::resources');
     $routes->add('/dev', 'Dev::index');
     $routes->add('/dev/latency', 'Dev::ping');
