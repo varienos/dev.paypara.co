@@ -108,13 +108,13 @@ class ReportsModel extends Model
     {
       return $this->db->query("
         SELECT DATE_FORMAT(request_time, '%d.%m.%Y') AS request_time, method,
-        SUM(CASE WHEN method = 'cross' AND request = 'deposit' THEN price ELSE '-' END) AS crossTotal,
-        SUM(CASE WHEN method = 'bank' AND request = 'deposit' THEN price ELSE '-' END) AS bankTotal,
-        SUM(CASE WHEN method = 'pos' AND request = 'deposit' THEN price ELSE '-' END) AS posTotal,
-        SUM(CASE WHEN method = 'papara' AND request = 'deposit' THEN price ELSE '-' END) AS paparaTotal,
-        SUM(CASE WHEN method = 'match' AND request = 'deposit' THEN price ELSE '-' END) AS matchingTotal,
-        SUM(CASE WHEN request = 'deposit' THEN price ELSE 0 END) AS depositTotal,
-        SUM(CASE WHEN request = 'withdraw' THEN price ELSE 0 END) AS withdrawTotal
+        SUM(CASE WHEN method = 'cross' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS crossTotal,
+        SUM(CASE WHEN method = 'bank' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS bankTotal,
+        SUM(CASE WHEN method = 'pos' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS posTotal,
+        SUM(CASE WHEN method = 'papara' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS paparaTotal,
+        SUM(CASE WHEN method = 'match' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS matchingTotal,
+        SUM(CASE WHEN request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS depositTotal,
+        SUM(CASE WHEN request = 'withdraw' AND status = 'onaylandı' THEN price ELSE 0 END) AS withdrawTotal
         FROM finance
         WHERE MONTH(request_time) = '" . $this->getMonth($month) . "'
         AND YEAR(request_time)  = '" . $this->getYear($year) . "'

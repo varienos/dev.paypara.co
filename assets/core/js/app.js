@@ -2451,6 +2451,9 @@ $.varien = {
                     let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
                     let borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
 
+                    if(!data.deposit.length) data.deposit = [0];
+                    if(!data.withdraw.length) data.withdraw = [0];
+
                     let options = {
                         series: [{
                             name: 'Deposit',
@@ -2674,6 +2677,123 @@ $.varien = {
                 },
             }
         },
+        tables: {
+            transactions: {
+                table: null,
+                data: () => ({
+                    'year': $('#year').val(),
+                    'firm': $('#firms').val(),
+                    'month': $('#month').val()
+                }),
+                init() {
+                  const dataTableConfig = {
+                    language: Object.assign({}, $.varien.datatable.locale(), { emptyTable: "No transactions" } ),
+                    dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
+                    buttons: ['copy', 'csv', 'excel', 'pdf'],
+                    lengthMenu: [15, this.getMonthLength()],
+                    pageLength: 15,
+                    ajax: {
+                      url: '/reports/transactions',
+                      method: 'POST',
+                      timeout: 10000,
+                      data: () => this.data
+                    },
+                    drawCallback() {
+                        $('#transactionReports').next().addClass('mt-3');
+                        $('#transactionReports_info').addClass('d-none');
+                        $('#transactionReports_length').addClass('py-0');
+                        $('#transactionReports_paginate').addClass('py-0 pagination pagination-circle mx-1');
+                    },
+                    footerCallback() {
+                      const api = this.api();
+                      let totals = { cross: 0, bank: 0, 'virtual pos': 0, papara: 0, matching: 0, deposit: 0, withdraw: 0 };
+
+                      // Calculate totals on all pages
+                      api.columns().every(function () {
+                        const data = this.data();
+                        let columnTotal = 0;
+
+                        data.each(function (value) {
+                          const matches = value.match(/₺([\d,]+\.\d{2})/);
+                          if (matches && matches.length > 0) {
+                            columnTotal += parseFloat(matches[1].replace(',', ''));
+                          }
+                        });
+
+                        const columnHeader = this.header().textContent.toLowerCase();
+                        if (totals.hasOwnProperty(columnHeader)) {
+                          totals[columnHeader] += columnTotal;
+                        }
+                      });
+
+                      // Update footer with total amounts
+                      const isTotalsEmpty = Object.values(totals).every(value => value === 0);
+                      if (!isTotalsEmpty) {
+                        $(api.column(0).footer()).html('Total Sum:');
+
+                        let iterate = 1;
+                        const formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                        for (const key in totals) {
+                            if (totals.hasOwnProperty(key)) {
+                                $(api.column(iterate++).footer()).html('₺' + formatter.format(totals[key]));
+                            }
+                        }
+
+                        $('#transactionReports tfoot').show();
+                      } else {
+                        // Hide footer when if don't have any data
+                        $('#transactionReports tfoot').hide();
+                      }
+                    },
+                  };
+
+                  this.table = new DataTable('#transactionReports', dataTableConfig);
+
+                  this.table.on('draw', function() {
+                    $.varien.datatable.exportEvents();
+                  });
+                },
+                reload() {
+                    this.table.ajax.reload();
+                },
+                getMonthLength(month = (new Date()).getMonth(), year = new Date().getFullYear()) {
+                  return new Date(year, month + 1, 0).getDate();
+                },
+            },
+            statistics: {
+                table: null,
+                init() {
+                    const dataTableConfig = {
+                      language: $.varien.datatable.locale(),
+                      dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
+                      buttons: ['copy', 'csv', 'excel', 'pdf'],
+                      lengthMenu: [10],
+                      pageLength: 10,
+                      scrollY: "415px",
+                      ajax: {
+                        url: '/reports/statistics',
+                        method: 'POST',
+                        timeout: 10000
+                      },
+                      drawCallback() {
+                        $('.dataTables_scroll').next().addClass('px-13');
+                        $('#statistics_info').addClass('d-none');
+                        $('#statistics_paginate').addClass('pagination pagination-circle mx-1');
+                      },
+                    };
+
+                    this.table = new DataTable('#statistics', dataTableConfig);
+
+                    this.table.on('draw', function() {
+                      $.varien.datatable.exportEvents();
+                    });
+                },
+                reload() {
+                    this.table.ajax.reload();
+                },
+            },
+        },
         init: function() {
             // Initiate UI Blockers
             const _message = '<div class="blockui-message"><span class="spinner-border text-primary"></span>Please wait...</div>';
@@ -2696,15 +2816,15 @@ $.varien = {
                 };
 
                 // Fetch new data
-                $.varien.reports.fetch(data);
+                this.fetch(data);
 
                 // Update transactions datatable
-                this.transactions.data = data;
-                this.transactions.reload();
+                this.tables.transactions.data = data;
+                this.tables.transactions.reload();
             });
 
             // Destroy and re-initiate chart with same data when theme mode changes
-            KTThemeMode.on("kt.thememode.change", () => $.varien.reports.charts.main.themeChange());
+            KTThemeMode.on("kt.thememode.change", () => this.charts.main.themeChange());
 
             // Check if no data is available
             if (typeof (depositData) === "undefined" && typeof (withdrawData) === "undefined") {
@@ -2771,7 +2891,7 @@ $.varien = {
             $('#totalWithdrawals').text(formatter.format(data.summary.withdraw));
 
             // Validate data and update main chart
-            if (data.mainChart.deposit.length > 0 && data.mainChart.withdraw.length > 0) {
+            if (data.mainChart.deposit.length > 0 || data.mainChart.withdraw.length > 0) {
                 this.charts.main.hide(false);
                 this.charts.main.update({
                     "deposit": data.mainChart.deposit.map(item => item.total),
@@ -2781,114 +2901,6 @@ $.varien = {
             } else {
                 this.charts.main.hide(true);
             }
-        },
-        tables: {
-            root: null,
-            transactions: null,
-            transactions: {
-                data: () => ({
-                    'year': $('#year').val(),
-                    'firm': $('#firms').val(),
-                    'month': $('#month').val()
-                }),
-                init() {
-                  const dataTableConfig = {
-                    language: $.varien.datatable.locale(),
-                    dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
-                    buttons: ['copy', 'csv', 'excel', 'pdf'],
-                    lengthMenu: [15, this.getMonthLength()],
-                    pageLength: 15,
-                    ajax: {
-                      url: '/reports/transactions',
-                      method: 'POST',
-                      timeout: 10000,
-                      data: () => this.data
-                    },
-                    drawCallback() {
-                        $('#transactionReports').next().addClass('mt-3');
-                        $('#transactionReports_info').addClass('d-none');
-                        $('#transactionReports_length').addClass('py-0');
-                        $('#transactionReports_paginate').addClass('py-0 pagination pagination-circle mx-1');
-                    },
-                    footerCallback() {
-                      const api = this.api();
-                      let totals = { cross: 0, bank: 0, 'virtual pos': 0, papara: 0, matching: 0, deposit: 0, withdraw: 0 };
-
-                      // Calculate totals on all pages
-                      api.columns().every(function () {
-                        const data = this.data();
-                        let columnTotal = 0;
-
-                        data.each(function (value) {
-                          const matches = value.match(/₺([\d,]+\.\d{2})/);
-                          if (matches && matches.length > 0) {
-                            columnTotal += parseFloat(matches[1].replace(',', ''));
-                          }
-                        });
-
-                        const columnHeader = this.header().textContent.toLowerCase();
-                        if (totals.hasOwnProperty(columnHeader)) {
-                          totals[columnHeader] += columnTotal;
-                        }
-                      });
-
-                      $(api.column(0).footer()).html('Total Sum:');
-
-                      let iterate = 1;
-                      const formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-                      for (const key in totals) {
-                        if (totals.hasOwnProperty(key)) {
-                          $(api.column(iterate++).footer()).html('₺' + formatter.format(totals[key]));
-                        }
-                      }
-                    },
-                  };
-
-                  transactions = new DataTable('#transactionReports', dataTableConfig);
-
-                  transactions.on('draw', function() {
-                    $.varien.datatable.exportEvents();
-                  });
-                },
-                reload() {
-                    transactions.ajax.reload();
-                },
-                getMonthLength(month = (new Date()).getMonth(), year = new Date().getFullYear()) {
-                  return new Date(year, month + 1, 0).getDate();
-                },
-            },
-            statistics: {
-                init() {
-                    const dataTableConfig = {
-                      language: $.varien.datatable.locale(),
-                      dom: '<"#dtExportButtonsWrapper"B>rt<"row"<"col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"li><"col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"p>>',
-                      buttons: ['copy', 'csv', 'excel', 'pdf'],
-                      lengthMenu: [10],
-                      pageLength: 10,
-                      scrollY: "415px",
-                      ajax: {
-                        url: '/reports/statistics',
-                        method: 'POST',
-                        timeout: 10000
-                      },
-                      drawCallback() {
-                        $('.dataTables_scroll').next().addClass('px-13');
-                        $('#statistics_info').addClass('d-none');
-                        $('#statistics_paginate').addClass('pagination pagination-circle mx-1');
-                      },
-                    };
-
-                    root = new DataTable('#statistics', dataTableConfig);
-
-                    root.on('draw', function() {
-                      $.varien.datatable.exportEvents();
-                    });
-                },
-                reload() {
-                root.ajax.reload();
-                },
-            },
         },
         getDaysInMonth: (month = (new Date()).getMonth(), year = (new Date().getFullYear())) => {
             let days;
