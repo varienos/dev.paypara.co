@@ -26,14 +26,13 @@ class Api extends BaseController
     public function newPayment()
     {
         $response = $this->api->newPayment($_POST);
-        return $this->response->setJSON(is_array($this->ipCheckpoint())?$this->ipCheckpoint():json_encode($response, JSON_NUMERIC_CHECK));
+        return $this->response->setJSON(json_encode($response, JSON_NUMERIC_CHECK));
+       //return $this->response->setJSON(is_array($this->ipCheckpoint())?$this->ipCheckpoint():json_encode($response, JSON_NUMERIC_CHECK));
     }
 
     public function limit()
     {
-          
          return $this->response->setJSON(is_array($this->ipCheckpoint())?$this->ipCheckpoint():$this->api->limit());
-       
     }
 
     public function isActiveStatus($userId, $site_id)
@@ -43,12 +42,14 @@ class Api extends BaseController
 
     public function approve($apiKey, $requestId)
     {
-        return $this->response->setJSON(is_array($this->ipCheckpoint())?$this->ipCheckpoint():json_encode($this->api->approve($apiKey, $requestId), JSON_NUMERIC_CHECK));
+        return $this->response->setJSON(json_encode($this->api->approve($apiKey, $requestId), JSON_NUMERIC_CHECK));
+        //return $this->response->setJSON(is_array($this->ipCheckpoint())?$this->ipCheckpoint():json_encode($this->api->approve($apiKey, $requestId), JSON_NUMERIC_CHECK));
     }
 
     public function deposit($method = "papara", $status = "beklemede")
     {
-        return $this->response->setJSON(is_array($this->ipCheckpoint())?$this->ipCheckpoint():json_encode($this->api->deposit($method, $status), JSON_NUMERIC_CHECK));
+        return $this->response->setJSON(json_encode($this->api->deposit($method, $status), JSON_NUMERIC_CHECK));
+        //return $this->response->setJSON(is_array($this->ipCheckpoint())?$this->ipCheckpoint():json_encode($this->api->deposit($method, $status), JSON_NUMERIC_CHECK));
     }
 
     public function withdraw()
