@@ -31,12 +31,16 @@ class Reports extends BaseController
 		echo htmlMinify(view('app/reports/index', $data));
 	}
 
-	public function formatNumber($number)
+	public function formatNumber($number, $curreny = true)
 	{
-		return $number == 0 ? "-" : "₺" . number_format($number, 2);
+		if ($curreny) {
+			return $number == 0 ? "-" : "₺" . number_format($number, 2);
+		}
+
+		return $number == 0 ? "-" : $number;
 	}
 
-	public function data()
+	public function getHighlights()
 	{
 		$firm = $_POST["firm"];
 		$year = $_POST["year"];
@@ -75,18 +79,24 @@ class Reports extends BaseController
 		$i = 0;
 		foreach ($data['dataTable']->getResult() as $row) {
 				$records["data"][$i] = array(
-					'DT_RowId'  => $row->id,
-					'<div class="text-center fw-semibold text-gray-700">' . $row->request_time . '</div>',
-					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->crossTotal) . '</div>',
-					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->bankTotal) . '</div>',
-					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->posTotal) . '</div>',
-					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->paparaTotal) . '</div>',
-					'<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->matchingTotal) . '</div>',
-					'<div class="text-center fw-bold text-gray-800">' . $this->formatNumber($row->depositTotal) . '</div>',
-					'<div class="text-center fw-bold text-gray-800">' . $this->formatNumber($row->withdrawTotal) . '</div>'
+						'DT_RowId' => $row->id,
+						'<div class="text-center fw-semibold text-gray-700">' . $row->request_time . '</div>',
 				);
 
-			$i++;
+				if ($this->session->get('root')) {
+						$records["data"][$i][] = '<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->crossTotal) . '</div>';
+						$records["data"][$i][] = '<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->bankTotal) . '</div>';
+						$records["data"][$i][] = '<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->posTotal) . '</div>';
+						$records["data"][$i][] = '<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->paparaTotal) . '</div>';
+						$records["data"][$i][] = '<div class="text-center fw-semibold text-gray-700">' . $this->formatNumber($row->matchingTotal) . '</div>';
+				}
+
+				$records["data"][$i][] = '<div class="text-center fw-bold text-gray-800">' . $this->formatNumber($row->depositTxn, false) . '</div>';
+				$records["data"][$i][] = '<div class="text-center fw-bold text-gray-800">' . $this->formatNumber($row->depositTotal) . '</div>';
+				$records["data"][$i][] = '<div class="text-center fw-bold text-gray-800">' . $this->formatNumber($row->withdrawTxn, false) . '</div>';
+				$records["data"][$i][] = '<div class="text-center fw-bold text-gray-800">' . $this->formatNumber($row->withdrawTotal) . '</div>';
+
+				$i++;
 		}
 
 		if (isset($_REQUEST["customActionType"]) && $_REQUEST["customActionType"] == "group_action") {

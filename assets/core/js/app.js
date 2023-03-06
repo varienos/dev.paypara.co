@@ -2705,39 +2705,35 @@ $.varien = {
                         $('#transactionReports_paginate').addClass('py-0 pagination pagination-circle mx-1');
                     },
                     footerCallback() {
+                      let totals = [];
                       const api = this.api();
-                      let totals = { cross: 0, bank: 0, 'virtual pos': 0, papara: 0, matching: 0, deposit: 0, withdraw: 0 };
 
                       // Calculate totals on all pages
-                      api.columns().every(function () {
-                        const data = this.data();
+                      api.columns().every(function (index) {
+                        if(index == 0) return;
+
                         let columnTotal = 0;
+                        const data = this.data();
 
                         data.each(function (value) {
-                          const matches = value.match(/₺([\d,]+\.\d{2})/);
+                          const matches = value.match(/<div.*?>(?:₺)?([\d,]+(?:\.\d{2})?)<\/div>/i);
                           if (matches && matches.length > 0) {
                             columnTotal += parseFloat(matches[1].replace(',', ''));
                           }
                         });
 
-                        const columnHeader = this.header().textContent.toLowerCase();
-                        if (totals.hasOwnProperty(columnHeader)) {
-                          totals[columnHeader] += columnTotal;
-                        }
+                        totals.push(parseFloat(columnTotal.toFixed(2)));
                       });
 
                       // Update footer with total amounts
                       const isTotalsEmpty = Object.values(totals).every(value => value === 0);
                       if (!isTotalsEmpty) {
-                        $(api.column(0).footer()).html('Total Sum:');
-
-                        let iterate = 1;
+                        $(api.column(0).footer()).html('Total:');
                         const formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-                        for (const key in totals) {
-                            if (totals.hasOwnProperty(key)) {
-                                $(api.column(iterate++).footer()).html('₺' + formatter.format(totals[key]));
-                            }
+                        for (let i = 0; i < totals.length; i++) {
+                          let number = Number.isInteger(totals[i]) ? totals[i] : '₺' + formatter.format(totals[i])
+                          $(api.column(i + 1).footer()).html(number == 0 ? "-" : number);
                         }
 
                         $('#transactionReports tfoot').show();
@@ -2860,7 +2856,7 @@ $.varien = {
             $('#year, #month, #firms').attr('disabled', 'disabled');
 
             $.ajax({
-                url: '/reports/data',
+                url: '/reports/highlights',
                 method: 'POST',
                 timeout: 10000,
                 dataType: 'json',

@@ -106,22 +106,28 @@ class ReportsModel extends Model
 
     public function getTransactions($year = null, $month = null, $firm = null)
     {
-      return $this->db->query("
-        SELECT DATE_FORMAT(request_time, '%d.%m.%Y') AS request_time, method,
-        SUM(CASE WHEN method = 'cross' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS crossTotal,
-        SUM(CASE WHEN method = 'bank' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS bankTotal,
-        SUM(CASE WHEN method = 'pos' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS posTotal,
-        SUM(CASE WHEN method = 'papara' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS paparaTotal,
-        SUM(CASE WHEN method = 'match' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS matchingTotal,
-        SUM(CASE WHEN request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS depositTotal,
-        SUM(CASE WHEN request = 'withdraw' AND status = 'onaylandı' THEN price ELSE 0 END) AS withdrawTotal
-        FROM finance
-        WHERE MONTH(request_time) = '" . $this->getMonth($month) . "'
-        AND YEAR(request_time)  = '" . $this->getYear($year) . "'
-        " . $this->firmQuery($firm) . "
-        GROUP BY YEAR(request_time), MONTH(request_time), DAY(request_time)
-        ORDER BY request_time ASC
-      ");
+      $query = "SELECT DATE_FORMAT(request_time, '%d.%m.%Y') AS request_time, method,";
+
+      if($this->session->get('root')) {
+        $query .= "SUM(CASE WHEN method = 'cross' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS crossTotal,";
+        $query .= "SUM(CASE WHEN method = 'bank' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS bankTotal,";
+        $query .= "SUM(CASE WHEN method = 'pos' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS posTotal,";
+        $query .= "SUM(CASE WHEN method = 'papara' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS paparaTotal,";
+        $query .= "SUM(CASE WHEN method = 'match' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS matchingTotal,";
+      }
+
+      $query .= "COUNT(CASE WHEN request = 'deposit' AND status = 'onaylandı' THEN price END) AS depositTxn,";
+      $query .= "SUM(CASE WHEN request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS depositTotal,";
+      $query .= "COUNT(CASE WHEN request = 'withdraw' AND status = 'onaylandı' THEN price END) AS withdrawTxn,";
+      $query .= "SUM(CASE WHEN request = 'withdraw' AND status = 'onaylandı' THEN price ELSE 0 END) AS withdrawTotal ";
+      $query .= "FROM finance ";
+      $query .= "WHERE MONTH(request_time) = '" . $this->getMonth($month) . "' ";
+      $query .= "AND YEAR(request_time)  = '" . $this->getYear($year) . "' ";
+      $query .= $this->firmQuery($firm) . " ";
+      $query .= "GROUP BY YEAR(request_time), MONTH(request_time), DAY(request_time) ";
+      $query .= "ORDER BY request_time ASC";
+
+      return $this->db->query($query);
     }
 
     public function getStatistics($year = null, $month = null, $firm = null)

@@ -204,12 +204,12 @@
   </div>
   <div id="third-row" class="card-body pt-0">
     <div class="table-responsive">
-      <table class="table table-striped table-row-dashed fs-6 gy-2" id="transactionReports">
+      <table id="transactionReports" class="table table-striped table-row-dashed fs-6 gy-2">
         <thead>
           <tr class="fw-bold fs-6 text-gray-800 px-7">
             <th rowspan="2" class="text-center align-middle border-bottom border-end w-100px">Date</th>
-            <th colspan="5" class="text-center border-bottom border-end">Method</th>
-            <th colspan="2" class="text-center border-bottom">Total Volume</th>
+            <th colspan="5" class="text-center border-bottom border-end">Deposit Amounts by Methods</th>
+            <th colspan="4" class="text-center border-bottom">Total Volume</th>
           </tr>
           <tr class="text-center text-gray-800 fw-bold fs-6 gs-0">
             <th class="min-w-75px text-center">Cross</th>
@@ -217,13 +217,17 @@
             <th class="min-w-75px text-center">Virtual POS</th>
             <th class="min-w-75px text-center">Papara</th>
             <th class="min-w-75px text-center border-end">Matching</th>
+            <th class="min-w-75px text-center deposit">Transactions</th>
             <th class="min-w-75px text-center">Deposit</th>
+            <th class="min-w-75px text-center withdraw">Transactions</th>
             <th class="min-w-75px text-center">Withdraw</th>
           </tr>
         </thead>
         <tbody></tbody>
         <tfoot>
           <tr class="fw-bold text-gray-800 border-top">
+            <th class="text-center"></th>
+            <th class="text-center"></th>
             <th class="text-center"></th>
             <th class="text-center"></th>
             <th class="text-center"></th>

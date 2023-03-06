@@ -152,7 +152,7 @@ if (SUBDOMAIN == "api") {
     $routes->add('/settings', 'Settings::index');
     $routes->add('/settings/update', 'Settings::update');
     $routes->add('/settings/api/(:any)', 'Settings::api/$1');
-    $routes->add('/reports/data', 'Reports::data');
+    $routes->add('/reports/highlights', 'Reports::getHighlights');
     $routes->add('/reports/transactions', 'Reports::getTransactions');
     $routes->add('/reports/statistics', 'Reports::getStatistics');
 
