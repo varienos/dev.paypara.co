@@ -29,7 +29,7 @@ class ApiModel extends Model
         $this->db->query("insert into log_api_event set
             `method`        = '" . $method . "',
             `headers`       =  " . $this->db->escape(json_encode(getallheaders(), JSON_UNESCAPED_UNICODE)) . ",
-            `request`       =  " . $this->db->escape(json_encode($_POST, JSON_UNESCAPED_UNICODE)) . ",
+            `request`       =  " . $this->db->escape(json_encode(["POST"=>$_POST,"GET"=>$_GET], JSON_UNESCAPED_UNICODE)) . ",
             `response`      =  " . $this->db->escape(json_encode($response, JSON_UNESCAPED_UNICODE)) . ",
             `site_id`       = '" . $site_id . "',
             `city`          = '" . $this->request->getHeaderLine('Cf-Ipcity') . "',
@@ -78,7 +78,7 @@ class ApiModel extends Model
 
         $limitData = $this->db->query("select limitDepositMin as minDeposit, limitDepositMax as maxDeposit from site where id='" . $tokenData->site_id . "'")->getRow();
 
-        $data =
+        $dataResponse =
             [
                 "error"                 =>  json_encode($error, JSON_NUMERIC_CHECK),
                 "errorArray"            =>  $error,
@@ -104,8 +104,8 @@ class ApiModel extends Model
                 "maxDeposit"            =>  $limitData->maxDeposit,
             ];
 
-        $this->log($site_id, $data, __FUNCTION__);
-        return $data;
+        $this->log($site_id, $dataResponse, __FUNCTION__);
+        return $dataResponse;
     }
 
     public function tokenStatus($token, $response = 0)
