@@ -90,6 +90,29 @@ class ReportsModel extends Model
       ")->getResultArray();
     }
 
+    public function getDepositDistribution($month = null, $year = null, $firm = null)
+    {
+      $db = \Config\Database::connect();
+
+      $results = $db->query("
+        SELECT method, ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) AS percentage
+        FROM finance
+        WHERE status = 'onaylandı'
+          " . $this->firmQuery($firm) . "
+          AND MONTH(request_time) = " . $this->getMonth($month) . "
+          AND YEAR(request_time) = " . $this->getYear($year) . "
+        GROUP BY method
+        ORDER BY method DESC;
+      ")->getResultArray();
+
+      $otherMethods = [
+        ['method' => 'cross', 'percentage' => '0.00'],
+        ['method' => 'pos', 'percentage' => '0.00']
+      ];
+
+      return array_merge($results, $otherMethods);
+    }
+
     public function getHighlightsData($month = null, $year = null, $firm = null)
     {
       $db = \Config\Database::connect();

@@ -1356,35 +1356,38 @@ $.varien = {
                 });
             },
             submit: function() {
-                $("form#transactionForm").on('submit', (function(e) {
-                    $.varien.eventControl(e);
+                const form = document.getElementById("transactionForm");
+                form.addEventListener('submit', async function(event) {
+                    $.varien.eventControl(event);
                     $.blockModalContent.block();
-                    $.varien.transaction.datatable.process({
-                        url: "transaction/update",
-                        type: "POST",
-                        dataType: "html",
-                        crossDomain: true,
-                        data: new FormData(this),
-                        xhrFields: {
-                            withCredentials: true
-                        },
-                        processData: false,
-                        contentType: false
-                    }).then(function success() {
+
+                    try {
+                        const res = await $.ajax({
+                            url: "transaction/update",
+                            type: "POST",
+                            dataType: "html",
+                            crossDomain: true,
+                            data: new FormData(this),
+                            xhrFields: {
+                                withCredentials: true
+                            },
+                            processData: false,
+                            contentType: false
+                        });
+
+                        $.table.ajax.reload();
                         $('#description').val('');
                         $.blockModalContent.release();
                         $("#transaction").modal('toggle');
-                        $.table.ajax.reload();
-                    }, function error(jqXHR, errorThrown) {
-                        toastr.error(`${errorThrown}`, `Error ${jqXHR.status}`);
-                        $.blockModalContent.release();
+                    } catch (error) {
+                        const jqXHR = error?.jqXHR;
+                        const status = jqXHR?.status;
+                        toastr.error(`${error?.errorThrown || 'Unknown error'}`, `Error ${status || ''}`);
+
                         $('#description').val('');
-                    }).catch(function(error) {
-                        toastr.error(`${error}`, `Error`);
                         $.blockModalContent.release();
-                        $('#description').val('');
-                    });
-                }));
+                    }
+                });
 
                 $('#transaction').on('hide.bs.modal', function(e) {
                     if ($.blockModalContent.isBlocked()) {
@@ -2581,7 +2584,7 @@ $.varien = {
                         let year = $('#year').val();
                         let month = $('#month').select2('data')[0].text;
                         let firm = $('#firms').val() == 0 ? '' : $('#firms').select2('data')[0].text;
-                        ``
+
                         let message = `There were no transactions involving ${firm} in ${month} ${year}`;
                         let html = `<div class='d-flex flex-center text-center fs-1 fw-semibold w-100 h-300px px-5'>${message}</div>`;
 
@@ -2602,15 +2605,20 @@ $.varien = {
                 }
             },
             pie: {
-                chart: null,
+                chart: {
+                    self: null,
+                    hidden: false
+                },
                 init: function(data) {
                     let element = document.getElementById("chart-reports-pie");
                     if (!element) return;
 
+                    if(!data.distribution.length) data.distribution = [0, 0, 0, 0, 0];
+
                     let options = {
-                        series: [39, 30, 16, 9, 6], // TODO: To be replaced with dynamic data
+                        series: data.distribution,
                         labels: ['Papara', 'Matching', 'Bank', 'Cross', 'Virtual POS'],
-                        colors: ['#ba435f', '#CA3660', '#21416f', '#698b55', '#ed8a3d'],
+                        colors: ['#ba435f', '#943074', '#1a3045', '#698b55', '#bf7236'],
                         chart: {
                             type: 'pie'
                         },
@@ -2646,33 +2654,20 @@ $.varien = {
                         }]
                     };
 
-                    this.chart = new ApexCharts(element, options);
-                    this.chart.render();
+                    this.chart.self = new ApexCharts(element, options);
+                    this.chart.self.render();
                 },
                 update: function(data) {
-                    this.chart.updateSeries([{
-                        name: 'Deposit',
-                        data: data.deposit,
-                    }, {
-                        name: 'Withdrawal',
-                        data: data.withdraw,
-                    }], true);
-
-                    this.chart.updateOptions({
-                        xaxis: {
-                            categories: data.categories
-                        }
-                    });
+                    this.chart.self.updateSeries({ data: data.deposit }, true);
                 },
                 themeChange: function() {
                     // Destroy and re-initiate chart with same data when theme mode changes
                     const data = {
-                        categories: this.chart.opts.xaxis.categories,
-                        deposit: this.chart.opts.series[0].data.map(point => point),
-                        withdraw: this.chart.opts.series[1].data.map(point => point)
+                        labels: this.chart.self.opts.series[0].data.map(point => point),
+                        distribution: this.chart.self.opts.series[1].data.map(point => point)
                     };
 
-                    this.chart.destroy();
+                    this.chart.self.destroy();
                     this.init(data);
                 },
             }
@@ -2843,7 +2838,9 @@ $.varien = {
             });
 
             // Initialize pie chart
-            this.charts.pie.init();
+            this.charts.pie.init({
+                'distribution': distribution.map(item => parseFloat(item.percentage)),
+            });
 
             // Initialize transactions datatable
             this.tables.transactions.init();

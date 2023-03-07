@@ -27,6 +27,9 @@ class Reports extends BaseController
 			"deposit" => $this->ReportsModel->getMonthlyTransactionSum('deposit'),
 			"withdraw" => $this->ReportsModel->getMonthlyTransactionSum('withdraw'),
 		);
+		$data["pieChart"] = array(
+			"distribution" => $this->ReportsModel->getDepositDistribution(),
+		);
 
 		echo htmlMinify(view('app/reports/index', $data));
 	}

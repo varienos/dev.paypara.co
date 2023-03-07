@@ -138,11 +138,14 @@
       </div>
     </div>
 
-    <? if(count($mainChart["deposit"]) > 0 || count($mainChart["withdraw"]) > 0): ?>
     <script>
+      <? if(count($mainChart["deposit"]) > 0 || count($mainChart["withdraw"]) > 0): ?>
       const depositData = <?= json_encode($mainChart["deposit"]) ?>;
       const withdrawData = <?= json_encode($mainChart["withdraw"]) ?>;
+      <? endif; ?>
+      <? if(count($pieChart["distribution"]) > 0): ?>
+      const distribution = <?= json_encode($pieChart["distribution"]) ?>;
+      <? endif; ?>
     </script>
-    <? endif; ?>
 
     <?php require appViewPath().'layout/footer/footer.php' ?>
