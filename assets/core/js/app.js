@@ -2662,10 +2662,7 @@ $.varien = {
                 },
                 themeChange: function() {
                     // Destroy and re-initiate chart with same data when theme mode changes
-                    const data = {
-                        labels: this.chart.self.opts.series[0].data.map(point => point),
-                        distribution: this.chart.self.opts.series[1].data.map(point => point)
-                    };
+                    const data = { distribution: this.chart.self.opts.series };
 
                     this.chart.self.destroy();
                     this.init(data);
@@ -2834,8 +2831,11 @@ $.varien = {
                 this.tables.transactions.reload();
             });
 
-            // Destroy and re-initiate chart with same data when theme mode changes
-            KTThemeMode.on("kt.thememode.change", () => this.charts.main.themeChange());
+            // Destroy and re-initiate charts with same data when theme mode changes
+            KTThemeMode.on("kt.thememode.change", () => {
+                this.charts.pie.themeChange();
+                this.charts.main.themeChange();
+            });
 
             // Check if no data is available
             if (typeof (depositData) === "undefined" && typeof (withdrawData) === "undefined") {
