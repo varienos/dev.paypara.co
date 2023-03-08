@@ -139,10 +139,7 @@
     </div>
 
     <script>
-      <? if(count($mainChart["deposit"]) > 0 || count($mainChart["withdraw"]) > 0): ?>
-      const depositData = <?= json_encode($mainChart["deposit"]) ?>;
-      const withdrawData = <?= json_encode($mainChart["withdraw"]) ?>;
-      <? endif; ?>
+      const mainChartData = <?= json_encode($mainChart) ?>;
       <? if(count($pieChart["distribution"]) > 0): ?>
       const distribution = <?= json_encode($pieChart["distribution"]) ?>;
       <? endif; ?>

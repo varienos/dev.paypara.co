@@ -23,24 +23,12 @@ class Reports extends BaseController
 
 		$data["summary"] = $this->ReportsModel->getSummaryData();
 		$data["highlights"] = $this->ReportsModel->getHighlightsData();
-		$data["mainChart"] = array(
-			"deposit" => $this->ReportsModel->getMonthlyTransactionSum('deposit'),
-			"withdraw" => $this->ReportsModel->getMonthlyTransactionSum('withdraw'),
-		);
+		$data["mainChart"] = $this->ReportsModel->getMonthlyTransactionSum();
 		$data["pieChart"] = array(
 			"distribution" => $this->ReportsModel->getDepositDistribution(),
 		);
 
 		echo htmlMinify(view('app/reports/index', $data));
-	}
-
-	public function formatNumber($number, $curreny = true)
-	{
-		if ($curreny) {
-			return $number == 0 ? "-" : "₺" . number_format($number, 2);
-		}
-
-		return $number == 0 ? "-" : $number;
 	}
 
 	public function getHighlights()
@@ -50,15 +38,19 @@ class Reports extends BaseController
 		$month = $_POST["month"];
 
 		$data["summary"] = $this->ReportsModel->getSummaryData($month, $year, $firm);
-		$data["mainChart"] = array(
-			"deposit" => $this->ReportsModel->getMonthlyTransactionSum('deposit', $month, $year, $firm),
-			"withdraw" => $this->ReportsModel->getMonthlyTransactionSum('withdraw', $month, $year, $firm),
-		);
+		$data["mainChart"] = $this->ReportsModel->getMonthlyTransactionSum($month, $year, $firm);
 		$data["pieChart"] = array(
 			"distribution" => $this->ReportsModel->getDepositDistribution($month, $year, $firm),
 		);
 
 		return json_encode($data);
+	}
+
+	public function formatNumber($number, $curreny = true)
+	{
+		if ($curreny) return $number == 0 ? "-" : "₺" . number_format($number, 2);
+
+		return $number == 0 ? "-" : $number;
 	}
 
 	public function getTransactions($year = null, $month = null, $firm = null)

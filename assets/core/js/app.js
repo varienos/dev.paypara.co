@@ -384,9 +384,9 @@ $.varien = {
                         y: {
                             formatter: function(value) {
                                 let val = Math.abs(value);
-                                if (val > 1000000) val = (val / 1000000).toFixed(2) + 'm';
-                                else if (val >= 1000 && val < 1000000) val = (val / 1000).toFixed(0) + 'k';
-                                else if (val > 0 && val < 1000) val = val;
+                                if (val > 1000000) val = '₺' + (val / 1000000).toFixed(2) + 'm';
+                                else if (val >= 1000 && val < 1000000) val = '₺' + (val / 1000).toFixed(0) + 'k';
+                                else if (val > 0 && val < 1000) val = '₺' + val;
                                 else val = "none";
                                 return val;
                             }
@@ -2454,9 +2454,6 @@ $.varien = {
                     let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
                     let borderColor = KTUtil.getCssVariableValue('--kt-border-dashed-color');
 
-                    if(!data.deposit.length) data.deposit = [0];
-                    if(!data.withdraw.length) data.withdraw = [0];
-
                     let options = {
                         series: [{
                             name: 'Deposit',
@@ -2504,7 +2501,6 @@ $.varien = {
                             axisBorder: {
                                 show: false
                             },
-                            // Shows entire month day by day
                             categories: data.categories,
                             labels: {
                                 rotate: -25,
@@ -2550,10 +2546,19 @@ $.varien = {
                         }
                     };
 
+                    if(data.deposit.every(obj => obj === "0.00")) options.stroke.colors[0] = "";
+                    if(data.withdraw.every(obj => obj === "0.00")) options.stroke.colors[1] = "";
+
                     this.chart.self = new ApexCharts(element, options);
                     this.chart.self.render();
                 },
                 update: function(data) {
+                    let depositColor = KTUtil.getCssVariableValue('--kt-success');
+                    let withdrawColor = KTUtil.getCssVariableValue('--kt-danger');
+
+                    if(data.deposit.every(obj => obj === "0.00")) depositColor = "";
+                    if(data.withdraw.every(obj => obj === "0.00")) withdrawColor = "";
+
                     this.chart.self.updateSeries([{
                         name: 'Deposit',
                         data: data.deposit,
@@ -2565,7 +2570,10 @@ $.varien = {
                     this.chart.self.updateOptions({
                         xaxis: {
                             categories: data.categories
-                        }
+                        },
+                        stroke: {
+                            colors: [depositColor, withdrawColor]
+                        },
                     });
                 },
                 themeChange: function() {
@@ -2837,8 +2845,8 @@ $.varien = {
                 this.charts.main.themeChange();
             });
 
-            // Check if no data is available
-            if (typeof (depositData) === "undefined" && typeof (withdrawData) === "undefined") {
+            // Check main chart data if there is no data
+            if(mainChartData.every(item => item.deposit === '0.00' && item.withdraw === '0.00')) {
                 let chart = document.getElementById('chart-reports-main');
                 if (chart.classList.contains('d-none')) return;
 
@@ -2848,12 +2856,12 @@ $.varien = {
                 chart.classList.add('d-none');
                 chart.insertAdjacentHTML('afterend', html);
                 return;
-            }
+            };
 
             // Initialize main chart
             this.charts.main.init({
-                'deposit': depositData.map(item => item.total),
-                'withdraw': withdrawData.map(item => item.total),
+                'deposit': mainChartData.map(item => item.deposit),
+                'withdraw': mainChartData.map(item => item.withdraw),
                 'categories': this.getDaysInMonth()
             });
 
@@ -2904,11 +2912,11 @@ $.varien = {
             $('#totalWithdrawals').text(formatter.format(data.summary.withdraw));
 
             // Validate data and update main chart
-            if (data.mainChart.deposit.length > 0 || data.mainChart.withdraw.length > 0) {
+            if (!data.mainChart.every(obj => obj.deposit === "0.00" && obj.withdraw === "0.00")) {
                 this.charts.main.hide(false);
                 this.charts.main.update({
-                    "deposit": data.mainChart.deposit.map(item => item.total),
-                    "withdraw": data.mainChart.withdraw.map(item => item.total),
+                    "deposit": data.mainChart.map(item => item.deposit),
+                    "withdraw": data.mainChart.map(item => item.withdraw),
                     "categories": this.getDaysInMonth(date.month, date.year)
                 });
             } else {

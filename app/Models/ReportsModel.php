@@ -74,20 +74,69 @@ class ReportsModel extends Model
       ")->getResultArray()[0];
     }
 
-    public function getMonthlyTransactionSum($type = 'deposit', $month = null, $year = null, $firm = null)
+    /**
+     * Retrieves the monthly transaction sum for a given month and year for a specific firm.
+     *
+     * @param int|string|null $month Optional. The month to retrieve data for. Defaults to the current month if not provided.
+     * @param int|string|null $year Optional. The year to retrieve data for. Defaults to the current year if not provided.
+     * @param int|string|null $firm Optional. The ID of the firm to retrieve data for. If not provided, retrieves data for all firms.
+     * @return array An array of transaction data for each day in the specified month.
+    */
+    public function getMonthlyTransactionSum($month = null, $year = null, $firm = null)
     {
+      // set the year and month based on the input or current date
+      $year = $this->getYear($year);
+      $month = $this->getMonth($month);
+
+      // connect to the database
       $db = \Config\Database::connect();
 
-      return $db->query("
-        SELECT DATE(request_time) AS day, COALESCE(SUM(price), 0) AS total
+      // query to get the total deposits and withdrawals for each day in the given month
+      $result = $db->query("
+        SELECT
+          DATE(request_time) AS day,
+          SUM(CASE WHEN request = 'deposit' THEN price ELSE 0 END) AS deposit,
+          SUM(CASE WHEN request = 'withdraw' THEN price ELSE 0 END) AS withdraw
         FROM finance
-        WHERE request = '$type'
-          AND status = 'onaylandı'
+        WHERE status = 'onaylandı'
           " . $this->firmQuery($firm) . "
-          AND MONTH(request_time) = " . $this->getMonth($month) . "
-          AND YEAR(request_time) = " . $this->getYear($year) . "
+          AND MONTH(request_time) = $month
+          AND YEAR(request_time) = $year
         GROUP BY DAY(request_time)
       ")->getResultArray();
+
+      // create an array of all days in the month
+      $days_in_month = [];
+      $days_count = date('j', strtotime('last day of ' . $year . '-' . $month));
+      for ($i = 1; $i <= $days_count; ++$i) {
+        // format the date as YYYY-MM-DD and initialize the deposit and withdraw values to 0
+        $day = sprintf('%04d-%02d-%02d', $year, $month, $i);
+        $days_in_month[$day] = [
+          'day' => $day,
+          'deposit' => 0,
+          'withdraw' => 0,
+        ];
+      }
+
+      // merge the result array with the days in the month array
+      $merged = array_map(function ($day) use ($result) {
+        // filter the result array to get the deposit and withdraw values for the current day
+        $item = array_filter($result, function ($r) use ($day) {
+          return substr($r['day'], 0, 10) == $day['day'];
+        });
+        // get the first (and only) item from the filtered array, or an empty array if none found
+        $item = array_shift($item);
+
+        // return an array with the day, deposit, and withdraw values for the current day
+        return [
+          'day' => $day['day'],
+          'deposit' => $item['deposit'] ?? "0.00",
+          'withdraw' => $item['withdraw'] ?? "0.00",
+        ];
+      }, $days_in_month);
+
+      // return the merged array as a list of values (without the keys)
+      return array_values($merged);
     }
 
     public function getDepositDistribution($month = null, $year = null, $firm = null)
