@@ -2658,7 +2658,7 @@ $.varien = {
                     this.chart.self.render();
                 },
                 update: function(data) {
-                    this.chart.self.updateSeries({ data: data.deposit }, true);
+                    this.chart.self.updateSeries(data.distribution);
                 },
                 themeChange: function() {
                     // Destroy and re-initiate chart with same data when theme mode changes
@@ -2670,6 +2670,26 @@ $.varien = {
                     this.chart.self.destroy();
                     this.init(data);
                 },
+                hide: function(status) {
+                    if(status) {
+                        let message = `There are no approved transaction`;
+                        let html = `<div class='d-flex flex-center text-center fs-6 fw-semibold w-100 px-5' style="height: 221.2px;">${message}</div>`;
+
+                        if (this.chart.hidden) {
+                            this.chart.self.el.nextSibling.innerText = message;
+                        } else {
+                            this.chart.self.el.classList.add('d-none');
+                            this.chart.self.el.insertAdjacentHTML('afterend', html);
+                            this.chart.hidden = true;
+                        }
+                    } else {
+                        if (!this.chart.hidden) return;
+
+                        this.chart.self.el.nextSibling.remove();
+                        this.chart.self.el.classList.remove('d-none');
+                        this.chart.hidden = false;
+                    }
+                }
             }
         },
         tables: {
@@ -2893,6 +2913,17 @@ $.varien = {
                 });
             } else {
                 this.charts.main.hide(true);
+            }
+
+            // Validate data and update pie chart
+            const isPieDataEmpty = data.pieChart.distribution.every(obj => obj.percentage === "0.00");
+            if (data.pieChart.distribution.length > 0 && !isPieDataEmpty) {
+                this.charts.pie.hide(false);
+                this.charts.pie.update({
+                    "distribution": data.pieChart.distribution.map(item => parseFloat(item.percentage)),
+                });
+            } else {
+                this.charts.pie.hide(true);
             }
         },
         getDaysInMonth: (month = (new Date()).getMonth(), year = (new Date().getFullYear())) => {

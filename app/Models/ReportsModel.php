@@ -105,12 +105,24 @@ class ReportsModel extends Model
         ORDER BY method DESC;
       ")->getResultArray();
 
-      $otherMethods = [
-        ['method' => 'cross', 'percentage' => '0.00'],
-        ['method' => 'pos', 'percentage' => '0.00']
-      ];
+      // Include all methods on the result if they don't have any transaction
+      $result_array = [];
+      $all_methods = ['papara', 'match', 'bank', 'cross', 'pos'];
+      foreach ($all_methods as $method) {
+          $method_exists = false;
+          foreach ($results as $row) {
+              if ($row['method'] == $method) {
+                  $result_array[] = $row;
+                  $method_exists = true;
+                  break;
+              }
+          }
+          if (!$method_exists) {
+              $result_array[] = ['method' => $method, 'percentage' => '0.00'];
+          }
+      }
 
-      return array_merge($results, $otherMethods);
+      return $result_array;
     }
 
     public function getHighlightsData($month = null, $year = null, $firm = null)

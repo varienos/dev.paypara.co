@@ -54,6 +54,9 @@ class Reports extends BaseController
 			"deposit" => $this->ReportsModel->getMonthlyTransactionSum('deposit', $month, $year, $firm),
 			"withdraw" => $this->ReportsModel->getMonthlyTransactionSum('withdraw', $month, $year, $firm),
 		);
+		$data["pieChart"] = array(
+			"distribution" => $this->ReportsModel->getDepositDistribution($month, $year, $firm),
+		);
 
 		return json_encode($data);
 	}
