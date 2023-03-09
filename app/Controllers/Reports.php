@@ -51,7 +51,10 @@ class Reports extends BaseController
 		$year = $_POST["year"];
 		$month = $_POST["month"];
 
-		// Get monthly transaction sum, and deposit distribution data
+		// Retrieve the data for the highlight sections
+		$data["highlights"] = $this->ReportsModel->getHighlightsData($month, $year, $firm);
+
+		// Retrieve the data for the main chart and the pie chart
 		$data["mainChart"] = $this->ReportsModel->getMonthlyTransactionSum($month, $year, $firm);
 		$data["pieChart"] = $this->ReportsModel->getDepositDistribution($month, $year, $firm);
 
