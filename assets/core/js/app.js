@@ -2868,14 +2868,16 @@ $.varien = {
                 'categories': this.getDaysInMonth()
             });
 
-            // Initialize pie chart
-            this.charts.pie.init(pieChartData.map(item => parseFloat(item.percentage)));
-
             // Initialize transactions datatable
             this.tables.transactions.init();
 
-            // Initialize root datatable
-            this.tables.statistics.init();
+            if($.resource.root) {
+                // Initialize pie chart
+                this.charts.pie.init(pieChartData.map(item => parseFloat(item.percentage)));
+
+                // Initialize root datatable
+                this.tables.statistics.init();
+            }
         },
         fetch: function(data) {
             blockers.forEach((blocker) => blocker.block());
@@ -2921,13 +2923,15 @@ $.varien = {
                 this.charts.main.hide(true);
             }
 
-            // Validate data and update pie chart
-            const isPieDataEmpty = data.pieChart.every(obj => obj.percentage === "0.00");
-            if (data.pieChart.length > 0 && !isPieDataEmpty) {
-                this.charts.pie.hide(false);
-                this.charts.pie.update(data.pieChart.map(item => parseFloat(item.percentage)));
-            } else {
-                this.charts.pie.hide(true);
+            if($.resource.root) {
+                // Validate data and update pie chart
+                const isPieDataEmpty = data.pieChart.every(obj => obj.percentage === "0.00");
+                if (data.pieChart.length > 0 && !isPieDataEmpty) {
+                    this.charts.pie.hide(false);
+                    this.charts.pie.update(data.pieChart.map(item => parseFloat(item.percentage)));
+                } else {
+                    this.charts.pie.hide(true);
+                }
             }
         },
         updateSummary: function(data) {
