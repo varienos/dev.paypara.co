@@ -2589,7 +2589,7 @@ $.varien = {
                 },
                 hide: function(status) {
                     if (status) {
-                        let year = $('#year').val();
+                        let year = $('#year :selected').text();
                         let month = $('#month').select2('data')[0].text;
                         let firm = $('#firms').val() == 0 ? '' : $('#firms').select2('data')[0].text;
 
@@ -2701,9 +2701,9 @@ $.varien = {
             transactions: {
                 table: null,
                 data: () => ({
-                    'year': $('#year').val(),
                     'firm': $('#firms').val(),
-                    'month': $('#month').val()
+                    'month': $('#month').val(),
+                    'year': $('#year :selected').text()
                 }),
                 init() {
                   const dataTableConfig = {
@@ -2826,9 +2826,9 @@ $.varien = {
             // Update data when user changes year, month, or firm inputs
             $('#year, #month, #firms').on('change', () => {
                 const data = {
-                    'year': $('#year').val(),
                     'firm': $('#firms').val(),
-                    'month': $('#month').val()
+                    'month': $('#month').val(),
+                    'year': $('#year :selected').text()
                 };
 
                 // Fetch new data
@@ -2893,8 +2893,8 @@ $.varien = {
                 },
                 success: (response) => {
                     this.process(response, date = {
-                        "year": $('#year').val(),
-                        "month": $('#month').val() - 1
+                        "month": $('#month').val() - 1,
+                        "year": $('#year :selected').text(),
                     });
                 },
                 complete: () => {
@@ -2948,7 +2948,7 @@ $.varien = {
             const formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             const totalDeposit = data.reduce((acc, obj) => acc + parseFloat(obj.deposit), 0).toFixed(2);
             const totalWithdraw = data.reduce((acc, obj) => acc + parseFloat(obj.withdraw), 0).toFixed(2);
-            const monthlyAverage = calculateMonthlyAverage($('#month').val(), $('#year').val(), totalDeposit);
+            const monthlyAverage = calculateMonthlyAverage($('#month').val(), $('#year :selected').text(), totalDeposit);
 
             $('#totalDeposits').text(formatter.format(totalDeposit));
             $('#dailyAverage').text(formatter.format(monthlyAverage));
