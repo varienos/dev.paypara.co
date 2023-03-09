@@ -2621,10 +2621,10 @@ $.varien = {
                     let element = document.getElementById("chart-reports-pie");
                     if (!element) return;
 
-                    if(!data.distribution.length) data.distribution = [0, 0, 0, 0, 0];
+                    if(!data.length) data = [0, 0, 0, 0, 0];
 
                     let options = {
-                        series: data.distribution,
+                        series: data,
                         labels: ['Papara', 'Matching', 'Bank', 'Cross', 'Virtual POS'],
                         colors: ['#ba435f', '#943074', '#1a3045', '#698b55', '#bf7236'],
                         chart: {
@@ -2666,11 +2666,11 @@ $.varien = {
                     this.chart.self.render();
                 },
                 update: function(data) {
-                    this.chart.self.updateSeries(data.distribution);
+                    this.chart.self.updateSeries(data);
                 },
                 themeChange: function() {
                     // Destroy and re-initiate chart with same data when theme mode changes
-                    const data = { distribution: this.chart.self.opts.series };
+                    const data = this.chart.self.opts.series;
 
                     this.chart.self.destroy();
                     this.init(data);
@@ -2866,9 +2866,7 @@ $.varien = {
             });
 
             // Initialize pie chart
-            this.charts.pie.init({
-                'distribution': distribution.map(item => parseFloat(item.percentage)),
-            });
+            this.charts.pie.init(pieChartData.map(item => parseFloat(item.percentage)));
 
             // Initialize transactions datatable
             this.tables.transactions.init();
@@ -2924,12 +2922,10 @@ $.varien = {
             }
 
             // Validate data and update pie chart
-            const isPieDataEmpty = data.pieChart.distribution.every(obj => obj.percentage === "0.00");
-            if (data.pieChart.distribution.length > 0 && !isPieDataEmpty) {
+            const isPieDataEmpty = data.pieChart.every(obj => obj.percentage === "0.00");
+            if (data.pieChart.length > 0 && !isPieDataEmpty) {
                 this.charts.pie.hide(false);
-                this.charts.pie.update({
-                    "distribution": data.pieChart.distribution.map(item => parseFloat(item.percentage)),
-                });
+                this.charts.pie.update(data.pieChart.map(item => parseFloat(item.percentage)));
             } else {
                 this.charts.pie.hide(true);
             }

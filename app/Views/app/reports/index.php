@@ -139,10 +139,8 @@
     </div>
 
     <script>
+      const pieChartData = <?= json_encode($pieChart) ?>;
       const mainChartData = <?= json_encode($mainChart) ?>;
-      <? if(count($pieChart["distribution"]) > 0): ?>
-      const distribution = <?= json_encode($pieChart["distribution"]) ?>;
-      <? endif; ?>
     </script>
 
     <?php require appViewPath().'layout/footer/footer.php' ?>

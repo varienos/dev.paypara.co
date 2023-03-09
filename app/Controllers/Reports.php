@@ -34,9 +34,7 @@ class Reports extends BaseController
 
 		// Retrieve the data for the main chart and the pie chart
 		$data["mainChart"] = $this->ReportsModel->getMonthlyTransactionSum();
-		$data["pieChart"] = array(
-			"distribution" => $this->ReportsModel->getDepositDistribution(),
-		);
+		$data["pieChart"] = $this->ReportsModel->getDepositDistribution();
 
 		// Display the view with the retrieved data, with HTML minification
 		echo htmlMinify(view('app/reports/index', $data));
@@ -57,9 +55,7 @@ class Reports extends BaseController
 		// Get summary data, monthly transaction sum, and deposit distribution data
 		$data["summary"] = $this->ReportsModel->getSummaryData($month, $year, $firm);
 		$data["mainChart"] = $this->ReportsModel->getMonthlyTransactionSum($month, $year, $firm);
-		$data["pieChart"] = array(
-			"distribution" => $this->ReportsModel->getDepositDistribution($month, $year, $firm),
-		);
+		$data["pieChart"] = $this->ReportsModel->getDepositDistribution($month, $year, $firm);
 
 		// Encode data as JSON and return
 		return json_encode($data);
