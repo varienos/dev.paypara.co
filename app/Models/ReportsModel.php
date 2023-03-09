@@ -89,38 +89,6 @@ class ReportsModel extends Model
     }
 
     /**
-     * Returns summary data for the given month and year, and optionally filtered by firm
-     *
-     * @param string|null $month The month to get summary data for (in the format of "MM")
-     * @param string|null $year The year to get summary data for (in the format of "YYYY")
-     * @param int|null $firm The ID of the firm to filter by
-     *
-     * @return array An array containing summary data for the given month and year, and optionally filtered by firm
-     * The array contains the following keys:
-     *   'deposit': The total amount deposited in the given month and year (or filtered by firm)
-     *   'withdraw': The total amount withdrawn in the given month and year (or filtered by firm)
-     *   'average': The average amount deposited in the given month and year (or filtered by firm)
-     */
-    public function getSummaryData($month = null, $year = null, $firm = null)
-    {
-      // Establish a connection to the database
-      $db = \Config\Database::connect();
-
-      // Query the database to get the summary data for deposits, withdrawals, and averages for the given month, year and firm (if provided) and return the result
-      return $db->query("
-        SELECT
-          (SELECT COALESCE(SUM(price), 0) FROM finance
-          WHERE status = 'onaylandı' AND request = 'deposit' " . $this->firmQuery($firm) . " AND MONTH(request_time) = " . $this->getMonth($month) . " AND YEAR(request_time) = " . $this->getYear($year) . ") as deposit,
-
-          (SELECT COALESCE(SUM(price), 0) FROM finance
-          WHERE status = 'onaylandı' AND request = 'withdraw' " . $this->firmQuery($firm) . " AND MONTH(request_time) = " . $this->getMonth($month) . " AND YEAR(request_time) = " . $this->getYear($year) . ") as withdraw,
-
-          (SELECT COALESCE(AVG(price), 0) FROM finance
-          WHERE status = 'onaylandı' AND request = 'deposit' " . $this->firmQuery($firm) . " AND MONTH(request_time) = " . $this->getMonth($month) . " AND YEAR(request_time) = " . $this->getYear($year) . ") as average;
-      ")->getResultArray()[0];
-    }
-
-    /**
      * Retrieves the monthly transaction sum for a given month and year for a specific firm.
      *
      * @param int|string|null $month Optional. The month to retrieve data for. Defaults to the current month if not provided.

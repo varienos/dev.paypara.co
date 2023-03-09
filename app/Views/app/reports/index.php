@@ -97,21 +97,21 @@
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Total Deposits</div>
                           <div class="d-flex mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 me-1">₺</span>
-                            <span id="totalDeposits" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summary['deposit'], 2) ?></span>
+                            <span id="totalDeposits" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">0.00</span>
                           </div>
                         </div>
                         <div class="ps-md-10 pe-md-7 me-md-5">
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Total Withdrawals</div>
                           <div class="d-flex mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 me-1">₺</span>
-                            <span id="totalWithdrawals" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summary['withdraw'], 2) ?></span>
+                            <span id="totalWithdrawals" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">0.00</span>
                           </div>
                         </div>
                         <div class="m-0">
                           <div class="fs-6 fw-semibold text-gray-600 w-100 text-center mb-1">Average Daily Deposit</div>
                           <div class="d-flex align-items-center mb-2">
                             <span class="fs-4 fw-semibold text-gray-600 align-self-start me-1">₺</span>
-                            <span id="dailyAverage" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2"><?= number_format($summary['average'], 2) ?></span>
+                            <span id="dailyAverage" class="fs-2hx fw-bold text-gray-800 me-2 lh-1 ls-n2">0.00</span>
                           </div>
                         </div>
                       </div>

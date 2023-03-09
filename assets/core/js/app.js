@@ -2858,6 +2858,9 @@ $.varien = {
                 return;
             };
 
+            // Show summary data
+            this.updateSummary();
+
             // Initialize main chart
             this.charts.main.init({
                 'deposit': mainChartData.map(item => item.deposit),
@@ -2904,10 +2907,7 @@ $.varien = {
             if (!data) return;
 
             // Update summary data
-            const formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            $('#dailyAverage').text(formatter.format(data.summary.average));
-            $('#totalDeposits').text(formatter.format(data.summary.deposit));
-            $('#totalWithdrawals').text(formatter.format(data.summary.withdraw));
+            this.updateSummary(data.mainChart);
 
             // Validate data and update main chart
             if (!data.mainChart.every(obj => obj.deposit === "0.00" && obj.withdraw === "0.00")) {
@@ -2929,6 +2929,30 @@ $.varien = {
             } else {
                 this.charts.pie.hide(true);
             }
+        },
+        updateSummary: function(data) {
+            const calculateMonthlyAverage = (month, year, amount) => {
+                const daysInMonth = new Date(year, month, 0).getDate();
+                const currentDate = new Date();
+
+                if (currentDate.getMonth() === month && currentDate.getFullYear() === year) {
+                    const currentDay = currentDate.getDate();
+                    return amount / currentDay;
+                }
+
+                return amount / daysInMonth;
+            };
+
+            if(!data) data = mainChartData;
+
+            const formatter = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const totalDeposit = data.reduce((acc, obj) => acc + parseFloat(obj.deposit), 0).toFixed(2);
+            const totalWithdraw = data.reduce((acc, obj) => acc + parseFloat(obj.withdraw), 0).toFixed(2);
+            const monthlyAverage = calculateMonthlyAverage($('#month').val(), $('#year').val(), totalDeposit);
+
+            $('#totalDeposits').text(formatter.format(totalDeposit));
+            $('#dailyAverage').text(formatter.format(monthlyAverage));
+            $('#totalWithdrawals').text(formatter.format(totalWithdraw));
         },
         getDaysInMonth: (month = (new Date()).getMonth(), year = (new Date().getFullYear())) => {
             let days;

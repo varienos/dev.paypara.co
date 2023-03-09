@@ -28,8 +28,7 @@ class Reports extends BaseController
 			$data["userFirms"] = $this->ReportsModel->getUserFirms();
 		}
 
-		// Retrieve the summary data and the data for the highlight sections
-		$data["summary"] = $this->ReportsModel->getSummaryData();
+		// Retrieve the data for the highlight sections
 		$data["highlights"] = $this->ReportsModel->getHighlightsData();
 
 		// Retrieve the data for the main chart and the pie chart
@@ -52,8 +51,7 @@ class Reports extends BaseController
 		$year = $_POST["year"];
 		$month = $_POST["month"];
 
-		// Get summary data, monthly transaction sum, and deposit distribution data
-		$data["summary"] = $this->ReportsModel->getSummaryData($month, $year, $firm);
+		// Get monthly transaction sum, and deposit distribution data
 		$data["mainChart"] = $this->ReportsModel->getMonthlyTransactionSum($month, $year, $firm);
 		$data["pieChart"] = $this->ReportsModel->getDepositDistribution($month, $year, $firm);
 
