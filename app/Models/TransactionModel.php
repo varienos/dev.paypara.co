@@ -103,50 +103,64 @@ class TransactionModel extends Model
 
     public function dataUpdate($data)
     {
-        $finance    = $this->db->query("select * from finance where id='" . $data['id'] . "'")->getRow();
-        $site       = $this->db->query("select private_key from site where id='" . $finance->site_id . "'")->getRow();
-
-        $changeAmount = "&requestAmount=" . str_replace(".00", "", $finance->price) . "&processedAmount=" . str_replace(".00", "", $data['price']);
+        $finance = $this->db->query("select * from finance where id='" . $data['id'] . "'")->getRow();
+        $site    = $this->db->query("select private_key from site where id='" . $finance->site_id . "'")->getRow();
+        $match   = $this->db->query("select * from site_gamer_match where gamer_site_id='" . $finance->gamer_site_id . "' and account_id='" . $finance->account_id . "'")->getRow();
 
         $this->db->query("
-            update finance set
-			response_time   = NOW(),
-			notes			= '" . $data['notes'] . "',
-			user_id			= '" . $this->session->get('primeId') . "',
-			status			= '" . $data['status'] . "',
-			setUpdate		= '1'
-			where id='" . $data['id'] . "'"
-        );
-
-        $finance = $this->db->query("select * from finance where id='" . $data['id'] . "'")->getRow();
-        $match   = $this->db->query("select * from site_gamer_match where gamer_site_id='" . $finance->gamer_site_id . "' and account_id='" . $finance->account_id . "'")->getRow();
+            UPDATE finance SET
+            response_time=NOW(),
+            notes=?,
+            user_id=?,
+            status=?,
+            setUpdate=1
+            WHERE id=?
+        ", [$data['notes'], $this->session->get('primeId'), $data['status'], $data['id']]);
 
         if ($data['status'] == "reddedildi" && $match->firstMatch == 1 && $finance->request == "deposit") {
             $this->db->query("delete from site_gamer_match where gamer_site_id='" . $finance->gamer_site_id . "' and account_id='" . $finance->account_id . "'");
             $this->paypara->setLog("dataUpdate", "MÜŞTERİ TALEBİ REDDEDİLDİĞİ İÇİN HESAP EŞLEŞMESİ SONLANDIRILDI", $finance->gamer_site_id, $finance->site_id, $finance->price, 0, $finance->account_id, $finance->transaction_id);
         }
 
-        if ($finance->callBackURL != "" && $data['status'] != "işlemde" && $data['status'] != "beklemede") {
+        if (!empty($finance->callBackURL) && $data['status'] !== "işlemde" && $data['status'] !== "beklemede") {
             $status = $finance->status == "onaylandı" ? "success" : "rejected";
-            $hash           = md5($finance->transaction_id . $finance->gamer_site_id . $finance->price . $site->private_key);
-            $postData       = "hash=" . $hash . "&transactionId=" . $finance->transaction_id . "&requestId=" . $finance->request_id . "&transaction=" . $status . "&processTime=" . $finance->update_time . "&message=" . $finance->notes . $changeAmount;
+            $hash = md5($finance->transaction_id . $finance->gamer_site_id . $finance->price . $site->private_key);
+
+            $requestAmount = str_replace(".00", "", $finance->price);
+            $processedAmount = str_replace(".00", "", $data['price']);
+
+            $postData = [
+                'hash' => $hash,
+                'transactionId' => $finance->transaction_id,
+                'requestId' => $finance->request_id,
+                'transaction' => $status,
+                'processTime' => $finance->update_time,
+                'message' => $finance->notes,
+                'requestAmount' => $requestAmount,
+                'processedAmount' => $processedAmount,
+            ];
 
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $finance->callBackURL);
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+            curl_setopt_array($ch, [
+                CURLOPT_URL => $finance->callBackURL,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => http_build_query($postData),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 5
+            ]);
+
             $server_output = curl_exec($ch);
 
-            $this->db->query("insert into log_callback set
-                `dataPost`      = '" . $postData . "',
-                `dataResponse`  = " . $this->db->escape($server_output) . ",
-                `error`         = " . $this->db->escape(curl_error($ch)) . ",
-                `siteId`        = '" . $finance->site_id . "',
-                `callBackUrl`   = '" . $finance->callBackURL . "',
-                `callbackTime`  = NOW()
+            $this->db->query("
+                INSERT INTO log_callback (dataPost, dataResponse, error, siteId, callBackUrl, callbackTime)
+                VALUES (
+                    '" . http_build_query($postData) . "',
+                    " . $this->db->escape($server_output) . ",
+                    " . $this->db->escape(curl_error($ch)) . ",
+                    '" . $finance->site_id . "',
+                    '" . $finance->callBackURL . "',
+                    NOW()
+                )
             ");
 
             curl_close($ch);
