@@ -123,7 +123,7 @@ class TransactionModel extends Model
         }
 
         if (!empty($finance->callBackURL) && $data['status'] !== "işlemde" && $data['status'] !== "beklemede") {
-            $status = $finance->status == "onaylandı" ? "success" : "rejected";
+            $status = $data['status'] == "onaylandı" ? "success" : "rejected";
             $hash = md5($finance->transaction_id . $finance->gamer_site_id . $finance->price . $site->private_key);
 
             $requestAmount = str_replace(".00", "", $finance->price);
