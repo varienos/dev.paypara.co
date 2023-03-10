@@ -104,18 +104,19 @@ class TransactionModel extends Model
     public function dataUpdate($data)
     {
         $finance = $this->db->query("select * from finance where id='" . $data['id'] . "'")->getRow();
-        $site    = $this->db->query("select private_key from site where id='" . $finance->site_id . "'")->getRow();
-        $match   = $this->db->query("select * from site_gamer_match where gamer_site_id='" . $finance->gamer_site_id . "' and account_id='" . $finance->account_id . "'")->getRow();
+        $site = $this->db->query("select private_key from site where id='" . $finance->site_id . "'")->getRow();
+        $match = $this->db->query("select * from site_gamer_match where gamer_site_id='" . $finance->gamer_site_id . "' and account_id='" . $finance->account_id . "'")->getRow();
 
         $this->db->query("
             UPDATE finance SET
             response_time=NOW(),
+            update_time=NOW(),
             notes=?,
             user_id=?,
             status=?,
             setUpdate=1
             WHERE id=?
-        ", [$data['notes'], $this->session->get('primeId'), $data['status'], $data['id']]);
+        ", [ $data['notes'], $this->session->get('primeId'), $data['status'], $data['id'] ]);
 
         if ($data['status'] == "reddedildi" && $match->firstMatch == 1 && $finance->request == "deposit") {
             $this->db->query("delete from site_gamer_match where gamer_site_id='" . $finance->gamer_site_id . "' and account_id='" . $finance->account_id . "'");
@@ -126,8 +127,8 @@ class TransactionModel extends Model
             $status = $data['status'] == "onaylandı" ? "success" : "rejected";
             $hash = md5($finance->transaction_id . $finance->gamer_site_id . $finance->price . $site->private_key);
 
-            $requestAmount = str_replace(".00", "", $finance->price);
-            $processedAmount = str_replace(".00", "", $data['price']);
+            $requestAmount = floatval(str_replace(",", "", $finance->price));
+            $processedAmount = floatval(str_replace(",", "", $data['price']));
 
             $postData = [
                 'hash' => $hash,
@@ -135,7 +136,7 @@ class TransactionModel extends Model
                 'requestId' => $finance->request_id,
                 'transaction' => $status,
                 'processTime' => $finance->update_time,
-                'message' => $finance->notes,
+                'message' => $data['notes'],
                 'requestAmount' => $requestAmount,
                 'processedAmount' => $processedAmount,
             ];
