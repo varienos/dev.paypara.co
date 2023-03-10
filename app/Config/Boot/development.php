@@ -19,5 +19,7 @@ error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_WARNING & ~E_NOTICE & ~LO
  | the system. It's not widely used currently, and may not survive
  | release of the framework.
  */
-defined('SHOW_DEBUG_BACKTRACE') || define('SHOW_DEBUG_BACKTRACE',($_SERVER["REQUEST_URI"] != "/" && SUBDOMAIN == "dev" || HOSTNAME == "api.dev.paypara.co" || SUBDOMAIN == "deploy" ? false : false));
-defined('CI_DEBUG') || define('CI_DEBUG', ($_SERVER["REQUEST_URI"] != "/" && SUBDOMAIN == "dev" || HOSTNAME == "api.dev.paypara.co" || SUBDOMAIN == "deploy" ? false : false));
+$isDebugMode = ($_SERVER['REQUEST_URI'] !== '/' && (in_array(SUBDOMAIN, ['dev', 'deploy']) || HOSTNAME === 'api.dev.paypara.co'));
+
+defined('SHOW_DEBUG_BACKTRACE') || define('SHOW_DEBUG_BACKTRACE', $isDebugMode);
+defined('CI_DEBUG') || define('CI_DEBUG', $isDebugMode);
