@@ -99,8 +99,8 @@ class Reports extends BaseController
 		$data['length'] = intval($this->request->getVar('length'));
 
 		// Get transaction data
-		$data['dataTableNum'] = count((array)$this->ReportsModel->getTransactions($year, $month, $firm)->getResult());
 		$data['dataTable'] = $this->ReportsModel->getTransactions($year, $month, $firm);
+		$data['dataTableNum'] = count((array)$data['dataTable']);
 
 		// Set up variables for DataTables response
 		$iTotalRecords = $data['dataTableNum'];
@@ -113,13 +113,22 @@ class Reports extends BaseController
 		$records = array();
 		$records["data"] = array();
 
+		// Check if data is empty
+		$recordsTotal = 0;
+		foreach ($data['dataTable'] as $row)
+			foreach ($row as $key => $value)
+				if ($key != 'request_time' && ($recordsTotal += (float) $value) >= 1) break 2;
+
+		// Return if data is empty
+		if ($recordsTotal == 0) return json_encode($records);
+
 		// Set the end variable to the appropriate value
 		$end = $iDisplayStart + $iDisplayLength;
 		$end = $end > $iTotalRecords ? $iTotalRecords : $end;
 
 		// Loop through each row of data and add it to the records array
 		$i = 0;
-		foreach ($data['dataTable']->getResult() as $row) {
+		foreach ($data['dataTable'] as $row) {
 				$records["data"][$i] = array(
 						'DT_RowId' => $row->id,
 						'<div class="text-center fw-semibold text-gray-700">' . $row->request_time . '</div>',

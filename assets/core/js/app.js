@@ -2768,6 +2768,7 @@ $.varien = {
 
                   this.table.on('draw', function() {
                     $.varien.datatable.exportEvents();
+                    $('tbody td:nth-child(6)').addClass('border-end');
                   });
                 },
                 reload() {

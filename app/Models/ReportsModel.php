@@ -241,46 +241,79 @@ class ReportsModel extends Model
      * The data includes the count and total amount of deposit and withdraw transactions, as well as
      * the count and total amount of transactions per payment method (if the user has root access).
      *
-     * @param int|string|null $year The year to filter by. If null, the current year will be used.
-     * @param int|string|null $month The month to filter by. If null, the current month will be used.
-     * @param string|null $firm The firm to filter by. If null, all firms will be included.
+     * @param int|null $year Year to get transactions for. If not provided, current year is used.
+     * @param int|null $month Month to get transactions for. If not provided, current month is used.
+     * @param string|null $firm Firm to get transactions for. If not provided, all firms are included.
      *
-     * @return \CodeIgniter\Database\ResultInterface The query result containing the transactions data.
-     */
+     * @return array Transactions data for the given year, month, and firm.
+    */
     public function getTransactions($year = null, $month = null, $firm = null)
     {
-      // Initialize the query with the necessary columns and date formatting
-      $query = "SELECT DATE_FORMAT(request_time, '%d.%m.%Y') AS request_time, method,";
+      // Set default values.
+      $year = $this->getYear($year);
+      $firm = $this->firmQuery($firm);
+      $month = $this->getMonth($month);
+
+      // Initialize days array.
+      $days = [];
+
+      // Get current day, month, and year.
+      $current_day = date('d');
+      $current_year = date('Y');
+      $current_month = date('m');
+
+      // If year and month are current, only include days up to the current day
+      if ($year == $current_year && $month == $current_month) {
+          for ($i = 1; $i <= $current_day; $i++) {
+              $days[] = date('Y-m-d', strtotime("$year-$month-$i"));
+          }
+      } else { // Otherwise, include all days for the given month
+          for ($i = 1; $i <= date('t', strtotime("$year-$month-01")); $i++) {
+              $days[] = date('Y-m-d', strtotime("$year-$month-$i"));
+          }
+      }
+
+      // Start building the query with the necessary columns and date formatting
+      $query = "SELECT DATE_FORMAT(days.request_time, '%d.%m.%Y') as request_time ";
 
       // Add column totals for root users
       if($this->session->get('root')) {
-        $query .= "SUM(CASE WHEN method = 'cross' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS crossTotal,";
-        $query .= "SUM(CASE WHEN method = 'bank' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS bankTotal,";
-        $query .= "SUM(CASE WHEN method = 'pos' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS posTotal,";
-        $query .= "SUM(CASE WHEN method = 'papara' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS paparaTotal,";
-        $query .= "SUM(CASE WHEN method = 'match' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE '-' END) AS matchingTotal,";
+          $query .= ", SUM(CASE WHEN method = 'cross' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS crossTotal ";
+          $query .= ", SUM(CASE WHEN method = 'bank' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS bankTotal ";
+          $query .= ", SUM(CASE WHEN method = 'pos' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS posTotal ";
+          $query .= ", SUM(CASE WHEN method = 'papara' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS paparaTotal ";
+          $query .= ", SUM(CASE WHEN method = 'match' AND request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS matchingTotal ";
       }
 
       // Add columns for successful deposit and withdraw transactions and totals
-      $query .= "COUNT(CASE WHEN request = 'deposit' AND status = 'onaylandı' THEN price END) AS depositTxn,";
-      $query .= "SUM(CASE WHEN request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS depositTotal,";
-      $query .= "COUNT(CASE WHEN request = 'withdraw' AND status = 'onaylandı' THEN price END) AS withdrawTxn,";
-      $query .= "SUM(CASE WHEN request = 'withdraw' AND status = 'onaylandı' THEN price ELSE 0 END) AS withdrawTotal ";
+      $query .= ", COUNT(CASE WHEN request = 'deposit' AND status = 'onaylandı' THEN price END) AS depositTxn ";
+      $query .= ", SUM(CASE WHEN request = 'deposit' AND status = 'onaylandı' THEN price ELSE 0 END) AS depositTotal ";
+      $query .= ", COUNT(CASE WHEN request = 'withdraw' AND status = 'onaylandı' THEN price END) AS withdrawTxn ";
+      $query .= ", SUM(CASE WHEN request = 'withdraw' AND status = 'onaylandı' THEN price ELSE 0 END) AS withdrawTotal ";
 
-      // Add the finance table to the query and filter by year, month and firm
-      $query .= "FROM finance ";
-      $query .= "WHERE MONTH(request_time) = '" . $this->getMonth($month) . "' ";
-      $query .= "AND YEAR(request_time)  = '" . $this->getYear($year) . "' ";
-      $query .= $this->firmQuery($firm) . " ";
+      // Add the FROM and WHERE clauses
+      $query .= "FROM (SELECT ? as request_time ";
 
-      // Group the results by year, month and day and sort by request_time in ascending order
-      $query .= "GROUP BY YEAR(request_time), MONTH(request_time), DAY(request_time) ";
-      $query .= "ORDER BY request_time ASC";
+      // Add placeholders for each day
+      for ($i = 1; $i < count($days); $i++) {
+          $query .= "UNION SELECT ? ";
+      }
+
+      // Add the table joins and where conditions
+      $query .= ") days LEFT JOIN finance ON DATE(days.request_time) = DATE(finance.request_time) AND finance.status = 'onaylandı' ";
+      $query .= "WHERE MONTH(days.request_time) = ? AND YEAR(days.request_time) = ? ";
+      $query .= $firm . " ";
+
+      // Group by year, month, and day
+      $query .= "GROUP BY YEAR(days.request_time), MONTH(days.request_time), DAY(days.request_time) ";
+      $query .= "ORDER BY days.request_time ASC";
+
+      // Merge the placeholders for the query
+      $placeholders = array_merge($days, [$month, $year]);
 
       // Execute the query and return the result
-      return $this->db->query($query);
+      return $this->db->query($query, $placeholders)->getResult();
     }
-
 
     /**
      * Retrieves custom statistics for deposits made by users in a given month and year

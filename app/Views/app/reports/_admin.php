@@ -231,7 +231,7 @@
             <th class="text-center"></th>
             <th class="text-center"></th>
             <th class="text-center"></th>
-            <th class="text-center"></th>
+            <th class="text-center border-end"></th>
             <th class="text-center"></th>
             <th class="text-center"></th>
             <th class="text-center"></th>
