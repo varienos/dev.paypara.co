@@ -138,16 +138,15 @@ class ApiModel extends Model
             die();
         }
 
-        //return [$postData['apiKey']];
         $apiKey         = trim($postData['apiKey']);
-        //$apiKey         = $_POST["apiKey"];
         $transactionId  = $postData['transactionId'];
         $amount         = $postData['amount'];
         $userId         = $postData['userId'];
         $userName       = $postData['userName'];
         $userNick       = $postData['userNick'];
-        $callback    = $postData['callback'];
-        $transaction    = $this->db->query("select * from finance where `transaction_id`='" . $transactionId . "' and status='pre-request' and site_id='" . $this->getSiteId($apiKey) . "'")->getRow();
+        $callback       = $postData['callback'];
+
+        $transaction = $this->db->query("select * from finance where `transaction_id`='" . $transactionId . "' and status='pre-request' and site_id='" . $this->getSiteId($apiKey) . "'")->getRow();
 
         // DAHA ÖNCE OLUŞTURULMUŞ TOKEN VE FINANCE VAR İSE SİL
         if ($transaction->token != "") {
@@ -155,24 +154,25 @@ class ApiModel extends Model
             $this->db->query("delete from finance where `transaction_id`='" . $transactionId . "'");
         }
 
-        $gamerCheck     = $this->db->query("select gamer_site_id from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($apiKey) . "'");
+        $dateNow = date('Y-m-d H:i:s');
+        $gamerCheck = $this->db->query("select gamer_site_id from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($apiKey) . "'");
 
         if (count((array)$gamerCheck->getResult()) == 0) {
             $this->db->query("insert into site_gamer set
-                registerTime    =NOW(),
-                updateTime      =NOW(),
-                status          ='on',
-                `gamer_site_id` ='" . $userId . "',
-                gamer_nick      ='" . $userNick . "',
-                gamer_name      ='" . $userName . "',
-                site_id         ='" . $this->getSiteId($apiKey) . "',
-                withdraw        ='on',
-                deposit         ='on'
+                registerTime    = '" . $dateNow . "',
+                updateTime      = '" . $dateNow . "',
+                status          = 'on',
+                `gamer_site_id` = '" . $userId . "',
+                gamer_nick      = '" . $userNick . "',
+                gamer_name      = '" . $userName . "',
+                site_id         = '" . $this->getSiteId($apiKey) . "',
+                withdraw        = 'on',
+                deposit         = 'on'
             ");
         }
 
-        $gamerData    =  $this->db->query("select deposit,isVip from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($apiKey) . "'")->getRow();
-        $data         =  $this->db->query("select * from site where status='on' and api_key='" . md5($apiKey) . "'")->getRow();
+        $gamerData = $this->db->query("select deposit,isVip from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($apiKey) . "'")->getRow();
+        $data = $this->db->query("select * from site where status='on' and api_key='" . md5($apiKey) . "'")->getRow();
 
         if ($apiKey == "")                  $error = $this->error->string("apikey_required", __CLASS__, __FUNCTION__);
         if ($data->id == "")                $error = $this->error->string("apikey_not_valid", __CLASS__, __FUNCTION__);
@@ -192,16 +192,16 @@ class ApiModel extends Model
         $token = md5($apiKey . microtime()) . md5($apiKey . microtime());
         $this->db->query("
             insert into token set
-            apiKey           ='" . $apiKey . "',
-            token            ='" . $token . "',
-            transactionId    ='" . $transactionId . "',
-            amount           ='" . $amount . "',
-            userId           ='" . $userId . "',
-            userName         ='" . $userName . "',
-            userNick         ='" . $userNick . "',
-            callbackUrl      ='" . $callback . "',
-            site_id          ='" . $this->getSiteId($apiKey) . "',
-            generateTime     =NOW()"
+            apiKey           = '" . $apiKey . "',
+            token            = '" . $token . "',
+            transactionId    = '" . $transactionId . "',
+            amount           = '" . $amount . "',
+            userId           = '" . $userId . "',
+            userName         = '" . $userName . "',
+            userNick         = '" . $userNick . "',
+            callbackUrl      = '" . $callback . "',
+            site_id          = '" . $this->getSiteId($apiKey) . "',
+            generateTime     = '" . $dateNow . "'"
         );
 
         $link = 'https://pay.paypara.co/papara/';
