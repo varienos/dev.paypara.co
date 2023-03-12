@@ -1130,7 +1130,8 @@ $.varien = {
 
                     const table = $('#datatable_content').DataTable();
                     const pending_rows = table.rows(function(index, data, node) {
-                        return data[8].includes('Pending');
+                        let i = $.varien.segment(3) === 'deposit' ? 8 : 7;
+                        return data[i].includes('Pending');
                     }).nodes();
 
                     let rows = [];
