@@ -142,11 +142,12 @@ class ApiModel extends Model
         $transactionId  = $postData['transactionId'];
         $amount         = $postData['amount'];
         $userId         = $postData['userId'];
-        $userName       = $postData['userName'];
-        $userNick       = $postData['userNick'];
+        $userName       = str_replace("'", "", $_POST['userName']);
+        $userNick       = str_replace("'", "", $_POST['userNick']);
         $callback       = $postData['callback'];
+        $siteId        = $this->getSiteId($apiKey);
 
-        $transaction = $this->db->query("select * from finance where `transaction_id`='" . $transactionId . "' and status='pre-request' and site_id='" . $this->getSiteId($apiKey) . "'")->getRow();
+        $transaction = $this->db->query("select * from finance where `transaction_id`='" . $transactionId . "' and status='pre-request' and site_id='" . $siteId . "'")->getRow();
 
         // DAHA ÖNCE OLUŞTURULMUŞ TOKEN VE FINANCE VAR İSE SİL
         if ($transaction->token != "") {
@@ -155,7 +156,7 @@ class ApiModel extends Model
         }
 
         $dateNow = date('Y-m-d H:i:s');
-        $gamerCheck = $this->db->query("select gamer_site_id from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($apiKey) . "'");
+        $gamerCheck = $this->db->query("select gamer_site_id from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $siteId . "'");
 
         if (count((array)$gamerCheck->getResult()) == 0) {
             $this->db->query("insert into site_gamer set
@@ -165,13 +166,13 @@ class ApiModel extends Model
                 `gamer_site_id` = '" . $userId . "',
                 gamer_nick      = '" . $userNick . "',
                 gamer_name      = '" . $userName . "',
-                site_id         = '" . $this->getSiteId($apiKey) . "',
+                site_id         = '" . $siteId . "',
                 withdraw        = 'on',
                 deposit         = 'on'
             ");
         }
 
-        $gamerData = $this->db->query("select deposit,isVip from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($apiKey) . "'")->getRow();
+        $gamerData = $this->db->query("select deposit,isVip from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $siteId . "'")->getRow();
         $data = $this->db->query("select * from site where status='on' and api_key='" . md5($apiKey) . "'")->getRow();
 
         if ($apiKey == "")                  $error = $this->error->string("apikey_required", __CLASS__, __FUNCTION__);
@@ -184,7 +185,7 @@ class ApiModel extends Model
         if ($transactionId == "")           $error = $this->error->string("transaction_id_required", __CLASS__, __FUNCTION__);
 
         if (\is_array($error)) {
-            $this->log($this->getSiteId($apiKey), $error, __FUNCTION__);
+            $this->log($siteId, $error, __FUNCTION__);
             return $error;
             die();
         }
@@ -200,7 +201,7 @@ class ApiModel extends Model
             userName         = '" . $userName . "',
             userNick         = '" . $userNick . "',
             callbackUrl      = '" . $callback . "',
-            site_id          = '" . $this->getSiteId($apiKey) . "',
+            site_id          = '" . $siteId . "',
             generateTime     = '" . $dateNow . "'"
         );
 
@@ -211,7 +212,7 @@ class ApiModel extends Model
         if (HOSTNAME == 'api.dev.paypara.localhost') $link = 'https://pay.dev.paypara.localhost/papara/';
         if ($_SERVER['HTTP_REFERER'] == 'https://demo.paypara.co/') $link = 'https://demo.paypara.co/papara/';
 
-        $this->log($this->getSiteId($apiKey), ["status" => true, "link" => $link . $token], __FUNCTION__);
+        $this->log($siteId, ["status" => true, "link" => $link . $token], __FUNCTION__);
         return ["status" => true, "link" => $link . $token];
     }
 
@@ -342,16 +343,17 @@ class ApiModel extends Model
 
     public function approve($apiKey, $requestId)
     {
-        $dataCheck = $this->db->query("select * from finance where `request_id`= '" . $requestId . "' and `site_id`= '" . $this->getSiteId($apiKey) . "'")->getRow();
+        $siteId = $this->getSiteId($apiKey);
+        $dataCheck = $this->db->query("select * from finance where `request_id`= '" . $requestId . "' and `site_id`= '" . $siteId . "'")->getRow();
 
         if ($dataCheck->id == "") {
-            $this->log($this->getSiteId($apiKey), $this->error->string("request_id_not_found", __CLASS__, __FUNCTION__), __FUNCTION__);
+            $this->log($siteId, $this->error->string("request_id_not_found", __CLASS__, __FUNCTION__), __FUNCTION__);
             return  $this->error->string("request_id_not_found", __CLASS__, __FUNCTION__);
         }
 
-        $this->db->query("update finance set status='beklemede', `request_time`= NOW(), `update_time`= NOW() where `request_id`= '" . $requestId . "' and `site_id`= '" . $this->getSiteId($apiKey) . "'");
+        $this->db->query("update finance set status='beklemede', `request_time`= NOW(), `update_time`= NOW() where `request_id`= '" . $requestId . "' and `site_id`= '" . $siteId . "'");
         $this->db->query("update token set `status`= 1 where `token`= '" . $dataCheck->token . "'");
-        $this->log($this->getSiteId($apiKey), ["status" => true], __FUNCTION__);
+        $this->log($siteId, ["status" => true], __FUNCTION__);
 
         return ["status" => true];
     }
@@ -363,19 +365,20 @@ class ApiModel extends Model
             die();
         }
 
-        $key            = $_POST['apiKey'];
+        $apiKey         = $_POST['apiKey'];
         $action         = $_POST['action'];
         $userId         = $_POST['userId'];
         $token          = $_POST['token'];
-        $userName       = $_POST['userName'];
-        $userNick       = $_POST['userNick'];
+        $userName       = str_replace("'", "", $_POST['userName']);
+        $userNick       = str_replace("'", "", $_POST['userNick']);
         $price          = $_POST['amount'];
         $transaction_id = $_POST['transactionId'];
         $callBackUrl    = $_POST['callback'];
+        $siteId         = $this->getSiteId($apiKey);
 
         // IFRAME REQUEST
         if ($status == "pre-request" && $action == "reload") {
-            $transaction = $this->db->query("select * from finance where `transaction_id`='" . $transaction_id . "' and status='pre-request' and site_id='" . $this->getSiteId($key) . "'")->getRow();
+            $transaction = $this->db->query("select * from finance where `transaction_id`='" . $transaction_id . "' and status='pre-request' and site_id='" . $siteId . "'")->getRow();
             if ($transaction->token != "") {
                 $this->db->query("delete from finance where `transaction_id`='" . $transaction_id . "' and `site_id`='" . $this->site_id . "'");
                 $this->db->query("update token set status='0', generateTime=NOW() where `token`='" . $transaction->token . "'");
@@ -398,7 +401,7 @@ class ApiModel extends Model
         if ($price == "")               $error = $this->error->string("amount_required", __CLASS__, __FUNCTION__);
 
         if (\is_array($error)) {
-            $this->log($this->getSiteId($key), $error, __FUNCTION__);
+            $this->log($siteId, $error, __FUNCTION__);
             return $error;
             die();
         }
@@ -407,17 +410,20 @@ class ApiModel extends Model
         $gamerCheck     = $this->db->query("select gamer_site_id from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($_POST["apiKey"]) . "'");
 
         if (count((array)$gamerCheck->getResult()) == 0) {
-            $this->db->query("insert into site_gamer set
-                registerTime    =NOW(),
-                updateTime      =NOW(),
-                status          ='on',
-                `gamer_site_id` ='" . $userId . "',
-                gamer_nick      ='" . $userNick . "',
-                gamer_name      ='" . $userName . "',
-                site_id         ='" . $this->getSiteId($_POST["apiKey"]) . "',
-                withdraw        ='on',
-                deposit         ='on'
-            ");
+            $data = [
+                'registerTime' => 'NOW()',
+                'updateTime' => 'NOW()',
+                'status' => 'on',
+                'gamer_site_id' => $userId,
+                'gamer_nick' => $userNick,
+                'gamer_name' => $userName,
+                'site_id' => $siteId,
+                'withdraw' => 'on',
+                'deposit' => 'on'
+            ];
+
+            $builder = $this->db->table('site_gamer');
+            $builder->insert($data);
         }
 
         $gamerData =  $this->db->query("select deposit,isVip from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($_POST["apiKey"]) . "'")->getRow();
@@ -425,7 +431,7 @@ class ApiModel extends Model
         if ($gamerData->deposit != "on") {
             $this->paypara->setLog("setRequestDeposit", mb_strtoupper($userNick, "UTF-8") . " - YATIRIM PASİF OLDUĞU İÇİN YATIRIM HESABI DÖNDÜRÜLMEDİ.", $userId, $this->getSiteId($_POST["apiKey"]), $price, $gamerData->isVip, "", $transaction_id);
 
-            $this->log($this->getSiteId($key), $this->error->string("user_deposit_disabled", __CLASS__, __FUNCTION__), __FUNCTION__);
+            $this->log($siteId, $this->error->string("user_deposit_disabled", __CLASS__, __FUNCTION__), __FUNCTION__);
             return $this->error->string("user_deposit_disabled", __CLASS__, __FUNCTION__);
         }
 
@@ -468,13 +474,13 @@ class ApiModel extends Model
             `dataPost`      = " . $this->db->escape(json_encode($_POST, JSON_UNESCAPED_UNICODE)) . ",
             `dataResponse`  = " . $this->db->escape(json_encode($obj, JSON_UNESCAPED_UNICODE)) . ",
             `dataHeader`    = " . $this->db->escape(json_encode(getallheaders(), JSON_UNESCAPED_UNICODE)) . ",
-            `apiKey`        = '" . $key . "',
+            `apiKey`        = '" . $apiKey . "',
             `siteId`        = '" . $this->site_id . "',
             `requestTime`   = NOW()
         ");
 
         unset($obj["account_type"]);
-        $this->log($this->getSiteId($key), $obj, __FUNCTION__);
+        $this->log($siteId, $obj, __FUNCTION__);
 
         return $obj;
     }
@@ -486,27 +492,28 @@ class ApiModel extends Model
             die();
         }
 
-        $key            = $_POST['apiKey'];
+        $apiKey         = $_POST['apiKey'];
         $userId         = $_POST['userId'];
-        $userName       = $_POST['userName'];
-        $userNick       = $_POST['userNick'];
+        $userName       = str_replace("'", "", $_POST['userName']);
+        $userNick       = str_replace("'", "", $_POST['userNick']);
         $price          = $_POST['amount'];
         $transaction_id = $_POST['transactionId'];
         $account_number = $_POST['account_number'];
         $callBackUrl    = $_POST['callback'];
+        $siteId         = $this->getSiteId($apiKey);
 
         if ($this->paypara->setNumber($price) < $this->paypara->setNumber($this->minWithdraw)) {
-            $this->log($this->getSiteId($key), $this->error->string("min_withdraw_limit_error", __CLASS__, __FUNCTION__), __FUNCTION__);
+            $this->log($siteId, $this->error->string("min_withdraw_limit_error", __CLASS__, __FUNCTION__), __FUNCTION__);
             return $this->error->string("min_withdraw_limit_error", __CLASS__, __FUNCTION__);
         }
 
         if ($this->paypara->setNumber($price) > $this->paypara->setNumber($this->maxDeposit)) {
-            $this->log($this->getSiteId($key), $this->error->string("max_withdraw_limit_error", __CLASS__, __FUNCTION__), __FUNCTION__);
+            $this->log($siteId, $this->error->string("max_withdraw_limit_error", __CLASS__, __FUNCTION__), __FUNCTION__);
             return $this->error->string("max_withdraw_limit_error", __CLASS__, __FUNCTION__);
         }
 
-        $transactionCheck = $this->db->query("select * from finance where `transaction_id`='" . $transaction_id . "' and `site_id`='" . $this->getSiteId($key) . "'")->getRow();
-        $isActiveStatus = $this->db->query("select * from finance where `gamer_site_id`='" . $userId . "' and `site_id`='" . $this->getSiteId($key) . "' and (`status`='beklemede' or `status`='işlemde')")->getRow();
+        $transactionCheck = $this->db->query("select * from finance where `transaction_id`='" . $transaction_id . "' and `site_id`='" . $siteId . "'")->getRow();
+        $isActiveStatus = $this->db->query("select * from finance where `gamer_site_id`='" . $userId . "' and `site_id`='" . $siteId . "' and (`status`='beklemede' or `status`='işlemde')")->getRow();
 
         if ($transactionCheck->id != "") $error = $this->error->string("transaction_id_exists", __CLASS__, __FUNCTION__);
         if ($isActiveStatus->id > 0)     $error = $this->error->string("transaction_unfinished", __CLASS__, __FUNCTION__);
@@ -519,34 +526,36 @@ class ApiModel extends Model
         if ($account_number == "")       $error = $this->error->string("account_number_required", __CLASS__, __FUNCTION__);
 
         if (\is_array($error)) {
-            $this->log($this->getSiteId($key), $error, __FUNCTION__);
+            $this->log($siteId, $error, __FUNCTION__);
             return $error;
             die();
         }
 
-        $request_id     = md5(microtime() . $userName . $price . $key);
-        $gamerCheck     = $this->db->query("select gamer_site_id from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($_POST["apiKey"]) . "'");
+        $request_id     = md5(microtime() . $userName . $price . $apiKey);
+        $gamerCheck     = $this->db->query("select gamer_site_id from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $siteId . "'");
 
         if (count((array)$gamerCheck->getResult()) == 0) {
-            $this->db->query("insert into site_gamer set
-                registerTime        =NOW(),
-                updateTime			=NOW(),
-                status				='on',
-                `gamer_site_id` 	='" . $userId . "',
-                gamer_nick			='" . $userNick . "',
-                gamer_name			='" . $userName . "',
-                site_id				='" . $this->getSiteId($_POST["apiKey"]) . "',
-                withdraw		    ='on',
-                deposit		        ='on'
-            ");
-            // $this->error->dbException($this->db->error())!=true ? die() : null;
+            $data = [
+                'registerTime' => 'NOW()',
+                'updateTime' => 'NOW()',
+                'status' => 'on',
+                'gamer_site_id' => $userId,
+                'gamer_nick' => $userNick,
+                'gamer_name' => $userName,
+                'site_id' => $siteId,
+                'withdraw' => 'on',
+                'deposit' => 'on'
+            ];
+
+            $builder = $this->db->table('site_gamer');
+            $builder->insert($data);
         }
 
-        $gamerData =  $this->db->query("select withdraw,isVip from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $this->getSiteId($_POST["apiKey"]) . "'")->getRow();
+        $gamerData =  $this->db->query("select withdraw,isVip from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $siteId . "'")->getRow();
 
         if ($gamerData->withdraw != "on") {
-            $this->paypara->setLog("withdraw", mb_strtoupper($userNick, "UTF-8") . " - YATIRIM PASİF OLDUĞU İÇİN YATIRIM HESABI DÖNDÜRÜLMEDİ.", $userId, $this->getSiteId($_POST["apiKey"]), $price, $gamerData->isVip, "", $transaction_id);
-            $this->log($this->getSiteId($key), $this->error->string("user_withdraw_disabled", __CLASS__, __FUNCTION__), __FUNCTION__);
+            $this->paypara->setLog("withdraw", mb_strtoupper($userNick, "UTF-8") . " - YATIRIM PASİF OLDUĞU İÇİN YATIRIM HESABI DÖNDÜRÜLMEDİ.", $userId, $siteId, $price, $gamerData->isVip, "", $transaction_id);
+            $this->log($siteId, $this->error->string("user_withdraw_disabled", __CLASS__, __FUNCTION__), __FUNCTION__);
             return $this->error->string("user_withdraw_disabled", __CLASS__, __FUNCTION__);
         }
 
@@ -555,7 +564,7 @@ class ApiModel extends Model
             `user_name` 			= '" . $userName . "',
             `user_nick` 			= '" . $userNick . "',
             `transaction_id` 		= '" . $transaction_id . "',
-            `site_id` 				= '" . $this->getSiteId($key) . "',
+            `site_id` 				= '" . $siteId . "',
             `price` 				= '" . $price . "',
             `request` 				= 'withdraw',
             `status` 				= 'beklemede',
@@ -571,7 +580,7 @@ class ApiModel extends Model
 		");
 
         $obj = array("status" => true, "message" => "success", "transactionId" => $transaction_id, "requestId" => $request_id);
-        $this->log($this->getSiteId($key), $obj, __FUNCTION__);
+        $this->log($siteId, $obj, __FUNCTION__);
 
         return $obj;
     }
@@ -583,7 +592,7 @@ class ApiModel extends Model
             die();
         }
 
-        $key            = $_POST['apiKey'];
+        $apiKey         = $_POST['apiKey'];
         $transaction_id = $_POST['transactionId'];
         $request_id     = $_POST['requestId'];
 
@@ -606,7 +615,7 @@ class ApiModel extends Model
             $obj = array("status" => true, "transaction" => $status, "message" => $request->notes, "processTime" => $request->update_time);
         }
 
-        $this->log($this->getSiteId($key), $obj, __FUNCTION__);
+        $this->log($this->getSiteId($apiKey), $obj, __FUNCTION__);
         return $obj;
     }
 }
