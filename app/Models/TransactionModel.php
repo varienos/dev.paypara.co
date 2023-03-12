@@ -60,26 +60,6 @@ class TransactionModel extends Model
         return $x->getRow();
     }
 
-    public function calcCom($site_id, $request, $price, $process = null)
-    {
-        $data = $this->db->query("select * from site where id='" . $site_id . "'")->getRowArray();
-        if ($request == "deposit") {
-            $com = $data["deposit_com"];
-        } else {
-            $com = $data["withdraw_com"];
-        }
-
-        return $com == 0 || $com == "" ? 0 : ($price / 100) * $com;
-    }
-
-    public function comFix()
-    {
-        $finance = $this->db->query("select * from finance where price_old IS NOT NULL")->getResult();
-        foreach ($finance as $row) {
-            $this->db->query("update finance set commission='" . $this->calcCom($row->site_id, $row->request, $row->price, $row->process) . "' where id='" . $row->id . "'");
-        }
-    }
-
     public function tokenUpdate($token)
     {
         $tokenData = $this->db->query("select * from token where token='" . $token . "'")->getRow();
