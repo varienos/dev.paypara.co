@@ -199,7 +199,7 @@ class TransactionModel extends Model
         return $data["process"] == "update" ? $data['id'] : $this->db->insertID();
     }
 
-    public function datatable($dataStart = 0, $dataEnd = 99999999, $postData = [], $request)
+    public function datatable($dataStart = 0, $dataEnd = 99999999, $postData = [], $request = null)
     {
         $searchArray = explode("::", $postData["search"]["value"]);
 
@@ -296,7 +296,7 @@ class TransactionModel extends Model
         return $x;
     }
 
-    public function customerTransactionTable($dataStart = 0, $dataEnd = 99999999, $postData = [], $site_id, $gamer_site_id)
+    public function customerTransactionTable($dataStart = 0, $dataEnd = 99999999, $postData = [], $site_id = null, $gamer_site_id = null)
     {
         $searchArray = explode("::", $postData["search"]["value"]);
         if ($searchArray[1] != "" && $searchArray[1] != "all") {
