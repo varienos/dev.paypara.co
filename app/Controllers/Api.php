@@ -7,11 +7,15 @@ class Api extends BaseController
     public function __construct()
     {
         helper('app');
-        $this->api = new \App\Models\ApiModel();  
+        $this->api = new \App\Models\ApiModel();
     }
     public function ipCheckpoint()
     {
-        return array_search(getClientIpAddress(),explode(',',ipWhitelist()))===false&&getClientIpAddress()!=$_SERVER['SERVER_ADDR']?$this->error->string("ip_blocked", __CLASS__, __FUNCTION__):null;
+        $userIpAddress = getClientIpAddress();
+        $allowedAddresses = array_map('trim', explode(',', ipWhitelist()));
+        $isAllowed = array_search($userIpAddress, $allowedAddresses) === false && $userIpAddress != $_SERVER['SERVER_ADDR'];
+
+        return $isAllowed ? $this->error->string("not_authorized", __CLASS__, __FUNCTION__) : null;
     }
     public function index()
     {
