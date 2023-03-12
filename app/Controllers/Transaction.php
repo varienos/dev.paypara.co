@@ -8,7 +8,7 @@ class Transaction extends BaseController
     public function __construct()
     {
         $this->TransactionModel = new \App\Models\TransactionModel();
-        $this->ClientModel         = new \App\Models\ClientModel();
+        $this->ClientModel = new \App\Models\ClientModel();
     }
 
     public function include($fileName)

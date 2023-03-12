@@ -9,11 +9,13 @@ class Error
     {
         $this->db = \Config\Database::connect();
     }
+
     public function string($flag, $controller, $method)
     {
         $data = getString($flag, $controller, $method);
         return ["status" => false, "id" => $data->id, "error" => ($data->string != "" ? $data->string : $data->flag)];
     }
+
     public function dbException($error)
     {
         if (!\is_array($error)) {
