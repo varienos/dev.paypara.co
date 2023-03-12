@@ -587,9 +587,16 @@ class ApiModel extends Model
         $transaction_id = $_POST['transactionId'];
         $request_id     = $_POST['requestId'];
 
-        if ($transaction_id == "" && $request_id == "") return $this->error->string("transaction_id_or_request_id_required", __CLASS__, __FUNCTION__);
+        if (empty($transaction_id) && empty($request_id)) {
+            return $this->error->string("transaction_id_or_request_id_required", __CLASS__, __FUNCTION__);
+        }
 
         $request = $this->db->query("select * from finance where transaction_id='" . $transaction_id . "' or request_id='" . $request_id . "'")->getRow();
+
+        if($request == null) {
+            return $this->error->string("no_transaction_found", __CLASS__, __FUNCTION__);
+        }
+
         $status = $request->status == "onaylandı" ? "success" : "rejected";
         $status = $request->status == "beklemede" ? "processing" : $status;
 
