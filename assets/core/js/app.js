@@ -27,7 +27,7 @@ $.varien = {
             // Replace and hide error message when connection is restored
             if ($('.ajax-error').hasClass('d-none') === false && options.status === 200) {
                 $('.ajax-error-icon').removeClass('bi-wifi-off').addClass('bi-check2');
-                $('.ajax-error-message').text('Your internet connection has been restored');
+                $('.ajax-error-message').text('Your connection has been restored');
                 $('.ajax-error').removeClass('bg-danger').addClass('bg-success');
 
                 $.wait(5000).then(() => {
@@ -42,14 +42,30 @@ $.varien = {
 
         // Catch all AJAX errors
         $(document).ajaxError((event, xhr, options, thrownError) => {
-            // Check connection and if fails, notify user
-            $('.ajax-error-icon').removeClass('bi-check2').addClass('bi-wifi-off');
-            $('.ajax-error').removeClass('d-none bg-success').addClass('bg-danger');
-            $('.ajax-error-message').text('You seem to be offline. Please check your network connection and try again.');
+            // Notify user if connection fails
+            if(xhr.status === 0) {
+                console.log('xhr status: ' + xhr.status);
+                const messages = {
+                    userOffline: "You seem to be offline. Please check your network connection and try again.",
+                    ajaxFail: "There was a problem connecting to server. Please refresh the page and try again."
+                }
 
-            // Update latency widget as 'offline'
-            $('.latency')[0].lastChild.textContent = ` offline`;
-            $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+                $('.ajax-error-icon').removeClass('bi-check2').addClass('bi-wifi-off');
+                $('.ajax-error').removeClass('d-none bg-success').addClass('bg-danger');
+
+                // Is user offline?
+                if(!navigator.onLine) {
+                    console.log('user offline');
+                    $('.ajax-error-message').text(messages.userOffline);
+                } else {
+                    console.log('user online, ajax fails');
+                    $('.ajax-error-message').text(messages.ajaxFail);
+                }
+
+                // Update latency widget as 'offline'
+                $('.latency')[0].lastChild.textContent = ` offline`;
+                $('.latency-badge').eq(0).addClass('badge-danger').removeClass('badge-success badge-warning');
+            }
         });
     },
     stage: () => {
