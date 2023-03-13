@@ -858,7 +858,6 @@ $.varien = {
     },
     transaction: {
         init: function() {
-            $(".modal-dialog").addClass("w-325px");
             $.varien.transaction.dateSelect();
             $.inspect = KTDrawer.getInstance(document.querySelector("#inspect-drawer"));
             $.inspect.on("kt.drawer.show", function() {
