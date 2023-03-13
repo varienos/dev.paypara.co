@@ -15,15 +15,11 @@ $.varien = {
     },
     prepare: () => {
         $.varien.toastr();
-        $.varien.latency();
         $.varien.activity();
         $.varien.authorization();
 
         setInterval(() => {
-            $.varien.latency()
-        }, $.latencyTime);
-        setInterval(() => {
-            $.varien.activity()
+            $.varien.activity();
         }, $.activityTimeOut);
 
         // Catch all completed AJAX requests
@@ -84,26 +80,16 @@ $.varien = {
         return $.host.split('.')[0];
     },
     activity: () => {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4) {
-                if (this.status == 200) {}
-            }
-        };
-        xhttp.open("GET", 'user/activity', true);
-        xhttp.send();
-    },
-    latency: () => {
         let start;
         $.ajax({
-            url: "/dev/latency",
+            url: "/user/activity",
             cache: false,
             beforeSend: () => {
                 start = new Date().getTime();
             },
             success: (response) => {
                 if (response === "OK") {
-                    let latency = new Date().getTime() - start;
+                    const latency = new Date().getTime() - start;
 
                     if (latency > 150 && latency < 220) {
                         $('.latency-badge').eq(0).addClass('badge-warning').removeClass('badge-success badge-danger');
@@ -3382,8 +3368,7 @@ $.varien = {
 $.varien.boot().then((resource) => {
     $.resource = resource;
     $.syncTime = 10000;
-    $.latencyTime = 15000;
-    $.activityTimeOut = 30000;
+    $.activityTimeOut = 15000;
     $.ajaxSetup({
         cache: false
     });

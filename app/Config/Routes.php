@@ -158,7 +158,6 @@ if (SUBDOMAIN == "api") {
 
     $routes->add('/json/resources', 'Json::resources');
     $routes->add('/dev', 'Dev::index');
-    $routes->add('/dev/latency', 'Dev::ping');
     $routes->add('/dev/jsVariables', 'Dev::jsVariables');
     $routes->add('/dev/console', 'Dev::console');
     $routes->add('/dev/string', 'Dev::string');

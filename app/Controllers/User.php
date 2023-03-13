@@ -94,6 +94,8 @@ class User extends BaseController
 	public function activity()
 	{
 		$this->UserModel->activity();
+
+		return "OK";
 	}
 
 	public function modal()
