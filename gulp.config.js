@@ -55,6 +55,7 @@ const config = {
             moment: {
               scripts: [
                 "{$config.path.node_modules}/moment/min/moment-with-locales.min.js",
+                "{$config.path.node_modules}/moment-timezone/builds/moment-timezone-with-data-1970-2030.min.js",
               ],
             },
             wnumb: {

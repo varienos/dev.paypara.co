@@ -22,6 +22,9 @@ $.varien = {
             $.varien.activity();
         }, $.activityTimeOut);
 
+        // Set the default timezone to Europe/Istanbul
+        moment.tz.setDefault('Europe/Istanbul');
+
         // Catch all completed AJAX requests
         $(document).ajaxComplete(function(xhr, options) {
             // Replace and hide error message when connection is restored
@@ -44,7 +47,6 @@ $.varien = {
         $(document).ajaxError((event, xhr, options, thrownError) => {
             // Notify user if connection fails
             if(xhr.status === 0) {
-                console.log('xhr status: ' + xhr.status);
                 const messages = {
                     userOffline: "You seem to be offline. Please check your network connection and try again.",
                     ajaxFail: "There was a problem connecting to server. Please refresh the page and try again."
@@ -55,10 +57,8 @@ $.varien = {
 
                 // Is user offline?
                 if(!navigator.onLine) {
-                    console.log('user offline');
                     $('.ajax-error-message').text(messages.userOffline);
                 } else {
-                    console.log('user online, ajax fails');
                     $('.ajax-error-message').text(messages.ajaxFail);
                 }
 
