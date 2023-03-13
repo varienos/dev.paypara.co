@@ -107,8 +107,8 @@ class TransactionModel extends Model
             $status = $data['status'] == "onaylandı" ? "success" : "rejected";
             $hash = md5($finance->transaction_id . $finance->gamer_site_id . $finance->price . $site->private_key);
 
-            $requestAmount = floatval(str_replace(",", "", $finance->price));
-            $processedAmount = floatval(str_replace(",", "", $data['price']));
+            $requestAmount = str_replace(',', '', $finance->price);
+            $processedAmount = str_replace(',', '', $data['price']);
 
             $postData = [
                 'hash' => $hash,
