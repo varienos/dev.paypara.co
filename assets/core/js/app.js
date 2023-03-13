@@ -25,6 +25,11 @@ $.varien = {
         // Set the default timezone to Europe/Istanbul
         moment.tz.setDefault('Europe/Istanbul');
 
+        // Display time in the footer
+        setInterval(() => {
+            $('.server-time').text(`${moment().format('DD.MM.YYYY - HH:mm:ss')}`);
+        }, 1000);
+
         // Catch all completed AJAX requests
         $(document).ajaxComplete(function(xhr, options) {
             // Replace and hide error message when connection is restored
