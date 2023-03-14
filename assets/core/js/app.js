@@ -2420,8 +2420,13 @@ $.varien = {
                         }
                     });
                     $.varien.customer.detail.datatable.onLoad();
-                    $('#search').on('keyup', function() {
-                        $.table.search(this.value).draw();
+                    let delayTimer;
+                    $('#search').on('input', function() {
+                        let val = this.value;
+                        clearTimeout(delayTimer);
+                        delayTimer = setTimeout(function() {
+                            $.table.search(val).draw();
+                        }, 250);
                     });
                     $("#transactionDate").on("change", function() {
                         $.varien.customer.detail.datatable.reload();
@@ -3197,8 +3202,13 @@ $.varien = {
                     }
                 });
                 $.varien.settings.client.onLoad();
-                $('#search').on('keyup', function() {
-                    $.table.search(this.value).draw();
+                let delayTimer;
+                $('#search').on('input', function() {
+                    let val = this.value;
+                    clearTimeout(delayTimer);
+                    delayTimer = setTimeout(function() {
+                        $.table.search(val).draw();
+                    }, 250);
                 });
                 $('#datatableReload').on('click', function() {
                     $.varien.settings.client.reload();
