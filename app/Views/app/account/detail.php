@@ -401,7 +401,7 @@
                                   <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
                                 </svg>
                               </span>
-                              <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid border border-1 w-100 w-md-200px ps-15" placeholder="Search transaction" />
+                              <input type="text" data-kt-customer-table-filter="search" id="search" class="form-control form-control-solid border border-1 w-100 w-md-200px ps-15" placeholder="Search transaction" />
                             </div>
                           </div>
                           <div class="card-toolbar w-100 w-md-auto flex-center flex-md-end gap-3">
@@ -421,22 +421,12 @@
                                       <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Firm:</label>
                                     </div>
                                     <div class="col">
-                                      <select class="form-select form-select-solid border border-1 fw-bold" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+                                      <select class="form-select form-select-solid border border-1 fw-bold" name="siteId" id="siteId" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true" app-onchange-datatable-reload>
                                         <option></option>
-                                        <option value="Administrator">Lorem</option>
-                                        <option value="Analyst">Ipsum</option>
-                                        <option value="Developer">Dolar</option>
-                                        <option value="Support">Sit</option>
-                                        <option value="Trial">Amet</option>
+                                        <? $site = explode(",",$update->perm_site); foreach($siteSelect as $row){ ?>
+                                        <option value="<?=$row->id ?>"> <?=$row->site_name ?></option>
+                                        <? } ?>
                                       </select>
-                                    </div>
-                                  </div>
-                                  <div class="row mb-3">
-                                    <div class="col-4 d-flex align-items-center">
-                                      <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Account:</label>
-                                    </div>
-                                    <div class="col">
-                                      <input type="text" class="form-control form-control-solid border border-1 fw-bold" placeholder="All" />
                                     </div>
                                   </div>
                                   <div class="row mb-3">
@@ -444,17 +434,16 @@
                                       <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Status:</label>
                                     </div>
                                     <div class="col">
-                                      <select class="form-select form-select-solid border border-1 fw-bold" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+                                      <select class="form-select form-select-solid border border-1 fw-bold" name="status" id="status" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-hide-search="true" app-onchange-datatable-reload>
                                         <option></option>
-                                        <option value="Administrator">Pending</option>
-                                        <option value="Analyst">Approved</option>
-                                        <option value="Analyst">Rejected</option>
+                                        <option value="beklemede">Pending</option>
+                                        <option value="onaylandı">Approved</option>
+                                        <option value="reddedildi">Rejected</option>
                                       </select>
                                     </div>
                                   </div>
                                   <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-sm btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
-                                    <button type="submit" class="btn btn-sm btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                    <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" app-onclick-datatable-reset>Reset</button>
                                   </div>
                                 </div>
                               </div>

@@ -42,7 +42,7 @@
                   <div class="card-title w-100 w-xl-auto">
                     <div class="d-flex align-items-center my-1 w-100">
                       <i class="fs-3 bi bi-search position-absolute ms-6"></i>
-                      <input type="text" data-kt-customer-table-filter="search" id="search" id="searchStr" class="form-control form-control-solid border border-1 w-100 w-xl-250px ps-15" placeholder="Search user" />
+                      <input type="text" data-kt-customer-table-filter="search" id="search" class="form-control form-control-solid border border-1 w-100 w-xl-250px ps-15" placeholder="Search user" />
                     </div>
                   </div>
                   <div class="card-toolbar flex-center flex-wrap flex-xl-end w-100 w-xl-auto gap-2 gap-sm-3">

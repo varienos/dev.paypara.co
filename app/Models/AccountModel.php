@@ -91,9 +91,20 @@ class AccountModel extends Model
             $search = " and " . $searchArray[0] . "='" . $searchArray[1] . "'";
         } elseif ($searchArray[1] == "") {
             if (!empty($postData["search"]["value"])) {
-                $search = " and (finance.transaction_id LIKE '%" . $postData["search"]["value"] . "%' or finance.gamer_site_id LIKE '%" . $postData["search"]["value"] . "%')";
+                $search = " and (
+                    finance.transaction_id LIKE '%" . $postData["search"]["value"] . "%' or
+                    finance.gamer_site_id LIKE '%" . $postData["search"]["value"] . "%' or
+                    finance.status LIKE '%" . $postData["search"]["value"] . "%' or
+                    finance.account_id LIKE '%" . $postData["search"]["value"] . "%' or
+                    account.account_name LIKE '%" . $postData["search"]["value"] . "%' or
+                    site_gamer.gamer_name LIKE '%" . $postData["search"]["value"] . "%' or
+                    site.site_name LIKE '%" . $postData["search"]["value"] . "%'
+                )";
             }
         }
+
+        if ($postData["siteId"] != "")     $filter .= " and finance.site_id ='" . $postData["siteId"] . "' ";
+        if ($postData["status"] != "")     $filter .= " and finance.status ='" . $postData["status"] . "' ";
 
         // 09/09/2022 - 08/10/2022
         $dateParse      = explode(" - ", $postData["transactionDate"]);
@@ -142,7 +153,7 @@ class AccountModel extends Model
         left join account on account.id=finance.account_id
         left join site on site.id=finance.site_id
         where
-        finance.account_id='" . $account_id . "' and request_time>='" . $dateStart . " 00:00:00' and request_time<='" . $dateEnd . " 23:59:59'  " . $search . " order by " . $orderCol . " " . $orderDir . " " . $limit);
+        finance.account_id='" . $account_id . "' and request_time>='" . $dateStart . " 00:00:00' and request_time<='" . $dateEnd . " 23:59:59'  " . $filter . $search . " order by " . $orderCol . " " . $orderDir . " " . $limit);
 
         $this->error->dbException($this->db->error()) != true ? die() : null;
         return $x;

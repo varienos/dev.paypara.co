@@ -579,14 +579,33 @@ $.varien = {
                             type: 'POST',
                             data: function(d) {
                                 d.transactionDate = $("#transactionDate").val();
-                            }
+                                d.siteId = $("#siteId").val();
+                                d.status = $("#status").val();
+                            },
                         }
                     });
-                    $('#search').on('keyup', function() {
-                        $.table.search(this.value).draw();
+                    let delayTimer;
+                    $('#search').on('input', function() {
+                        let val = this.value;
+                        clearTimeout(delayTimer);
+                        delayTimer = setTimeout(function() {
+                            $.table.search(val).draw();
+                        }, 250);
                     });
                     $("#transactionDate").on("change", function() {
                         $.table.ajax.reload();
+                    });
+                    $("[app-onchange-datatable-reload]").on("change input", function(e) {
+                        $.varien.eventControl(e);
+                        $.varien.transaction.datatable.reload();
+                    });
+                    $("[app-onclick-datatable-reset]").on("click", function(e) {
+                        $.varien.eventControl(e);
+                        $("#siteId").val("").trigger('change');
+                        $("#method").val("").trigger('change');
+                        $("#status").val("").trigger('change');
+                        $("#accountIdFilter").val('');
+                        $.varien.transaction.datatable.reload();
                     });
                     $.varien.account.detail.datatable.dateSelect();
                     $.varien.account.detail.datatable.onLoad();
@@ -716,9 +735,6 @@ $.varien = {
                     }
                 });
                 $.varien.account.datatable.onLoad();
-                $('#search').on('keyup', function() {
-                    $.table.search(this.value).draw();
-                });
                 $('#accountStatus').on('change', function() {
                     $.table.search(this.value).draw();
                 });
@@ -981,8 +997,13 @@ $.varien = {
                 $.varien.transaction.datatable.onLoad();
                 $.varien.transaction.datatable.sync();
                 $.varien.transaction.datatable.notification();
-                $('#search').on('keyup', function() {
-                    $.table.search(this.value).draw();
+                let delayTimer;
+                $('#search').on('input', function() {
+                    let val = this.value;
+                    clearTimeout(delayTimer);
+                    delayTimer = setTimeout(function() {
+                        $.table.search(val).draw();
+                    }, 250);
                 });
                 $("#transactionDate").on("change", function() {
                     var val = $("#transactionDate").val();
