@@ -2401,7 +2401,7 @@ $.varien = {
                         order: [0, 'desc'],
                         columnDefs: [{
                             orderable: false,
-                            targets: [1, 6]
+                            targets: [1, 5]
                         }],
                         searching: true,
                         ordering: true,
@@ -2431,9 +2431,9 @@ $.varien = {
                     $("#transactionDate").on("change", function() {
                         $.varien.customer.detail.datatable.reload();
                     });
-                    $("[app-onclick-datatable-reload]").on("click", function(e) {
+                    $("[app-onchange-datatable-reload]").on("change input", function(e) {
                         $.varien.eventControl(e);
-                        $.varien.customer.detail.datatable.reload();
+                        $.varien.transaction.datatable.reload();
                     });
                     $("[app-onclick-datatable-reset]").on("click", function(e) {
                         $.varien.eventControl(e);

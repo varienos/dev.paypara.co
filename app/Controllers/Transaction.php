@@ -220,17 +220,17 @@ class Transaction extends BaseController
         $i = 0;
         foreach ($data['dataTable']->getResult() as $row) {
             if ($row->status == "beklemede") {
-                $status     = '<div class="text-center badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning"> Pending </div>';
+                $status     = '<div class="d-flex flex-center badge badge-lg py-2 fs-7 text-gray-800 badge-light-warning">Pending</div>';
                 $status_id  = 1;
             }
 
             if ($row->status == "onaylandı") {
-                $status     = '<div class="text-center badge py-2 badge-light-success fs-7 px-3">  Approved </div>';
+                $status     = '<div class="d-flex flex-center badge badge-light-success py-2 fs-7 px-3">Approved</div>';
                 $status_id  = 2;
             }
 
             if ($row->status == "reddedildi") {
-                $status     = '<div class="text-center badge py-2 badge-light-danger fs-7 px-3">  Rejected </div>';
+                $status     = '<div class="d-flex flex-center badge badge-light-danger py-2 fs-7 px-3">Rejected</div>';
                 $status_id  = 3;
             }
 
@@ -242,7 +242,6 @@ class Transaction extends BaseController
                 '<div class="d-flex flex-center badge ' . ($row->method == 'papara' ? 'badge-light-danger' : ($row->method == 'match' ? 'badge-light-info' : 'badge-light-dark')) . ' py-2 fs-7 px-3">' . ucfirst($row->method == 'bank' ? 'Bank' : $row->method) . '</div>',
                 '<div class="text-center">' . number_format($row->price, 2) . '₺</div>',
                 $status,
-                '<button class="btn btn-sm btn-light btn-active-light-primary" id="inspect" data-bs-target="#inspect" data-url="transaction/modal/' . $row->request . '/inspect/' . $id . '">View</button>'
             );
 
             $i++;

@@ -245,7 +245,7 @@
                                   <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor" />
                                 </svg>
                               </span>
-                              <input type="text" data-kt-customer-table-filter="search" class="form-control form-control-solid border border-1 w-225px ps-15" placeholder="Search transaction" />
+                              <input type="text" data-kt-customer-table-filter="search" id="search" class="form-control form-control-solid border border-1 w-225px ps-15" placeholder="Search transaction" />
                             </div>
                           </div>
                           <div class="card-toolbar">
@@ -269,8 +269,8 @@
                                         <option></option>
                                         <option value="bank">Bank</option>
                                         <option value="papara">Papara</option>
-                                        <option value="cross">Cross System</option>
-                                        <option value="match">Matching System</option>
+                                        <option value="cross">Cross</option>
+                                        <option value="match">Matching</option>
                                         <option value="pos">Virtual POS</option>
                                       </select>
                                     </div>
@@ -297,8 +297,7 @@
                                     </div>
                                   </div>
                                   <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-sm btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" app-onclick-datatable-reset>Reset</button>
-                                    <button type="submit" class="btn btn-sm btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter" app-onclick-datatable-reload>Apply</button>
+                                    <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" app-onclick-datatable-reset>Reset</button>
                                   </div>
                                 </div>
                               </div>
@@ -329,8 +328,7 @@
                                         <th class="min-w-70px text-center ps-0">Account</th>
                                         <th class="min-w-70px text-center ps-0">Method</th>
                                         <th class="min-w-70px text-center ps-0">Amount</th>
-                                        <th class="min-w-100px text-center ps-0">Status</th>
-                                        <th class="min-w-70px text-center ps-0">Actions</th>
+                                        <th class="min-w-70px text-center ps-0">Status</th>
                                       </tr>
                                     </thead>
                                     <tbody class="fw-semibold text-gray-600"></tbody>
