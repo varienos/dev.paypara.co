@@ -54,7 +54,6 @@
                     <div class="d-flex">
                       <button type="button" class="btn btn-light me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                         <i class="fs-3 bi bi-funnel-fill p-0"></i>
-                        Filter
                       </button>
                       <div class="menu menu-sub menu-sub-dropdown w-300px" data-kt-menu="true">
                         <div class="px-7 py-5">
@@ -67,7 +66,7 @@
                               <label class="form-label fs-6 fw-semibold text-end w-100 m-0">Firm:</label>
                             </div>
                             <div class="col ps-0">
-                              <select class="form-select form-select-solid border border-1 fw-bold" id="selectClient" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+                              <select class="form-select form-select-solid border border-1 fw-bold" id="selectClient" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true" app-onchange-datatable-reload>
                                 <option></option>
                               </select>
                             </div>
@@ -77,7 +76,7 @@
                               <label class="form-label fs-6 fw-semibold text-end w-100 m-0">VIP:</label>
                             </div>
                             <div class="col ps-0">
-                              <select class="form-select form-select-solid border border-1 fw-bold" id="isVip" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true">
+                              <select class="form-select form-select-solid border border-1 fw-bold" id="isVip" data-kt-select2="true" data-placeholder="All" data-allow-clear="true" data-kt-user-table-filter="role" data-hide-search="true" app-onchange-datatable-reload>
                                 <option></option>
                                 <option value="on">Yes</option>
                                 <option value="0">No</option>
@@ -85,8 +84,7 @@
                             </div>
                           </div>
                           <div class="d-flex justify-content-end">
-                            <button type="reset" class="btn btn-sm btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" id="datatableReset">Reset</button>
-                            <button type="submit" class="btn btn-sm btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter" id="datatableReload">Apply</button>
+                            <button type="reset" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="reset" id="datatableReset">Reset</button>
                           </div>
                         </div>
                       </div>

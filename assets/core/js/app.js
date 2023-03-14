@@ -2252,11 +2252,17 @@ $.varien = {
                     }
                 });
                 $.varien.customer.datatable.onLoad();
-                $('#search').on('keyup', function() {
-                    $.table.search(this.value).draw();
+                let delayTimer;
+                $('#search').on('input', function() {
+                    let val = this.value;
+                    clearTimeout(delayTimer);
+                    delayTimer = setTimeout(function() {
+                        $.table.search(val).draw();
+                    }, 250);
                 });
-                $('#datatableReload').on('click', function() {
-                    $.varien.customer.datatable.reload();
+                $("[app-onchange-datatable-reload]").on("change input", function(e) {
+                    $.varien.eventControl(e);
+                    $.varien.transaction.datatable.reload();
                 });
                 $('#datatableReset').on('click', (e) => {
                     $.varien.eventControl(e);
