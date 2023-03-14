@@ -85,10 +85,15 @@ class Customer extends BaseController
             $withdraw = $row->withdraw == 'on' ? 'checked' : null;
             $records['data'][$i] = [
                 'DT_RowId' => $row->id,
+                '<a href="customer/detail/' . $row->id . '/' . $row->site_id . '/' . $row->gamer_site_id . '" class="d-flex align-items-center">
+                    <div class="symbol symbol-circle symbol-40px overflow-hidden me-3">
+                        <span class="symbol-label fs-6 bg-light text-dark">' . userNameShort($row->gamer_name) . '</span>
+                    </div>
+                    <span class="text-gray-800 text-hover-primary">' . $row->gamer_name . '</span>
+				</a>',
+                '<div class="text-start">' . $row->gamer_nick . '</div>',
                 '<div class="text-center">' . $row->gamer_site_id . '</div>',
                 '<div class="text-center">' . $row->clientName . '</div>',
-                '<div class="text-start">' . $row->gamer_nick . '</div>',
-                '<div class="text-start">' . $row->gamer_name . '</div>',
                 '<div class="text-center">' . ($row->totalProcess == '' || $row->totalProcess == 0 ? 'none' : $row->totalProcess . ' txn') . '</div>',
                 '<div class="text-center">' . ($row->lastProcess == '' ? 'none' : $row->lastProcess) . '</div>',
                 '<div class="flex-center form-check form-switch form-switch-sm form-check-success form-check-custom form-check-solid"><input type="checkbox" role="switch" id="isVip" data-set="switch" ' . (edit_customer !== true ? 'disabled' : null) . ' data-id="' . $row->id . '" name="isVip" class="form-check-input h-20px w-45px" ' . $isVip . '></div>',
