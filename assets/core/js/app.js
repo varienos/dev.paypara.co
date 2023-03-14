@@ -1611,7 +1611,12 @@ $.varien = {
                         serverSide: true,
                         pageLength: 10,
                         ajax: {
-                            url: 'user/datatableRole'
+                            url: 'user/datatableRole',
+                            type: 'POST',
+                            data: function(d) {
+                                d.is2fa = $("#is2fa").val();
+                                d.roleId = $("#role_id").val();
+                            },
                         }
                     });
                     $.varien.user.role.datatable.onLoad();
@@ -2082,11 +2087,23 @@ $.varien = {
                     }
                 });
                 $.varien.user.datatable.onLoad();
-                $('#search').on('keyup', function() {
-                    $.table.search(this.value).draw();
+                let delayTimer;
+                $('#search').on('input', function() {
+                    let val = this.value;
+                    clearTimeout(delayTimer);
+                    delayTimer = setTimeout(function() {
+                        $.table.search(val).draw();
+                    }, 250);
                 });
-                $('#accountStatus').on('change', function() {
-                    $.table.search(this.value).draw();
+                $("[app-onchange-datatable-reload]").on("change input", function(e) {
+                    $.varien.eventControl(e);
+                    $.varien.transaction.datatable.reload();
+                });
+                $("[app-onclick-datatable-reset]").on("click", function(e) {
+                    $.varien.eventControl(e);
+                    $("#is2fa").val("").trigger('change');
+                    $("#role_id").val("").trigger('change');
+                    $.varien.transaction.datatable.reload();
                 });
             },
             onLoad: function() {

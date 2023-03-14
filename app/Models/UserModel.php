@@ -95,7 +95,11 @@ class UserModel extends Model
         if ($searchArray[1] != "" && $searchArray[1] != "all") {
             $search = " and " . $searchArray[0] . "='" . $searchArray[1] . "'";
         } elseif ($searchArray[1] == "") {
-            if (!empty($postData["search"]["value"]))  $search = " and (user_name LIKE '%" . $postData["search"]["value"] . "%')";
+            if (!empty($postData["search"]["value"])) {
+                $search = " and (
+                    user_name LIKE '%" . $postData["search"]["value"] . "%'
+                )";
+            }
         }
 
         $setFilter = "";
