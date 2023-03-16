@@ -3,8 +3,10 @@ body {
   background-size: cover;
 }
 
-.container-wrap {
-  height: 550px;
+@media all and (max-width: 767px) {
+  .container-p-0 {
+    padding: 0 !important;
+  }
 }
 
 .content {
