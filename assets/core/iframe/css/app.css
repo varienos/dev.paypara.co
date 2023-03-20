@@ -9,7 +9,7 @@ body {
   }
 }
 
-.content {
+.frame {
   height: calc(100% - 5px) !important;
 }
 
@@ -31,10 +31,10 @@ body {
   color: #bc2b75;
 }
 
-#kt_black_card_1:hover + #card_label_1,
-#kt_black_card_2:hover + #card_label_2,
-#kt_black_card_1:checked + #card_label_1,
-#kt_black_card_2:checked + #card_label_2 {
+#papara-card-1:hover + #card-label-1,
+#papara-card-2:hover + #card-label-2,
+#papara-card-1:checked + #card-label-1,
+#papara-card-2:checked + #card-label-2 {
   border: 1px solid #bc2b75 !important;
 }
 
