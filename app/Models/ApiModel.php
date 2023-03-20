@@ -609,11 +609,14 @@ class ApiModel extends Model
         $status = $request->status == "onaylandı" ? "success" : "rejected";
         $status = $request->status == "beklemede" ? "processing" : $status;
 
-        if ($request->price_old > 0) {
-            $obj = array("status" => true, "transaction" => $status, "message" => $request->notes, "requestAmount" => $request->price_old, "processedAmount" => $request->price, "processTime" => $request->update_time);
-        } else {
-            $obj = array("status" => true, "transaction" => $status, "message" => $request->notes, "processTime" => $request->update_time);
-        }
+        $obj = array(
+            "status" => true,
+            "transaction" => $status,
+            "message" => $request->notes,
+            "requestAmount" => $request->price_old,
+            "processedAmount" => $request->price,
+            "processTime" => $request->update_time
+        );
 
         $this->log($this->getSiteId($apiKey), $obj, __FUNCTION__);
         return $obj;
