@@ -46,68 +46,6 @@ class ApiModel extends Model
         ");
     }
 
-    public function newIframe($token)
-    {
-        $tokenStatus     = $this->tokenStatus($token, 1);
-        $tokenData       = $this->db->query("select * from token where token='" . $token . "'")->getRow();
-        $apiKey          = $tokenData->apiKey;
-        $site_id         = $tokenData->site_id;
-        $transactionId   = $tokenData->transactionId;
-        $amount          = $tokenData->amount;
-        $userId          = $tokenData->userId;
-        $userName        = $tokenData->userName;
-        $userNick        = $tokenData->userNick;
-        $callbackUrl     = $tokenData->callbackUrl;
-        $gamerData       = $this->db->query("select deposit,isVip from site_gamer where `gamer_site_id`='" . $userId . "' and site_id='" . $site_id . "'")->getRow();
-        $data            = $this->db->query("select * from site where status='on' and api_key='" . md5($apiKey) . "'")->getRow();
-        $waitingRequest  = $this->db->query("select * from finance where `gamer_site_id`='" . $userId . "' and `site_id`='" . $data->id . "' and (`status`='beklemede' or `status`='işlemde')")->getRow();
-        $transactionData = $this->db->query("select * from finance where `transaction_id`='" . $transactionId . "' and `site_id`='" . $data->id . "'")->getRow();
-
-        if ($apiKey == "") $error = $this->error->string("apikey_required", __CLASS__, __FUNCTION__);
-        if ($data->id == "") $error = $this->error->string("apikey_required", __CLASS__, __FUNCTION__);
-        if ($gamerData->deposit != "on") $error = $this->error->string("user_deposit_disable", __CLASS__, __FUNCTION__);
-        if ($userId == "") $error = $this->error->string("user_id_required", __CLASS__, __FUNCTION__);
-        if ($userName == "") $error = $this->error->string("username_required", __CLASS__, __FUNCTION__);
-        if ($userNick == "") $error = $this->error->string("usernick_required", __CLASS__, __FUNCTION__);
-        if ($callbackUrl == "") $error = $this->error->string("callback_url_required", __CLASS__, __FUNCTION__);
-        if ($transactionId == "") $error = $this->error->string("transaction_id_required", __CLASS__, __FUNCTION__);
-        if ($tokenData->token == $token && $tokenData->status == 1) $error = $this->error->string("token_wait_response", __CLASS__, __FUNCTION__);
-        if ($tokenData->token == $token && $tokenData->status == 2) $error = $this->error->string("token_request_finalized", __CLASS__, __FUNCTION__);
-        if ($tokenData->token == $token && $tokenData->status == 3) $error = $this->error->string("token_time_out", __CLASS__, __FUNCTION__);
-        if ($tokenData->token != $token) $error = $this->error->string("token_invalid", __CLASS__, __FUNCTION__);
-
-        $limitData = $this->db->query("select limitDepositMin as minDeposit, limitDepositMax as maxDeposit from site where id='" . $tokenData->site_id . "'")->getRow();
-
-        $dataResponse =
-            [
-                "error"                 =>  json_encode($error, JSON_NUMERIC_CHECK),
-                "errorArray"            =>  $error,
-                "key"                   =>  $apiKey,
-                "token"                 =>  $token,
-                "tokenStatus"           =>  $tokenData->status, // 0: işleme hazır / kullanılabilir 1: talep alındı / kullanılamaz 2: talep sonuçlandırıldı / kullanılamaz / 3: zaman aşımı / kullanılamaz
-                "tokenStatusDetail"     =>  $tokenStatus,
-                "transactionStatus"     =>  $transactionData->status,
-                "pendingTransaction"    =>  $waitingRequest->transaction_id,
-                "pending"               => ($waitingRequest->transaction_id != "" ? "true" : "false"),
-                "maintenance"           => (maintenanceStatus == "on" ? "true" : "false"),
-                "crossSystem"           => (crossStatus == "on" && getSettingSiteStatus($site_id, crossStatusSite) == true ? "true" : "false"),
-                "virtualPOS"            => (posStatus == "on" && getSettingSiteStatus($site_id, posStatusSite) == true ? "true" : "false"),
-                "bankTransfer"          => (bankStatus == "on" && getSettingSiteStatus($site_id, bankStatusSite) == true ? "true" : "false"),
-                "clientName"            =>  $data->site_name,
-                "transactionId"         =>  $transactionId,
-                "amount"                =>  $amount,
-                "userId"                =>  $userId,
-                "userName"              =>  $userName,
-                "userNick"              =>  $userNick,
-                "callback"              =>  $callbackUrl,
-                "minDeposit"            =>  $limitData->minDeposit,
-                "maxDeposit"            =>  $limitData->maxDeposit,
-            ];
-
-        $this->log($site_id, $dataResponse, __FUNCTION__);
-        return $dataResponse;
-    }
-
     public function tokenStatus($token, $response = 0)
     {
         // 0: işleme hazır / kullanılabilir 1: talep alındı / kullanılamaz 2: talep sonuçlandırıldı / kullanılamaz / 3: zaman aşımı / kullanılamaz

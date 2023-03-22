@@ -62,7 +62,8 @@ if (SUBDOMAIN == "api") {
     $routes->set404Override(static function () {
         echo view('pay/404');
     });
-    $routes->add('/papara/(:any)', 'Pay::papara/$1');
+    $routes->add('/frame/(:any)', 'Pay::frame/$1');
+    $routes->add('/papara/(:any)', 'Pay::index/$1');
 } elseif (SUBDOMAIN == "demo") {
     $routes->setDefaultNamespace('App\Controllers');
     $routes->setDefaultController('Demo');

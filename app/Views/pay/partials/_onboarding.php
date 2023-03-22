@@ -3,7 +3,7 @@
   <option id="min-deposit" value="<?= $minDeposit ?>"></option>
   <option id="max-deposit" value="<?= $maxDeposit ?>"></option>
 
-  <form id="onboarding-form" method="post" name="form-onboarding" autocomplete="off">
+  <form id="onboarding-form" method="post" autocomplete="off">
     <input type="hidden" name="step" value="onboarding">
     <div class="d-flex flex-column flex-center">
       <div class="fs-4 fs-md-2 fw-bold text-center mb-3">Ne kadar yatırım yapmak istiyorsun?</div>
@@ -36,5 +36,5 @@
 </div>
 
 <div class="d-flex flex-row justify-content-center align-items-start w-100 h-15 z-index-1">
-  <button id="next-btn" type="button" class="btn btn-danger fs-6 min-w-100px min-w-md-125px" disabled>İlerle</button>
+  <button id="next" type="button" class="btn btn-danger fs-6 min-w-100px min-w-md-125px" disabled>İlerle</button>
 </div>
