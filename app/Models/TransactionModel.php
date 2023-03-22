@@ -64,7 +64,8 @@ class TransactionModel extends Model
     {
         $tokenData = $this->db->query("select * from token where token='" . $token . "'")->getRow();
         if ($tokenData->id > 0) {
-            $this->db->query("update token set status=2, updateTime=NOW() where token='" . $token . "'");
+            $dateNow = date('Y-m-d H:i:s');
+            $this->db->query("update token set status=2, updateTime='" . $dateNow . "' where token='" . $token . "'");
             $this->error->dbException($this->db->error()) != true ? die() : null;
         }
     }

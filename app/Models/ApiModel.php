@@ -56,7 +56,8 @@ class ApiModel extends Model
         $second = $end - $start;
 
         if ($second > tokenTimeout) {
-            $this->db->query("update token set status='3', timeoutTime=NOW() where `token`='" . $token . "'");
+            $dateNow = date('Y-m-d H:i:s');
+            $this->db->query("update token set status='3', timeoutTime='" . $dateNow ."' where `token`='" . $token . "'");
             $tokenData = $this->db->query("select * from token where `token`='" . $token . "'")->getRow();
         }
 
@@ -318,8 +319,9 @@ class ApiModel extends Model
         if ($status == "pre-request" && $action == "reload") {
             $transaction = $this->db->query("select * from finance where `transaction_id`='" . $transaction_id . "' and status='pre-request' and site_id='" . $siteId . "'")->getRow();
             if ($transaction->token != "") {
+                $dateNow = date('Y-m-d H:i:s');
                 $this->db->query("delete from finance where `transaction_id`='" . $transaction_id . "' and `site_id`='" . $this->site_id . "'");
-                $this->db->query("update token set status='0', generateTime=NOW() where `token`='" . $transaction->token . "'");
+                $this->db->query("update token set status='0', generateTime='" . $dateNow . "' where `token`='" . $transaction->token . "'");
             }
         }
 
